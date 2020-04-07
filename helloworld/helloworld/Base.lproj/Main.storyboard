@@ -1,48 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iGS-zi-k5t">
+    <device id="retina6_5" orientation="landscape" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="Vih-6E-CUd">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="helloworld" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <navigationController id="iGS-zi-k5t" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="K6z-Pz-a7b">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PLt-Xh-kvw" kind="relationship" relationship="rootViewController" id="zdu-mj-F93"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vIa-gP-bUv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-416" y="577"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hCH-8J-FEm">
+            <objects>
+                <viewController id="PLt-Xh-kvw" customClass="ViewController" customModule="helloworld" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v15-Co-rar">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello world" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1f-Jc-AIZ">
-                                <rect key="frame" x="146.66666666666666" y="433" width="120.66666666666666" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-Vx-yBq">
+                                <rect key="frame" x="418" y="186" width="60" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ET7-wf-7ST">
-                                <rect key="frame" x="178" y="465.66666666666669" width="58" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Move"/>
                                 <connections>
-                                    <action selector="Click_moveBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cmR-AO-7b7"/>
+                                    <action selector="Click_move:" destination="PLt-Xh-kvw" eventType="touchUpInside" id="r5M-vS-dUr"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="z1f-Jc-AIZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MpO-dg-wqf"/>
-                            <constraint firstItem="z1f-Jc-AIZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tc8-xZ-guW"/>
-                            <constraint firstItem="ET7-wf-7ST" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tGC-WR-Iff"/>
-                            <constraint firstItem="ET7-wf-7ST" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="38" id="ycH-43-M9Q"/>
+                            <constraint firstItem="USJ-Vx-yBq" firstAttribute="centerX" secondItem="v15-Co-rar" secondAttribute="centerX" id="jAJ-ye-0MD"/>
+                            <constraint firstItem="USJ-Vx-yBq" firstAttribute="centerY" secondItem="v15-Co-rar" secondAttribute="centerY" id="wqz-XN-NaJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="WfL-UJ-CXn"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z3W-7T-1Wn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l1a-By-zON" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="251" y="577"/>
+        </scene>
+        <!--Detail Controller-->
+        <scene sceneID="S1T-U3-CrJ">
+            <objects>
+                <viewController storyboardIdentifier="DetailController" id="Nrf-Tz-jig" customClass="DetailController" customModule="helloworld" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sSI-gk-GT5">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="oI7-ds-QEt"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uyD-39-t7B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134.78260869565219" y="124.55357142857142"/>
+            <point key="canvasLocation" x="977" y="577"/>
         </scene>
     </scenes>
 </document>
