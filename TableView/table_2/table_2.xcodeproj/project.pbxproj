@@ -15,6 +15,7 @@
 		6A3514582440654E00C873DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A3514572440654E00C873DF /* Assets.xcassets */; };
 		6A35145B2440654E00C873DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A3514592440654E00C873DF /* LaunchScreen.storyboard */; };
 		6A3514632440688C00C873DF /* Type1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3514622440688C00C873DF /* Type1.swift */; };
+		6A35146524408A2100C873DF /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A35146424408A2100C873DF /* NewsDetailController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		6A35145A2440654E00C873DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A35145C2440654E00C873DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3514622440688C00C873DF /* Type1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Type1.swift; path = table_atr/Type1.swift; sourceTree = "<group>"; };
+		6A35146424408A2100C873DF /* NewsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				6A35145C2440654E00C873DF /* Info.plist */,
 				6A3514542440654D00C873DF /* table_2.xcdatamodeld */,
 				6A3514622440688C00C873DF /* Type1.swift */,
+				6A35146424408A2100C873DF /* NewsDetailController.swift */,
 			);
 			path = table_2;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				6A3514502440654D00C873DF /* ViewController.swift in Sources */,
 				6A3514562440654D00C873DF /* table_2.xcdatamodeld in Sources */,
 				6A35144C2440654D00C873DF /* AppDelegate.swift in Sources */,
+				6A35146524408A2100C873DF /* NewsDetailController.swift in Sources */,
 				6A35144E2440654D00C873DF /* SceneDelegate.swift in Sources */,
 				6A3514632440688C00C873DF /* Type1.swift in Sources */,
 			);
