@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     
+    // date, 0410_1
     // 테이블 뷰 : 테이블로 이루어진 뷰
     // 여러개의 행이 모여있는 목록 뷰(화면)
         // 고려사항
@@ -18,12 +19,58 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 2. 데이터는 몇개가 들어가는가
         // 3. 그 행을 눌렀을때 행동은?
     
-    @IBOutlet weak var tableMain: UITableView!
+    // date, 0410_3
+    // 1. http 통신 방법, Swift -> urlsesson 이용
+        // info.plist 고쳐줘야함
+//    <key>NSAppTransportSecurity</key>
+//    <dict>
+//      <key>NSAllowsArbitraryLoads</key>
+//      <true/>
+//    </dict>
+    // 2. JSON 데이터 형태(news_api), 통신 규약..{"key":"values", ... }
+    // 3. 테이블 뷰의 데이터 매칭
+    var newsData: Array<Dictionary<String, Any>>?
     
+    func getNews()
+    {
+        let task = URLSession.shared.dataTask(with: URL(string: "http://newsapi.org/v2/top-headlines?country=kr&apiKey=921c719aa1f14dcb8847bd638a7cd820")!)
+        {
+            (data , response, error) in
+            if let datajson = data{
+                print(datajson)
+                // json parsing
+                    // 오류상황 대처 throw .. : do. catch
+                do {
+                    let newsJson = try JSONSerialization.jsonObject(with: datajson, options: []) as! Dictionary<String, Any>
+                    // json dict 변환(친자확인 강제)
+                    let articles = newsJson["articles"] as! Array<Dictionary<String, Any>>
+                    self.newsData = articles
+                    
+                    DispatchQueue.main.sync { // 메인에서 일을하여라. sync비동기로
+                        self.tableMain.reloadData()
+                        // 데이터 통보 메인 테이블에
+                            // 쓰레드들이 백그라운드에서 일함(데이터통신에서)
+                    }
+                }
+                catch{
+                    print("JSON LOAD error")
+                }
+            }
+        }
+        task.resume()
+        // suspended(일시중지) 하다면 다시 시작하도록..
+        // 여기서 시작
+    }
+    @IBOutlet weak var tableMain: UITableView!
+
+    // date, 0410_2
     // 구현체
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 데이터 몇개?
-        return 10
+        if let news = newsData{
+            return news.count
+        }
+        else{ return 0}
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
@@ -37,8 +84,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // UITableView 를 상속받는 Type1(자식)을 향하기 위해서 친자확인..as
             // 하지 않으면 UITableView를 return 받기 때문에, cell의 label받을 수 없음(우리의 목표)
         // as! 를 통해서 Type1(UITableView를 상속받은) 클래스로 받환
-            
-        cell.LabelText.text = "\(indexPath.row)"
+        
+        let idx = indexPath.row
+        if let news = newsData
+        {
+            let row = news[idx]
+            if let r = row as? Dictionary<String, Any>
+            {
+                // optional printing 벗겨내기
+                if let title = r["title"] as? String{
+                    cell.LabelText.text = title
+                }
+            }
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -50,6 +108,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableMain.delegate = self
         tableMain.dataSource = self
+        
+        getNews()
+        
     }
     
 }
