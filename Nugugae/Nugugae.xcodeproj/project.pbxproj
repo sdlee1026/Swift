@@ -14,6 +14,8 @@
 		6A620F5F2511FEE800B83B0A /* Nugugae.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F5D2511FEE800B83B0A /* Nugugae.xcdatamodeld */; };
 		6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A620F602511FEEB00B83B0A /* Assets.xcassets */; };
 		6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A620F622511FEEB00B83B0A /* LaunchScreen.storyboard */; };
+		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
+		6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD72512554F00A7D366 /* 강아지.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		6A620F602511FEEB00B83B0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A620F632511FEEB00B83B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A620F652511FEEB00B83B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
+		6ADF5AD72512554F00A7D366 /* 강아지.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +68,10 @@
 				6A620F5A2511FEE800B83B0A /* Main.storyboard */,
 				6A620F602511FEEB00B83B0A /* Assets.xcassets */,
 				6A620F622511FEEB00B83B0A /* LaunchScreen.storyboard */,
+				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 				6A620F652511FEEB00B83B0A /* Info.plist */,
 				6A620F5D2511FEE800B83B0A /* Nugugae.xcdatamodeld */,
+				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 			);
 			path = Nugugae;
 			sourceTree = "<group>";
@@ -128,8 +134,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */,
 				6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,
+				6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */,
 				6A620F5C2511FEE800B83B0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
