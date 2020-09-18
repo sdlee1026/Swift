@@ -89,6 +89,9 @@
                                         <state key="normal" title="Login" image="발바닥.png">
                                             <color key="titleColor" red="0.857958225388601" green="0.46002161007901682" blue="0.084430977612390004" alpha="0.3767704665492958" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <connections>
+                                            <action selector="Login_btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UTa-aN-iQL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -106,12 +109,19 @@
                                         <state key="normal" title="계정이 없으세요?">
                                             <color key="titleColor" red="0.99803675518134716" green="0.096158039483405774" blue="0.0095623470000333576" alpha="0.3767704665492958" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <connections>
+                                            <action selector="SignIn_btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pKY-Kd-E0B"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-gM-owL">
                                         <rect key="frame" x="0.0" y="38" width="414" height="30"/>
                                         <state key="normal" title="계정관련 이슈가 있어요..">
                                             <color key="titleColor" red="0.99803675520000001" green="0.096158039479999999" blue="0.0095623470000000006" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <connections>
+                                            <action selector="SignIn_btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UTy-FF-BwD"/>
+                                            <action selector="SignIssue_btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xxw-ei-2TE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

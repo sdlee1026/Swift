@@ -19,11 +19,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         id_textfield.delegate = self
         pw_textfield.delegate = self
     }
-    
     @IBOutlet var id_textfield: UITextField!
     @IBOutlet var pw_textfield: UITextField!
     
+    @IBAction func Login_btn(_ sender: Any) {
+        if (id_textfield.text!.count >= 0){
+            print(id_textfield.text!)
+        }
+        else{
+            print("x")
+        }
+        print(pw_textfield.text!)
+    }
     
+    @IBAction func SignIn_btn(_ sender: Any) {
+        
+    }
+    
+    @IBAction func SignIssue_btn(_ sender: Any) {
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
