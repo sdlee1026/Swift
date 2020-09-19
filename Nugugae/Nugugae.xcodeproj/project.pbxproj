@@ -16,9 +16,11 @@
 		6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A620F622511FEEB00B83B0A /* LaunchScreen.storyboard */; };
 		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
 		6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD72512554F00A7D366 /* 강아지.png */; };
+		DC3F27A824E9BBE321363CA9 /* Pods_Nugugae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F355C64BB8AF0D815DAC0 /* Pods_Nugugae.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.debug.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.debug.xcconfig"; sourceTree = "<group>"; };
 		6A620F512511FEE800B83B0A /* Nugugae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nugugae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A620F542511FEE800B83B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A620F562511FEE800B83B0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +32,8 @@
 		6A620F652511FEEB00B83B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
 		6ADF5AD72512554F00A7D366 /* 강아지.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지.png"; sourceTree = "<group>"; };
+		6FA0A5D642866BB8AEA4E220 /* Pods-Nugugae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.release.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.release.xcconfig"; sourceTree = "<group>"; };
+		CE7F355C64BB8AF0D815DAC0 /* Pods_Nugugae.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nugugae.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +41,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3F27A824E9BBE321363CA9 /* Pods_Nugugae.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		229E23FEB42D96A11060FF2D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */,
+				6FA0A5D642866BB8AEA4E220 /* Pods-Nugugae.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6A620F482511FEE800B83B0A = {
 			isa = PBXGroup;
 			children = (
 				6A620F532511FEE800B83B0A /* Nugugae */,
 				6A620F522511FEE800B83B0A /* Products */,
+				229E23FEB42D96A11060FF2D /* Pods */,
+				8E10517BF4AF23C9F950708F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +93,14 @@
 			path = Nugugae;
 			sourceTree = "<group>";
 		};
+		8E10517BF4AF23C9F950708F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE7F355C64BB8AF0D815DAC0 /* Pods_Nugugae.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -83,9 +108,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6A620F682511FEEB00B83B0A /* Build configuration list for PBXNativeTarget "Nugugae" */;
 			buildPhases = (
+				7DD35C14967F18BD486DD7F3 /* [CP] Check Pods Manifest.lock */,
 				6A620F4D2511FEE800B83B0A /* Sources */,
 				6A620F4E2511FEE800B83B0A /* Frameworks */,
 				6A620F4F2511FEE800B83B0A /* Resources */,
+				BA9E706E6786AD02B9597495 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,6 +170,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7DD35C14967F18BD486DD7F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Nugugae-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA9E706E6786AD02B9597495 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nugugae/Pods-Nugugae-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nugugae/Pods-Nugugae-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nugugae/Pods-Nugugae-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6A620F4D2511FEE800B83B0A /* Sources */ = {
@@ -294,6 +363,7 @@
 		};
 		6A620F692511FEEB00B83B0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -312,6 +382,7 @@
 		};
 		6A620F6A2511FEEB00B83B0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FA0A5D642866BB8AEA4E220 /* Pods-Nugugae.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

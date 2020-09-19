@@ -1,0 +1,6 @@
+framework module Pods_Nugugae {
+  umbrella header "Pods-Nugugae-umbrella.h"
+
+  export *
+  module * { export * }
+}
