@@ -1,6 +1,7 @@
-const models = require('../../models/models');
+const models = require('../../models/models');//DB
 // id, pw 파싱 함수
 function id_pw_parsing(req){
+    console.log(req.body);
     var id = req.body.id || '';
     var pw = req.body.pw || '';
 
@@ -58,7 +59,7 @@ exports.destroy = (req, res) => {
     }).then(() => res.status(204).send());
 };
 // curl -X POST '127.0.0.1:3000/users' -d id='test' -d pw='1234'
-// -> { id: 'test,', pw: '1234' }
+// -> { id: 'test', pw: '1234' }
 exports.create = (req, res) => {
     var id,pw;
     var ary=[];
@@ -92,5 +93,32 @@ exports.update = (req, res) => {
         }).catch(function(err) {
              //TODO: error handling
              return res.status(404).json({err: 'Undefined error!'});
+    });
+}
+exports.login = (req, res) => {
+    var id,pw;
+    var ary=[];
+    ary = id_pw_parsing(req)
+    id = ary[0], pw =ary[1];
+    console.log(ary);
+    if(!id.length || !pw.length){
+        return res.status(400).json({err: 'Login session, Incorrect name'});
+    }
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user)
+            return res.status(404).json({err: 'Login session, No User'});
+        }
+        if(pw == user.pw){
+            return res.json({content: 'login OK!'});
+
+        }
+        else{
+            return res.status(404).json({err: 'Login session, Incorrect PW'});
+        }
     });
 }

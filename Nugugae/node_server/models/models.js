@@ -18,6 +18,7 @@
 //     sequelize: sequelize,
 //     User: User
 // }
+// DB Structure
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('logindb','Seongdae','Dltjdeo!1026',{
     host:'localhost',
