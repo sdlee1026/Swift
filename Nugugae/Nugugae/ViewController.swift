@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -22,21 +24,65 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     @IBOutlet var id_textfield: UITextField!
     @IBOutlet var pw_textfield: UITextField!
+    var login_check: Bool = false
+    var login_id: [String] = []
+    
     
     @IBAction func Login_btn(_ sender: UIButton) {
+        // Alamofire 비동기 통신 - HTTP POST
         if (id_textfield.text!.count > 0) && (pw_textfield.text!.count > 0){
-            print(id_textfield.text!)
-            print(pw_textfield.text!)
-            // 로그인 기능 수행
-            // server(db)요청
-                // 로그인 실패시 다시 이 화면, 아이디 비밀번호 확인 경고창
-                // 성공시 다음 화면으로 전환
-            
+            getLoginToken(url: "http://localhost:3000/login"){(ids) in
+                print("ID's received: \(ids)")
+                if (ids.count != 0){
+                    self.login_id=ids
+                    print("\(self.login_id)로그인 성공!")
+                    self.login_check = true
+                    // login체크 토큰 활성화
+                    print("\(self.login_check), login token")
+                }// 로그인 한 아이디 저장, 로그인 환영 메세지, 창 전환
+                else{
+                    // 로그인 실패, 아이디 비밀번호 확인 경고창
+                    print("로그인 실패, 아이디 비밀번호 확인 경고")
+                    print("\(self.login_check), login token")
+                }
+            }
         }
         else{
             print("id, pw not input")
             // id or pw 입력 없을 때 경고
         }
+    
+    }
+    // 로그인 (server(DB)<-> view_ http.POST, 성공시 ids안에 아이디 저장_closer기법)
+    func getLoginToken(url: String, completion: @escaping ([String]) -> Void) {
+        
+        let parameters: [String:[String]] = [
+            "id":[self.id_textfield.text!],
+            "pw":[self.pw_textfield.text!]
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids = [String]()
+                switch response.result {
+                    case .success(let value):
+                        let loginjson = JSON(value)
+                        // SwiftyJSON 사용
+                        print("JSON:\(loginjson["content"])")
+                        if (loginjson["content"] == "login OK!"){
+                            self.login_check=true;
+                            ids.append(self.id_textfield.text!)
+                        }
+                        else{
+                            self.login_check=false;
+                        }
+                    case .failure(let error):
+                        print(error)
+                }
+                completion(ids)
+                //closer 기법
+                
+            }
+        
     }
     
     @IBAction func SignIn_btn(_ sender: UIButton) {
