@@ -28,10 +28,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // id 중복확인 버튼
     @IBAction func login_to_btn(_ sender: Any) {
         print("이전으로 화면 전환")
+        self.dismiss(animated: true, completion: nil)
     }
     // 이전으로 버튼
     
     @IBAction func Sign_enter_btn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+        print("서버로 데이터 전송")
+        print("view dismiss")
+        
     }
     // 회원가입 완료 버튼
     
