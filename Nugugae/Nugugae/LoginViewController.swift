@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  Nugugae
 //
 //  Created by 이성대 on 2020/09/16.
@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     var idmaxLen:Int = 16;
     var pwmaxLen:Int = 20;
@@ -70,10 +70,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         print("JSON:\(loginjson["content"])")
                         if (loginjson["content"] == "login OK!"){
                             self.login_check=true;
+                            //login_token true
                             ids.append(self.id_textfield.text!)
                         }
                         else{
                             self.login_check=false;
+                            //login_token false
                         }
                     case .failure(let error):
                         print(error)
@@ -87,6 +89,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func SignIn_btn(_ sender: UIButton) {
         print("SingIn Btn click")
+        
         // 회원가입 폼으로 이동
     }
     

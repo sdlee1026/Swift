@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */; };
 		6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F542511FEE800B83B0A /* AppDelegate.swift */; };
 		6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F562511FEE800B83B0A /* SceneDelegate.swift */; };
-		6A620F592511FEE800B83B0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F582511FEE800B83B0A /* ViewController.swift */; };
+		6A620F592511FEE800B83B0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F582511FEE800B83B0A /* LoginViewController.swift */; };
 		6A620F5C2511FEE800B83B0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A620F5A2511FEE800B83B0A /* Main.storyboard */; };
 		6A620F5F2511FEE800B83B0A /* Nugugae.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F5D2511FEE800B83B0A /* Nugugae.xcdatamodeld */; };
 		6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A620F602511FEEB00B83B0A /* Assets.xcassets */; };
@@ -21,10 +22,11 @@
 
 /* Begin PBXFileReference section */
 		0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.debug.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.debug.xcconfig"; sourceTree = "<group>"; };
+		6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6A620F512511FEE800B83B0A /* Nugugae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nugugae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A620F542511FEE800B83B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A620F562511FEE800B83B0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6A620F582511FEE800B83B0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6A620F582511FEE800B83B0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6A620F5B2511FEE800B83B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A620F5E2511FEE800B83B0A /* Nugugae.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nugugae.xcdatamodel; sourceTree = "<group>"; };
 		6A620F602511FEEB00B83B0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,7 +82,8 @@
 			children = (
 				6A620F542511FEE800B83B0A /* AppDelegate.swift */,
 				6A620F562511FEE800B83B0A /* SceneDelegate.swift */,
-				6A620F582511FEE800B83B0A /* ViewController.swift */,
+				6A620F582511FEE800B83B0A /* LoginViewController.swift */,
+				6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */,
 				6A620F5A2511FEE800B83B0A /* Main.storyboard */,
 				6A620F602511FEEB00B83B0A /* Assets.xcassets */,
 				6A620F622511FEEB00B83B0A /* LaunchScreen.storyboard */,
@@ -218,8 +221,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A620F5F2511FEE800B83B0A /* Nugugae.xcdatamodeld in Sources */,
-				6A620F592511FEE800B83B0A /* ViewController.swift in Sources */,
+				6A620F592511FEE800B83B0A /* LoginViewController.swift in Sources */,
 				6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */,
+				6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */,
 				6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
