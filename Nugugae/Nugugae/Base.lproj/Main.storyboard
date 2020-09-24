@@ -179,12 +179,14 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="277-Ws-qMl">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="277-Ws-qMl">
                                 <rect key="frame" x="0.0" y="89" width="100" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="TPf-xE-WFM"/>
                                     <constraint firstAttribute="height" constant="50" id="cDs-fc-KDi"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="이전">
                                     <color key="titleColor" red="0.8579582254" green="0.46002161009999998" blue="0.084430977609999999" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -322,11 +324,10 @@
                             <constraint firstItem="U9O-qE-9mR" firstAttribute="top" secondItem="277-Ws-qMl" secondAttribute="bottom" constant="36" id="ztT-He-Th8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="HU8-EV-MGY"/>
                     <connections>
                         <outlet property="email_signin_text" destination="1Vh-YB-j7P" id="F5O-SI-AC7"/>
                         <outlet property="id_signin_text" destination="BZt-rE-q1g" id="0fB-cl-4jx"/>
-                        <outlet property="pw_signin_text" destination="1Vh-YB-j7P" id="1Zc-ts-DhI"/>
+                        <outlet property="pw_signin_text" destination="jPX-Xe-DzM" id="WWQ-1l-7aj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAh-pK-ffV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
