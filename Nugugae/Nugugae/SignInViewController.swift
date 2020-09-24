@@ -15,6 +15,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var id_signin_text: UITextField!
     @IBOutlet var pw_signin_text: UITextField!
     @IBOutlet var email_signin_text: UITextField!
+    var id_val_token = false
+    // id 중복확인 토큰
     
     override func viewDidLoad() {
         super.viewDidLoad()

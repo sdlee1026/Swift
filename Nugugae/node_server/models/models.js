@@ -31,6 +31,9 @@ const LoginUser = sequelize.define('LoginUser',{
     },
     pw : {
         type : Sequelize.STRING
+    },
+    email : {
+        type : Sequelize.STRING
     }
 });
 module.exports = {

@@ -65,6 +65,7 @@ exports.create = (req, res) => {
     var ary=[];
     ary = id_pw_parsing(req)
     id = ary[0], pw =ary[1];
+    var email = req.body.email || '';
 
     if(!id.length || !pw.length){
         return res.status(400).json({err: 'Incorrect name'});
@@ -72,7 +73,8 @@ exports.create = (req, res) => {
     
     models.User.create({
         id: id,
-        pw: pw
+        pw: pw,
+        email: email
     }).then((user) => res.status(201).json(user));
 };
 
