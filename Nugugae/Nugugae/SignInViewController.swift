@@ -101,46 +101,69 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             print("id 중복 확인 후, 변경 생긴 경우")
         }
         else{
-            let signin_success_alert = UIAlertController(title: "회원가입 완료!",
-                                                         message: "감사드립니다!, 로그인 부탁드려요 :)\nID:\(verified_id), pw:\(pw_signin_text.text!)",
-                                                        preferredStyle: .alert)
-            let signin_success_action = UIAlertAction(title:"OK!", style: .default, handler: {(action:UIAlertAction!) in print("ok누름")
-                self.dismiss(animated: true, completion: nil)
-                print("서버로 데이터 전송")
-                print("view dismiss")
-            })
-            signin_success_alert.addAction(signin_success_action)
-            self.present(signin_success_alert, animated: true, completion: nil)
+            print("서버로 데이터 전송")
+            postUserInfo(url: "http://localhost:3000/users") { (ids) in
+                if (ids.count == 0){
+                    print("Server error")
+                    // 서버에러 function(Server error) 차후에 추가 기능
+                }
+                else if (ids[0]==self.verified_id){
+                    print("Sign in \(ids[0])")
+                    let signin_success_alert = UIAlertController(title: "회원가입 완료!",
+                                                                 message: "감사드립니다!, 로그인 부탁드려요 :)\nID:\(self.verified_id), pw:\(self.pw_signin_text.text!)",
+                                                                preferredStyle: .alert)
+                    let signin_success_action = UIAlertAction(title:"OK!", style: .default, handler: {(action:UIAlertAction!) in print("ok누름")
+                        self.dismiss(animated: true, completion: nil)
+                        print("view dismiss")
+                    })
+                    signin_success_alert.addAction(signin_success_action)
+                    self.present(signin_success_alert, animated: true, completion: nil)
+                }
+            }
         }
         
-    }
-    // 회원가입 완료 버튼
+    }// 회원가입 완료 버튼
     
     func getIDToken(url: String, completion: @escaping ([String]) -> Void) {
         
         let parameters: [String:[String]] = [
             "id":[self.id_signin_text.text!]
         ]
-        print("파라미터 : \(parameters)")
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
             .responseJSON { response in
                 var ids = [String]()
                 switch response.result {
                     case .success(let value):
-                        let loginjson = JSON(value)
+                        let val_json = JSON(value)
                         // SwiftyJSON 사용
-                        print("JSON:\(loginjson["content"])")
-                        ids.append("Id validation \(loginjson["content"])")
+                        ids.append("Id validation \(val_json["content"])")
                         
                     case .failure(let error):
                         print("error:\(error)")
                 }
                 completion(ids)
                 //closer 기법
-                
+            }
+    }// id 중복 체크
+    func postUserInfo(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.id_signin_text.text!,
+            "pw":self.pw_signin_text.text!,
+            "email":self.email_signin_text.text!
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                    case .success(let value):
+                        let userInfo_json = JSON(value)// 응답
+                        ids.append("\(userInfo_json["id"])")
+                    case .failure(let error): print("error:\(error)")
+                }
+                completion(ids)
             }
         
-    }
+    }// user info insert DB
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

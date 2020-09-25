@@ -71,7 +71,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
             login_textfield_alert.addAction(login_textfield_action)
             
-            self.present(login_textfield_alert, animated: true, completion: nil)
+            self.present(login_textfield_alert, animated: true){
+                self.id_textfield.text = ""
+                self.pw_textfield.text = ""
+            }
             // id or pw 입력 없을 때 경고
         }
     

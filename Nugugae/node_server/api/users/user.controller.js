@@ -58,8 +58,8 @@ exports.destroy = (req, res) => {
         }
     }).then(() => res.status(204).send());
 };
-// curl -X POST '127.0.0.1:3000/users' -d id='test' -d pw='1234'
-// -> { id: 'test', pw: '1234' }
+// curl -X POST '127.0.0.1:3000/users' -d id='test' -d pw='1234' email='1234@asd.com'
+// -> { id: 'test', pw: '1234' , email:'1234@asd.asd'}
 exports.create = (req, res) => {
     console.log('create func');
     var id,pw;
