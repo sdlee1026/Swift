@@ -21,6 +21,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Signin Start")
+        id_signin_text.delegate = self
+        pw_signin_text.delegate = self
+        email_signin_text.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -52,4 +55,26 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     // 회원가입 완료 버튼
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    // 리턴키 델리게이트 처리
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()//텍스트필드 비활성화
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if(textField == id_signin_text){
+            let currentText = textField.text! + string
+            return currentText.count <= 16
+            
+        }
+        else if (textField == pw_signin_text){
+            let currentText = textField.text! + string
+            return currentText.count <= 20
+        }
+      return true;
+    }
+    // 글자제한 델리게이트 처리
 }

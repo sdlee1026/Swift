@@ -1,21 +1,21 @@
-const environment = {
-    development: {
-        mysql: {
-            username: 'Seongdae',
-            password: 'Dltjdeo!1026',
-            database: 'logindb_test'
-        },
+// const environment = {
+//     development: {
+//         mysql: {
+//             username: 'Seongdae',
+//             password: 'Dltjdeo!1026',
+//             database: 'logindb_test'
+//         },
 
-        sequelize: {
-            force: False
-        }
-    },
+//         sequelize: {
+//             force: False
+//         }
+//     },
 
-    production: {
+//     production: {
 
-    }
-}
+//     }
+// }
 
-const nodeEnv = process.env.NODE_ENV || 'development';
+// const nodeEnv = process.env.NODE_ENV || 'development';
 
-module.exports = environment[nodeEnv];
+// module.exports = environment[nodeEnv];
