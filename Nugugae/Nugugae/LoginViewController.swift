@@ -21,11 +21,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         id_textfield.delegate = self
         pw_textfield.delegate = self
+
     }
     @IBOutlet var id_textfield: UITextField!
     @IBOutlet var pw_textfield: UITextField!
     var login_check: Bool = false
     var login_id: [String] = []
+    
+    
+    
     
     
     @IBAction func Login_btn(_ sender: UIButton) {
@@ -44,15 +48,35 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     // 로그인 실패, 아이디 비밀번호 확인 경고창
                     print("로그인 실패, 아이디 비밀번호 확인 경고")
                     print("\(self.login_check), login token")
+                    let login_false_alert = UIAlertController(title: "로그인이 실패했어요..",
+                                                                   message: "아이디와 비밀번호를 확인해주세요!", preferredStyle: .alert)
+                    let login_false_action = UIAlertAction(title:"OK!", style: .default){(action) in
+                        // alert from action _ 클로저 동작
+                    }
+                
+                    login_false_alert.addAction(login_false_action)
+                    
+                    self.present(login_false_alert, animated: true){
+                        self.id_textfield.text = ""
+                        self.pw_textfield.text = ""
+                    }
                 }
             }
         }
         else{
             print("id, pw not input")
+            let login_textfield_alert = UIAlertController(title: "빈칸이 있어요!",
+                                                         message: "아이디와 비밀번호를 입력해주세요!", preferredStyle: .alert)
+            let login_textfield_action = UIAlertAction(title:"OK!", style: .default){(action) in
+            }
+            login_textfield_alert.addAction(login_textfield_action)
+            
+            self.present(login_textfield_alert, animated: true, completion: nil)
             // id or pw 입력 없을 때 경고
         }
     
     }
+
     // 로그인 (server(DB)<-> view_ http.POST, 성공시 ids안에 아이디 저장_closer기법)
     func getLoginToken(url: String, completion: @escaping ([String]) -> Void) {
         
