@@ -15,8 +15,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var id_signin_text: UITextField!
     @IBOutlet var pw_signin_text: UITextField!
     @IBOutlet var email_signin_text: UITextField!
+    var check_str = [String]()
     var id_val_token = false
     // id 중복확인 토큰
+    var verified_id = ""
+    // 검증된 아이디
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,27 +33,33 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBAction func id_db_check_btn(_ sender: Any) {
         print("id중복확인 버튼")
         print("비동기 서버(DB쿼리 동작)")
-        
-        if (id_val_token == true){
-            // 중복확인 OK!
-            print("id val token true")
-            let id_val_alert = UIAlertController(title: "사용 가능한 ID!",
-                                                 message: "계속 입력해주세요 :)",
-                                                 preferredStyle: .alert)
-            let id_val_action = UIAlertAction(title:"OK!", style: .default)
-            id_val_alert.addAction(id_val_action)
-            self.present(id_val_alert, animated: true, completion: nil)
-        }
-        else{
-            // 중복된 아이디
-            print("id val token false")
-            let id_val_alert = UIAlertController(title: "사용 불가능한 ID!",
-                                                 message: "ID를 다시 입력해주세요 :)",
-                                                 preferredStyle: .alert)
-            let id_val_action = UIAlertAction(title:"OK!", style: .default)
-            id_val_alert.addAction(id_val_action)
-            self.present(id_val_alert, animated: true){
-                self.id_signin_text.text = ""
+        getIDToken(url: "http://localhost:3000/users/check") { (ids) in
+            print("checking\(ids)")
+            if (ids[0] == "Id validation ok"){
+                self.check_str = ids
+                self.verified_id = self.id_signin_text.text!
+                print("토큰 스트링 : \(self.check_str)")
+                // 사용 가능한 아이디
+                print("id val token true, 승인된 ID : \(self.verified_id)")
+                let id_val_alert = UIAlertController(title: "사용 가능한 ID!",
+                                                     message: "계속 입력해주세요 :)",
+                                                     preferredStyle: .alert)
+                let id_val_action = UIAlertAction(title:"OK!", style: .default)
+                id_val_alert.addAction(id_val_action)
+                self.present(id_val_alert, animated: true, completion: nil)
+            }
+            else{
+                print("id val token false")
+                let id_val_alert = UIAlertController(title: "사용 불가능한 ID!",
+                                                     message: "ID를 다시 입력해주세요 :)",
+                                                     preferredStyle: .alert)
+                let id_val_action = UIAlertAction(title:"OK!", style: .default)
+                id_val_alert.addAction(id_val_action)
+                self.present(id_val_alert, animated: true){
+                    self.id_signin_text.text = ""
+                }
+                
+                // 사용 불가함
             }
         }
     }
@@ -73,18 +82,27 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             self.present(login_textfield_alert, animated: true, completion: nil)
             // 빈칸 경고창
         }
-        else if (id_val_token == false){
+        else if (check_str.count==0){
             let id_val_alert = UIAlertController(title: "ID 중복 확인해주세요!",
-                                                 message: "뀨뀨",
+                                                 message: "이미 있는 ID로는 회원가입 할 수 없어요 :(",
                                                  preferredStyle: .alert)
             let id_val_action = UIAlertAction(title:"OK!", style: .default)
             id_val_alert.addAction(id_val_action)
             self.present(id_val_alert, animated: true, completion: nil)
             print("id 중복확인 체크")
         }
+        else if (id_signin_text.text! != verified_id){
+            let id_val_alert = UIAlertController(title: "중복확인을 다시해주세요!",
+                                                 message: "중복확인된 아이디만 사용 가능합니다 :(",
+                                                 preferredStyle: .alert)
+            let id_val_action = UIAlertAction(title:"OK!", style: .default)
+            id_val_alert.addAction(id_val_action)
+            self.present(id_val_alert, animated: true, completion: nil)
+            print("id 중복 확인 후, 변경 생긴 경우")
+        }
         else{
             let signin_success_alert = UIAlertController(title: "회원가입 완료!",
-                                                        message: "감사드립니다!, 로그인 부탁드려요 :)",
+                                                         message: "감사드립니다!, 로그인 부탁드려요 :)\nID:\(verified_id), pw:\(pw_signin_text.text!)",
                                                         preferredStyle: .alert)
             let signin_success_action = UIAlertAction(title:"OK!", style: .default, handler: {(action:UIAlertAction!) in print("ok누름")
                 self.dismiss(animated: true, completion: nil)
@@ -97,6 +115,32 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
     }
     // 회원가입 완료 버튼
+    
+    func getIDToken(url: String, completion: @escaping ([String]) -> Void) {
+        
+        let parameters: [String:[String]] = [
+            "id":[self.id_signin_text.text!]
+        ]
+        print("파라미터 : \(parameters)")
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids = [String]()
+                switch response.result {
+                    case .success(let value):
+                        let loginjson = JSON(value)
+                        // SwiftyJSON 사용
+                        print("JSON:\(loginjson["content"])")
+                        ids.append("Id validation \(loginjson["content"])")
+                        
+                    case .failure(let error):
+                        print("error:\(error)")
+                }
+                completion(ids)
+                //closer 기법
+                
+            }
+        
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
