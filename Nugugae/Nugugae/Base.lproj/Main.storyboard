@@ -103,11 +103,11 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="255" id="Hec-Re-h38"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pee-bf-1TX">
-                                <rect key="frame" x="0.0" y="495" width="414" height="68"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pee-bf-1TX" userLabel="계정">
+                                <rect key="frame" x="0.0" y="495.00000000000006" width="414" height="81.666666666666686"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bu5-e5-mND">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="36.666666666666664"/>
                                         <state key="normal" title="계정이 없으세요?">
                                             <color key="titleColor" red="0.99803675518134716" green="0.096158039483405774" blue="0.0095623470000333576" alpha="0.3767704665492958" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -117,7 +117,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVl-gM-owL">
-                                        <rect key="frame" x="0.0" y="38" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="44.666666666666629" width="414" height="37"/>
                                         <state key="normal" title="계정관련 이슈가 있어요..">
                                             <color key="titleColor" red="0.99803675520000001" green="0.096158039479999999" blue="0.0095623470000000006" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -135,13 +135,13 @@
                             <constraint firstItem="pee-bf-1TX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2KC-4q-vEe"/>
                             <constraint firstItem="SS9-bJ-rHN" firstAttribute="top" secondItem="vmc-eF-ldR" secondAttribute="bottom" constant="7.5" id="6ue-mo-Drb"/>
                             <constraint firstItem="Lb1-dl-byw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Biq-gT-3h3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pee-bf-1TX" secondAttribute="bottom" constant="273" id="Mwm-gV-V3b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vmc-eF-ldR" secondAttribute="trailing" id="TN6-Yo-5bt"/>
                             <constraint firstItem="vmc-eF-ldR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="d12-xy-BYx"/>
                             <constraint firstItem="vmc-eF-ldR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dhr-EZ-iIb"/>
                             <constraint firstItem="pee-bf-1TX" firstAttribute="top" secondItem="Lb1-dl-byw" secondAttribute="bottom" constant="30" id="ejV-nB-smu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pee-bf-1TX" secondAttribute="trailing" id="jrz-w2-z1l"/>
                             <constraint firstItem="Lb1-dl-byw" firstAttribute="top" secondItem="SS9-bJ-rHN" secondAttribute="bottom" constant="8" id="qXI-Ik-CZe"/>
+                            <constraint firstItem="pee-bf-1TX" firstAttribute="height" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.1" id="rvc-8y-Aek"/>
                             <constraint firstItem="SS9-bJ-rHN" firstAttribute="leading" secondItem="vmc-eF-ldR" secondAttribute="leading" id="sV6-nv-D5N"/>
                             <constraint firstItem="SS9-bJ-rHN" firstAttribute="trailing" secondItem="vmc-eF-ldR" secondAttribute="trailing" id="yCf-5U-KgU"/>
                         </constraints>
