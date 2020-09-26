@@ -42,6 +42,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.login_id=ids
                     print("\(self.login_id)로그인 성공!")
                     print("\(self.login_check), login token")
+                    // login -> tableview 화면 전환 동작
+                    // segue 인자-> login_id
                 }// 로그인 한 아이디 저장, 로그인 환영 메세지, 창 전환
                 else{
                     // 로그인 실패, 아이디 비밀번호 확인 경고창
