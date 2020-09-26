@@ -15,6 +15,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var id_signin_text: UITextField!
     @IBOutlet var pw_signin_text: UITextField!
     @IBOutlet var email_signin_text: UITextField!
+    
+    let server_url:String = Server_url.sharedInstance.server_url
+    // 외부 접속 url,ngrok
     var check_str = [String]()
     var id_val_token = false
     // id 중복확인 토큰
@@ -24,6 +27,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Signin Start")
+        print("외부접속 url : " + server_url)
         id_signin_text.delegate = self
         pw_signin_text.delegate = self
         email_signin_text.delegate = self
@@ -33,7 +37,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBAction func id_db_check_btn(_ sender: Any) {
         print("id중복확인 버튼")
         print("비동기 서버(DB쿼리 동작)")
-        getIDToken(url: "http://localhost:3000/users/check") { (ids) in
+        getIDToken(url: server_url+"/users/check") { (ids) in
             print("checking\(ids)")
             if (ids[0] == "Id validation ok"){
                 self.check_str = ids
@@ -102,7 +106,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             print("서버로 데이터 전송")
-            postUserInfo(url: "http://localhost:3000/users") { (ids) in
+            postUserInfo(url: server_url+"/users") { (ids) in
                 if (ids.count == 0){
                     print("Server error")
                     // 서버에러 function(Server error) 차후에 추가 기능
@@ -158,7 +162,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     case .success(let value):
                         let userInfo_json = JSON(value)// 응답
                         ids.append("\(userInfo_json["id"])")
-                    case .failure(let error): print("error:\(error)")
+                    case .failure(let _): break
                 }
                 completion(ids)
             }

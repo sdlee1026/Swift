@@ -9,18 +9,19 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
     var idmaxLen:Int = 16;
     var pwmaxLen:Int = 20;
     // id, pw 텍스트필드 입력 제한
+    let server_url:String = Server_url.sharedInstance.server_url
+    // 외부 접속 url,ngrok
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Login Start")
         // Do any additional setup after loading the view.
         id_textfield.delegate = self
         pw_textfield.delegate = self
+        print("외부접속 url : " + server_url)
 
     }
     @IBOutlet var id_textfield: UITextField!
@@ -35,13 +36,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func Login_btn(_ sender: UIButton) {
         // Alamofire 비동기 통신 - HTTP POST
         if (id_textfield.text!.count > 0) && (pw_textfield.text!.count > 0){
-            getLoginToken(url: "http://localhost:3000/login"){(ids) in
+            getLoginToken(url: server_url+"/login"){(ids) in
                 print("ID's received: \(ids)")
                 if (ids.count != 0){
                     self.login_id=ids
                     print("\(self.login_id)로그인 성공!")
-                    self.login_check = true
-                    // login체크 토큰 활성화
                     print("\(self.login_check), login token")
                 }// 로그인 한 아이디 저장, 로그인 환영 메세지, 창 전환
                 else{
