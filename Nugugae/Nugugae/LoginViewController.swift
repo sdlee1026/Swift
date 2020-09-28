@@ -15,12 +15,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // id, pw 텍스트필드 입력 제한
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
+    var sceneDelegate: SceneDelegate? {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let delegate = windowScene.delegate as? SceneDelegate else { return nil }
+             return delegate
+        }
+    @IBOutlet var id_textfield: UITextField!
+    @IBOutlet var pw_textfield: UITextField!
+    var login_check: Bool = false
+    var login_id: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Login Start")
         // Do any additional setup after loading the view.
-        id_textfield.delegate = self
-        pw_textfield.delegate = self
+        id_textfield?.delegate = self
+        pw_textfield?.delegate = self
         print("외부접속 url : " + server_url)
 
     }
@@ -28,20 +37,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "loginTomain"{
             print("segue test")
-            print("loginview's username : \(self.login_id[0])")
+            print("loginview's username : \(self.login_id)")
             
             let dest = segue.destination
             print("dest : \(dest)")
             if let rvc = dest as? MainTapBarController {
-                rvc.paramName = self.login_id[0]
+                rvc.paramName = self.id_textfield.text
             }
+//            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//            UserDefaults.standard.set(self.id_textfield.text, forKey: "userId")
+//            print(UserDefaults.standard.string(forKey: "userId"))
         }
     }
     // segue override
-    @IBOutlet var id_textfield: UITextField!
-    @IBOutlet var pw_textfield: UITextField!
-    var login_check: Bool = false
-    var login_id: [String] = []
     
     
     
@@ -56,10 +64,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.login_id=ids
                     print("\(self.login_id)로그인 성공!")
                     print("\(self.login_check), login token")
+                    
                     // login -> tableview 화면 전환 동작
                     // segue 인자-> login_id
                     // custom segue
-                    self.performSegue(withIdentifier: "loginTomain", sender: self)
+                    //self.performSegue(withIdentifier: "loginTomain", sender: self)
+                    // 화면 전환
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(self.id_textfield.text, forKey: "userId")
+                    print(UserDefaults.standard.string(forKey: "userId"))
+                    
+                    self.view.window?.rootViewController?.dismiss(animated: false, completion: {
+                        guard let mainVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainTapBarController") as? MainTapBarController else {
+                            fatalError("Could not instantiate HomeVC!")
+                        }
+                        self.view.window?.rootViewController = mainVC
+                        self.view.window?.makeKeyAndVisible()
+                    })//현재 윈도우에 root뷰 컨트롤러에 접근, 하위 뷰 삭제, main 뷰로 화면 전환
+                    // self.view.window?.rootViewController = mainVC 메인 뷰컨트롤러로 새롭게 설정
+                    // ScencDelegate 18line 참조
+
+
                 }// 로그인 한 아이디 저장, 로그인 환영 메세지, 창 전환
                 else{
                     // 로그인 실패, 아이디 비밀번호 확인 경고창

@@ -11,12 +11,39 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    var window: UIWindow?
+    var nvc: UINavigationController?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        return true
+        // 로그인화면
+        print("userDefault 초기화")
+//        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+//        UserDefaults.standard.removeObject(forKey: "userId")
+        if #available(iOS 13, *) {
+                        // do only pure app launch stuff, not interface stuff
+                    } else {
+
+                        print("App Delegate didFinishLaunching... isLoggedIn:", UserDefaults.standard.bool(forKey: "isLoggedIn"))
+
+                        self.window = UIWindow()
+
+                        if UserDefaults.standard.bool(forKey: "isLoggedIn") {
+                            guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTapBarController") as? MainTapBarController else {
+                                fatalError("Could not instantiate HomeVC!")
+                            }
+                            window?.rootViewController = vc
+                        }
+                        else {
+                            guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else {
+                                fatalError("Could not instantiate HomeVC!")
+                            }
+                            window?.rootViewController = vc
+                        }
+
+                        window?.makeKeyAndVisible()
+
+                    }
+                    return true
     }
 
     // MARK: UISceneSession Lifecycle

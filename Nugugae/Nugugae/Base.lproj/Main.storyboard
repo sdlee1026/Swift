@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,7 +149,6 @@
                     <connections>
                         <outlet property="id_textfield" destination="uRw-Uy-nGJ" id="5FB-kT-s9I"/>
                         <outlet property="pw_textfield" destination="Czn-gO-ETt" id="dFw-yP-P2A"/>
-                        <segue destination="3Cf-ju-fVe" kind="presentation" identifier="loginTomain" id="QOQ-at-inn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -161,7 +160,7 @@
             <objects>
                 <viewController id="azc-5F-OLG" customClass="UserGalleryViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oal-gQ-a2j">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="5fB-mn-gcP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -175,10 +174,19 @@
         <!--산책기록-->
         <scene sceneID="yKE-lx-LPW">
             <objects>
-                <viewController storyboardIdentifier="UserLog" id="rYZ-Yp-qKC" customClass="UserLogViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserLogViewController" id="rYZ-Yp-qKC" customClass="UserLogViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Psm-de-PcU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-Va-tna">
+                                <rect key="frame" x="86" y="291" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -188,10 +196,10 @@
             </objects>
             <point key="canvasLocation" x="1962" y="320"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tap Bar Controller-->
         <scene sceneID="PNy-1B-3oZ">
             <objects>
-                <tabBarController id="3Cf-ju-fVe" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTapBarController" id="3Cf-ju-fVe" customClass="MainTapBarController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="iuZ-nY-Mrs"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3QP-nw-j9Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -199,13 +207,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rYZ-Yp-qKC" kind="relationship" relationship="viewControllers" id="hbZ-qY-4N1"/>
-                        <segue destination="azc-5F-OLG" kind="relationship" relationship="viewControllers" id="A0g-7F-Ayt"/>
+                        <segue destination="rYZ-Yp-qKC" kind="relationship" relationship="viewControllers" id="H9b-fp-zjz"/>
+                        <segue destination="azc-5F-OLG" kind="relationship" relationship="viewControllers" id="EZS-hr-m5t"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50B-hF-xBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071" y="625"/>
+            <point key="canvasLocation" x="975" y="925"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="ugk-0e-t8O">

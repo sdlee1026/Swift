@@ -13,12 +13,11 @@ import SwiftyJSON
 class UserLogViewController: UIViewController, UITextFieldDelegate {
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
-    var name = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("UserLog Start")
-        print("user : \(name)")
+        print("user : \(UserDefaults.standard.string(forKey: "userId"))")
         
         // Do any additional setup after loading the view.
     }
