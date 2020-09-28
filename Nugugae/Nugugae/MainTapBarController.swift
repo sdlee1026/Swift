@@ -21,7 +21,7 @@ class MainTapBarController: UITabBarController {
         print("로그인 토큰 : ")
         print(UserDefaults.standard.bool(forKey: "isLoggedIn"))
 //        print("유지 ID"+paramName)
-        print(self.tabBarItem)
+        print(self.tabBarItem as Any)
 
     }
     // view override

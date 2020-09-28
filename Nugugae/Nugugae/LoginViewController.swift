@@ -72,7 +72,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     // 화면 전환
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     UserDefaults.standard.set(self.id_textfield.text, forKey: "userId")
-                    print(UserDefaults.standard.string(forKey: "userId"))
+                    print(UserDefaults.standard.string(forKey: "userId") as Any)
                     
                     self.view.window?.rootViewController?.dismiss(animated: false, completion: {
                         guard let mainVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "MainTapBarController") as? MainTapBarController else {
@@ -80,6 +80,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         }
                         self.view.window?.rootViewController = mainVC
                         self.view.window?.makeKeyAndVisible()
+                        
                     })//현재 윈도우에 root뷰 컨트롤러에 접근, 하위 뷰 삭제, main 뷰로 화면 전환
                     // self.view.window?.rootViewController = mainVC 메인 뷰컨트롤러로 새롭게 설정
                     // ScencDelegate 18line 참조

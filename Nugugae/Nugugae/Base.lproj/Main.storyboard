@@ -162,14 +162,30 @@
                     <view key="view" contentMode="scaleToFill" id="oal-gQ-a2j">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OG-Z0-S29">
+                                <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
+                                <state key="normal" title="로그아웃"/>
+                                <connections>
+                                    <action selector="logoout_btn:" destination="rYZ-Yp-qKC" eventType="touchUpInside" id="oHI-20-FwC"/>
+                                    <action selector="logout_btn:" destination="azc-5F-OLG" eventType="touchUpInside" id="5Rg-Jl-Sh4"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="5fB-mn-gcP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7OG-Z0-S29" firstAttribute="width" secondItem="oal-gQ-a2j" secondAttribute="width" multiplier="0.3" id="Jv2-5n-bvm"/>
+                            <constraint firstItem="7OG-Z0-S29" firstAttribute="height" secondItem="oal-gQ-a2j" secondAttribute="height" multiplier="0.07" id="fKz-ka-Rip"/>
+                            <constraint firstItem="5fB-mn-gcP" firstAttribute="trailing" secondItem="7OG-Z0-S29" secondAttribute="trailing" id="mfP-68-JHI"/>
+                            <constraint firstItem="7OG-Z0-S29" firstAttribute="top" secondItem="5fB-mn-gcP" secondAttribute="top" id="y67-8t-dOo"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="갤러리" id="G4e-1Y-hTQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1962" y="925"/>
+            <point key="canvasLocation" x="1020" y="1205"/>
         </scene>
         <!--산책기록-->
         <scene sceneID="yKE-lx-LPW">
@@ -186,15 +202,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsF-45-2H0">
+                                <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
+                                <state key="normal" title="로그아웃"/>
+                                <connections>
+                                    <action selector="logoout_btn:" destination="rYZ-Yp-qKC" eventType="touchUpInside" id="HWb-6b-B50"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LsF-45-2H0" firstAttribute="width" secondItem="Psm-de-PcU" secondAttribute="width" multiplier="0.3" id="CrD-2b-fyd"/>
+                            <constraint firstItem="LsF-45-2H0" firstAttribute="top" secondItem="9cQ-lw-S9Z" secondAttribute="top" id="Vxe-gK-oIj"/>
+                            <constraint firstItem="LsF-45-2H0" firstAttribute="height" secondItem="Psm-de-PcU" secondAttribute="height" multiplier="0.07" id="hgy-5e-GvS"/>
+                            <constraint firstItem="LsF-45-2H0" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="tkl-Q6-HQQ"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="산책기록" id="WpB-Qr-Plx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obu-Bn-7MK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1962" y="320"/>
+            <point key="canvasLocation" x="1018.840579710145" y="531.69642857142856"/>
         </scene>
         <!--Main Tap Bar Controller-->
         <scene sceneID="PNy-1B-3oZ">
@@ -213,7 +242,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50B-hF-xBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="975" y="925"/>
+            <point key="canvasLocation" x="138" y="844"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="ugk-0e-t8O">
