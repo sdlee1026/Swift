@@ -24,6 +24,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print("외부접속 url : " + server_url)
 
     }
+    // view override
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "loginTomain"{
+            print("segue test")
+            print("loginview's username : \(self.login_id[0])")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? MainTapBarController {
+                rvc.paramName = self.login_id[0]
+            }
+        }
+    }
+    // segue override
     @IBOutlet var id_textfield: UITextField!
     @IBOutlet var pw_textfield: UITextField!
     var login_check: Bool = false
@@ -44,6 +58,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     print("\(self.login_check), login token")
                     // login -> tableview 화면 전환 동작
                     // segue 인자-> login_id
+                    // custom segue
+                    self.performSegue(withIdentifier: "loginTomain", sender: self)
                 }// 로그인 한 아이디 저장, 로그인 환영 메세지, 창 전환
                 else{
                     // 로그인 실패, 아이디 비밀번호 확인 경고창

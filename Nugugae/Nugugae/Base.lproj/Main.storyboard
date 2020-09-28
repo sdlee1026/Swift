@@ -149,39 +149,40 @@
                     <connections>
                         <outlet property="id_textfield" destination="uRw-Uy-nGJ" id="5FB-kT-s9I"/>
                         <outlet property="pw_textfield" destination="Czn-gO-ETt" id="dFw-yP-P2A"/>
+                        <segue destination="3Cf-ju-fVe" kind="presentation" identifier="loginTomain" id="QOQ-at-inn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
-        <!--Item 2-->
+        <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
             <objects>
-                <viewController id="azc-5F-OLG" sceneMemberID="viewController">
+                <viewController id="azc-5F-OLG" customClass="UserGalleryViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oal-gQ-a2j">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="5fB-mn-gcP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="G4e-1Y-hTQ"/>
+                    <tabBarItem key="tabBarItem" title="갤러리" id="G4e-1Y-hTQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1962" y="925"/>
         </scene>
-        <!--Item 1-->
+        <!--산책기록-->
         <scene sceneID="yKE-lx-LPW">
             <objects>
-                <viewController id="rYZ-Yp-qKC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserLog" id="rYZ-Yp-qKC" customClass="UserLogViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Psm-de-PcU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="WpB-Qr-Plx"/>
+                    <tabBarItem key="tabBarItem" title="산책기록" id="WpB-Qr-Plx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obu-Bn-7MK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -191,6 +192,7 @@
         <scene sceneID="PNy-1B-3oZ">
             <objects>
                 <tabBarController id="3Cf-ju-fVe" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="iuZ-nY-Mrs"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3QP-nw-j9Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -434,8 +436,7 @@
                                     <color key="titleColor" red="0.8579582254" green="0.46002161009999998" blue="0.084430977609999999" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <action selector="login_to_btn:" destination="nkZ-6S-aQW" eventType="touchUpInside" id="OxX-VF-eR3"/>
-                                    <action selector="login_to_btn:" destination="pGS-RM-Me9" eventType="touchUpInside" id="dib-GO-Gtc"/>
+                                    <action selector="login_to_btn:" destination="nkZ-6S-aQW" eventType="touchUpInside" id="dYA-hf-zAQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3m-tT-NrI">

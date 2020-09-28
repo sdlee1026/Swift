@@ -9,7 +9,7 @@
 import Foundation
 class Server_url{
     static let sharedInstance = Server_url()
-    let server_url = "http://"+"ac185a448a7e.jp"+".ngrok.io"
+    let server_url = "http://"+"53b28a37880c.jp"+".ngrok.io"
     // ngork 재실행마다 url이 바뀜 해결해야함
 }
 
