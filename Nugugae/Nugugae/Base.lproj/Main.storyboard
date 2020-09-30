@@ -195,13 +195,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-Va-tna">
-                                <rect key="frame" x="86" y="291" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsF-45-2H0">
                                 <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
                                 <state key="normal" title="로그아웃"/>
@@ -209,13 +202,23 @@
                                     <action selector="logoout_btn:" destination="rYZ-Yp-qKC" eventType="touchUpInside" id="HWb-6b-B50"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-Va-tna">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wdr-Va-tna" firstAttribute="leading" secondItem="9cQ-lw-S9Z" secondAttribute="leading" id="Abc-J6-gKg"/>
+                            <constraint firstItem="wdr-Va-tna" firstAttribute="top" secondItem="9cQ-lw-S9Z" secondAttribute="top" id="BJc-QF-x29"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="width" secondItem="Psm-de-PcU" secondAttribute="width" multiplier="0.3" id="CrD-2b-fyd"/>
+                            <constraint firstItem="wdr-Va-tna" firstAttribute="centerX" secondItem="Psm-de-PcU" secondAttribute="centerX" id="FSk-gn-x6T"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="top" secondItem="9cQ-lw-S9Z" secondAttribute="top" id="Vxe-gK-oIj"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="height" secondItem="Psm-de-PcU" secondAttribute="height" multiplier="0.07" id="hgy-5e-GvS"/>
+                            <constraint firstItem="wdr-Va-tna" firstAttribute="height" secondItem="Psm-de-PcU" secondAttribute="height" multiplier="0.07" id="kRy-Kq-g2D"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="tkl-Q6-HQQ"/>
                         </constraints>
                     </view>

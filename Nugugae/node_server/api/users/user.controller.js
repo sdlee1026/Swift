@@ -10,6 +10,8 @@ function id_pw_parsing(req){
     }
     else return ['',''];
 }
+
+// LoginDB useAPI
 // 모든 사용자 불러오기
 exports.index = (req, res) => {
     console.log("index func");

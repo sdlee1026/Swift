@@ -36,7 +36,30 @@ const LoginUser = sequelize.define('LoginUser',{
         type : Sequelize.STRING
     }
 });
+const WalkTable = sequelize.define('WalkTables',{
+    id:{
+        type: Sequelize.STRING,
+        primaryKey: true,
+        references: {
+            // This is a reference to another model
+            model: LoginUser,
+            // This is the column name of the referenced model
+            key: 'id'
+        }
+    },
+    date:{
+        type : Sequelize.DATE,
+        primaryKey: true,
+        defaultValue: Sequelize.NOW
+    },
+    content:{
+        type : Sequelize.STRING
+    }
+}
+);
+
 module.exports = {
     sequelize: sequelize,
-    User: LoginUser
+    User: LoginUser,
+    Walk: WalkTable
 }
