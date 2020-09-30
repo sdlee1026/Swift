@@ -23,4 +23,11 @@ router.post('/login/', login_controller.login);
 // 유저 중복 확인
 router.post('/users/check', login_controller.usercheck);
 
-router.get('/walktest/', walk_controller.index);
+// 산책기록
+router.get('/walktest/', walk_controller.walk_index);
+// 산책기록 글쓰기
+router.post('/walk/write/', walk_controller.walk_write);
+// 산책기록 수정하기
+router.post('/walk/edit/', walk_controller.walk_edit);
+// 산책기록 삭제하기
+router.post('/walk/delete/', walk_controller.walk_delete);

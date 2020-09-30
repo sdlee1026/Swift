@@ -53,7 +53,7 @@ const WalkTable = sequelize.define('WalkTables',{
         defaultValue: Sequelize.NOW
     },
     content:{
-        type : Sequelize.STRING
+        type : Sequelize.TEXT
     }
 }
 );
