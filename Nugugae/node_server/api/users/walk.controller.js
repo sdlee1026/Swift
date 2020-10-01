@@ -12,6 +12,53 @@ exports.walk_index = (req, res) => {
         return res.status(404).json({err: 'Undefined error!'});
     });
 };
+
+// 산책 기록 테이블 보기
+exports.walk_view = (req, res) => {
+    console.log('walkTableDB view test');
+    var id = req.body.id || '';
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.Walk.findAll({
+        where: {
+            id: id
+        }
+    }).then(walk => {
+        if(!walk){
+            console.log(walk);
+            return res.status(404).json({err: 'No User'});
+        }
+        return res.json(walk);
+    });
+};
+
+// 산책 기록 테이블 세부 보기
+exports.walk_view_detail = (req, res) => {
+    console.log('walkTableDB view detail test');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    if(!date.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.Walk.findOne({
+        where: {
+            id: id,
+            date: date
+        }
+    }).then(walk => {
+        if(!walk){
+            console.log(walk);
+            return res.status(404).json({err: 'No User'});
+        }
+        return res.json(walk);
+    });
+};
+
 // 산책 기록 글쓰기
 exports.walk_write = (req, res) => {
     console.log('walkTableDB write test');
@@ -43,12 +90,16 @@ exports.walk_write = (req, res) => {
     });
     
 };
+
+// 산책 기록 테이블 수정
 exports.walk_edit = (req,res) => {
     console.log('walk_edit')
     var id = req.body.id || '';
     var content = req.body.content || '';
     console.log(id)
 };
+
+// 산책 기록 삭제
 exports.walk_delete = (req,res) => {
     console.log('walk_delete')
     var id = req.body.id || '';

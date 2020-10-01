@@ -212,6 +212,7 @@
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="LsF-45-2H0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9cQ-lw-S9Z" secondAttribute="leading" symbolic="YES" id="7E0-HB-WJO"/>
                             <constraint firstItem="wdr-Va-tna" firstAttribute="leading" secondItem="9cQ-lw-S9Z" secondAttribute="leading" id="Abc-J6-gKg"/>
                             <constraint firstItem="wdr-Va-tna" firstAttribute="top" secondItem="9cQ-lw-S9Z" secondAttribute="top" id="BJc-QF-x29"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="width" secondItem="Psm-de-PcU" secondAttribute="width" multiplier="0.3" id="CrD-2b-fyd"/>
