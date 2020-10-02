@@ -171,13 +171,25 @@
                                     <action selector="logout_btn:" destination="azc-5F-OLG" eventType="touchUpInside" id="5Rg-Jl-Sh4"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xC-53-6EX">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5fB-mn-gcP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="9xC-53-6EX" firstAttribute="top" secondItem="5fB-mn-gcP" secondAttribute="top" id="7or-t3-HAp"/>
+                            <constraint firstItem="9xC-53-6EX" firstAttribute="leading" secondItem="oal-gQ-a2j" secondAttribute="leading" id="A7W-JW-GO4"/>
+                            <constraint firstItem="5fB-mn-gcP" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9xC-53-6EX" secondAttribute="trailing" symbolic="YES" id="FDg-6f-RVr"/>
                             <constraint firstItem="7OG-Z0-S29" firstAttribute="width" secondItem="oal-gQ-a2j" secondAttribute="width" multiplier="0.3" id="Jv2-5n-bvm"/>
+                            <constraint firstItem="9xC-53-6EX" firstAttribute="height" secondItem="oal-gQ-a2j" secondAttribute="height" multiplier="0.07" id="dJw-gJ-fyn"/>
                             <constraint firstItem="7OG-Z0-S29" firstAttribute="height" secondItem="oal-gQ-a2j" secondAttribute="height" multiplier="0.07" id="fKz-ka-Rip"/>
+                            <constraint firstItem="9xC-53-6EX" firstAttribute="width" secondItem="oal-gQ-a2j" secondAttribute="width" id="fd2-l1-DRo"/>
                             <constraint firstItem="5fB-mn-gcP" firstAttribute="trailing" secondItem="7OG-Z0-S29" secondAttribute="trailing" id="mfP-68-JHI"/>
+                            <constraint firstItem="7OG-Z0-S29" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5fB-mn-gcP" secondAttribute="leading" symbolic="YES" id="qfw-s5-2Xf"/>
                             <constraint firstItem="7OG-Z0-S29" firstAttribute="top" secondItem="5fB-mn-gcP" secondAttribute="top" id="y67-8t-dOo"/>
                         </constraints>
                     </view>
