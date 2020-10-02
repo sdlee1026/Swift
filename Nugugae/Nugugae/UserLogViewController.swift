@@ -9,10 +9,55 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
-class UserLogViewController: UIViewController, UITextFieldDelegate {
+class UserLogViewController: UIViewController, UITextFieldDelegate{
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    // tabelview
+    
+    var isAvailable = true
+    // view tabel 토큰
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
+    var table_content:[String] = []
+    var table_date:[String] = []
+    var offset = 0
+    let user:String = UserDefaults.standard.string(forKey: "userId")!
+    // query_스크롤 할때 더 불러오는 기준.. limit default 10
+    
+    override func viewDidLoad() {
+        Update_table()
+        tableView.delegate = self
+        tableView.dataSource = self
+        print("UserLog Start")
+        print("user : "+user)
+        
+        // 초기 0-10 오프셋 내용 불러옴
+        super.viewDidLoad()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.tableView.contentOffset.y > tableView.contentSize.height-tableView.bounds.size.height
+            {
+                if(isAvailable)
+                {
+                    isAvailable = false
+                    offset += 10
+                    // 스크롤 할때 마다 데이터 불러옴 10개
+                    Update_table()
+                }
+            tableView.reloadData()
+        }
+    }// func scrollViewDidScroll : 스크롤 할때마다 계속 호출
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
+        print("스크롤 종료")
+        isAvailable = true
+        tableView.reloadData()
+    }
+    
     @IBAction func logoout_btn(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
         UserDefaults.standard.removeObject(forKey: "userId")
@@ -28,30 +73,79 @@ class UserLogViewController: UIViewController, UITextFieldDelegate {
         // self.view.window?.rootViewController = mainVC 메인 뷰컨트롤러로 새롭게 설정
         // ScencDelegate
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    curl -X POST '127.0.0.1:3000/walk/view/' -d id='test1001' -d offset=0
+    // walktableDB (server(DB)<-> view_ http.POST, 성공시 ids안에 아이디 저장_closer기법)
+    func getWalkcontent(url: String, completion: @escaping ([String],[String]) -> Void) {
         
-        print("UserLog Start")
-        print("user : \(String(describing: UserDefaults.standard.string(forKey: "userId")))")
-        
-        // Do any additional setup after loading the view.
+        let parameters: [String:[String]] = [
+            "id":[self.user],
+            "offset":[String(offset)]
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids_content = [String]()
+                var ids_date = [String]()
+                switch response.result {
+                    case .success(let value):
+                        let walkJson = JSON(value)
+                        // SwiftyJSON 사용
+                        print("JSON:")
+                        for w_json in walkJson{
+                            // w_json.0 은 인덱스, w_json.1은 json 내용
+                            ids_content.append("\(w_json.1["content"])")
+                            ids_date.append("\(w_json.1["date"])")
+                        }
+                    case .failure(let error):
+                        print(error)
+                }
+                completion(ids_content, ids_date)
+                //closer 기법
+            }
     }
-    
+    func Update_table(){
+        self.getWalkcontent(url: server_url+"/walk/view")
+        { (ids_content, ids_date) in
+            print("get Walkcontent 동작")
+            self.table_content.append(contentsOf: ids_content)
+            self.table_date.append(contentsOf: ids_date)
+            self.tableView.reloadData()// server와 비동기화
+        }
+    }
+    func date_parsing(date: String) -> (String, String){
+        let arr = date.components(separatedBy: ["T","."])
+        let endIndex = arr[0].index(before: arr[0].endIndex)
+        // n번째 문자 index 구하는 법
+        let index = arr[0].index(arr[0].startIndex, offsetBy: 2)
+        let y_m_d = String(arr[0][index...endIndex])
+        return (y_m_d, arr[1])
+    }
 }
-extension UIButton
-{
-    func setUpLayer(sampleButton: UIButton?) {
-        sampleButton!.setTitle("GET STARTED", for: UIControl.State.normal)
-        sampleButton?.tintColor =  UIColor.white
-     sampleButton!.frame = CGRect(x:50, y:500, width:170, height:40)
-     sampleButton!.layer.borderWidth = 1.0
-        sampleButton!.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
-     sampleButton!.layer.cornerRadius = 5.0
-
-     sampleButton!.layer.shadowRadius =  3.0
-        sampleButton!.layer.shadowColor =  UIColor.white.cgColor
-     sampleButton!.layer.shadowOpacity =  0.3
-    }
-
+extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.table_content.count
+    }// 한 섹션에 row가 몇개 들어갈 것인지
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var ymd:String
+        var hms:String
+        
+        (ymd, hms)=date_parsing(date: table_date[indexPath.row])
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FirstCell", for: indexPath) as! walk_cell
+        // cell.dateLabel.text = String(table_date[indexPath.row])
+        cell.dateLabel.text = ymd
+        cell.contentLabel.text = String(table_content[indexPath.row])
+        
+        return cell
+    }// cell 에 들어갈 데이터를 입력하는 function
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (self.tableView.rowHeight<=80){
+            return 80
+        }
+        else{
+            return self.tableView.rowHeight
+        }
+    }// 높이지정
+    
+    
 }

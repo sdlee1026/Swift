@@ -50,11 +50,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     // segue override
-    
-    
-    
-    
-    
     @IBAction func Login_btn(_ sender: UIButton) {
         // Alamofire 비동기 통신 - HTTP POST
         if (id_textfield.text!.count > 0) && (pw_textfield.text!.count > 0){

@@ -162,7 +162,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     case .success(let value):
                         let userInfo_json = JSON(value)// 응답
                         ids.append("\(userInfo_json["id"])")
-                    case .failure(let _): break
+                    case .failure( _): break
                 }
                 completion(ids)
             }

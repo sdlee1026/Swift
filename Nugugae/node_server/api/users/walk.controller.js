@@ -13,14 +13,23 @@ exports.walk_index = (req, res) => {
     });
 };
 
+
+//curl -X POST '127.0.0.1:3000/walk/view/' -d id='test1001' -d offset=0
 // 산책 기록 테이블 보기
 exports.walk_view = (req, res) => {
     console.log('walkTableDB view test');
     var id = req.body.id || '';
-    if(!id.length){
-        return res.status(400).json({err: 'Incorrect name'});
-    }
+    var offset = req.body.offset || 0;
+    var limit = 10;
+    var int_offset = parseInt(offset)
+    id = String(id)
+    console.log(id)
+    // if(!id.length){
+    //     return res.status(400).json({err: 'Incorrect name'});
+    // }
     models.Walk.findAll({
+        offset: int_offset,
+        limit: limit,
         where: {
             id: id
         }
