@@ -24,13 +24,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyD-B7-CUX">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <color key="textColor" red="0.63730569948186533" green="0.056054916601051268" blue="0.56566182599062453" alpha="0.3767704665492958" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신과 반려견을 위한 완벽한 선택!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTD-j5-Yr3">
                                         <rect key="frame" x="0.0" y="56.000000000000007" width="414" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.857958225388601" green="0.14381369887027448" blue="0.76423050390370395" alpha="0.3767704665492958" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -174,7 +174,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xC-53-6EX">
                                 <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -193,7 +193,7 @@
                             <constraint firstItem="7OG-Z0-S29" firstAttribute="top" secondItem="5fB-mn-gcP" secondAttribute="top" id="y67-8t-dOo"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="갤러리" id="G4e-1Y-hTQ"/>
+                    <tabBarItem key="tabBarItem" title="갤러리" image="camera" catalog="system" id="G4e-1Y-hTQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -230,13 +230,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Y-XQ-Y2D">
                                                     <rect key="frame" x="0.0" y="11" width="124.33333333333333" height="100"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.99803675520000001" green="0.096158039479999999" blue="0.0095623470000000006" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cs-do-I8i">
                                                     <rect key="frame" x="132.33333333333334" y="11" width="289.66666666666663" height="100"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.99803675520000001" green="0.096158039479999999" blue="0.0095623470000000006" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRI-KI-MLG">
@@ -277,7 +277,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-Va-tna">
                                 <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="0.88602298499999999" green="0.61967080829999999" blue="0.84315878150000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="1" green="0.77236646067520853" blue="0.76830551517208534" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -299,7 +299,7 @@
                             <constraint firstItem="mfg-ig-jKF" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="tvf-mP-v44"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="산책기록" id="WpB-Qr-Plx"/>
+                    <tabBarItem key="tabBarItem" title="산책기록" image="book" catalog="system" id="WpB-Qr-Plx"/>
                     <connections>
                         <outlet property="tableView" destination="mfg-ig-jKF" id="HWi-wd-bUR"/>
                     </connections>
@@ -326,11 +326,14 @@
                                         <state key="normal">
                                             <imageReference key="image" image="arrow.backward" catalog="system" symbolScale="default"/>
                                         </state>
+                                        <connections>
+                                            <action selector="back_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="20e-3a-zl8"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0o-sn-gbl" userLabel="white_space">
                                         <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="80"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GgJ-y2-IEq">
@@ -389,6 +392,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="rYZ-Yp-qKC" kind="relationship" relationship="viewControllers" id="H9b-fp-zjz"/>
@@ -413,13 +419,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fm-8B-1CH">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <color key="textColor" red="0.63730569950000004" green="0.056054916599999997" blue="0.56566182600000003" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신과 반려견을 위한 완벽한 선택!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBX-Fa-Ds7">
                                         <rect key="frame" x="0.0" y="54.000000000000007" width="414" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -441,7 +447,7 @@
                                     <constraint firstAttribute="height" constant="50" id="mhN-Mu-VNN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wL7-1r-vgw" userLabel="pw_label">
@@ -510,7 +516,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여기까지는 반드시 입력해주세요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQ9-Qn-XVf">
                                 <rect key="frame" x="0.0" y="361" width="414" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmZ-rZ-dkv">
@@ -597,13 +603,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vo6-2k-UqI">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <color key="textColor" red="0.63730569950000004" green="0.056054916599999997" blue="0.56566182600000003" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신과 반려견을 위한 완벽한 선택!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98n-Zi-fyX">
                                         <rect key="frame" x="0.0" y="54.000000000000007" width="414" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -611,7 +617,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정에 문제가 있어요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLj-CS-p6a">
                                 <rect key="frame" x="0.0" y="89" width="414" height="59"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.8579582254" green="0.14381369890000001" blue="0.76423050390000002" alpha="0.37677046650000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrL-1i-mIA">
@@ -665,6 +671,8 @@
     </scenes>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="book" catalog="system" width="128" height="102"/>
+        <image name="camera" catalog="system" width="128" height="94"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="강아지.png" width="808" height="529"/>
