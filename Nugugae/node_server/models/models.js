@@ -57,9 +57,30 @@ const WalkTable = sequelize.define('WalkTables',{
     }
 }
 );
+const UserTabelCount = sequelize.define('UserTabelCounts',{
+    id:{
+        type: Sequelize.STRING,
+        primaryKey: true,
+        references: {
+            // This is a reference to another model
+            model: LoginUser,
+            // This is the column name of the referenced model
+            key: 'id'
+        }
+    },
+    walkcount:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    gallerycount:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    }
+});
 
 module.exports = {
     sequelize: sequelize,
     User: LoginUser,
-    Walk: WalkTable
+    Walk: WalkTable,
+    UserTableCount: UserTabelCount
 }

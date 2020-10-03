@@ -1,3 +1,5 @@
+const e = require('express');
+const { UserTableCount } = require('../../models/models');
 const models = require('../../models/models');//DB
 
 // WalkTableDB useAPI
@@ -27,19 +29,33 @@ exports.walk_view = (req, res) => {
     // if(!id.length){
     //     return res.status(400).json({err: 'Incorrect name'});
     // }
-    models.Walk.findAll({
-        offset: int_offset,
-        limit: limit,
-        where: {
-            id: id
-        },order: [['date', 'DESC']],
-    }).then(walk => {
-        if(!walk){
-            console.log(walk);
-            return res.status(404).json({err: 'No User'});
+    models.UserTableCount.findOne({
+        where:{id: id}
+    }).then(UserTableCount =>{
+        //console.log(UserTableCount.walkcount);
+        var offset_limit = parseInt(UserTableCount.walkcount);
+        //console.log(offset_limit,offset)
+        if (offset_limit>offset){
+            models.Walk.findAll({
+                offset: int_offset,
+                limit: limit,
+                where: {
+                    id: id
+                },order: [['date', 'DESC']],
+            }).then(walk => {
+                if(!walk){
+                    console.log(walk);
+                    return res.status(404).json({err: 'No User'});
+                }
+                return res.json(walk);
+            })
         }
-        return res.json(walk);
-    });
+        else{
+            console.log('No item error return')
+            return res.status(400).json({err: 'No item'})
+        }
+    }// offset 저장, offset+limit보다 작은 범위를 불러올 경우만..트랜잭션
+    );
 };
 
 // 산책 기록 테이블 세부 보기
@@ -90,6 +106,14 @@ exports.walk_write = (req, res) => {
             return res.status(404).json({err: 'No User'});
         }// id는 LoginUsers 테이블의 외래키 이므로 체크
         else{
+            models.UserTableCount.update(
+                {walkcount: models.sequelize.literal('walkcount + 1')},
+                {
+                    where:{
+                        id:id
+                    }
+                }
+            )
             models.Walk.create({
                 id: id,
                 content: content

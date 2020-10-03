@@ -40,6 +40,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
         super.viewWillAppear(true)
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print("스크롤시작")
         if self.tableView.contentOffset.y > tableView.contentSize.height-tableView.bounds.size.height
             {
                 if(isAvailable)
@@ -89,11 +90,16 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
                     case .success(let value):
                         let walkJson = JSON(value)
                         // SwiftyJSON 사용
-                        print("JSON:")
-                        for w_json in walkJson{
-                            // w_json.0 은 인덱스, w_json.1은 json 내용
-                            ids_content.append("\(w_json.1["content"])")
-                            ids_date.append("\(w_json.1["date"])")
+                        if (walkJson["err"]=="No item"){
+                            print("!")
+                            print("\(walkJson["err"])")
+                        }
+                        else{
+                            for w_json in walkJson{
+                                // w_json.0 은 인덱스, w_json.1은 json 내용
+                                ids_content.append("\(w_json.1["content"])")
+                                ids_date.append("\(w_json.1["date"])")
+                            }
                         }
                     case .failure(let error):
                         print(error)
@@ -112,12 +118,18 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
         }
     }
     func date_parsing(date: String) -> (String, String){
-        let arr = date.components(separatedBy: ["T","."])
-        let endIndex = arr[0].index(before: arr[0].endIndex)
-        // n번째 문자 index 구하는 법
-        let index = arr[0].index(arr[0].startIndex, offsetBy: 2)
-        let y_m_d = String(arr[0][index...endIndex])
-        return (y_m_d, arr[1])
+        if (date != "null"){
+            let arr = date.components(separatedBy: ["T","."])
+            let endIndex = arr[0].index(before: arr[0].endIndex)
+            // n번째 문자 index 구하는 법
+            let index = arr[0].index(arr[0].startIndex, offsetBy: 2)
+            let y_m_d = String(arr[0][index...endIndex])
+            return (y_m_d, arr[1])
+            
+        }
+        else{
+            return ("","")
+        }
     }
 }
 extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
@@ -128,14 +140,14 @@ extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var ymd:String
         var hms:String
-        
-        (ymd, hms)=date_parsing(date: table_date[indexPath.row])
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "FirstCell", for: indexPath) as! walk_cell
+        if table_date[indexPath.row] != "null"{
+            (ymd, hms)=date_parsing(date: table_date[indexPath.row])
+            cell.dateLabel.text = ymd
+            cell.contentLabel.text = String(table_content[indexPath.row])
+            return cell
+        }
         // cell.dateLabel.text = String(table_date[indexPath.row])
-        cell.dateLabel.text = ymd
-        cell.contentLabel.text = String(table_content[indexPath.row])
-        
         return cell
     }// cell 에 들어갈 데이터를 입력하는 function
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

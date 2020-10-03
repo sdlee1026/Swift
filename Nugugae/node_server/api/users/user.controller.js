@@ -79,6 +79,9 @@ exports.create = (req, res) => {
         pw: pw,
         email: email
     }).then((user) => res.status(201).json(user));
+    models.UserTableCount.create({
+        id: id
+    })
 };
 
 exports.update = (req, res) => {
