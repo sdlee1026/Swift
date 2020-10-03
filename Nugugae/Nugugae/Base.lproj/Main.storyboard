@@ -280,6 +280,13 @@
                                 <color key="textColor" red="1" green="0.77236646067520853" blue="0.76830551517208534" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywy-Cn-SiU" userLabel="글쓰기">
+                                <rect key="frame" x="331.33333333333331" y="115" width="82.666666666666686" height="22"/>
+                                <color key="tintColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="글쓰기" image="pencil" catalog="system">
+                                    <color key="titleColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9cQ-lw-S9Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -287,6 +294,7 @@
                             <constraint firstItem="mfg-ig-jKF" firstAttribute="bottom" secondItem="9cQ-lw-S9Z" secondAttribute="bottom" id="3o1-EM-Ip3"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9cQ-lw-S9Z" secondAttribute="leading" symbolic="YES" id="7E0-HB-WJO"/>
                             <constraint firstItem="mfg-ig-jKF" firstAttribute="leading" secondItem="9cQ-lw-S9Z" secondAttribute="leading" id="7lS-43-Vbl"/>
+                            <constraint firstItem="ywy-Cn-SiU" firstAttribute="top" secondItem="LsF-45-2H0" secondAttribute="bottom" constant="8.3300000000000001" id="8E6-FM-4JU"/>
                             <constraint firstItem="wdr-Va-tna" firstAttribute="leading" secondItem="9cQ-lw-S9Z" secondAttribute="leading" id="Abc-J6-gKg"/>
                             <constraint firstItem="wdr-Va-tna" firstAttribute="top" secondItem="9cQ-lw-S9Z" secondAttribute="top" id="BJc-QF-x29"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="width" secondItem="Psm-de-PcU" secondAttribute="width" multiplier="0.3" id="CrD-2b-fyd"/>
@@ -295,8 +303,10 @@
                             <constraint firstItem="mfg-ig-jKF" firstAttribute="top" secondItem="wdr-Va-tna" secondAttribute="bottom" constant="8.3300000000000001" id="eGv-Xj-ZEd"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="height" secondItem="Psm-de-PcU" secondAttribute="height" multiplier="0.07" id="hgy-5e-GvS"/>
                             <constraint firstItem="wdr-Va-tna" firstAttribute="height" secondItem="Psm-de-PcU" secondAttribute="height" multiplier="0.07" id="kRy-Kq-g2D"/>
+                            <constraint firstItem="ywy-Cn-SiU" firstAttribute="width" secondItem="Psm-de-PcU" secondAttribute="width" multiplier="0.2" id="kwP-oS-W6f"/>
                             <constraint firstItem="LsF-45-2H0" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="tkl-Q6-HQQ"/>
                             <constraint firstItem="mfg-ig-jKF" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="tvf-mP-v44"/>
+                            <constraint firstItem="ywy-Cn-SiU" firstAttribute="trailing" secondItem="9cQ-lw-S9Z" secondAttribute="trailing" id="yUs-NV-ZJl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="산책기록" image="book" catalog="system" id="WpB-Qr-Plx"/>

@@ -32,7 +32,7 @@ exports.walk_view = (req, res) => {
         limit: limit,
         where: {
             id: id
-        }
+        },order: [['date', 'DESC']],
     }).then(walk => {
         if(!walk){
             console.log(walk);
