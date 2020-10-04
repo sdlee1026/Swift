@@ -14,10 +14,16 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     @IBAction func back_btn(_ sender: Any) {
             self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBOutlet weak var view_name_label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         print("walk_cell_view Start")
         print("외부접속 url : " + server_url)
         // Do any additional setup after loading the view.
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
 }
