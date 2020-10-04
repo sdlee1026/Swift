@@ -15,7 +15,23 @@ exports.walk_index = (req, res) => {
     });
 };
 
+// 산책기록 테이블 상위 하나 뽑기
+exports.walk_viewone = (req, res) =>{
+    console.log('walkTableDB view one test')
+    var id = req.body.id;
+    models.Walk.findOne({
+        where:{
+            id:id
+        },order: [['date', 'DESC']],
+    }).then(walk=>{
+        if(!walk){
+            console.log(walk);
+            return res.status(404).json({err: 'No User'});
+        }
+        return res.json(walk)
+    })
 
+};
 //curl -X POST '127.0.0.1:3000/walk/view/' -d id='test1001' -d offset=0
 // 산책 기록 테이블 보기
 exports.walk_view = (req, res) => {
@@ -117,7 +133,9 @@ exports.walk_write = (req, res) => {
             models.Walk.create({
                 id: id,
                 content: content
-            }).then((walk) => res.status(201).json(walk));
+            }).then((walk) => {
+                return res.status(201).json({content: 'write OK'});
+            });
 
         }
     });

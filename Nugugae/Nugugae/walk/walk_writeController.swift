@@ -23,33 +23,48 @@ class walk_writeController: UIViewController, UITextFieldDelegate{
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
     @IBAction func write_walk_btn(_ sender: Any) {
-    }// 입력 완료(글쓰기)
+        postWalkdata(url: server_url+"/walk/write") { (ids) in
+            if ids==["write OK"]{
+                self.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.set(true, forKey: "new_walk")
+            }
+        }
+        
+    }
+    // 입력 완료(글쓰기)
     override func viewDidLoad() {
         print("walk_write Start")
         print("user : "+user)
         
-        // 초기 0-10 오프셋 내용 불러옴
         super.viewDidLoad()
         text_view.delegate = self
         
-        //textViewDidChange(text_view)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    func postWalkdata(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "content":self.text_view.text
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                    case .success(let value):
+                        let writedata = JSON(value)// 응답
+                        print("\(writedata["content"])")
+                        ids.append("\(writedata["content"])")
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// user info insert DB
 }
 extension walk_writeController: UITextViewDelegate {
-//    func textViewDidChange(_ textView: UITextView) {
-//        print(text_view.text)
-//        let size = CGSize(width: view.frame.width, height: .infinity)
-//        let estimatedSize = textView.sizeThatFits(size)
-//        textView.constraints.forEach { (constraint) in
-//            if constraint.firstAttribute == .height {
-//                constraint.constant = estimatedSize.height
-//            }
-//        }
-//    }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if text_view.text == "입력해주세요!"{
             text_view.text = ""

@@ -28,6 +28,7 @@ router.get('/walktest/', walk_controller.walk_index);
 // 산책기록 테이블 보기
 router.post('/walk/view/', walk_controller.walk_view);
 // 산책기록 테이블 내용 보기
+router.post('/walk/viewone/', walk_controller.walk_viewone);
 router.post('/walk/view/detail/', walk_controller.walk_view_detail);
 // 산책기록 글쓰기
 router.post('/walk/write/', walk_controller.walk_write);

@@ -22,22 +22,44 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     var table_content:[String] = []
     var table_date:[String] = []
     var offset = 0
+    
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // query_스크롤 할때 더 불러오는 기준.. limit default 10
     
     override func viewDidLoad() {
-        Update_table()
+        UserDefaults.standard.set(false,forKey: "new_walk")
         tableView.delegate = self
         tableView.dataSource = self
         print("UserLog Start")
         print("user : "+user)
+        print("now offset : \(offset)")
         
         // 초기 0-10 오프셋 내용 불러옴
         super.viewDidLoad()
+        Update_table()
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        print("view 호출")
+        if UserDefaults.standard.bool(forKey: "new_walk"){
+            print("새 게시물이 있습니다.")
+            // 새 게시물 작성된 경우
+            Update_table_one()
+            UserDefaults.standard.set(false,forKey: "new_walk")
+        }
+        tableView.reloadData()
+        print("now offset : \(offset)")
+    }
+    override func viewDidAppear(_ animated:Bool){
+        super.viewDidAppear(true)
+        print("testing")
+        print("now offset : \(offset)")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        print("dissapper")
+        print("now offset : \(offset)")
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print("스크롤시작")
@@ -49,6 +71,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
                     offset += 10
                     // 스크롤 할때 마다 데이터 불러옴 10개
                     Update_table()
+                    
                 }
             tableView.reloadData()
         }
@@ -74,6 +97,26 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
         // self.view.window?.rootViewController = mainVC 메인 뷰컨트롤러로 새롭게 설정
         // ScencDelegate
     }
+    func getWalkcontentOne(url: String, completion: @escaping ([String],[String]) -> Void) {
+        let parameters: [String:[String]] = [
+            "id":[self.user]
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids_content_one = [String]()
+                var ids_date_one = [String]()
+                switch response.result{
+                case .success(let value):
+                    let walkOneJson = JSON(value)
+                    ids_content_one.append("\(walkOneJson["content"])")
+                    ids_date_one.append("\(walkOneJson["date"])")
+                case .failure(let error):
+                    print(error)
+                }
+                completion(ids_content_one, ids_date_one)
+                //closer 기법
+            }
+    }
 //    curl -X POST '127.0.0.1:3000/walk/view/' -d id='test1001' -d offset=0
     // walktableDB (server(DB)<-> view_ http.POST, 성공시 ids안에 아이디 저장_closer기법)
     func getWalkcontent(url: String, completion: @escaping ([String],[String]) -> Void) {
@@ -93,6 +136,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
                         if (walkJson["err"]=="No item"){
                             print("!")
                             print("\(walkJson["err"])")
+                            self.offset -= 10
                         }
                         else{
                             for w_json in walkJson{
@@ -117,6 +161,20 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
             self.tableView.reloadData()// server와 비동기화
         }
     }
+    func Update_table_one(){
+        self.getWalkcontentOne(url: server_url+"/walk/viewone")
+        { (ids_content_one, ids_date_one) in
+            print("get WalkcontentOne 동작")
+            print(ids_date_one[0])
+            print(ids_content_one[0])
+            self.table_content.insert(ids_content_one[0],at: 0)
+            self.table_date.insert(ids_date_one[0], at: 0)
+//            self.table_content.append(contentsOf: ids_content_one)
+//            self.table_date.append(contentsOf: ids_date_one)
+            self.tableView.reloadData()// 테이블뷰 리로드
+            self.offset+=1
+        }
+    }// 글쓰기로 인해 1개의 값 받아오고, 테이블뷰에 넣고, 다시 로드
     func date_parsing(date: String) -> (String, String){
         if (date != "null"){
             let arr = date.components(separatedBy: ["T","."])
@@ -145,6 +203,7 @@ extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
             (ymd, hms)=date_parsing(date: table_date[indexPath.row])
             cell.dateLabel.text = ymd
             cell.contentLabel.text = String(table_content[indexPath.row])
+            
             return cell
         }
         // cell.dateLabel.text = String(table_date[indexPath.row])
@@ -158,6 +217,7 @@ extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
             return self.tableView.rowHeight
         }
     }// 높이지정
+    
     
     
 }

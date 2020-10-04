@@ -286,7 +286,7 @@
                                     <color key="titleColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="sWM-RT-lAm" kind="presentation" id="c7N-Ov-y2I"/>
+                                    <segue destination="sWM-RT-lAm" kind="presentation" modalPresentationStyle="fullScreen" id="c7N-Ov-y2I"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -689,14 +689,14 @@
             <objects>
                 <viewController id="sWM-RT-lAm" customClass="walk_writeController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1hz-NT-hXv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0h4-Hm-hYc" userLabel="header_stack">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.333333333333329"/>
+                                <rect key="frame" x="0.0" y="44.000000000000007" width="414" height="89.666666666666686"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeY-FK-wnJ" userLabel="이전">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="84.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="89.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="chevron.backward" catalog="system"/>
@@ -705,13 +705,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 산책!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gg-ak-fp4" userLabel="page_str">
-                                        <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="84.333333333333329"/>
+                                        <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="89.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwc-yj-hQl" userLabel="white_space2">
-                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="84.333333333333329"/>
+                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="89.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -723,14 +723,14 @@
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="입력해주세요!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gXy-wV-zYL">
-                                <rect key="frame" x="20" y="131" width="374" height="252.33333333333337"/>
+                                <rect key="frame" x="20" y="180.33333333333334" width="374" height="268.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scb-wX-RTT">
-                                <rect key="frame" x="0.0" y="766" width="414" height="42"/>
+                                <rect key="frame" x="0.0" y="817.33333333333337" width="414" height="44.666666666666629"/>
                                 <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="입력 완료!"/>
@@ -739,16 +739,16 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beb-AL-Jqh" userLabel="walk_info_stack">
-                                <rect key="frame" x="0.0" y="391" width="414" height="42.333333333333314"/>
+                                <rect key="frame" x="0.0" y="456.66666666666669" width="414" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yh2-Xs-hBa" userLabel="time_label">
-                                        <rect key="frame" x="0.0" y="0.0" width="207" height="42.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pC-Wx-3ly" userLabel="distance_label">
-                                        <rect key="frame" x="207" y="0.0" width="207" height="42.333333333333336"/>
+                                        <rect key="frame" x="207" y="0.0" width="207" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -760,7 +760,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아직 미구현, 사진 선택 들어올 공간" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQO-tl-vQl" userLabel="picture_space">
-                                <rect key="frame" x="0.0" y="441" width="414" height="317"/>
+                                <rect key="frame" x="0.0" y="509.33333333333326" width="414" height="300"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -792,6 +792,7 @@
                             <constraint firstItem="scb-wX-RTT" firstAttribute="top" secondItem="LQO-tl-vQl" secondAttribute="bottom" constant="8" id="o6h-Go-pn7"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="CxG-dp-WlW"/>
                     <connections>
                         <outlet property="text_view" destination="gXy-wV-zYL" id="Dbf-gQ-qLD"/>
                     </connections>
