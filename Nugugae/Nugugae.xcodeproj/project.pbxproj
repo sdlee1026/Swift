@@ -75,6 +75,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		6A307EF52529FED700E11A91 /* local_img */ = {
+			isa = PBXGroup;
+			children = (
+				6ADF5AD52512523800A7D366 /* 발바닥.png */,
+				6ADF5AD72512554F00A7D366 /* 강아지.png */,
+			);
+			path = local_img;
+			sourceTree = "<group>";
+		};
 		6A620F482511FEE800B83B0A = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +105,7 @@
 		6A620F532511FEE800B83B0A /* Nugugae */ = {
 			isa = PBXGroup;
 			children = (
+				6A307EF52529FED700E11A91 /* local_img */,
 				6A7D4D1F2526CE5900E98868 /* walk */,
 				6A620F542511FEE800B83B0A /* AppDelegate.swift */,
 				6A620F562511FEE800B83B0A /* SceneDelegate.swift */,
@@ -105,10 +115,8 @@
 				6A620F602511FEEB00B83B0A /* Assets.xcassets */,
 				6A620F622511FEEB00B83B0A /* LaunchScreen.storyboard */,
 				6A7D4D01251F060700E98868 /* SignIssueViewController.swift */,
-				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 				6A620F652511FEEB00B83B0A /* Info.plist */,
 				6A620F5D2511FEE800B83B0A /* Nugugae.xcdatamodeld */,
-				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 				6A7D4D04251F28C700E98868 /* ngrokinfo.swift */,
 				6A7D4D0A251F830D00E98868 /* UserLogViewController.swift */,
 				6A7D4D0D251F859700E98868 /* UserGalleryViewController.swift */,
