@@ -18,6 +18,8 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     var hms:String = ""
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // 외부 접속 url,ngrok
+    let fix_btn_color = #colorLiteral(red: 1, green: 0.9727191329, blue: 0.8763390183, alpha: 1)
+    // 컬러
     
     @IBOutlet weak var view_name_label: UILabel!
     // 상단 라벨
@@ -25,20 +27,32 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var content_text: UITextView!
     // 텍스트 필드
     
-    @IBAction func back_btn(_ sender: Any) {
+    @IBAction func back_btn(_ sender: Any){
         self.dismiss(animated: true, completion: nil)
     }
     // 뒤로 가기 버튼
     
+    
+    @IBOutlet weak var fix_outlet: UIButton!
+    // 수정 그 자체 아웃렛 변수
     @IBAction func fix_btn(_ sender: Any) {
         let fix_alert = UIAlertController(title: "수정",
                                                      message: "게시물을 수정하시겠습니까?", preferredStyle: .alert)
         let fix_action = UIAlertAction(title:"OK!", style: .default){(action) in print("detail view_fix, ok누름")
-            // 수정 쿼리
+            self.fix_btn_outlet.backgroundColor = self.fix_btn_color
+            self.fix_btn_outlet.isEnabled = true
+            // 수정버튼 컬러, 활성화
             self.content_text.isEditable = true
             self.content_text.becomeFirstResponder()
             // 커서 포커스 지정
-            print("detail view_fix, dismiss")
+            
+            self.fix_outlet.isEnabled = false
+            self.fix_outlet.setTitleColor(.white, for: .normal)
+            self.fix_outlet.tintColor = UIColor.white
+            // 수정 그 자체 버튼 비활성화
+            // 아이콘, 텍스트 흰색으로 변경
+            
+            print("detail view_fix, 전처리 완료")
         }
         let fix_cancel_action = UIAlertAction(title: "cancel", style: .cancel, handler : nil)
         fix_alert.addAction(fix_cancel_action)
@@ -47,7 +61,31 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         self.present(fix_alert, animated: true){
         }
     }
-    // 수정 버튼
+    // 수정 버튼, 동작
+    
+    @IBOutlet weak var fix_btn_outlet: UIButton!
+    @IBAction func fix_action_btn(_ sender: Any) {
+        // 텍스트 필드 테스트 출력
+        let fix_update_alert = UIAlertController(title: "수정 완료!",
+                                                 message: "게시물을 수정하시겠습니까?", preferredStyle: .alert)
+        let fix_update_ok_action = UIAlertAction(title:"OK!", style: .default){(action) in
+            print("fix_update ok btn")
+            print(self.content_text.text!)
+//            수정 쿼리  들어갈 곳
+//
+//
+//
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        let fix_update_cancel_action = UIAlertAction(title: "cancel", style: .cancel){(action) in
+            print("fix_update cancel btn")
+        }
+        fix_update_alert.addAction(fix_update_cancel_action)
+        fix_update_alert.addAction(fix_update_ok_action)
+        
+        self.present(fix_update_alert, animated: true)
+    }// 수정 내의 입력 완료 버튼(아웃렛 변수, 액션 함수)
     
     @IBAction func delete_btn(_ sender: Any) {
         let del_alert = UIAlertController(title: "삭제",
@@ -167,6 +205,11 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
             self.content_text.text = ids_content[0]
         }
         self.content_text.isEditable = false
+        
+        self.fix_btn_outlet.isEnabled = false
+        self.fix_outlet.isEnabled = true
+        self.fix_btn_outlet.backgroundColor = UIColor.white
+        // 수정시 버튼 비활성으로 초기화
         
         // 전처리
         

@@ -330,6 +330,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOb-kB-cjW">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44.666666666666629"/>
+                                <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="입력 완료!"/>
+                                <connections>
+                                    <action selector="fix_action_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="BDp-dc-rsg"/>
+                                    <action selector="write_walk_btn:" destination="sWM-RT-lAm" eventType="touchUpInside" id="amX-Cn-mfV"/>
+                                </connections>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avi-jb-2we">
                                 <rect key="frame" x="0.0" y="44.000000000000007" width="414" height="89.666666666666686"/>
                                 <subviews>
@@ -416,15 +426,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="avi-jb-2we" firstAttribute="top" secondItem="rVw-Bi-B9i" secondAttribute="top" id="0M1-do-Lh8"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="nOb-kB-cjW" secondAttribute="bottom" constant="-0.66666666666662877" id="3Hf-Ef-b1a"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="trailing" secondItem="rVw-Bi-B9i" secondAttribute="trailing" id="8p3-7h-TJC"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="top" secondItem="rVw-Bi-B9i" secondAttribute="top" id="9ez-eh-xbl"/>
                             <constraint firstItem="WNI-F1-DoK" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.31829" id="9hv-VO-gPu"/>
                             <constraint firstItem="7vL-ps-MYh" firstAttribute="top" secondItem="WNI-F1-DoK" secondAttribute="bottom" constant="8" symbolic="YES" id="AV6-49-6bI"/>
                             <constraint firstItem="WNI-F1-DoK" firstAttribute="top" secondItem="avi-jb-2we" secondAttribute="bottom" constant="33.666666666666671" id="Ctw-Hh-VnB"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" id="Oex-Pn-hgk"/>
+                            <constraint firstItem="nOb-kB-cjW" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.05" id="cHJ-cM-cVs"/>
+                            <constraint firstItem="nOb-kB-cjW" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" id="d19-07-Clr"/>
                             <constraint firstItem="7vL-ps-MYh" firstAttribute="leading" secondItem="avi-jb-2we" secondAttribute="leading" id="eKV-ZV-m6h"/>
+                            <constraint firstItem="rVw-Bi-B9i" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nOb-kB-cjW" secondAttribute="trailing" symbolic="YES" id="feC-Kc-WcC"/>
                             <constraint firstItem="rVw-Bi-B9i" firstAttribute="trailing" secondItem="WNI-F1-DoK" secondAttribute="trailing" constant="20" id="hDt-X8-Vac"/>
                             <constraint firstItem="iRp-PI-blY" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" multiplier="0.25" id="hu8-cs-bjz"/>
+                            <constraint firstItem="nOb-kB-cjW" firstAttribute="leading" secondItem="7vL-ps-MYh" secondAttribute="leading" id="k0g-wI-vjT"/>
                             <constraint firstItem="7vL-ps-MYh" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" id="kMq-XD-XbW"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.1" id="lhY-JG-mba"/>
                             <constraint firstItem="7vL-ps-MYh" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.05" id="oJz-3M-kh3"/>
@@ -435,6 +450,8 @@
                     </view>
                     <connections>
                         <outlet property="content_text" destination="WNI-F1-DoK" id="XL9-G7-ZZB"/>
+                        <outlet property="fix_btn_outlet" destination="nOb-kB-cjW" id="yaY-Lk-qg8"/>
+                        <outlet property="fix_outlet" destination="f77-EX-OhF" id="TcQ-tc-reA"/>
                         <outlet property="view_name_label" destination="i0o-sn-gbl" id="EtK-WR-E8p"/>
                     </connections>
                 </viewController>

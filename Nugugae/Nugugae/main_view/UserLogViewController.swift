@@ -222,11 +222,11 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
 }
 extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if UserDefaults.standard.bool(forKey: "new_del_walk"){
-            print("삭제 행동으로 인한 인덱스 줄이기, \(self.table_content.count-1)")
-            return self.table_content.count-1
-        }
-        print("인덱스 갯수, \(self.table_content.count)")
+//        if UserDefaults.standard.bool(forKey: "new_del_walk"){
+//            print("삭제 행동으로 인한 인덱스 줄이기, \(self.table_content.count-1)")
+//            return self.table_content.count-1
+//        }
+//        print("인덱스 갯수, \(self.table_content.count)")
         return self.table_content.count
     }// 한 섹션에 row가 몇개 들어갈 것인지
     
