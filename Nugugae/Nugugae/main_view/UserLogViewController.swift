@@ -23,6 +23,10 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     var table_date:[String] = []
     var offset = 0
     
+    var segue_content:String = ""
+    var segue_date:String = ""
+    
+    
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // query_스크롤 할때 더 불러오는 기준.. limit default 10
     
@@ -61,6 +65,19 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
         print("dissapper")
         print("now offset : \(offset)")
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "walk_view_seg"{
+            print("segue test")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? walk_cell_viewController {
+                rvc.segue_content = self.segue_content
+                rvc.segue_date = self.segue_date
+            }
+        }
+    }
+    // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print("스크롤시작")
         if self.tableView.contentOffset.y > tableView.contentSize.height-tableView.bounds.size.height
@@ -217,7 +234,16 @@ extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
             return self.tableView.rowHeight
         }
     }// 높이지정
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        print("table_cell click")
+        print(indexPath.row)
+        print(self.table_date[indexPath.row])
+        print(self.table_content[indexPath.row])
+        self.segue_content = self.table_content[indexPath.row]
+        self.segue_date = self.table_date[indexPath.row]
+        self.performSegue(withIdentifier: "walk_view_seg", sender: nil)
+    }// 클릭 이벤트 발생, segue 호출
     
 }

@@ -222,7 +222,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstCell" rowHeight="111" id="Eur-wO-bjs" customClass="walk_cell" customModule="Nugugae" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eur-wO-bjs" id="91w-MF-qyY">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eur-wO-bjs" id="91w-MF-qyY">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -358,6 +358,9 @@
                                                 <state key="normal" title="수정" image="pencil" catalog="system">
                                                     <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="fix_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="5hw-kf-lU4"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrR-47-vI5" userLabel="삭제">
                                                 <rect key="frame" x="0.0" y="42" width="103.33333333333333" height="42.333333333333343"/>
@@ -366,6 +369,9 @@
                                                 <state key="normal" title="삭제" image="trash" catalog="system">
                                                     <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="delete_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="dYP-cg-RwT"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -377,6 +383,34 @@
                                     <constraint firstItem="GgJ-y2-IEq" firstAttribute="width" secondItem="avi-jb-2we" secondAttribute="width" multiplier="0.25" id="Qz1-PU-46G"/>
                                 </constraints>
                             </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WNI-F1-DoK" userLabel="content_text">
+                                <rect key="frame" x="20" y="118" width="374" height="268"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7vL-ps-MYh" userLabel="walk_info_stack">
+                                <rect key="frame" x="0.0" y="394" width="414" height="42"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY7-zE-Ojf" userLabel="time_label">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Fe-lQ-WkX" userLabel="distance_label">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5Fe-lQ-WkX" firstAttribute="width" secondItem="7vL-ps-MYh" secondAttribute="width" multiplier="0.5" id="kqE-F8-9Mr"/>
+                                    <constraint firstItem="hY7-zE-Ojf" firstAttribute="width" secondItem="7vL-ps-MYh" secondAttribute="width" multiplier="0.5" id="xjd-h0-a8j"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rVw-Bi-B9i"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -384,20 +418,29 @@
                             <constraint firstItem="avi-jb-2we" firstAttribute="top" secondItem="rVw-Bi-B9i" secondAttribute="top" id="0M1-do-Lh8"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="trailing" secondItem="rVw-Bi-B9i" secondAttribute="trailing" id="8p3-7h-TJC"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="top" secondItem="rVw-Bi-B9i" secondAttribute="top" id="9ez-eh-xbl"/>
+                            <constraint firstItem="WNI-F1-DoK" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.31829" id="9hv-VO-gPu"/>
+                            <constraint firstItem="7vL-ps-MYh" firstAttribute="top" secondItem="WNI-F1-DoK" secondAttribute="bottom" constant="8" symbolic="YES" id="AV6-49-6bI"/>
+                            <constraint firstItem="WNI-F1-DoK" firstAttribute="top" secondItem="avi-jb-2we" secondAttribute="bottom" constant="33.666666666666671" id="Ctw-Hh-VnB"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" id="Oex-Pn-hgk"/>
+                            <constraint firstItem="7vL-ps-MYh" firstAttribute="leading" secondItem="avi-jb-2we" secondAttribute="leading" id="eKV-ZV-m6h"/>
+                            <constraint firstItem="rVw-Bi-B9i" firstAttribute="trailing" secondItem="WNI-F1-DoK" secondAttribute="trailing" constant="20" id="hDt-X8-Vac"/>
                             <constraint firstItem="iRp-PI-blY" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" multiplier="0.25" id="hu8-cs-bjz"/>
+                            <constraint firstItem="7vL-ps-MYh" firstAttribute="width" secondItem="Hsc-jF-c3M" secondAttribute="width" id="kMq-XD-XbW"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.1" id="lhY-JG-mba"/>
+                            <constraint firstItem="7vL-ps-MYh" firstAttribute="height" secondItem="Hsc-jF-c3M" secondAttribute="height" multiplier="0.05" id="oJz-3M-kh3"/>
+                            <constraint firstItem="WNI-F1-DoK" firstAttribute="centerX" secondItem="7vL-ps-MYh" secondAttribute="centerX" id="pYr-uT-ahJ"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="leading" secondItem="Hsc-jF-c3M" secondAttribute="leading" id="teZ-Tp-PN1"/>
                             <constraint firstItem="avi-jb-2we" firstAttribute="leading" secondItem="rVw-Bi-B9i" secondAttribute="leading" id="vvg-OP-rw7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="content_text" destination="WNI-F1-DoK" id="XL9-G7-ZZB"/>
                         <outlet property="view_name_label" destination="i0o-sn-gbl" id="EtK-WR-E8p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwi-zl-e52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1891" y="844"/>
+            <point key="canvasLocation" x="1889.8550724637682" y="843.75"/>
         </scene>
         <!--Main Tap Bar Controller-->
         <scene sceneID="PNy-1B-3oZ">
@@ -744,13 +787,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yh2-Xs-hBa" userLabel="time_label">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pC-Wx-3ly" userLabel="distance_label">
                                         <rect key="frame" x="207" y="0.0" width="207" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
