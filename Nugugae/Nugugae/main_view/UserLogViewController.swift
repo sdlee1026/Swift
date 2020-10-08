@@ -21,17 +21,19 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     // 외부 접속 url,ngrok
     var table_content:[String] = []
     var table_date:[String] = []
-    var offset = 0
+    var offset:Int = 0
     
     var segue_content:String = ""
     var segue_date:String = ""
     
-    
+    var walk_work_index:Int = -1
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // query_스크롤 할때 더 불러오는 기준.. limit default 10
     
     override func viewDidLoad() {
         UserDefaults.standard.set(false,forKey: "new_walk")
+        UserDefaults.standard.set(false,forKey: "new_del_walk")
+        
         tableView.delegate = self
         tableView.dataSource = self
         print("UserLog Start")
@@ -51,8 +53,21 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
             // 새 게시물 작성된 경우
             Update_table_one()
             UserDefaults.standard.set(false,forKey: "new_walk")
+            tableView.reloadData()
         }
-        tableView.reloadData()
+        if UserDefaults.standard.bool(forKey: "new_del_walk"){
+            print("삭제 게시물 존재.")
+            // 세부 동작
+            table_content.remove(at: walk_work_index)
+            table_date.remove(at: walk_work_index)
+            // table view 들어갈 내용 삭제
+            if offset>0{offset-=1}
+            // offset --1
+            tableView.reloadData()
+            // tableview reload
+            UserDefaults.standard.set(false,forKey: "new_del_walk")
+            
+        }
         print("now offset : \(offset)")
     }
     override func viewDidAppear(_ animated:Bool){
@@ -186,8 +201,6 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
             print(ids_content_one[0])
             self.table_content.insert(ids_content_one[0],at: 0)
             self.table_date.insert(ids_date_one[0], at: 0)
-//            self.table_content.append(contentsOf: ids_content_one)
-//            self.table_date.append(contentsOf: ids_date_one)
             self.tableView.reloadData()// 테이블뷰 리로드
             self.offset+=1
         }
@@ -209,6 +222,11 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
 }
 extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if UserDefaults.standard.bool(forKey: "new_del_walk"){
+            print("삭제 행동으로 인한 인덱스 줄이기, \(self.table_content.count-1)")
+            return self.table_content.count-1
+        }
+        print("인덱스 갯수, \(self.table_content.count)")
         return self.table_content.count
     }// 한 섹션에 row가 몇개 들어갈 것인지
     
@@ -238,6 +256,8 @@ extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
 
         print("table_cell click")
+        self.walk_work_index = indexPath.row
+        // 작업 인덱스 저장
         print(indexPath.row)
         print(self.table_date[indexPath.row])
         print(self.table_content[indexPath.row])

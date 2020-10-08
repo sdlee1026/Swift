@@ -154,6 +154,42 @@ exports.walk_edit = (req,res) => {
 exports.walk_delete = (req,res) => {
     console.log('walk_delete')
     var id = req.body.id || '';
-    console.log(id)
-};
+    var date = req.body.date || '';
 
+    console.log(id)
+    if (!id) {
+        return res.status(400).json({error: 'Incorrect id'});
+    }
+    else if (!date){
+        return res.status(400).json({error: 'Incorrect date'});
+    }
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.UserTableCount.update(
+                {walkcount: models.sequelize.literal('walkcount - 1')},
+                {
+                    where:{
+                        id:id
+                    }
+                }
+            )
+            models.Walk.destroy({
+                where: {
+                    id: id,
+                    date: date
+                }
+            }).then((walk) => {
+                return res.status(201).json({content: 'delete OK'});
+            });
+
+        }
+    });
+};
