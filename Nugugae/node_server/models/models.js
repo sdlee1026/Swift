@@ -1,23 +1,3 @@
-// const config = require('../config/environment');
-// const Sequelize = require('sequelize');
-
-// const sequelize = new Sequelize(
-//     config.mysql.database,
-//     config.mysql.username,
-//     config.mysql.password, {
-//         host: 'localhost',
-//         dialect: 'mysql'
-//     }
-// );
-
-// const User = sequelize.define('user', {
-//     name: Sequelize.STRING
-// });
-
-// module.exports = {
-//     sequelize: sequelize,
-//     User: User
-// }
 // DB Structure
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('logindb','Seongdae','Dltjdeo!1026',{
@@ -57,6 +37,7 @@ const WalkTable = sequelize.define('WalkTables',{
     }
 }
 );
+
 const UserTabelCount = sequelize.define('UserTabelCounts',{
     id:{
         type: Sequelize.STRING,
@@ -78,9 +59,36 @@ const UserTabelCount = sequelize.define('UserTabelCounts',{
     }
 });
 
+const GalleryTable = sequelize.define('GalleryTables',{
+    id:{
+        type: Sequelize.STRING,
+        primaryKey: true,
+        references: {
+            // This is a reference to another model
+            model: LoginUser,
+            // This is the column name of the referenced model
+            key: 'id'
+        }
+    },
+    imgname:{
+        type : Sequelize.STRING,
+        primaryKey: true
+    },
+    date:{
+        type : Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+        primaryKey: true,
+    },
+    image:{
+        type : Sequelize.BLOB("long"),
+        allowNull: false
+    }
+});
+
 module.exports = {
     sequelize: sequelize,
     User: LoginUser,
     Walk: WalkTable,
-    UserTableCount: UserTabelCount
+    UserTableCount: UserTabelCount,
+    GalleryTable: GalleryTable,
 }

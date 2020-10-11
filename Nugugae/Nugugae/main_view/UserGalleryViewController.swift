@@ -29,10 +29,24 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
         // self.view.window?.rootViewController = mainVC 메인 뷰컨트롤러로 새롭게 설정
         // ScencDelegate
     }
+    // 로그 아웃 버튼
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("UserGallery Start")
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("view 호출(view will appear)")
+    }
+    override func viewDidAppear(_ animated:Bool){
+        super.viewDidAppear(true)
+        print("view 호출 후")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        print("view dissapper")
     }
 }

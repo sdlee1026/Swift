@@ -9,6 +9,8 @@ const login_controller = require('./user.controller');
 // login controller 
 const walk_controller = require('./walk.controller');
 // main view, walk controller
+const gallery_controller = require('./gallery.controller');
+// gallery controller
 
 module.exports = router;
 
@@ -36,3 +38,8 @@ router.post('/walk/write/', walk_controller.walk_write);
 router.post('/walk/edit/', walk_controller.walk_edit);
 // 산책기록 삭제하기
 router.post('/walk/delete/', walk_controller.walk_delete);
+
+// 갤러리
+router.get('/gallerytest/', gallery_controller.gallery_index);
+// 이미지 업로드
+router.post('/gallery/upload/', gallery_controller.gallery_upload);

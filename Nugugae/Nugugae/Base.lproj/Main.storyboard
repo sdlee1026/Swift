@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
+            <point key="canvasLocation" x="71" y="-508"/>
         </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
@@ -196,7 +196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1020" y="1205"/>
+            <point key="canvasLocation" x="1019" y="1624"/>
         </scene>
         <!--산책기록-->
         <scene sceneID="yKE-lx-LPW">
@@ -320,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obu-Bn-7MK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018.840579710145" y="531.69642857142856"/>
+            <point key="canvasLocation" x="1019" y="844"/>
         </scene>
         <!--Walk cell view Controller-->
         <scene sceneID="Bqv-H7-jas">
@@ -457,7 +457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwi-zl-e52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889.8550724637682" y="843.75"/>
+            <point key="canvasLocation" x="1890" y="844"/>
         </scene>
         <!--Main Tap Bar Controller-->
         <scene sceneID="PNy-1B-3oZ">
@@ -663,7 +663,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAh-pK-ffV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="864" y="-508"/>
+            <point key="canvasLocation" x="897" y="-830"/>
         </scene>
         <!--Sign Issue View Controller-->
         <scene sceneID="Nfg-Fy-XhZ">
@@ -742,7 +742,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvN-gR-hnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="-508"/>
+            <point key="canvasLocation" x="896" y="-167"/>
         </scene>
         <!--Walk write Controller-->
         <scene sceneID="rYH-vd-bZY">
