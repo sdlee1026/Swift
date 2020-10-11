@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class UserGalleryViewController: UIViewController, UITextFieldDelegate {
+    
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     
@@ -31,6 +32,10 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
     }
     // 로그 아웃 버튼
     
+    @IBOutlet weak var profile_img: UIImageView!
+    @IBOutlet weak var profile_label: UILabel!
+    // profile img, label, outlet
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("UserGallery Start")
@@ -39,14 +44,14 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("view 호출(view will appear)")
+        print("view 호출(view will appear)\tGalley view")
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
-        print("view 호출 후")
+        print("view 호출 후\tGalley view")
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-        print("view dissapper")
+        print("view dissapper\tGalley view")
     }
 }
