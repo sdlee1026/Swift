@@ -1,4 +1,5 @@
 const e = require('express');
+const { connect } = require('../../app');
 const { UserTableCount } = require('../../models/models');
 const models = require('../../models/models');//DB
 
@@ -146,8 +147,27 @@ exports.walk_write = (req, res) => {
 exports.walk_edit = (req,res) => {
     console.log('walk_edit')
     var id = req.body.id || '';
+    var date = req.body.date || '';
     var content = req.body.content || '';
-    console.log(id)
+    
+    console.log(content)
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    else if (!date.length){
+        return res.status(400).json({err: 'Incorrect date'});
+    }
+    else if (!content.length){
+        return res.status(400).json({err: 'Incorrect content'});
+    }
+    models.Walk.update(
+        {content: content[0]},
+        {where: {
+            id: id,
+            date: date
+        }, returning: true}).then((walk) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
 };
 
 // 산책 기록 삭제

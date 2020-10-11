@@ -61,22 +61,24 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         self.present(fix_alert, animated: true){
         }
     }
-    // 수정 버튼, 동작
-    
+    // 수정 버튼, 동작 액션 함수
     @IBOutlet weak var fix_btn_outlet: UIButton!
     @IBAction func fix_action_btn(_ sender: Any) {
         // 텍스트 필드 테스트 출력
         let fix_update_alert = UIAlertController(title: "수정 완료!",
                                                  message: "게시물을 수정하시겠습니까?", preferredStyle: .alert)
         let fix_update_ok_action = UIAlertAction(title:"OK!", style: .default){(action) in
+            UserDefaults.standard.set(true,forKey: "new_fix_walk")
             print("fix_update ok btn")
             print(self.content_text.text!)
 //            수정 쿼리  들어갈 곳
-//
-//
-//
+            self.fixWalkDetail(url: self.server_url+"/walk/edit") { (ids_msg) in
+                print("fix func")
+                print(ids_msg)
+                UserDefaults.standard.set(self.content_text.text!,forKey: "fix_data")
+                self.dismiss(animated: true, completion: nil)
+            }
             
-            self.dismiss(animated: true, completion: nil)
         }
         let fix_update_cancel_action = UIAlertAction(title: "cancel", style: .cancel){(action) in
             print("fix_update cancel btn")
@@ -186,8 +188,32 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     func fixWalkDetail(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:[String]] = [
             "id":[self.user],
-            "date":[self.segue_date]
+            "date":[self.segue_date],
+            "content":[self.content_text.text]
         ]
+        
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids_content = [String]()
+                switch response.result {
+                    case .success(let value):
+                        let walkfixJson = JSON(value)
+                        // SwiftyJSON 사용
+                        if (walkfixJson["err"]=="Incorrect id" ||
+                            walkfixJson["err"]=="Incorrect date" ||
+                            walkfixJson["err"]=="Incorrect content"){
+                            print("!")
+                            print("\(walkfixJson["err"])")
+                        }
+                        else if walkfixJson["content"]=="Update OK"{
+                            ids_content.append("\(walkfixJson["content"])")
+                        }
+                    case .failure(let error):
+                        print(error)
+                }
+                completion(ids_content)
+                //closer 기법
+            }
     }// 산책 세부 기록, 수정 api
     
     

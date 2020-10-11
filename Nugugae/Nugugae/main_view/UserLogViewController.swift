@@ -33,7 +33,8 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         UserDefaults.standard.set(false,forKey: "new_walk")
         UserDefaults.standard.set(false,forKey: "new_del_walk")
-        
+        UserDefaults.standard.set(false,forKey: "new_fix_walk")
+        UserDefaults.standard.set("",forKey: "fix_data")
         tableView.delegate = self
         tableView.dataSource = self
         print("UserLog Start")
@@ -47,7 +48,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("view 호출")
+        print("view 호출(view will appear)")
         if UserDefaults.standard.bool(forKey: "new_walk"){
             print("새 게시물이 있습니다.")
             // 새 게시물 작성된 경우
@@ -57,7 +58,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
         }
         if UserDefaults.standard.bool(forKey: "new_del_walk"){
             print("삭제 게시물 존재.")
-            // 세부 동작
+            // 삭제 게시물 작성된 경우, 세부 동작
             table_content.remove(at: walk_work_index)
             table_date.remove(at: walk_work_index)
             // table view 들어갈 내용 삭제
@@ -66,9 +67,17 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
             tableView.reloadData()
             // tableview reload
             UserDefaults.standard.set(false,forKey: "new_del_walk")
-            
+            walk_work_index = -1
+            // 작업 인덱스 초기화
         }
-        print("now offset : \(offset)")
+        if UserDefaults.standard.bool(forKey: "new_fix_walk"){
+            // 수정 내용 있는 경우
+            print("수정 내용 있음 view 로드")
+            table_content[walk_work_index]=UserDefaults.standard.string(forKey: "fix_data")!
+            UserDefaults.standard.set("",forKey: "fix_data")
+            tableView.reloadData()
+            UserDefaults.standard.set(false, forKey: "new_fix_walk")
+        }
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
@@ -92,6 +101,8 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
             }
         }
     }
+    // segue 데이터전송시 준비
+    
     // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print("스크롤시작")
