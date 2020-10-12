@@ -70,19 +70,31 @@ const GalleryTable = sequelize.define('GalleryTables',{
             key: 'id'
         }
     },
-    imgname:{
-        type : Sequelize.STRING,
-        primaryKey: true
+    ispublic:{
+        type : Sequelize.BOOLEAN
     },
+    // public_true, private_false bool 값으로 넣음..
     date:{
         type : Sequelize.DATE,
         defaultValue: Sequelize.NOW,
         primaryKey: true,
     },
+    // 갤러리에 올라오는 날짜 그자체
+    imgdate:{
+        type : Sequelize.DATE,
+        primaryKey: true
+    },
+    // 사진 데이터를 찍은 시간(반드시 존재_기본키)
     image:{
         type : Sequelize.BLOB("long"),
         allowNull: false
+    },
+    // 이미지
+    location:{
+        type : Sequelize.STRING,
+        allowNull: true
     }
+    // 위치 정보, 일단은 null 가능.. 차후에 데이터로 처리 어떻게 할지..
 });
 
 module.exports = {
