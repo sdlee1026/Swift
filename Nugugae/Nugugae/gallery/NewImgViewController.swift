@@ -154,7 +154,7 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
             // origianl 이미지를 imageview에 넣음
         }
         
-        print(info)
+        //print(info)
         print("phAsset 정보")
         if let test = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
             print("시간 정보")
@@ -174,6 +174,9 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
                 }, completionHandler: { (success, error) in
                     if success{
                         print("사진 저장 성공")
+                        // 사진 찍고 저장완료후, 서버로 보낼 메타데이터들 적재해야함
+                        // 적재할 메타데이터 1. 사진 데이터를 찍은 시간(반드시 존재), 2. 찍은 장소값(일단은 없어도 가능, 차후에 산책기록과 비교해서 ..넣기..? ), 3. 퍼블릭or프라이빗 설정값
+                        // 여러장씩 가능하게 할 것인가?.. +a 기능으로 남겨두자..
                     }
                     else{
                         print("사진 저장 에러 발생")
