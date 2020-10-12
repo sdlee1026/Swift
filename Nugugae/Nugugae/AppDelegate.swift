@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // 로그인화면
-        print("userDefault 초기화")
+//        print("userDefault 초기화")
 //        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
 //        UserDefaults.standard.removeObject(forKey: "userId")
         if #available(iOS 13, *) {

@@ -11,12 +11,20 @@ import Alamofire
 import SwiftyJSON
 import Photos
 // metadata를 사용하기 위한 라이브러리
-
-class NewImgViewController: UIViewController, UITextFieldDelegate {
+//
+class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     let img_picker = UIImagePickerController()
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
+    
+    var locationManager:CLLocationManager!
+    //LocationManager 선언
+    var latitude: Double?
+    var longitude: Double?
+    //위도와 경도
+    
+    
     @IBOutlet weak var selected_img_view: UIImageView!
     // 앨범 or 카메라에서 선택된 이미지뷰
     @IBAction func back_btn(_ sender: Any) {
@@ -28,13 +36,9 @@ class NewImgViewController: UIViewController, UITextFieldDelegate {
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
         }
-
-
         let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
             self.openCamera()
         }
-
-
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         new_img_alert.addAction(library)
         new_img_alert.addAction(camera)
@@ -44,26 +48,42 @@ class NewImgViewController: UIViewController, UITextFieldDelegate {
     }
     func openLibrary(){
         img_picker.sourceType = .photoLibrary
-        present(img_picker, animated: false, completion: nil)
+        present(img_picker, animated: true, completion: nil)
     }
+    // 앨범 선택
 
     func openCamera(){
         if(UIImagePickerController .isSourceTypeAvailable(.camera)){
             img_picker.sourceType = .camera
-            present(img_picker, animated: false, completion: nil)
+            present(img_picker, animated: true, completion: nil)
             
         }
         else{
             print("Camera not available")
         }// 시뮬레이터로 돌릴시 오류
     }
+    // 카메라 선택
     override func viewDidLoad() {
         super.viewDidLoad()
         print("New img view Start")
+
         img_picker.delegate = self
-        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+        img_picker.sourceType = .savedPhotosAlbum
+        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image", "public.movie"])!
         
-        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        //포그라운드 상태에서 위치 추적 권한 요청
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //배터리에 맞게 권장되는 최적의 정확도
+        locationManager.startUpdatingLocation()
+        //위치업데이트
+        let coor = locationManager.location?.coordinate
+        latitude = coor?.latitude
+        longitude = coor?.longitude
+
+
         // 이미지 피커 딜리게이터 사용
         // Do any additional setup after loading the view.
     }
@@ -71,6 +91,40 @@ class NewImgViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         print("view 호출(view will appear)\tNew img View")
+        let dialog = UIAlertController(title: "주의", message: "일부 기능이 동작하지 않습니다. [설정] 에서 허용할 수 있습니다.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
+                dialog.addAction(action)
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
+                    if response {
+                        print("카메라 권한 ok")
+                        //권한 획득시 실행될 명령
+                    } else {
+                        print("카메라 권한 no")
+                        self.present(dialog, animated: true, completion: nil)
+                    }
+                }
+        let PHP_status = PHPhotoLibrary.authorizationStatus()
+        if PHP_status == .authorized{
+            print("앨범 권한 ok")
+        }
+        else if PHP_status == .denied{
+            print("앨범 권한 no, setAuth")
+            self.present(dialog, animated: true, completion: nil)
+        }
+        else if PHP_status == .notDetermined{
+            print("앨범 권한 no, 아직 미정된 경우")
+        }
+        
+
+        let status = CLLocationManager.authorizationStatus()
+
+        if status == CLAuthorizationStatus.denied || status == CLAuthorizationStatus.restricted {
+            print("위치권한 no")
+            self.present(dialog, animated: true, completion: nil)
+        }
+        else if status == CLAuthorizationStatus.authorizedWhenInUse {
+            print("위치권한 ok")
+        }
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
@@ -80,29 +134,78 @@ class NewImgViewController: UIViewController, UITextFieldDelegate {
         super.viewDidDisappear(true)
         print("view dissapper\tNew img View")
     }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            //위치가 업데이트될때마다
+            if let coor = manager.location?.coordinate{
+                 //print("latitude" + String(coor.latitude) + "/ longitude" + String(coor.longitude))
+            }
+    }
 }
 extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let test_reffer = info[.referenceURL] as? URL{
+            let fetchedPHAsset = PHAsset.fetchAssets(withALAssetURLs: [test_reffer], options: nil).firstObject
+            print(fetchedPHAsset?.creationDate!)
+        }
+        
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             selected_img_view.image = image
             // origianl 이미지를 imageview에 넣음
-            if img_picker.sourceType == .camera{
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(savedImage), nil)
-            }
-            // 사진 찍으면 앨범 저장
-            
         }
+        
+        print(info)
+        print("phAsset 정보")
+        if let test = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+            print("시간 정보")
+            print(test.creationDate)
+        }
+        
+        if let photoAsset = info[.phAsset] as? PHAsset{
+            print("위치 정보")
+            print(photoAsset.location?.coordinate.latitude as Any)
+            print(photoAsset.location?.coordinate.longitude as Any)
+        }
+        if img_picker.sourceType == .camera
+        {
+            if let PHP_image = info[.originalImage] as? UIImage{
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                }, completionHandler: { (success, error) in
+                    if success{
+                        print("사진 저장 성공")
+                    }
+                    else{
+                        print("사진 저장 에러 발생")
+                    }
+                })
+                // 사진 찍으면 앨범 저장 2
+            }
+            if let PHP_video = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(PHP_video.path){
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: PHP_video)
+                }, completionHandler: { (success, error) in
+                    if success{
+                        print("비디오 저장 성공")
+                    }
+                    else{
+                        print("비디오 저장 에러 발생")
+                    }
+                })
+                // 비디오 저장
+            }
+        }
+        
         dismiss(animated: true, completion: nil)
     }
-    @objc
-    func savedImage(image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?){
-        if let error = error{
-            print(error)
-            return
-        }
-        print("save success")
-    }
+//    @objc
+//    func savedImage(image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?){
+//        if let error = error{
+//            print(error)
+//            return
+//        }
+//        print("save success")
+//    }
     // 미디어 픽이 끝났을 때, (사진을 선택하고 무엇을 할거냐)
 }
 // UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다.
