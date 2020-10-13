@@ -115,7 +115,8 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     
     func date_parsing(date: String) -> (String, String){
         if (date != "null"){
-            let arr = date.components(separatedBy: ["T","."])
+            // let arr = date.components(separatedBy: ["T","."])
+            let arr = date.components(separatedBy: [" "])
             let endIndex = arr[0].index(before: arr[0].endIndex)
             // n번째 문자 index 구하는 법
             let index = arr[0].index(arr[0].startIndex, offsetBy: 2)

@@ -24,6 +24,7 @@
 		6A7D4D11251F8B8E00E98868 /* MainTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D10251F8B8E00E98868 /* MainTapBarController.swift */; };
 		6A7D4D212526CE6E00E98868 /* walk_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D202526CE6E00E98868 /* walk_cell.swift */; };
 		6A7D4D2525276E1D00E98868 /* walk_cell_viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */; };
+		6AC5C696253619B200820F65 /* 강아지 침.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC5C695253619B200820F65 /* 강아지 침.png */; };
 		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
 		6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD72512554F00A7D366 /* 강아지.png */; };
 		DC3F27A824E9BBE321363CA9 /* Pods_Nugugae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7F355C64BB8AF0D815DAC0 /* Pods_Nugugae.framework */; };
@@ -50,6 +51,7 @@
 		6A7D4D10251F8B8E00E98868 /* MainTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarController.swift; sourceTree = "<group>"; };
 		6A7D4D202526CE6E00E98868 /* walk_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell.swift; sourceTree = "<group>"; };
 		6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell_viewController.swift; sourceTree = "<group>"; };
+		6AC5C695253619B200820F65 /* 강아지 침.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지 침.png"; sourceTree = "<group>"; };
 		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
 		6ADF5AD72512554F00A7D366 /* 강아지.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지.png"; sourceTree = "<group>"; };
 		6FA0A5D642866BB8AEA4E220 /* Pods-Nugugae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.release.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		6A307EF52529FED700E11A91 /* local_img */ = {
 			isa = PBXGroup;
 			children = (
+				6AC5C695253619B200820F65 /* 강아지 침.png */,
 				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 			);
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AC5C696253619B200820F65 /* 강아지 침.png in Resources */,
 				6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */,
 				6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,

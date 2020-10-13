@@ -218,7 +218,8 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     }// 글쓰기로 인해 1개의 값 받아오고, 테이블뷰에 넣고, 다시 로드
     func date_parsing(date: String) -> (String, String){
         if (date != "null"){
-            let arr = date.components(separatedBy: ["T","."])
+//            let arr = date.components(separatedBy: ["T","."])
+            let arr = date.components(separatedBy: " ")
             let endIndex = arr[0].index(before: arr[0].endIndex)
             // n번째 문자 index 구하는 법
             let index = arr[0].index(arr[0].startIndex, offsetBy: 2)
@@ -233,11 +234,6 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
 }
 extension UserLogViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if UserDefaults.standard.bool(forKey: "new_del_walk"){
-//            print("삭제 행동으로 인한 인덱스 줄이기, \(self.table_content.count-1)")
-//            return self.table_content.count-1
-//        }
-//        print("인덱스 갯수, \(self.table_content.count)")
         return self.table_content.count
     }// 한 섹션에 row가 몇개 들어갈 것인지
     

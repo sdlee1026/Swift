@@ -1,8 +1,15 @@
 // DB Structure
+console.log('db구조 로드')
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('logindb','Seongdae','Dltjdeo!1026',{
     host:'localhost',
-    dialect:'mysql'
+    dialect:'mysql',
+    timezone: "+09:00",
+    dialectOptions: {
+        charset: 'utf8mb4',
+        dateStrings: true,
+        typeCast: true
+    }
 });
 const LoginUser = sequelize.define('LoginUser',{
     id: {

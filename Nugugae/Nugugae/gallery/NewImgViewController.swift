@@ -24,6 +24,12 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     var longitude: Double?
     //위도와 경도
     
+    let now = Date()
+    
+    let date = DateFormatter()
+
+    
+    
     
     @IBOutlet weak var selected_img_view: UIImageView!
     // 앨범 or 카메라에서 선택된 이미지뷰
@@ -66,6 +72,12 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     override func viewDidLoad() {
         super.viewDidLoad()
         print("New img view Start")
+        date.locale = Locale(identifier: "ko_kr")
+        date.timeZone = TimeZone(abbreviation: "KST")
+        date.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let kr = date.string(from: now)
+        print(now)
+        print(kr)
 
         img_picker.delegate = self
         img_picker.sourceType = .savedPhotosAlbum
@@ -144,9 +156,11 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
 extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let now_location = self.locationManager.location
+        // 현재 위치 세팅
+        
         if let test_reffer = info[.referenceURL] as? URL{
-            let fetchedPHAsset = PHAsset.fetchAssets(withALAssetURLs: [test_reffer], options: nil).firstObject
-            print(fetchedPHAsset?.creationDate!)
+            _ = PHAsset.fetchAssets(withALAssetURLs: [test_reffer], options: nil).firstObject
         }
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
@@ -155,25 +169,43 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
         }
         
         //print(info)
-        print("phAsset 정보")
-        if let test = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
-            print("시간 정보")
-            print(test.creationDate)
+        if img_picker.sourceType == .photoLibrary{
+            print("phAsset 정보")
+            if let test = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                print("시간 정보")
+                //print((test.creationDate!) as Date)
+                let kr_creationDate = self.date.string(from: test.creationDate!)
+                // UTC 시간으로 나옴
+                print(kr_creationDate)
+                // KST 으로 변경
+            }
+            
+            if let photoAsset = info[.phAsset] as? PHAsset{
+                print("위치 정보")
+                print(photoAsset.location?.coordinate.latitude as Any)
+                print(photoAsset.location?.coordinate.longitude as Any)
+            }
         }
-        
-        if let photoAsset = info[.phAsset] as? PHAsset{
-            print("위치 정보")
-            print(photoAsset.location?.coordinate.latitude as Any)
-            print(photoAsset.location?.coordinate.longitude as Any)
-        }
-        if img_picker.sourceType == .camera
+        // picker 가 앨범을 기준하여 선택한 경우
+        else if img_picker.sourceType == .camera
         {
             if let PHP_image = info[.originalImage] as? UIImage{
                 PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                    let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                    creationRequest.location = now_location
+                    
                 }, completionHandler: { (success, error) in
                     if success{
                         print("사진 저장 성공")
+//                        print(info[.mediaMetadata]! as! NSDictionary)
+//                        let meta_dict:NSDictionary = info[.mediaMetadata] as! NSDictionary
+                        let meta_dict = info[.mediaMetadata] as! NSDictionary
+                        let exif_dict = meta_dict["{Exif}"] as! NSDictionary
+                        print("시간 정보")
+                        print(exif_dict["DateTimeDigitized"] as! String)
+                        print("위치 정보")
+                        print(now_location?.coordinate.latitude as Any)
+                        print(now_location?.coordinate.longitude as Any)
                         // 사진 찍고 저장완료후, 서버로 보낼 메타데이터들 적재해야함
                         // 적재할 메타데이터 1. 사진 데이터를 찍은 시간(반드시 존재), 2. 찍은 장소값(일단은 없어도 가능, 차후에 산책기록과 비교해서 ..넣기..? ), 3. 퍼블릭or프라이빗 설정값
                         // 여러장씩 가능하게 할 것인가?.. +a 기능으로 남겨두자..
@@ -198,19 +230,22 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
                 // 비디오 저장
             }
         }
+        // 피커가 카메라를 기준으로 사진을 선택한 경우
         
         dismiss(animated: true, completion: nil)
     }
-//    @objc
-//    func savedImage(image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?){
-//        if let error = error{
-//            print(error)
-//            return
-//        }
-//        print("save success")
-//    }
-    // 미디어 픽이 끝났을 때, (사진을 선택하고 무엇을 할거냐)
 }
+public func utcToLocale(utcDate : String, dateFormat: String) -> String
+    {
+        let dfFormat = DateFormatter()
+        dfFormat.dateFormat = dateFormat
+        dfFormat.timeZone = TimeZone(abbreviation: "UTC")
+        let dtUtcDate = dfFormat.date(from: utcDate)
+        
+        dfFormat.timeZone = TimeZone.current
+        dfFormat.dateFormat = dateFormat
+        return dfFormat.string(from: dtUtcDate!)
+    }
 // UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다.
 
 // (위에서 해준 picker.delegate =  self) self를  picker.delegate에 할당하려면 self는 UINavigationControllerDelegate 타입이어야 한다.

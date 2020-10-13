@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -194,7 +195,9 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nh6-TS-c5r" userLabel="new_img_btn">
                                                 <rect key="frame" x="0.0" y="0.0" width="82.666666666666671" height="224"/>
-                                                <state key="normal" title="사진 추가"/>
+                                                <state key="normal" title="새 사진!">
+                                                    <color key="titleColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <segue destination="Rmy-Lh-jak" kind="presentation" modalPresentationStyle="fullScreen" id="l4x-8b-fYU"/>
                                                 </connections>
@@ -293,9 +296,12 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lTC-3Q-nOi" userLabel="btn_stack">
                                         <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="89.666666666666671"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02s-fh-DJW">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02s-fh-DJW">
                                                 <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="89.666666666666671"/>
-                                                <state key="normal" title="new_img"/>
+                                                <color key="tintColor" red="0.99880462879999998" green="0.76092606780000005" blue="0.76078015570000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="plus.rectangle.on.folder" catalog="system" symbolScale="large"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="new_img_btn:" destination="Rmy-Lh-jak" eventType="touchUpInside" id="bIz-hh-dEF"/>
                                                 </connections>
@@ -309,7 +315,7 @@
                                     <constraint firstItem="3sR-IJ-xgf" firstAttribute="height" secondItem="1Ih-pJ-sOY" secondAttribute="height" id="ysB-H6-1MU"/>
                                 </constraints>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Q5-hNl" userLabel="selected_img_view">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="강아지 침.png" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Q5-hNl" userLabel="selected_img_view">
                                 <rect key="frame" x="0.0" y="141.99999999999997" width="414" height="358.33333333333326"/>
                             </imageView>
                         </subviews>
@@ -1007,7 +1013,9 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="강아지 침.png" width="582" height="460"/>
         <image name="강아지.png" width="808" height="529"/>
         <image name="발바닥.png" width="250" height="255"/>
         <systemColor name="systemBackgroundColor">
