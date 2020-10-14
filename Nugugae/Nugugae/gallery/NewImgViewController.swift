@@ -31,9 +31,6 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     let date = DateFormatter()
     var kr:String = ""
     var img_date:String = ""
-    
-    var is_public:Bool = trues
-    // 비공개 게시물 디폴트
 
     
     
@@ -48,24 +45,12 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     @IBOutlet weak var img_to_server_outlet: UIButton!
     @IBAction func img_to_server(_ sender: Any) {
         img_to_server_outlet.isEnabled = false
-        if (self.is_public){
-            updateImgData(url: server_url+"/gallery/upload/private") { (ids) in
-                print(ids)
-                if ids.count != 0{
-                    print("server to data_private, 비동기화 완료, dismiss")
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }
-            }
-        }// private 게시물
-        else{
-            updateImgData(url: server_url+"/gallery/upload/public") { (ids) in
-                print(ids)
-                if ids.count != 0{
-                    print("server to data_public, 비동기화 완료, dismiss")
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }
+        updateImgData(url: server_url+"/gallery/upload") { (ids) in
+            print(ids)
+            if ids.count != 0{
+                print("server to data, 비동기화 완료, dismiss")
+                self.dismiss(animated: true, completion: nil)
+                
             }
         }
     }
