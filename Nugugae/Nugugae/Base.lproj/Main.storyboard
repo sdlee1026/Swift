@@ -318,14 +318,30 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="강아지 침.png" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Q5-hNl" userLabel="selected_img_view">
                                 <rect key="frame" x="0.0" y="141.99999999999997" width="414" height="358.33333333333326"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qko-b9-GOm">
+                                <rect key="frame" x="0.0" y="817" width="414" height="44.666666666666629"/>
+                                <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="입력 완료!"/>
+                                <connections>
+                                    <action selector="fix_action_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="LVw-EH-b9V"/>
+                                    <action selector="img_to_server:" destination="Rmy-Lh-jak" eventType="touchUpInside" id="5j6-rP-YRr"/>
+                                    <action selector="write_walk_btn:" destination="sWM-RT-lAm" eventType="touchUpInside" id="EFu-hv-Pqn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2N0-48-mkX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="2N0-48-mkX" firstAttribute="bottom" secondItem="Qko-b9-GOm" secondAttribute="bottom" constant="0.33000000000000002" id="5n7-wS-WTD"/>
+                            <constraint firstItem="Qko-b9-GOm" firstAttribute="height" secondItem="e0U-3p-CM3" secondAttribute="height" multiplier="0.05" id="CqW-Ea-0eA"/>
+                            <constraint firstItem="Qko-b9-GOm" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="DYo-a3-Wiz"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="centerX" secondItem="e0U-3p-CM3" secondAttribute="centerX" id="GjL-Cv-mkt"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="top" secondItem="1Ih-pJ-sOY" secondAttribute="bottom" constant="8.3300000000000001" id="Laz-uD-guo"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="centerX" secondItem="e0U-3p-CM3" secondAttribute="centerX" id="Mg7-0G-2Kl"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" id="QHH-eo-51H"/>
+                            <constraint firstItem="Qko-b9-GOm" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="RRo-eK-uiS"/>
+                            <constraint firstItem="Qko-b9-GOm" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" id="Rba-eb-TC4"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="TiR-dN-Q8W"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="height" secondItem="e0U-3p-CM3" secondAttribute="height" multiplier="0.4" id="dQK-hT-Gn9"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="eCv-R0-fvO"/>
@@ -337,6 +353,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="img_to_server_outlet" destination="Qko-b9-GOm" id="SVX-EK-VTZ"/>
                         <outlet property="selected_img_view" destination="yWx-Q5-hNl" id="69u-B6-Djh"/>
                     </connections>
                 </viewController>

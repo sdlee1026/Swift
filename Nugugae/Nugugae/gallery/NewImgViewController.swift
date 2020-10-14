@@ -15,6 +15,8 @@ import Photos
 class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
+    let user:String = UserDefaults.standard.string(forKey: "userId")!
+    
     let img_picker = UIImagePickerController()
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     
@@ -27,15 +29,31 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     let now = Date()
     
     let date = DateFormatter()
+    var kr:String = ""
+    var img_date:String = ""
 
     
     
+    var img_view: UIImage?
     
     @IBOutlet weak var selected_img_view: UIImageView!
     // 앨범 or 카메라에서 선택된 이미지뷰
+    
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
+    @IBOutlet weak var img_to_server_outlet: UIButton!
+    @IBAction func img_to_server(_ sender: Any) {
+        img_to_server_outlet.isEnabled = false
+        updateImgData(url: server_url+"/gallery/upload") { (ids) in
+            print(ids)
+            if ids.count != 0{
+                print("server to data, 비동기화 완료, dismiss")
+                self.dismiss(animated: true, completion: nil)
+                
+            }
+        }
+    }
     
     @IBAction func new_img_btn(_ sender: Any) {
         let new_img_alert =  UIAlertController(title: "올릴 곳 선택", message: "원하는 방법을 선택해주세요", preferredStyle: .actionSheet)
@@ -75,7 +93,7 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         date.locale = Locale(identifier: "ko_kr")
         date.timeZone = TimeZone(abbreviation: "KST")
         date.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let kr = date.string(from: now)
+        kr = date.string(from: now)
         print(now)
         print(kr)
 
@@ -146,12 +164,58 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         super.viewDidDisappear(true)
         print("view dissapper\tNew img View")
     }
+    func updateImgData(url: String, completion: @escaping ([String]) -> Void){
+        let image_view = self.img_view
+        let parameters: [String:String] = [
+            "id":self.user,
+            "ispublic":"false",
+            "date":self.kr,
+            "imgdate":self.img_date
+        ]
+        print(parameters)
+        if let imageData=image_view!.jpegData(compressionQuality: 1){
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    multipartFormData.append(imageData, withName: "image", fileName: "profile-image.png", mimeType: "image/png")
+                    for (key, value) in parameters {
+                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                    }
+                    
+                },
+                to: url)
+                .responseJSON(completionHandler: { (response) in
+                    var ids = [String]()
+                    switch response.result{
+                        case .success(let value):
+                            let writedata = JSON(value)// 응답
+                            print("\(writedata["content"])")
+                            ids.append("\(writedata["content"])")
+                        case .failure( _): break
+                    }
+                    completion(ids)
+                })
+//            AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+//                .responseJSON{ response in
+//                    var ids = [String]()
+//                    switch response.result{
+//                        case .success(let value):
+//                            let writedata = JSON(value)// 응답
+//                            print("\(writedata["content"])")
+//                            ids.append("\(writedata["content"])")
+//                        case .failure( _): break
+//                    }
+//                    completion(ids)
+//                }
+            
+        }
+    }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            //위치가 업데이트될때마다
+        //위치가 업데이트될때마다
             if let coor = manager.location?.coordinate{
                  //print("latitude" + String(coor.latitude) + "/ longitude" + String(coor.longitude))
             }
     }
+    
 }
 extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
@@ -165,6 +229,7 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             selected_img_view.image = image
+            img_view = image
             // origianl 이미지를 imageview에 넣음
         }
         
@@ -176,6 +241,7 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
                 //print((test.creationDate!) as Date)
                 let kr_creationDate = self.date.string(from: test.creationDate!)
                 // UTC 시간으로 나옴
+                self.img_date = kr_creationDate
                 print(kr_creationDate)
                 // KST 으로 변경
             }
@@ -202,7 +268,19 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
                         let meta_dict = info[.mediaMetadata] as! NSDictionary
                         let exif_dict = meta_dict["{Exif}"] as! NSDictionary
                         print("시간 정보")
-                        print(exif_dict["DateTimeDigitized"] as! String)
+                        self.img_date = exif_dict["DateTimeDigitized"] as! String
+                        let dateFormatter = DateFormatter()
+
+                        dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+                        let temp_date:Date = dateFormatter.date(from: self.img_date)!
+                        // string -> date
+                        
+                        let dateFormatter1 = DateFormatter()
+                        dateFormatter1.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                        // date -> string
+                        let dateString:String = dateFormatter1.string(from: temp_date)
+                        self.img_date = dateString
+                        print(self.img_date)
                         print("위치 정보")
                         print(now_location?.coordinate.latitude as Any)
                         print(now_location?.coordinate.longitude as Any)
