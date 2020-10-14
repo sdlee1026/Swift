@@ -3,20 +3,17 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-
-// 한국시 설정
-
 //파일관련 모듈
 var multer = require('multer')
-
 //파일 저장위치와 파일이름 설정
-var storage = multer.diskStorage(
+var gallery_private_storage = multer.diskStorage(
     {
+        
         destination: function (req, file, cb) {
             //파일이 이미지 파일이면
             if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
                 console.log("이미지 파일 감지")
-                cb(null, '../../temp/img/')
+                cb(null, './user_gallery/private/img')
             }
         },
         //파일이름 설정
@@ -24,13 +21,15 @@ var storage = multer.diskStorage(
             var moment = require('moment');
             require('moment-timezone');
             moment.tz.setDefault("Asia/Seoul");
-            var kr_date = moment().format();
-            console.log("이름 설정 시간 : " + kr_date);
+            const kr_date = moment().format();
+            console.log("서버 기준 설정 시간_1 : " + kr_date);
+            // 한국시 설정
             cb(null, kr_date + "-" + file.originalname)
         }
+        
 })
 //파일 업로드 모듈
-var upload = multer({ storage: storage })
+var upload_private = multer({ storage: gallery_private_storage })
 
 
 router.use(bodyParser.json());
@@ -42,9 +41,7 @@ const walk_controller = require('./walk.controller');
 // main view, walk controller
 const gallery_controller = require('./gallery.controller');
 // gallery controller
-
 module.exports = router;
-
 router.get('/users/', login_controller.index);
 router.get('/users/:id', login_controller.show);
 router.delete('/users/:id', login_controller.destroy);
@@ -73,4 +70,4 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 // 갤러리
 router.get('/gallerytest/', gallery_controller.gallery_index);
 // 이미지 업로드
-router.post('/gallery/upload/',upload.single('image'), gallery_controller.gallery_upload);
+router.post('/gallery/upload/',upload_private.single('image'), gallery_controller.gallery_upload);

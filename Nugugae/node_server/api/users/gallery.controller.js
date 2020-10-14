@@ -3,6 +3,7 @@ const models = require('../../models/models');//DB
 const { UserTableCount } = require('../../models/models');
 
 // 모든 id,date gallery, index test
+
 exports.gallery_index = (req, res) => {
     console.log('galleryDB test');
     models.GalleryTable.findAll().then(function(results) {
@@ -18,18 +19,21 @@ exports.gallery_upload = (req, res) => {
     console.log('galleryDB upload test');
     var id = req.body.id;
     var ispublic = req.body.ispublic || '0'; // (default)false -> 0, true -> 1
-    var date = req.body.date || '';
+    var date = req.file.filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
     var location = req.body.location;
-    console.log(id, ispublic, date, imgdate, location)
+    console.log(id, ispublic, imgdate, location)
+    console.log('date : ',date)
     // console.log(req)
     console.log('img : ')
     console.log(req.file)
     console.log(req.file.destination)
     console.log(req.file.filename)
     
-    var img = fs.readFileSync(req.file.destination+req.file.filename)
-
+    
+    // var img = fs.readFileSync(req.file.destination+req.file.filename)
+    // 원본파일
+    var img = req.file.destination+req.file.filename
     if (img != null){
         console.log('img 있음, db insert')
         models.User.findOne({

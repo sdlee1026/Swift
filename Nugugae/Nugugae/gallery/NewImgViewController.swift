@@ -176,10 +176,12 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         if let imageData=image_view!.jpegData(compressionQuality: 1){
             AF.upload(
                 multipartFormData: { multipartFormData in
-                    multipartFormData.append(imageData, withName: "image", fileName: "profile-image.png", mimeType: "image/png")
+                    multipartFormData.append(imageData, withName: "image", fileName: self.user+"_Q1.png", mimeType: "image/png")
+                    // 원본 이미지
                     for (key, value) in parameters {
                         multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                     }
+                    // parameter form 적재
                     
                 },
                 to: url)
@@ -194,18 +196,6 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                     }
                     completion(ids)
                 })
-//            AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
-//                .responseJSON{ response in
-//                    var ids = [String]()
-//                    switch response.result{
-//                        case .success(let value):
-//                            let writedata = JSON(value)// 응답
-//                            print("\(writedata["content"])")
-//                            ids.append("\(writedata["content"])")
-//                        case .failure( _): break
-//                    }
-//                    completion(ids)
-//                }
             
         }
     }
