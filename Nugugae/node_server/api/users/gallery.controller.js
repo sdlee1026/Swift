@@ -22,8 +22,12 @@ exports.gallery_upload_private = (req, res) => {
     var date = req.file.filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
     var location = req.body.location;
+    var hashtag = req.body.hashtag || '';
+    var content = req.body.content || '';
     console.log(id, ispublic, imgdate, location)
     console.log('date : ',date)
+    console.log('hashtag : ',hashtag)
+    console.log('content : ',content)
     // console.log(req)
     console.log('img : ')
     console.log(req.file)
@@ -52,6 +56,8 @@ exports.gallery_upload_private = (req, res) => {
                     date: date,
                     imgdate: imgdate,
                     image: img,
+                    hashtag: hashtag,
+                    content: content,
                 }).then((walk) => {
                     models.UserTableCount.update(
                         {gallerycount: models.sequelize.literal('gallerycount + 1')},
@@ -78,8 +84,12 @@ exports.gallery_upload_public = (req, res) => {
     var date = req.file.filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
     var location = req.body.location;
+    var hashtag = req.body.hashtag || '';
+    var content = req.body.content || '';
     console.log(id, ispublic, imgdate, location)
     console.log('date : ',date)
+    console.log('hashtag : ',hashtag)
+    console.log('content : ',content)
     // console.log(req)
     console.log('img : ')
     console.log(req.file)
@@ -108,6 +118,8 @@ exports.gallery_upload_public = (req, res) => {
                     date: date,
                     imgdate: imgdate,
                     image: img,
+                    hashtag: hashtag,
+                    content: content,
                 }).then((walk) => {
                     models.UserTableCount.update(
                         {gallerycount: models.sequelize.literal('gallerycount + 1')},

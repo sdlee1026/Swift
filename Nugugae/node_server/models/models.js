@@ -23,6 +23,7 @@ const LoginUser = sequelize.define('LoginUser',{
         type : Sequelize.STRING
     }
 });
+// 산책기록
 const WalkTable = sequelize.define('WalkTables',{
     id:{
         type: Sequelize.STRING,
@@ -100,8 +101,17 @@ const GalleryTable = sequelize.define('GalleryTables',{
     location:{
         type : Sequelize.STRING,
         allowNull: true
-    }
+    },
     // 위치 정보, 일단은 null 가능.. 차후에 데이터로 처리 어떻게 할지..
+    hashtag:{
+        type : Sequelize.STRING,
+        allowNull: true
+    },
+    // 사진 해쉬 태그
+    content:{
+        type : Sequelize.TEXT,
+    }
+    // 사진의 내용
 });
 
 module.exports = {
