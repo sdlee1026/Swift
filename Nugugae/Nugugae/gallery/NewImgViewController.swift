@@ -249,7 +249,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
             "id":self.user,
             "ispublic":self.is_public,
             "date":self.kr,
-            "imgdate":self.img_date
+            "imgdate":self.img_date,
+            "content":self.text_view.text
         ]
         print(parameters)
         if let imageData=image_view!.jpegData(compressionQuality: 1){
