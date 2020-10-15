@@ -20,6 +20,9 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     let img_picker = UIImagePickerController()
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     
+    var keyboardShown:Bool = false // 키보드 상태 확인
+    var originY:CGFloat? // 오브젝트의 기본 위치
+    
     var locationManager:CLLocationManager!
     //LocationManager 선언
     var latitude: Double?
@@ -31,9 +34,9 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     let date = DateFormatter()
     var kr:String = ""
     var img_date:String = ""
-    
-    var is_public:Bool = true
+    var is_public:String = ""
     // 비공개 게시물 디폴트
+    let color_1 = #colorLiteral(red: 1, green: 0.7608325481, blue: 0.7623851895, alpha: 1)
 
     
     
@@ -42,13 +45,28 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     @IBOutlet weak var selected_img_view: UIImageView!
     // 앨범 or 카메라에서 선택된 이미지뷰
     
+    @IBOutlet weak var public_private: UISegmentedControl!
+    
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
+    
     @IBOutlet weak var img_to_server_outlet: UIButton!
+    
+    @IBOutlet weak var text_view: UITextView!
+    
     @IBAction func img_to_server(_ sender: Any) {
         img_to_server_outlet.isEnabled = false
-        if (self.is_public){
+        if (self.public_private.selectedSegmentIndex == 0){
+            print("세그멘트 컨트롤 다같이 볼래요")
+            self.is_public = "true"
+        }
+        else{
+            print("세그멘트 컨트롤 나만 볼래요")
+            self.is_public = "false"
+        }
+        
+        if (self.is_public == "false"){
             updateImgData(url: server_url+"/gallery/upload/private") { (ids) in
                 print(ids)
                 if ids.count != 0{
@@ -67,7 +85,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                     
                 }
             }
-        }
+        }// public 게시물
+        
     }
     
     @IBAction func new_img_btn(_ sender: Any) {
@@ -111,7 +130,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
         kr = date.string(from: now)
         print(now)
         print(kr)
-
+        
+        text_view.delegate = self
         img_picker.delegate = self
         img_picker.sourceType = .savedPhotosAlbum
         img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image", "public.movie"])!
@@ -173,17 +193,61 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
-        print("view 호출 후\tNew img View")
+        print("view 호출 후\tNew img View, 옵저버 등록")
+        registerForKeyboardNotifications()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-        print("view dissapper\tNew img View")
+        print("view dissapper\tNew img View, 옵저버 등록 해제")
+        unregisterForKeyboardNotifications()
+    }
+    func registerForKeyboardNotifications() {
+        // 옵저버 등록
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+    func unregisterForKeyboardNotifications() {
+      // 옵저버 등록 해제
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+    @objc func keyboardWillShow(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            // 키보드 사이즈를 받아옴
+            if keyboardSize.height == 0.0 || keyboardShown == true {
+                return
+            }
+            UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height) })
+        }
+    }
+    @objc func keyboardWillHide(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.transform = .identity
+
+        }
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     func updateImgData(url: String, completion: @escaping ([String]) -> Void){
         let image_view = self.img_view
         let parameters: [String:String] = [
             "id":self.user,
-            "ispublic":"false",
+            "ispublic":self.is_public,
             "date":self.kr,
             "imgdate":self.img_date
         ]
@@ -222,9 +286,18 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     }
     
 }
-extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+extension NewImgViewController : UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if text_view.text == "입력해주세요!"{
+            text_view.text = ""
+            text_view.textColor = self.color_1
+        }
+    }
+}
+extension NewImgViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
         let now_location = self.locationManager.location
         // 현재 위치 세팅
         
@@ -316,19 +389,9 @@ extension NewImgViewController : UIImagePickerControllerDelegate,UINavigationCon
         // 피커가 카메라를 기준으로 사진을 선택한 경우
         
         dismiss(animated: true, completion: nil)
-    }
+    }//이미지 피커 종료
+    
 }
-public func utcToLocale(utcDate : String, dateFormat: String) -> String
-    {
-        let dfFormat = DateFormatter()
-        dfFormat.dateFormat = dateFormat
-        dfFormat.timeZone = TimeZone(abbreviation: "UTC")
-        let dtUtcDate = dfFormat.date(from: utcDate)
-        
-        dfFormat.timeZone = TimeZone.current
-        dfFormat.dateFormat = dateFormat
-        return dfFormat.string(from: dtUtcDate!)
-    }
 // UIImagePickerControllerDelegate의 delegate 속성은 UIImagePickerControllerDelegate와 UINavigationControllerDelegate 프로토콜을 모두 구현하는 객체로 정의되어있다.
 
 // (위에서 해준 picker.delegate =  self) self를  picker.delegate에 할당하려면 self는 UINavigationControllerDelegate 타입이어야 한다.
