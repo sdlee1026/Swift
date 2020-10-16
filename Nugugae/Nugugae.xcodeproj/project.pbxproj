@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A307EF32528F00700E11A91 /* walk_writeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EF22528F00700E11A91 /* walk_writeController.swift */; };
 		6A307EFF25335F3000E11A91 /* NewImgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EFE25335F3000E11A91 /* NewImgViewController.swift */; };
+		6A59E55C2539921E00AEE287 /* nugu_logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A59E55B2539921E00AEE287 /* nugu_logo2.png */; };
 		6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */; };
 		6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F542511FEE800B83B0A /* AppDelegate.swift */; };
 		6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F562511FEE800B83B0A /* SceneDelegate.swift */; };
@@ -36,6 +37,7 @@
 		0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.debug.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.debug.xcconfig"; sourceTree = "<group>"; };
 		6A307EF22528F00700E11A91 /* walk_writeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_writeController.swift; sourceTree = "<group>"; };
 		6A307EFE25335F3000E11A91 /* NewImgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewImgViewController.swift; sourceTree = "<group>"; };
+		6A59E55B2539921E00AEE287 /* nugu_logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nugu_logo2.png; sourceTree = "<group>"; };
 		6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6A620F512511FEE800B83B0A /* Nugugae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nugugae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A620F542511FEE800B83B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				6AC5C695253619B200820F65 /* 강아지 침.png */,
 				6ABCCFC0253989090044D96A /* nugu_logo.png */,
+				6A59E55B2539921E00AEE287 /* nugu_logo2.png */,
 				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 			);
@@ -249,6 +252,7 @@
 			files = (
 				6AC5C696253619B200820F65 /* 강아지 침.png in Resources */,
 				6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */,
+				6A59E55C2539921E00AEE287 /* nugu_logo2.png in Resources */,
 				6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,
 				6ABCCFC1253989090044D96A /* nugu_logo.png in Resources */,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -17,18 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nugu_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="iGK-hk-U3z">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nugu_logo2.png" translatesAutoresizingMaskIntoConstraints="NO" id="iGK-hk-U3z">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seongdae Lee Copyright" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5w-ij-oms">
                                 <rect key="frame" x="0.0" y="757" width="414" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZN-Qp-IlI">
                                 <rect key="frame" x="0.0" y="801" width="414" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -36,19 +36,23 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="1bC-BR-8cn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="G5w-ij-oms" secondAttribute="bottom" constant="84" id="2ga-xi-65S"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="height" secondItem="iGK-hk-U3z" secondAttribute="height" multiplier="0.0234375" id="3rq-5H-Xtg"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BhA-po-Iem"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="713" id="E2d-YI-Fcb"/>
-                            <constraint firstItem="iGK-hk-U3z" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EFX-XK-Tqi"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ier-zG-Q6q"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="leading" secondItem="iGK-hk-U3z" secondAttribute="leading" id="JO1-Oz-65n"/>
-                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="top" secondItem="G5w-ij-oms" secondAttribute="bottom" constant="23" id="gQY-Ru-BTq"/>
-                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jlm-AG-OUX"/>
-                            <constraint firstItem="G5w-ij-oms" firstAttribute="width" secondItem="iGK-hk-U3z" secondAttribute="width" id="lPU-9g-nt6"/>
-                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="height" secondItem="iGK-hk-U3z" secondAttribute="height" multiplier="0.0234375" id="mtD-32-Nzp"/>
-                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="width" secondItem="iGK-hk-U3z" secondAttribute="width" id="vgD-fW-flK"/>
+                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="0vs-cx-PxR"/>
+                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1ly-Pb-I0y"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pZN-Qp-IlI" secondAttribute="leading" id="D3r-82-TWZ"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="Dss-rn-0W7"/>
+                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.0234375" id="LZv-Cf-yGG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pZN-Qp-IlI" secondAttribute="bottom" constant="40" id="QNa-vI-UfF"/>
+                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="top" secondItem="G5w-ij-oms" secondAttribute="bottom" constant="23" id="Xou-jm-HFM"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G5w-ij-oms" secondAttribute="trailing" id="aUv-aE-YQ5"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="cJS-Oo-ARl"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="e54-zk-Cmx"/>
+                            <constraint firstItem="G5w-ij-oms" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="lOT-g5-atN"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pZN-Qp-IlI" secondAttribute="trailing" id="pmJ-LQ-BLD"/>
+                            <constraint firstItem="G5w-ij-oms" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="uTW-wz-fe0"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="G5w-ij-oms" secondAttribute="leading" id="uud-yH-SOw"/>
+                            <constraint firstItem="G5w-ij-oms" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.0234375" id="xkt-9R-Hwr"/>
+                            <constraint firstItem="iGK-hk-U3z" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zVY-IX-cAm"/>
+                            <constraint firstItem="pZN-Qp-IlI" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="znw-Wm-ZxY"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -58,7 +62,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="nugu_logo.png" width="1800" height="2880"/>
+        <image name="nugu_logo2.png" width="446" height="658"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
