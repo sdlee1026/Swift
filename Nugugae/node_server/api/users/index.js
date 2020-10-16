@@ -10,23 +10,24 @@ var multer = require('multer');
 var gallery_private_storage = multer.diskStorage(
     {
         
-        destination: function (req, file, cb) {
+        destination: function (req, files, cb) {
             //파일이 이미지 파일이면
-            if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
+            if (files.mimetype == "image/jpeg" || files.mimetype == "image/jpg" || files.mimetype == "image/png") {
                 console.log("private 이미지 파일 감지")
                 cb(null, './user_gallery/private/img')
             }
         },
         //파일이름 설정
-        filename: function (req, file, cb) {
+        filename: function (req, files, cb) {
             var moment = require('moment');
             require('moment-timezone');
             moment.tz.setDefault("Asia/Seoul");
             const kr_date = moment().format();
+
             console.log("서버 기준 설정 시간_1 : " + kr_date);
             // 한국시 설정
 
-            cb(null, kr_date + "-" + file.originalname)
+            cb(null, kr_date + "-" + files.originalname)
         }
         
 });
@@ -35,7 +36,6 @@ var gallery_public_storage = multer.diskStorage(
         
         destination: function (req, files, cb) {
             //파일이 이미지 파일이면
-            console.log(files)
             if (files.mimetype == "image/jpeg" || files.mimetype == "image/jpg" || files.mimetype == "image/png") {
                 console.log("public 이미지 파일 감지")
                 cb(null, './user_gallery/public/img')
@@ -48,6 +48,7 @@ var gallery_public_storage = multer.diskStorage(
             require('moment-timezone');
             moment.tz.setDefault("Asia/Seoul");
             const kr_date = moment().format();
+
             console.log("서버 기준 설정 시간_1 : " + kr_date);
             // 한국시 설정
             cb(null, kr_date + "-" + files.originalname)
@@ -70,6 +71,7 @@ const walk_controller = require('./walk.controller');
 const gallery_controller = require('./gallery.controller');
 // gallery controller
 module.exports = router;
+
 router.get('/users/', login_controller.index);
 router.get('/users/:id', login_controller.show);
 router.delete('/users/:id', login_controller.destroy);

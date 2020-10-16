@@ -19,7 +19,8 @@ exports.gallery_upload_private = (req, res) => {
     console.log('galleryDB upload_private test');
     var id = req.body.id;
     var ispublic = 0 // false
-    var date = req.file.filename.split('-'+id)[0]
+    console.log(req.files)
+    var date = req.files['image'][0].filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
     var location = req.body.location || '';
     var hashtag = req.body.hashtag || '';
@@ -31,21 +32,20 @@ exports.gallery_upload_private = (req, res) => {
     console.log('content : ',content)
     // console.log(req)
     console.log('img : ')
-    console.log(req.files)
-    console.log(req.files[image].destination)
-    console.log(req.files[image].filename)
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
     console.log('img05 : ')
-    console.log(req.files)
-    console.log(req.files[image05].destination)
-    console.log(req.files[image05].filename)
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
     
     
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
-    var img = req.files[image].destination+req.files[image].filename
-    // 50퍼센트
-    var img05 = req.files[image05].destination+req.files[image05].filename
+    var img = req.files['image'][0].destination+req.files['image'][0].filename
+    // 50%
+    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename
+    // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
         models.User.findOne({
@@ -111,7 +111,9 @@ exports.gallery_upload_public = (req, res) => {
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
     var img = req.files['image'][0].destination+req.files['image'][0].filename
+    // 50%
     var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename
+    // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
         models.User.findOne({
