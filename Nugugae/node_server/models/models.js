@@ -97,6 +97,10 @@ const GalleryTable = sequelize.define('GalleryTables',{
         type : Sequelize.BLOB("long"),
         allowNull: false
     },
+    image_05:{
+        type : Sequelize.BLOB("long"),
+        allowNull: true
+    },
     // 이미지
     location:{
         type : Sequelize.STRING,

@@ -21,9 +21,10 @@ exports.gallery_upload_private = (req, res) => {
     var ispublic = 0 // false
     var date = req.file.filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
-    var location = req.body.location;
+    var location = req.body.location || '';
     var hashtag = req.body.hashtag || '';
     var content = req.body.content || '';
+
     console.log(id, ispublic, imgdate, location)
     console.log('date : ',date)
     console.log('hashtag : ',hashtag)
@@ -58,6 +59,7 @@ exports.gallery_upload_private = (req, res) => {
                     image: img,
                     hashtag: hashtag,
                     content: content,
+                    location: location,
                 }).then((walk) => {
                     models.UserTableCount.update(
                         {gallerycount: models.sequelize.literal('gallerycount + 1')},
@@ -83,9 +85,10 @@ exports.gallery_upload_public = (req, res) => {
     var ispublic = 1 // true
     var date = req.file.filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
-    var location = req.body.location;
+    var location = req.body.location || '';
     var hashtag = req.body.hashtag || '';
     var content = req.body.content || '';
+    
     console.log(id, ispublic, imgdate, location)
     console.log('date : ',date)
     console.log('hashtag : ',hashtag)
@@ -119,7 +122,9 @@ exports.gallery_upload_public = (req, res) => {
                     imgdate: imgdate,
                     image: img,
                     hashtag: hashtag,
+                    // 차후에 해쉬태그만 관리하는 DB테이블 만들기..1016
                     content: content,
+                    location: location,
                 }).then((walk) => {
                     models.UserTableCount.update(
                         {gallerycount: models.sequelize.literal('gallerycount + 1')},

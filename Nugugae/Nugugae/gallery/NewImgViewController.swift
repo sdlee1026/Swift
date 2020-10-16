@@ -20,14 +20,19 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     let img_picker = UIImagePickerController()
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     
+    var img_change_token:Bool = false
+    // 이미지 바뀌는 토큰
     var keyboardShown:Bool = false // 키보드 상태 확인
     var originY:CGFloat? // 오브젝트의 기본 위치
     
     var locationManager:CLLocationManager!
-    //LocationManager 선언
+    // LocationManager 선언
     var latitude: Double?
     var longitude: Double?
-    //위도와 경도
+    // 위도와 경도
+    var img_latitude: Double = -1
+    var img_longitude: Double = -1
+    // 서버로 보내는 위도 경도 값
     
     let now = Date()
     
@@ -56,36 +61,42 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     @IBOutlet weak var text_view: UITextView!
     
     @IBAction func img_to_server(_ sender: Any) {
-        img_to_server_outlet.isEnabled = false
-        if (self.public_private.selectedSegmentIndex == 0){
-            print("세그멘트 컨트롤 다같이 볼래요")
-            self.is_public = "true"
+        if img_change_token{
+            img_to_server_outlet.isEnabled = false
+            if (self.public_private.selectedSegmentIndex == 0){
+                print("세그멘트 컨트롤 다같이 볼래요")
+                self.is_public = "true"
+            }
+            else{
+                print("세그멘트 컨트롤 나만 볼래요")
+                self.is_public = "false"
+            }
+            
+            if (self.is_public == "false"){
+                updateImgData(url: server_url+"/gallery/upload/private") { (ids) in
+                    print(ids)
+                    if ids.count != 0{
+                        print("server to data_private, 비동기화 완료, dismiss")
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }
+                }
+            }// private 게시물
+            else{
+                updateImgData(url: server_url+"/gallery/upload/public") { (ids) in
+                    print(ids)
+                    if ids.count != 0{
+                        print("server to data_public, 비동기화 완료, dismiss")
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }
+                }
+            }// public 게시물
         }
         else{
-            print("세그멘트 컨트롤 나만 볼래요")
-            self.is_public = "false"
+            // 사진 바뀌지 않음, 경고창 삽입
+            print("초기 이미지에서 변환 없었음")
         }
-        
-        if (self.is_public == "false"){
-            updateImgData(url: server_url+"/gallery/upload/private") { (ids) in
-                print(ids)
-                if ids.count != 0{
-                    print("server to data_private, 비동기화 완료, dismiss")
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }
-            }
-        }// private 게시물
-        else{
-            updateImgData(url: server_url+"/gallery/upload/public") { (ids) in
-                print(ids)
-                if ids.count != 0{
-                    print("server to data_public, 비동기화 완료, dismiss")
-                    self.dismiss(animated: true, completion: nil)
-                    
-                }
-            }
-        }// public 게시물
         
     }
     
@@ -245,19 +256,34 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
     }
     func updateImgData(url: String, completion: @escaping ([String]) -> Void){
         let image_view = self.img_view
-        let parameters: [String:String] = [
-            "id":self.user,
-            "ispublic":self.is_public,
-            "date":self.kr,
-            "imgdate":self.img_date,
-            "content":self.text_view.text
-        ]
+        var parameters: [String:String]
+        if self.img_longitude != -1 && self.img_latitude != -1{
+            print("위치값 존재 parameter insert")
+            parameters = [
+                "id":self.user,
+                "ispublic":self.is_public,
+                "date":self.kr,
+                "imgdate":self.img_date,
+                "content":self.text_view.text,
+                "location":String(self.img_longitude)+","+String(self.img_latitude)
+            ]
+        }
+        else{
+            parameters = [
+                "id":self.user,
+                "ispublic":self.is_public,
+                "date":self.kr,
+                "imgdate":self.img_date,
+                "content":self.text_view.text
+            ]
+        }
         print(parameters)
         if let imageData=image_view!.jpegData(compressionQuality: 1){
             AF.upload(
                 multipartFormData: { multipartFormData in
                     multipartFormData.append(imageData, withName: "image", fileName: self.user+"_Q1.png", mimeType: "image/png")
                     // 원본 이미지
+//                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.5))!, withName: "image_05", fileName: self.user+"_Q05.png", mimeType: "image/png")
                     for (key, value) in parameters {
                         multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                     }
@@ -327,8 +353,10 @@ extension NewImgViewController : UIImagePickerControllerDelegate, UINavigationCo
             
             if let photoAsset = info[.phAsset] as? PHAsset{
                 print("위치 정보")
-                print(photoAsset.location?.coordinate.latitude as Any)
-                print(photoAsset.location?.coordinate.longitude as Any)
+                self.img_latitude = (photoAsset.location?.coordinate.latitude)!
+                self.img_longitude = (photoAsset.location?.coordinate.longitude)!
+                print(img_latitude as Any)
+                print(img_longitude as Any)
             }
         }
         // picker 가 앨범을 기준하여 선택한 경우
@@ -361,8 +389,10 @@ extension NewImgViewController : UIImagePickerControllerDelegate, UINavigationCo
                         self.img_date = dateString
                         print(self.img_date)
                         print("위치 정보")
-                        print(now_location?.coordinate.latitude as Any)
-                        print(now_location?.coordinate.longitude as Any)
+                        self.img_latitude = (now_location?.coordinate.latitude)!
+                        self.img_longitude = (now_location?.coordinate.longitude)!
+                        print(self.img_latitude as Any)
+                        print(self.img_longitude as Any)
                         // 사진 찍고 저장완료후, 서버로 보낼 메타데이터들 적재해야함
                         // 적재할 메타데이터 1. 사진 데이터를 찍은 시간(반드시 존재), 2. 찍은 장소값(일단은 없어도 가능, 차후에 산책기록과 비교해서 ..넣기..? ), 3. 퍼블릭or프라이빗 설정값
                         // 여러장씩 가능하게 할 것인가?.. +a 기능으로 남겨두자..
@@ -388,7 +418,8 @@ extension NewImgViewController : UIImagePickerControllerDelegate, UINavigationCo
             }
         }
         // 피커가 카메라를 기준으로 사진을 선택한 경우
-        
+        self.img_change_token = true
+        // 이미지 체인지 토큰 trueㄹ
         dismiss(animated: true, completion: nil)
     }//이미지 피커 종료
     

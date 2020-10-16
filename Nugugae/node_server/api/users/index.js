@@ -25,6 +25,7 @@ var gallery_private_storage = multer.diskStorage(
             const kr_date = moment().format();
             console.log("서버 기준 설정 시간_1 : " + kr_date);
             // 한국시 설정
+            
             cb(null, kr_date + "-" + file.originalname)
         }
         
