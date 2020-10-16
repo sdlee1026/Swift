@@ -25,7 +25,7 @@ var gallery_private_storage = multer.diskStorage(
             const kr_date = moment().format();
             console.log("서버 기준 설정 시간_1 : " + kr_date);
             // 한국시 설정
-            
+
             cb(null, kr_date + "-" + file.originalname)
         }
         
@@ -33,22 +33,24 @@ var gallery_private_storage = multer.diskStorage(
 var gallery_public_storage = multer.diskStorage(
     {
         
-        destination: function (req, file, cb) {
+        destination: function (req, files, cb) {
             //파일이 이미지 파일이면
-            if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpg" || file.mimetype == "image/png") {
+            console.log(files)
+            if (files.mimetype == "image/jpeg" || files.mimetype == "image/jpg" || files.mimetype == "image/png") {
                 console.log("public 이미지 파일 감지")
                 cb(null, './user_gallery/public/img')
+                console.log('저장완료')
             }
         },
         //파일이름 설정
-        filename: function (req, file, cb) {
+        filename: function (req, files, cb) {
             var moment = require('moment');
             require('moment-timezone');
             moment.tz.setDefault("Asia/Seoul");
             const kr_date = moment().format();
             console.log("서버 기준 설정 시간_1 : " + kr_date);
             // 한국시 설정
-            cb(null, kr_date + "-" + file.originalname)
+            cb(null, kr_date + "-" + files.originalname)
         }
         
 });
@@ -96,5 +98,5 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 // 갤러리
 router.get('/gallerytest/', gallery_controller.gallery_index);
 // 이미지 업로드
-router.post('/gallery/upload/private', upload_private.single('image'), gallery_controller.gallery_upload_private);
-router.post('/gallery/upload/public', upload_public.single('image'), gallery_controller.gallery_upload_public);
+router.post('/gallery/upload/private', upload_private.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_private);
+router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_public);

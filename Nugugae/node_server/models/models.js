@@ -97,7 +97,7 @@ const GalleryTable = sequelize.define('GalleryTables',{
         type : Sequelize.BLOB("long"),
         allowNull: false
     },
-    image_05:{
+    image05:{
         type : Sequelize.BLOB("long"),
         allowNull: true
     },

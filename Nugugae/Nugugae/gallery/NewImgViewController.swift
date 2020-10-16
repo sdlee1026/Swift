@@ -283,7 +283,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                 multipartFormData: { multipartFormData in
                     multipartFormData.append(imageData, withName: "image", fileName: self.user+"_Q1.png", mimeType: "image/png")
                     // 원본 이미지
-//                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.5))!, withName: "image_05", fileName: self.user+"_Q05.png", mimeType: "image/png")
+                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.5))!, withName: "image05", fileName: self.user+"_Q05.png", mimeType: "image/png")
+                    // 50% 이미지
                     for (key, value) in parameters {
                         multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                     }

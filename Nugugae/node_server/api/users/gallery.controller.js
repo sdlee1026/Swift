@@ -31,14 +31,21 @@ exports.gallery_upload_private = (req, res) => {
     console.log('content : ',content)
     // console.log(req)
     console.log('img : ')
-    console.log(req.file)
-    console.log(req.file.destination)
-    console.log(req.file.filename)
+    console.log(req.files)
+    console.log(req.files[image].destination)
+    console.log(req.files[image].filename)
+    console.log('img05 : ')
+    console.log(req.files)
+    console.log(req.files[image05].destination)
+    console.log(req.files[image05].filename)
+    
     
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
-    var img = req.file.destination+req.file.filename
+    var img = req.files[image].destination+req.files[image].filename
+    // 50퍼센트
+    var img05 = req.files[image05].destination+req.files[image05].filename
     if (img != null){
         console.log('img 있음, db insert')
         models.User.findOne({
@@ -57,6 +64,7 @@ exports.gallery_upload_private = (req, res) => {
                     date: date,
                     imgdate: imgdate,
                     image: img,
+                    image05: img05,
                     hashtag: hashtag,
                     content: content,
                     location: location,
@@ -83,7 +91,8 @@ exports.gallery_upload_public = (req, res) => {
     console.log('galleryDB upload_public test');
     var id = req.body.id;
     var ispublic = 1 // true
-    var date = req.file.filename.split('-'+id)[0]
+    console.log(req.files)
+    var date = req.files['image'][0].filename.split('-'+id)[0]
     var imgdate = req.body.imgdate || '';
     var location = req.body.location || '';
     var hashtag = req.body.hashtag || '';
@@ -95,14 +104,14 @@ exports.gallery_upload_public = (req, res) => {
     console.log('content : ',content)
     // console.log(req)
     console.log('img : ')
-    console.log(req.file)
-    console.log(req.file.destination)
-    console.log(req.file.filename)
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
     
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
-    var img = req.file.destination+req.file.filename
+    var img = req.files['image'][0].destination+req.files['image'][0].filename
+    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename
     if (img != null){
         console.log('img 있음, db insert')
         models.User.findOne({
@@ -121,6 +130,7 @@ exports.gallery_upload_public = (req, res) => {
                     date: date,
                     imgdate: imgdate,
                     image: img,
+                    image05: img05,
                     hashtag: hashtag,
                     // 차후에 해쉬태그만 관리하는 DB테이블 만들기..1016
                     content: content,
