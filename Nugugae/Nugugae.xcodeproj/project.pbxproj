@@ -25,6 +25,7 @@
 		6A7D4D212526CE6E00E98868 /* walk_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D202526CE6E00E98868 /* walk_cell.swift */; };
 		6A7D4D2525276E1D00E98868 /* walk_cell_viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */; };
 		6ABCCFBE253962CD0044D96A /* UserSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCCFBD253962CD0044D96A /* UserSettingViewController.swift */; };
+		6ABCCFC1253989090044D96A /* nugu_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ABCCFC0253989090044D96A /* nugu_logo.png */; };
 		6AC5C696253619B200820F65 /* 강아지 침.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC5C695253619B200820F65 /* 강아지 침.png */; };
 		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
 		6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD72512554F00A7D366 /* 강아지.png */; };
@@ -53,6 +54,7 @@
 		6A7D4D202526CE6E00E98868 /* walk_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell.swift; sourceTree = "<group>"; };
 		6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell_viewController.swift; sourceTree = "<group>"; };
 		6ABCCFBD253962CD0044D96A /* UserSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewController.swift; sourceTree = "<group>"; };
+		6ABCCFC0253989090044D96A /* nugu_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nugu_logo.png; sourceTree = "<group>"; };
 		6AC5C695253619B200820F65 /* 강아지 침.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지 침.png"; sourceTree = "<group>"; };
 		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
 		6ADF5AD72512554F00A7D366 /* 강아지.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지.png"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				6AC5C695253619B200820F65 /* 강아지 침.png */,
+				6ABCCFC0253989090044D96A /* nugu_logo.png */,
 				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 			);
@@ -248,6 +251,7 @@
 				6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */,
 				6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,
+				6ABCCFC1253989090044D96A /* nugu_logo.png in Resources */,
 				6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */,
 				6A620F5C2511FEE800B83B0A /* Main.storyboard in Resources */,
 			);

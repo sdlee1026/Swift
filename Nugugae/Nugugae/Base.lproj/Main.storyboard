@@ -679,8 +679,23 @@
                     <view key="view" contentMode="scaleToFill" id="oh9-Wf-J5B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGx-0f-Tfg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Xax-dK-xJQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mGx-0f-Tfg" firstAttribute="top" secondItem="Xax-dK-xJQ" secondAttribute="top" id="3CP-kc-DgZ"/>
+                            <constraint firstItem="mGx-0f-Tfg" firstAttribute="trailing" secondItem="Xax-dK-xJQ" secondAttribute="trailing" id="JlS-CP-qqi"/>
+                            <constraint firstItem="mGx-0f-Tfg" firstAttribute="height" secondItem="oh9-Wf-J5B" secondAttribute="height" multiplier="0.07" id="TEr-qW-d9F"/>
+                            <constraint firstItem="mGx-0f-Tfg" firstAttribute="leading" secondItem="Xax-dK-xJQ" secondAttribute="leading" id="TrM-KP-tdu"/>
+                            <constraint firstItem="mGx-0f-Tfg" firstAttribute="width" secondItem="oh9-Wf-J5B" secondAttribute="width" id="jOY-qm-42m"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="설정" image="gearshape" catalog="system" id="05w-po-WAt"/>
                 </viewController>
