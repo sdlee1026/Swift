@@ -62,6 +62,9 @@ const UserDetailInfo = sequelize.define('UserDetailInfos',{
     picture:{
         type : Sequelize.BLOB("long")
     },
+    picture:{
+        type : Sequelize.BLOB("long")
+    },
     // 프로필 사진
 });
 
@@ -228,11 +231,6 @@ const GalleryTable = sequelize.define('GalleryTables',{
     // 좋아요 갯수
 
     // relative 된 강아지.. (+a기능)
-
-    picture:{
-        type : Sequelize.BLOB("long")
-    },
-    // 프로필 사진
 });
 
 module.exports = {
