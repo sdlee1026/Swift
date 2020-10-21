@@ -54,7 +54,15 @@ const UserDetailInfo = sequelize.define('UserDetailInfos',{
         type: Sequelize.STRING,
     },
     // 사용자의 생일
-
+    idintroduce:{
+        type: Sequelize.STRING,
+        defaultValue: ''
+    },
+    // 사용자 자기소개
+    picture:{
+        type : Sequelize.BLOB("long")
+    },
+    // 프로필 사진
 });
 
 // 개들에 대한 정보
@@ -220,6 +228,11 @@ const GalleryTable = sequelize.define('GalleryTables',{
     // 좋아요 갯수
 
     // relative 된 강아지.. (+a기능)
+
+    picture:{
+        type : Sequelize.BLOB("long")
+    },
+    // 프로필 사진
 });
 
 module.exports = {

@@ -377,7 +377,6 @@
                             <constraint firstItem="ogM-8k-tUd" firstAttribute="top" secondItem="xnT-Ib-17i" secondAttribute="bottom" constant="4" id="K5t-to-ItD"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="top" secondItem="1Ih-pJ-sOY" secondAttribute="bottom" constant="8.3300000000000001" id="Laz-uD-guo"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="centerX" secondItem="e0U-3p-CM3" secondAttribute="centerX" id="Mg7-0G-2Kl"/>
-                            <constraint firstItem="2N0-48-mkX" firstAttribute="trailing" secondItem="xnT-Ib-17i" secondAttribute="trailing" constant="20" id="Mq5-0v-FXK"/>
                             <constraint firstItem="yyh-w9-mb3" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" id="N5F-dP-t97"/>
                             <constraint firstItem="ogM-8k-tUd" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="P7W-zk-Xss"/>
                             <constraint firstItem="yyh-w9-mb3" firstAttribute="top" secondItem="yWx-Q5-hNl" secondAttribute="bottom" constant="6.6699999999999999" id="PYS-O1-pnt"/>
@@ -385,18 +384,18 @@
                             <constraint firstItem="Qko-b9-GOm" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="RRo-eK-uiS"/>
                             <constraint firstItem="Qko-b9-GOm" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" id="Rba-eb-TC4"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="TiR-dN-Q8W"/>
-                            <constraint firstItem="xnT-Ib-17i" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" constant="20" id="Uiw-6u-eul"/>
                             <constraint firstItem="xnT-Ib-17i" firstAttribute="top" secondItem="yyh-w9-mb3" secondAttribute="bottom" constant="7.3300000000000001" id="bbN-lO-QH2"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="height" secondItem="e0U-3p-CM3" secondAttribute="height" multiplier="0.4" id="dQK-hT-Gn9"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="eCv-R0-fvO"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="eGU-UX-U31"/>
+                            <constraint firstItem="xnT-Ib-17i" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" multiplier="0.903382" id="eah-Mb-JPG"/>
                             <constraint firstItem="yyh-w9-mb3" firstAttribute="height" secondItem="e0U-3p-CM3" secondAttribute="height" multiplier="0.05" id="fMI-97-h4P"/>
-                            <constraint firstItem="xnT-Ib-17i" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" multiplier="0.903382" id="fza-tI-T4B"/>
                             <constraint firstItem="yWx-Q5-hNl" firstAttribute="width" secondItem="e0U-3p-CM3" secondAttribute="width" id="gos-oA-xyx"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="top" secondItem="2N0-48-mkX" secondAttribute="top" id="jFZ-4h-avf"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="height" secondItem="e0U-3p-CM3" secondAttribute="height" multiplier="0.1" id="jdA-gz-zCh"/>
                             <constraint firstItem="1Ih-pJ-sOY" firstAttribute="trailing" secondItem="2N0-48-mkX" secondAttribute="trailing" id="jke-20-bON"/>
                             <constraint firstItem="yyh-w9-mb3" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="p6I-7h-pGb"/>
+                            <constraint firstItem="xnT-Ib-17i" firstAttribute="leading" secondItem="e0U-3p-CM3" secondAttribute="leadingMargin" id="qx5-n9-X1I"/>
                             <constraint firstItem="ogM-8k-tUd" firstAttribute="leading" secondItem="2N0-48-mkX" secondAttribute="leading" id="txe-c0-phl"/>
                         </constraints>
                     </view>
