@@ -731,12 +731,12 @@
                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nickname_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khf-cY-wln">
+                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="nickname_text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K7J-EX-nve" userLabel="nickname_text">
                                                 <rect key="frame" x="0.0" y="40.333333333333343" width="227.66666666666666" height="40.333333333333343"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4q-Zg-Js4" userLabel="id_stack">
                                                 <rect key="frame" x="0.0" y="80.666666666666657" width="227.66666666666666" height="35"/>
                                                 <subviews>
@@ -746,9 +746,12 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1D-rA-wDv">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1D-rA-wDv" userLabel="nickname_update_btn">
                                                         <rect key="frame" x="159.33333333333334" y="0.0" width="68.333333333333343" height="35"/>
                                                         <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="nickname_update_btn:" destination="D7F-jo-qev" eventType="touchUpInside" id="0rz-Ay-Lo8"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -793,9 +796,13 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pM1-2i-GOV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pM1-2i-GOV" userLabel="intro_update_btn">
                                                         <rect key="frame" x="159.33333333333334" y="0.0" width="68.333333333333343" height="35"/>
                                                         <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="intro_update_btn:" destination="D7F-jo-qev" eventType="touchUpInside" id="2ZS-bh-soP"/>
+                                                            <action selector="profile_img_btn:" destination="D7F-jo-qev" eventType="touchUpInside" id="ANs-OR-Pxb"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -804,8 +811,8 @@
                                             </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="K7J-EX-nve" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.149938" id="7SR-Tk-dhG"/>
                                             <constraint firstItem="ZcB-RP-auh" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.15" id="8tL-e9-n7d"/>
-                                            <constraint firstItem="khf-cY-wln" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.15" id="D7B-vW-aS7"/>
                                             <constraint firstItem="W4q-Zg-Js4" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.13" id="FOQ-tf-mJg"/>
                                             <constraint firstItem="vKn-JG-UcU" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.13" id="kcC-MR-y6F"/>
                                         </constraints>
@@ -862,6 +869,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="설정" image="gearshape" catalog="system" id="05w-po-WAt"/>
+                    <connections>
+                        <outlet property="id_label" destination="ZcB-RP-auh" id="xnu-JI-sNk"/>
+                        <outlet property="intro_btn_outlet" destination="pM1-2i-GOV" id="v3O-kW-XQT"/>
+                        <outlet property="intro_textview" destination="bJt-37-6zM" id="EP9-qg-Xgg"/>
+                        <outlet property="nickname_btn_outlet" destination="j1D-rA-wDv" id="6R6-9e-WJs"/>
+                        <outlet property="nickname_text" destination="K7J-EX-nve" id="i1L-UL-Wk4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NT-gG-UxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
