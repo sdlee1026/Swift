@@ -70,6 +70,9 @@ const walk_controller = require('./walk.controller');
 // main view, walk controller
 const gallery_controller = require('./gallery.controller');
 // gallery controller
+const infosetting_controller = require('./infosetting.controller');
+
+
 module.exports = router;
 
 router.get('/users/', login_controller.index);
@@ -102,3 +105,12 @@ router.get('/gallerytest/', gallery_controller.gallery_index);
 // 이미지 업로드
 router.post('/gallery/upload/private', upload_private.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_private);
 router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_public);
+
+
+// 유저 정보
+
+// 개에 대한 정보 새로 쓰기
+router.post('/setting/doginfo/write/', infosetting_controller.dog_write);
+// 개에 대한 세부 정보 보기
+router.post('/setting/doginfo/detail/view/', infosetting_controller.dog_detail_view);
+// 개에 대한 세부 정보 수정

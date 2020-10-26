@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6A1C95AC2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C95AB2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png */; };
+		6A1C95B12546B446005D2395 /* NewdoginfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C95B02546B446005D2395 /* NewdoginfoViewController.swift */; };
+		6A1C95B42546E3EF005D2395 /* EditdoginfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C95B32546E3EF005D2395 /* EditdoginfoViewController.swift */; };
+		6A1C95C42546F03C005D2395 /* 22.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C95C32546F03C005D2395 /* 22.png */; };
 		6A307EF32528F00700E11A91 /* walk_writeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EF22528F00700E11A91 /* walk_writeController.swift */; };
 		6A307EFF25335F3000E11A91 /* NewImgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EFE25335F3000E11A91 /* NewImgViewController.swift */; };
-		6A59E55C2539921E00AEE287 /* nugu_logo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A59E55B2539921E00AEE287 /* nugu_logo2.png */; };
 		6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */; };
 		6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F542511FEE800B83B0A /* AppDelegate.swift */; };
 		6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F562511FEE800B83B0A /* SceneDelegate.swift */; };
@@ -27,7 +29,6 @@
 		6A7D4D212526CE6E00E98868 /* walk_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D202526CE6E00E98868 /* walk_cell.swift */; };
 		6A7D4D2525276E1D00E98868 /* walk_cell_viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */; };
 		6ABCCFBE253962CD0044D96A /* UserSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCCFBD253962CD0044D96A /* UserSettingViewController.swift */; };
-		6ABCCFC1253989090044D96A /* nugu_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ABCCFC0253989090044D96A /* nugu_logo.png */; };
 		6AC5C696253619B200820F65 /* 강아지 침.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC5C695253619B200820F65 /* 강아지 침.png */; };
 		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
 		6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD72512554F00A7D366 /* 강아지.png */; };
@@ -37,9 +38,11 @@
 /* Begin PBXFileReference section */
 		0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nugugae.debug.xcconfig"; path = "Target Support Files/Pods-Nugugae/Pods-Nugugae.debug.xcconfig"; sourceTree = "<group>"; };
 		6A1C95AB2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "프로필사진 수정 아래 배너.png"; path = "../../../../../../../Documents/프로필사진 수정 아래 배너.png"; sourceTree = "<group>"; };
+		6A1C95B02546B446005D2395 /* NewdoginfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewdoginfoViewController.swift; sourceTree = "<group>"; };
+		6A1C95B32546E3EF005D2395 /* EditdoginfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditdoginfoViewController.swift; sourceTree = "<group>"; };
+		6A1C95C32546F03C005D2395 /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
 		6A307EF22528F00700E11A91 /* walk_writeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_writeController.swift; sourceTree = "<group>"; };
 		6A307EFE25335F3000E11A91 /* NewImgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewImgViewController.swift; sourceTree = "<group>"; };
-		6A59E55B2539921E00AEE287 /* nugu_logo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nugu_logo2.png; sourceTree = "<group>"; };
 		6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6A620F512511FEE800B83B0A /* Nugugae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nugugae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A620F542511FEE800B83B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +61,6 @@
 		6A7D4D202526CE6E00E98868 /* walk_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell.swift; sourceTree = "<group>"; };
 		6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell_viewController.swift; sourceTree = "<group>"; };
 		6ABCCFBD253962CD0044D96A /* UserSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewController.swift; sourceTree = "<group>"; };
-		6ABCCFC0253989090044D96A /* nugu_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nugu_logo.png; sourceTree = "<group>"; };
 		6AC5C695253619B200820F65 /* 강아지 침.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지 침.png"; sourceTree = "<group>"; };
 		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
 		6ADF5AD72512554F00A7D366 /* 강아지.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지.png"; sourceTree = "<group>"; };
@@ -87,14 +89,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		6A1C95AE2546B414005D2395 /* user_setting */ = {
+			isa = PBXGroup;
+			children = (
+				6A1C95B02546B446005D2395 /* NewdoginfoViewController.swift */,
+				6A1C95B32546E3EF005D2395 /* EditdoginfoViewController.swift */,
+			);
+			path = user_setting;
+			sourceTree = "<group>";
+		};
 		6A307EF52529FED700E11A91 /* local_img */ = {
 			isa = PBXGroup;
 			children = (
 				6AC5C695253619B200820F65 /* 강아지 침.png */,
-				6ABCCFC0253989090044D96A /* nugu_logo.png */,
-				6A59E55B2539921E00AEE287 /* nugu_logo2.png */,
 				6A1C95AB2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png */,
 				6ADF5AD52512523800A7D366 /* 발바닥.png */,
+				6A1C95C32546F03C005D2395 /* 22.png */,
 				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 			);
 			path = local_img;
@@ -159,6 +169,7 @@
 		6A620F532511FEE800B83B0A /* Nugugae */ = {
 			isa = PBXGroup;
 			children = (
+				6A1C95AE2546B414005D2395 /* user_setting */,
 				6A307EF8252A028900E11A91 /* local_setting */,
 				6A307EF7252A026600E11A91 /* main_view */,
 				6A307EF6252A023B00E11A91 /* login_view */,
@@ -256,10 +267,9 @@
 				6AC5C696253619B200820F65 /* 강아지 침.png in Resources */,
 				6A1C95AC2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png in Resources */,
 				6ADF5AD82512554F00A7D366 /* 강아지.png in Resources */,
-				6A59E55C2539921E00AEE287 /* nugu_logo2.png in Resources */,
 				6A620F642511FEEB00B83B0A /* LaunchScreen.storyboard in Resources */,
+				6A1C95C42546F03C005D2395 /* 22.png in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,
-				6ABCCFC1253989090044D96A /* nugu_logo.png in Resources */,
 				6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */,
 				6A620F5C2511FEE800B83B0A /* Main.storyboard in Resources */,
 			);
@@ -321,7 +331,9 @@
 				6A620F592511FEE800B83B0A /* LoginViewController.swift in Sources */,
 				6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */,
 				6A7D4D11251F8B8E00E98868 /* MainTapBarController.swift in Sources */,
+				6A1C95B42546E3EF005D2395 /* EditdoginfoViewController.swift in Sources */,
 				6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */,
+				6A1C95B12546B446005D2395 /* NewdoginfoViewController.swift in Sources */,
 				6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */,
 				6A307EF32528F00700E11A91 /* walk_writeController.swift in Sources */,
 				6ABCCFBE253962CD0044D96A /* UserSettingViewController.swift in Sources */,

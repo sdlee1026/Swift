@@ -109,7 +109,20 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     // 닉네임 수정 버튼
     
     @IBAction func intro_update_btn(_ sender: Any) {
-        intro_btn_outlet.setTitle("확인", for: .normal)
+        if(intro_btn_outlet.titleLabel?.text == "수정"){
+            intro_btn_outlet.setTitle("확인", for: .normal)
+            intro_textview.isEditable = true
+            temp_introtext = intro_textview.text!
+            intro_textview.becomeFirstResponder()
+        }
+        else{
+            intro_btn_outlet.setTitle("수정", for: .normal)
+            if (temp_introtext != intro_textview.text){
+                edit_token = true
+            }
+            intro_textview.isEditable = false
+        }
+        
     }
     // 자기소개 수정 버튼
     
