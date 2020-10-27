@@ -11,6 +11,7 @@
 		6A1C95B12546B446005D2395 /* NewdoginfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C95B02546B446005D2395 /* NewdoginfoViewController.swift */; };
 		6A1C95B42546E3EF005D2395 /* EditdoginfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C95B32546E3EF005D2395 /* EditdoginfoViewController.swift */; };
 		6A1C95C42546F03C005D2395 /* 22.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C95C32546F03C005D2395 /* 22.png */; };
+		6A1C95CC25480AF7005D2395 /* nugu_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C95CB25480AF7005D2395 /* nugu_logo.png */; };
 		6A307EF32528F00700E11A91 /* walk_writeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EF22528F00700E11A91 /* walk_writeController.swift */; };
 		6A307EFF25335F3000E11A91 /* NewImgViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A307EFE25335F3000E11A91 /* NewImgViewController.swift */; };
 		6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */; };
@@ -41,6 +42,7 @@
 		6A1C95B02546B446005D2395 /* NewdoginfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewdoginfoViewController.swift; sourceTree = "<group>"; };
 		6A1C95B32546E3EF005D2395 /* EditdoginfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditdoginfoViewController.swift; sourceTree = "<group>"; };
 		6A1C95C32546F03C005D2395 /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
+		6A1C95CB25480AF7005D2395 /* nugu_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nugu_logo.png; sourceTree = "<group>"; };
 		6A307EF22528F00700E11A91 /* walk_writeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_writeController.swift; sourceTree = "<group>"; };
 		6A307EFE25335F3000E11A91 /* NewImgViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewImgViewController.swift; sourceTree = "<group>"; };
 		6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				6A1C95AB2540F7AB005D2395 /* 프로필사진 수정 아래 배너.png */,
 				6ADF5AD52512523800A7D366 /* 발바닥.png */,
 				6A1C95C32546F03C005D2395 /* 22.png */,
+				6A1C95CB25480AF7005D2395 /* nugu_logo.png */,
 				6ADF5AD72512554F00A7D366 /* 강아지.png */,
 			);
 			path = local_img;
@@ -271,6 +274,7 @@
 				6A1C95C42546F03C005D2395 /* 22.png in Resources */,
 				6A620F612511FEEB00B83B0A /* Assets.xcassets in Resources */,
 				6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */,
+				6A1C95CC25480AF7005D2395 /* nugu_logo.png in Resources */,
 				6A620F5C2511FEE800B83B0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

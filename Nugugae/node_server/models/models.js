@@ -62,9 +62,6 @@ const UserDetailInfo = sequelize.define('UserDetailInfos',{
     picture:{
         type : Sequelize.BLOB("long")
     },
-    picture:{
-        type : Sequelize.BLOB("long")
-    },
     // 프로필 사진
 });
 
@@ -128,6 +125,12 @@ const DogsInfo = sequelize.define('DogsInfos',{
         type: Sequelize.STRING
     },
     // 좋아하는 음식, +a기능에서 쓸 수도..
+    image:{
+        type : Sequelize.BLOB("long"),
+        allowNull: true
+    },
+    // 프로필 사진
+    
 
     
 });

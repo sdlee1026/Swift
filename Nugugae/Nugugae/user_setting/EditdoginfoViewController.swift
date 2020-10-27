@@ -16,8 +16,9 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     var keyboardToken:Bool = false
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // user id
-    var dogname:String = "뽀뽀"
+    var dogname:String = "ㅁ"
     // 인자로 전해받을 것
+    
     
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -25,16 +26,45 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func send_btn(_ sender: Any) {
         // 수정 발생 api
+        postDoginfodata(url: server_url+"/setting/doginfo/detail/update") { (ids) in
+            print(ids)
+        }
         self.dismiss(animated: true, completion: nil)
+    }// 입력완료
+    
+    @IBOutlet weak var name_text: UITextField!
+    // 이름 텍스트
+    
+    @IBOutlet weak var age_text: UITextField!
+    // 나이 텍스트
+    @IBOutlet weak var breed_text: UITextField!
+    // 품종 텍스트
+    @IBAction func breed_action(_ sender: Any) {
+//        self.keyboardToken = true
+        // 키보드 위로 올리기
     }
+    // 품종 칸 입력 시작시, 액션
+    @IBOutlet weak var activity_slider: UISlider!
+    // 활동력 슬라이더
+    @IBOutlet weak var intro_text: UITextView!
+    // 자기소개 텍스트
     override func viewDidLoad() {
         print("UserSetting of edit doginfo Start")
-        super.viewDidLoad()
-        postDoginfodata(url: server_url+"/setting/doginfo/detail/view") { (ids) in
+        intro_text.delegate = self
+        
+        viewDoginfodata(url: server_url+"/setting/doginfo/detail/view") { (ids) in
             print(ids)
+            self.name_text.text = ids[0] as? String
+            let temp_int:String = "\(ids[1])"
+            self.age_text.text = temp_int
+            self.breed_text.text = ids[2] as? String
+            self.activity_slider.setValue(ids[3] as! Float, animated: true)
+            self.intro_text.text = ids[4] as? String
             // 개이름, 나이(개월), 품종, 활동량, 자기소개
+            super.viewDidLoad()
             
         }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -50,7 +80,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         print("dissapper, UserSetting of edit doginfo, 키보드 옵저버 등록 해제")
         unregisterForKeyboardNotifications()
     }
-    func postDoginfodata(url: String, completion: @escaping ([Any]) -> Void){
+    func viewDoginfodata(url: String, completion: @escaping ([Any]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
             "dogname":self.dogname,
@@ -60,18 +90,42 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                 var ids = [Any]()
                 switch response.result{
                     case .success(let value):
-                        var viewdata = JSON(value)// 응답
-                        ids.append(viewdata["dogname"])
-                        ids.append(viewdata["age"])
-                        ids.append(viewdata["breed"])
-                        ids.append(viewdata["activity"])
-                        ids.append(viewdata["introduce"])
+                        let viewdata = JSON(value)// 응답
+                        ids.append(viewdata["dogname"].string!)
+                        ids.append(viewdata["age"].int!)
+                        ids.append(viewdata["breed"].string!)
+                        ids.append(viewdata["activity"].float!)
+                        ids.append(viewdata["introduce"].string!)
                     case .failure( _): break
                 }
                 completion(ids)
             }
         
-    }// dog info insert DB
+    }// dog info view DB
+    
+    func postDoginfodata(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "dogname":self.dogname,
+            "age":self.age_text.text!,
+            "breed":self.breed_text.text!,
+            "activity":String(self.activity_slider.value),
+            "introduce":self.intro_text.text!,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                    case .success(let value):
+                        let writedata = JSON(value)// 응답
+                        print(writedata)
+                        ids.append("\(writedata[0])")
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// dog info view DB
     
     
     func registerForKeyboardNotifications() {
@@ -121,3 +175,12 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         view.endEditing(true)
     }
 }
+extension EditdoginfoViewController:UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.keyboardToken = true
+    }// TextView Place Holder
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.keyboardToken = false
+    }
+}
+

@@ -114,3 +114,4 @@ router.post('/setting/doginfo/write/', infosetting_controller.dog_write);
 // 개에 대한 세부 정보 보기
 router.post('/setting/doginfo/detail/view/', infosetting_controller.dog_detail_view);
 // 개에 대한 세부 정보 수정
+router.post('/setting/doginfo/detail/update/', infosetting_controller.dog_detail_update);

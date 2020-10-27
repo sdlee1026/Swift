@@ -1,7 +1,7 @@
 const models = require('../../models/models');//DB
 
 exports.dog_detail_view = (req, res) => {
-    console.log('dog_view test')
+    console.log('dog_view test');
     var id = req.body.id || '';
     var dogname = req.body.dogname || '';
 
@@ -17,12 +17,39 @@ exports.dog_detail_view = (req, res) => {
         if(!dogsinfo){
             return res.status(404).json({err: 'No User'});
         }
-        console.log(dogsinfo);
         return res.json(dogsinfo);
     });
 
 };
+// 개에 대해 세부정보 보기
+exports.dog_detail_update = (req, res) =>{
+    console.log('dog_view update');
+    var id = req.body.id || '';
+    var dogname = req.body.dogname || '';
+    var breed = req.body.breed || '';
+    var age = req.body.age || '';
+    var activity = req.body.activity || -1;
+    var introduce = req.body.introduce || '';
 
+    console.log(id, dogname, breed, age, introduce)
+    var float_activity = parseFloat(activity)
+    console.log(float_activity)
+
+    models.DogsInfo.update(
+        {
+            activity: float_activity,
+            dogname: dogname,
+            breed: breed,
+            age: age,
+            introduce: introduce
+        },
+        {where: {
+            id: id,
+            dogname:dogname
+        }, returning: true}).then((doginfo) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
+};
 exports.dog_write = (req, res) => {
     console.log('dog_write test')
     var id = req.body.id || '';

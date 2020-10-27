@@ -27,7 +27,7 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var breed_text: UITextField!
     // 품종 텍스트 필드 outlet
     @IBAction func breed_text_start_action(_ sender: Any) {
-        keyboardToken = true
+       // keyboardToken = true
     }
     // 품종 텍스트필드 활성시 버튼 이벤트
     
