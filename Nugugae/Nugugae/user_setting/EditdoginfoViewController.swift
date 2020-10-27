@@ -73,15 +73,20 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
             print("이미지 포함x, 수정 api")
             postDoginfodata(url: server_url+"/setting/doginfo/detail/update") { (ids) in
                 print(ids)
+                if ids[0].count != 0 {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
-            self.dismiss(animated: true, completion: nil)
+            
         }// 이미지 변경 없었을 경우
         else{
             print("이미지 포함, 수정 api")
             postDoginfodataImg(url: server_url+"/setting/doginfo/detail/updateimg"){ (ids) in
                 print(ids)
+                if ids[0].count != 0 {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
-            self.dismiss(animated: true, completion: nil)
         }
     }// 입력완료
     
@@ -152,14 +157,18 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                         self.breed_text.text = viewdata["breed"].string!
                         self.activity_slider.setValue(viewdata["activity"].float! , animated: true)
                         self.intro_text.text = viewdata["introduce"].string!
+                        print(viewdata["image"].rawString())
+                        if viewdata["image"].rawString() != Optional("null"){
+                            print("이미지 db에서 로드")
+                            let rawData = viewdata["image"].rawString()
+                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                            print(decodedimage)
+
+                            self.image_profile.image = decodedimage
+                        }
                         
-                        let rawData = viewdata["image"].rawString()
-                        let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
-                        let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
-
-                        print(decodedimage)
-
-                        self.image_profile.image = decodedimage
                     case .failure( _): break
                 }
                 completion(ids)
@@ -182,8 +191,8 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                 switch response.result{
                     case .success(let value):
                         let writedata = JSON(value)// 응답
-                        print(writedata)
-                        ids.append("\(writedata[0])")
+                        print("\(writedata["content"])")
+                        ids.append("\(writedata["content"])")
                     case .failure( _): break
                 }
                 completion(ids)

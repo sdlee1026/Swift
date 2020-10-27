@@ -19,7 +19,15 @@ exports.dog_detail_view = (req, res) => {
         if(!dogsinfo){
             return res.status(404).json({err: 'No User'});
         }
-        dogsinfo['image'] = fs.readFileSync(dogsinfo['image05'], 'base64');
+        if (dogsinfo['image05'].length){
+            console.log('img 존재')
+            var img = fs.readFileSync(dogsinfo['image05'], 'base64');
+            dogsinfo['image'] = img
+        }
+        else{
+            dogsinfo['image'] = null
+        }
+
         return res.json(dogsinfo);
     });
 
@@ -87,16 +95,22 @@ exports.dog_detail_update_img = (req, res) =>{
         }
         console.log("업데이트로 인한.. 과거 파일..삭제");
         console.log(dogsinfo['image'], dogsinfo['image05']);
-        fs.unlink(dogsinfo['image'], function(err) {
-            if (err) throw err;
-          
-            console.log('file deleted');
-          });// 비동기
-        fs.unlink(dogsinfo['image05'], function(err) {
-            if (err) throw err;
-          
-            console.log('file deleted');
-          });        
+        
+        if (dogsinfo['image'] != '' && dogsinfo['image05'] != ''){
+            fs.unlink(dogsinfo['image'], function(err) {
+                if (err) throw err;
+              
+                console.log('file deleted');
+              });// 비동기
+              fs.unlink(dogsinfo['image05'], function(err) {
+                  if (err) throw err;
+                
+                  console.log('file deleted');
+                });       
+        }
+        else{
+            console.log('first img insert, not delete files')
+        }
     });
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 50%파일
