@@ -1122,7 +1122,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="186.33333333333334" height="189"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7n-TD-iBp">
-                                                <rect key="frame" x="0.0" y="189" width="186.33333333333334" height="30"/>
+                                                <rect key="frame" x="0.0" y="189" width="186.33333333333334" height="40.333333333333343"/>
                                                 <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="수정"/>
@@ -1132,12 +1132,12 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="프로필사진 수정 아래 배너.png" translatesAutoresizingMaskIntoConstraints="NO" id="RBO-7h-q4k" userLabel="img_tem">
-                                                <rect key="frame" x="0.0" y="219" width="186.33333333333334" height="50"/>
+                                                <rect key="frame" x="0.0" y="229.33333333333331" width="186.33333333333334" height="39.666666666666686"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hAZ-ZG-L87" firstAttribute="height" secondItem="Lmn-Tb-qGx" secondAttribute="height" multiplier="0.702602" id="4Dm-lS-bHE"/>
-                                            <constraint firstItem="e7n-TD-iBp" firstAttribute="height" secondItem="Lmn-Tb-qGx" secondAttribute="height" multiplier="0.111524" id="A9i-7x-C19"/>
+                                            <constraint firstItem="e7n-TD-iBp" firstAttribute="height" secondItem="Lmn-Tb-qGx" secondAttribute="height" multiplier="0.15" id="A9i-7x-C19"/>
                                             <constraint firstItem="hAZ-ZG-L87" firstAttribute="width" secondItem="Lmn-Tb-qGx" secondAttribute="width" id="MQO-eN-cHX"/>
                                         </constraints>
                                     </stackView>

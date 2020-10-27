@@ -157,7 +157,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                         self.breed_text.text = viewdata["breed"].string!
                         self.activity_slider.setValue(viewdata["activity"].float! , animated: true)
                         self.intro_text.text = viewdata["introduce"].string!
-                        print(viewdata["image"].rawString())
+                        //print(viewdata["image"].rawString())
                         if viewdata["image"].rawString() != Optional("null"){
                             print("이미지 db에서 로드")
                             let rawData = viewdata["image"].rawString()
