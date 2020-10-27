@@ -48,6 +48,9 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     // 활동력 슬라이더
     @IBOutlet weak var intro_text: UITextView!
     // 자기소개 텍스트
+    @IBOutlet weak var image_profile: UIImageView!
+    // 프로필 이미지
+    
     override func viewDidLoad() {
         print("UserSetting of edit doginfo Start")
         intro_text.delegate = self

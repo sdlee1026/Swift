@@ -35,6 +35,11 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
     // 활동력 슬라이더
     @IBOutlet weak var social_slider: UISlider!
     // 사회성 슬라이더
+    @IBOutlet weak var image_profile: UIImageView!
+    // 프로필 이미지
+    var img_change_token:Bool = false
+    // 이미지 바뀌는 토큰
+    
     @IBOutlet weak var intro_textView: UITextView!
     // 자기소개 텍스트 뷰
     
