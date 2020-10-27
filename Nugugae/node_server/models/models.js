@@ -130,7 +130,11 @@ const DogsInfo = sequelize.define('DogsInfos',{
         allowNull: true
     },
     // 프로필 사진
-    
+    image05:{
+        type : Sequelize.BLOB("long"),
+        allowNull: true
+    },
+    // 50%
 
     
 });

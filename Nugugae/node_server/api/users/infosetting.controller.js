@@ -31,9 +31,23 @@ exports.dog_detail_update = (req, res) =>{
     var activity = req.body.activity || -1;
     var introduce = req.body.introduce || '';
 
+    console.log('img : ')
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+
     console.log(id, dogname, breed, age, introduce)
     var float_activity = parseFloat(activity)
     console.log(float_activity)
+
+    // var img = fs.readFileSync(req.file.destination+req.file.filename)
+    // 원본파일
+    var img = req.files['image'][0].destination+req.files['image'][0].filename || ''
+    // 50%
+    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename || '' 
+    // 이미지 파일은 서버에 저장, 디비에는 링크만..
 
     models.DogsInfo.update(
         {
@@ -41,7 +55,9 @@ exports.dog_detail_update = (req, res) =>{
             dogname: dogname,
             breed: breed,
             age: age,
-            introduce: introduce
+            introduce: introduce,
+            image: img,
+            image05: img05,
         },
         {where: {
             id: id,
@@ -60,12 +76,26 @@ exports.dog_write = (req, res) => {
     var Sociability = req.body.Sociability || -1;
     var introduce = req.body.introduce || '';
 
+    console.log('img : ')
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+
     console.log(id, dogname, breed, age, introduce)
     var float_activity = parseFloat(activity)
     var float_Sociability = parseFloat(Sociability)
     console.log(float_activity)
     console.log(float_Sociability)
+    
 
+    // var img = fs.readFileSync(req.file.destination+req.file.filename)
+    // 원본파일
+    var img = req.files['image'][0].destination+req.files['image'][0].filename || '';
+    // 50%
+    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename || '';
+    // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});
     }
@@ -87,6 +117,8 @@ exports.dog_write = (req, res) => {
                 activity: float_activity,
                 Sociability: float_Sociability,
                 introduce: introduce,
+                image: img,
+                image05: img05,
             }).then((doginfo) => {
                 return res.status(201).json({content: 'write OK'});
             });

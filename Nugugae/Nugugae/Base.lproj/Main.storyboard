@@ -986,6 +986,9 @@
                                                 <state key="normal">
                                                     <imageReference key="image" image="plus.rectangle.on.folder" catalog="system" symbolScale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="new_image_btn:" destination="ZcO-CY-Fve" eventType="touchUpInside" id="NMN-aN-og6"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
