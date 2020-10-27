@@ -60,7 +60,7 @@ const UserDetailInfo = sequelize.define('UserDetailInfos',{
     },
     // 사용자 자기소개
     picture:{
-        type : Sequelize.BLOB("long")
+        type : Sequelize.STRING
     },
     // 프로필 사진
 });
@@ -126,12 +126,12 @@ const DogsInfo = sequelize.define('DogsInfos',{
     },
     // 좋아하는 음식, +a기능에서 쓸 수도..
     image:{
-        type : Sequelize.BLOB("long"),
+        type : Sequelize.STRING,
         allowNull: true
     },
     // 프로필 사진
     image05:{
-        type : Sequelize.BLOB("long"),
+        type : Sequelize.STRING,
         allowNull: true
     },
     // 50%
@@ -209,11 +209,11 @@ const GalleryTable = sequelize.define('GalleryTables',{
     },
     // 사진 데이터를 찍은 시간(반드시 존재_기본키)
     image:{
-        type : Sequelize.BLOB("long"),
+        type : Sequelize.STRING,
         allowNull: false
     },
     image05:{
-        type : Sequelize.BLOB("long"),
+        type : Sequelize.STRING,
         allowNull: true
     },
     // 이미지

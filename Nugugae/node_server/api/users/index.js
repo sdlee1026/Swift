@@ -139,4 +139,5 @@ router.post('/setting/doginfo/write/', upload_dog_profile.fields([{ name: 'image
 // 개에 대한 세부 정보 보기
 router.post('/setting/doginfo/detail/view/', infosetting_controller.dog_detail_view);
 // 개에 대한 세부 정보 수정
-router.post('/setting/doginfo/detail/update/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_detail_update);
+router.post('/setting/doginfo/detail/update/', infosetting_controller.dog_detail_update);
+router.post('/setting/doginfo/detail/updateimg/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_detail_update_img);

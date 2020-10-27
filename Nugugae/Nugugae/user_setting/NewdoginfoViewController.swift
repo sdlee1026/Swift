@@ -21,6 +21,9 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     var img_view: UIImage?
     // 선택된 이미지
+    var img_change_token:Bool = false
+    // 이미지 바뀌는 토큰
+    
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // user id
     
@@ -42,8 +45,6 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
     // 사회성 슬라이더
     @IBOutlet weak var image_profile: UIImageView!
     // 프로필 이미지
-    var img_change_token:Bool = false
-    // 이미지 바뀌는 토큰
     
     @IBAction func new_image_btn(_ sender: Any) {
         let new_img_alert =  UIAlertController(title: "올릴 곳 선택", message: "원하는 방법을 선택해주세요", preferredStyle: .actionSheet)
@@ -178,20 +179,20 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
                 })
             
         }
-//        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
-//            .responseJSON{ response in
-//                var ids = [String]()
-//                switch response.result{
-//                    case .success(let value):
-//                        let writedata = JSON(value)// 응답
-//                        print("\(writedata["content"])")
-//                        ids.append("\(writedata["content"])")
-//                    case .failure( _): break
-//                }
-//                completion(ids)
-//            }
         
-    }// dog info insert DB
+    }
+//    to: url).responseJSON(completionHandler: { (response) in
+//        var ids = [String]()
+//        switch response.result{
+//            case .success(let value):
+//                let writedata = JSON(value)// 응답
+//                print("\(writedata["content"])")
+//                ids.append("\(writedata["content"])")
+//            case .failure( _): break
+//        }
+//        completion(ids)
+//    }) < 이전에 썻던..
+    // dog info insert DB
     
     func registerForKeyboardNotifications() {
         // 옵저버 등록

@@ -1,3 +1,5 @@
+var fs = require('fs'); // 파일 시스템
+const Blob = require("cross-blob");
 const models = require('../../models/models');//DB
 
 exports.dog_detail_view = (req, res) => {
@@ -17,13 +19,49 @@ exports.dog_detail_view = (req, res) => {
         if(!dogsinfo){
             return res.status(404).json({err: 'No User'});
         }
+        // dogsinfo['image'] = fs.readFileSync(dogsinfo['image'])
+        // dogsinfo['image05'] = fs.readFileSync(dogsinfo['image05'])
+        var img = fs.readFileSync(dogsinfo['image05'], 'base64');
+
+        dogsinfo['image'] = img
         return res.json(dogsinfo);
     });
 
 };
 // 개에 대해 세부정보 보기
+
 exports.dog_detail_update = (req, res) =>{
     console.log('dog_view update');
+    var id = req.body.id || '';
+    var dogname = req.body.dogname || '';
+    var breed = req.body.breed || '';
+    var age = req.body.age || '';
+    var activity = req.body.activity || -1;
+    var introduce = req.body.introduce || '';
+
+    console.log(id, dogname, breed, age, introduce)
+    var float_activity = parseFloat(activity)
+    console.log(float_activity)
+
+
+    models.DogsInfo.update(
+        {
+            activity: float_activity,
+            breed: breed,
+            age: age,
+            introduce: introduce,
+        },
+        {where: {
+            id: id,
+            dogname:dogname
+        }, returning: true}).then((doginfo) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
+};
+// 개에 대해 세부정보 수정, 이미지 미포함
+
+exports.dog_detail_update_img = (req, res) =>{
+    console.log('dog_view update_img');
     var id = req.body.id || '';
     var dogname = req.body.dogname || '';
     var breed = req.body.breed || '';
@@ -42,17 +80,38 @@ exports.dog_detail_update = (req, res) =>{
     var float_activity = parseFloat(activity)
     console.log(float_activity)
 
+    models.DogsInfo.findOne({
+        where: {
+            id: id,
+            dogname: dogname,
+        }
+    }).then(dogsinfo => {
+        if(!dogsinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        console.log("업데이트로 인한.. 과거 파일..삭제");
+        console.log(dogsinfo['image'], dogsinfo['image05']);
+        fs.unlink(dogsinfo['image'], function(err) {
+            if (err) throw err;
+          
+            console.log('file deleted');
+          });// 비동기
+        fs.unlink(dogsinfo['image05'], function(err) {
+            if (err) throw err;
+          
+            console.log('file deleted');
+          });        
+    });
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
-    // 원본파일
-    var img = req.files['image'][0].destination+req.files['image'][0].filename || ''
-    // 50%
-    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename || '' 
+    // 50%파일
+    var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename || ''
+    // 25%
+    var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename || '' 
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
 
     models.DogsInfo.update(
         {
             activity: float_activity,
-            dogname: dogname,
             breed: breed,
             age: age,
             introduce: introduce,
@@ -66,6 +125,8 @@ exports.dog_detail_update = (req, res) =>{
         return res.status(201).json({content: 'Update OK'})
     });
 };
+// 개에 대해 세부정보 수정, 이미지 포함
+
 exports.dog_write = (req, res) => {
     console.log('dog_write test')
     var id = req.body.id || '';
@@ -91,10 +152,10 @@ exports.dog_write = (req, res) => {
     
 
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
-    // 원본파일
-    var img = req.files['image'][0].destination+req.files['image'][0].filename || '';
-    // 50%
-    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename || '';
+    // 50%파일
+    var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename || '';
+    // 25%
+    var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename || '';
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});

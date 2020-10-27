@@ -1576,10 +1576,14 @@
                                                 <state key="normal">
                                                     <imageReference key="image" image="plus.rectangle.on.folder" catalog="system" symbolScale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="new_image_btn:" destination="Gh7-rS-WPo" eventType="touchUpInside" id="SVI-ET-cw0"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="sle-PZ-Y25" firstAttribute="width" secondItem="Ll3-Fk-VXt" secondAttribute="width" multiplier="0.2" id="JzE-Ek-uvg"/>
+                                            <constraint firstItem="hqI-FB-HHz" firstAttribute="width" secondItem="Ll3-Fk-VXt" secondAttribute="width" multiplier="0.55" id="3MF-ux-c4V"/>
+                                            <constraint firstItem="hqI-FB-HHz" firstAttribute="height" secondItem="Ll3-Fk-VXt" secondAttribute="height" id="YAQ-FT-MCg"/>
                                             <constraint firstItem="qSS-I6-hVN" firstAttribute="width" secondItem="Ll3-Fk-VXt" secondAttribute="width" multiplier="0.25" id="dWC-CL-Ps5"/>
                                         </constraints>
                                     </stackView>
@@ -1665,6 +1669,7 @@
                         <outlet property="image_profile" destination="hqI-FB-HHz" id="K16-3l-Qxg"/>
                         <outlet property="intro_text" destination="FjM-W0-ZSX" id="piT-NC-yCO"/>
                         <outlet property="name_text" destination="YbJ-0p-fE2" id="ddo-18-a50"/>
+                        <outlet property="send_outlet" destination="sRU-Y8-6Xq" id="s8g-9y-GKy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFk-zD-uF1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

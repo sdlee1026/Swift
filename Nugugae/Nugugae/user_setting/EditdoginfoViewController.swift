@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import Photos
 class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     var keyboardShown:Bool = false // 키보드 상태 확인
     let server_url:String = Server_url.sharedInstance.server_url
@@ -16,20 +17,72 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     var keyboardToken:Bool = false
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // user id
-    var dogname:String = "ㅁ"
+    var dogname:String = "ㅆ"
     // 인자로 전해받을 것
     
+    let img_picker = UIImagePickerController()
+    // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
+    var img_view: UIImage?
+    // 선택된 이미지
+    var img_change_token:Bool = false
+    // 이미지 바뀌는 토큰
+    @IBAction func new_image_btn(_ sender: Any) {
+        let new_img_alert =  UIAlertController(title: "올릴 곳 선택", message: "원하는 방법을 선택해주세요", preferredStyle: .actionSheet)
+        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibrary()
+        }
+        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        new_img_alert.addAction(library)
+        new_img_alert.addAction(camera)
+        new_img_alert.addAction(cancel)
+
+        present(new_img_alert, animated: true, completion: nil)
+        
+    }
+    // 새 이미지 누르는 버튼
+    func openLibrary(){
+        img_picker.sourceType = .photoLibrary
+        present(img_picker, animated: true, completion: nil)
+    }
+    // 앨범 선택
+
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(.camera)){
+            img_picker.sourceType = .camera
+            present(img_picker, animated: true, completion: nil)
+            
+        }
+        else{
+            print("Camera not available")
+        }// 시뮬레이터로 돌릴시 오류
+    }
+    // 카메라 선택
     
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
     
+    @IBOutlet weak var send_outlet: UIButton!
     @IBAction func send_btn(_ sender: Any) {
         // 수정 발생 api
-        postDoginfodata(url: server_url+"/setting/doginfo/detail/update") { (ids) in
-            print(ids)
+        self.send_outlet.isEnabled = false
+        if img_change_token == false{
+            print("이미지 포함x, 수정 api")
+            postDoginfodata(url: server_url+"/setting/doginfo/detail/update") { (ids) in
+                print(ids)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }// 이미지 변경 없었을 경우
+        else{
+            print("이미지 포함, 수정 api")
+            postDoginfodataImg(url: server_url+"/setting/doginfo/detail/updateimg"){ (ids) in
+                print(ids)
+            }
+            self.dismiss(animated: true, completion: nil)
         }
-        self.dismiss(animated: true, completion: nil)
     }// 입력완료
     
     @IBOutlet weak var name_text: UITextField!
@@ -55,6 +108,10 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         print("UserSetting of edit doginfo Start")
         intro_text.delegate = self
         
+        img_picker.delegate = self
+        img_picker.sourceType = .savedPhotosAlbum
+        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image", "public.movie"])!
+        
         viewDoginfodata(url: server_url+"/setting/doginfo/detail/view") { (ids) in
             print(ids)
             self.name_text.text = ids[0] as? String
@@ -63,6 +120,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
             self.breed_text.text = ids[2] as? String
             self.activity_slider.setValue(ids[3] as! Float, animated: true)
             self.intro_text.text = ids[4] as? String
+            
             // 개이름, 나이(개월), 품종, 활동량, 자기소개
             super.viewDidLoad()
             
@@ -99,6 +157,30 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                         ids.append(viewdata["breed"].string!)
                         ids.append(viewdata["activity"].float!)
                         ids.append(viewdata["introduce"].string!)
+//                        do {
+//                            let rawData = try viewdata["image"].rawData()
+//                          //Do something you want
+//                        } catch {
+//                            print("Error \(error)")
+//                        }
+                        do {
+                            let rawData = try viewdata["image"].rawString()
+                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+
+                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                            print(decodedimage)
+
+                            self.image_profile.image = decodedimage
+//                            if let imgdata = rawData!.data(using: String.Encoding.utf8){
+//                                self.image_profile.image = UIImage(data: imgdata)
+//                            }
+                    
+                            //self.image_profile.image = rawData
+                          //Do something you want
+                        } catch {
+                            print("Error \(error)")
+                        }
                     case .failure( _): break
                 }
                 completion(ids)
@@ -128,7 +210,50 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                 completion(ids)
             }
         
-    }// dog info view DB
+    }// dog info write DB, 이미지 미포함
+    func postDoginfodataImg(url: String, completion: @escaping ([String]) -> Void){
+        let image_view = self.img_view
+        let parameters: [String:String] = [
+            "id":self.user,
+            "dogname":self.dogname,
+            "age":self.age_text.text!,
+            "breed":self.breed_text.text!,
+            "activity":String(self.activity_slider.value),
+            "introduce":self.intro_text.text!,
+        ]
+        if let imageData=image_view!.jpegData(compressionQuality: 0.5){
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    multipartFormData.append(
+                        imageData, withName: "image",
+                        fileName:self.user+self.name_text.text!+"_Q5.png",
+                        mimeType: "image/png")
+                    // 50% 이미지
+                    multipartFormData.append(
+                        (image_view?.jpegData(compressionQuality: 0.25))!,
+                        withName: "image05",
+                        fileName: self.user+self.name_text.text!+"_Q25.png",
+                        mimeType: "image/png")
+                    // 25% 이미지
+                    for (key, value) in parameters {
+                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                    }
+                    // parameter form 적재
+                    
+                },to: url).responseJSON(completionHandler: { (response) in
+                    var ids = [String]()
+                    switch response.result{
+                        case .success(let value):
+                            let writedata = JSON(value)// 응답
+                            print("\(writedata["content"])")
+                            ids.append("\(writedata["content"])")
+                        case .failure( _): break
+                    }
+                    completion(ids)
+                })
+        }
+        
+    }// dog info view DB, 이미지 포함
     
     
     func registerForKeyboardNotifications() {
@@ -185,5 +310,36 @@ extension EditdoginfoViewController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         self.keyboardToken = false
     }
+}
+extension EditdoginfoViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            image_profile.image = image
+            img_view = image
+            // origianl 이미지를 imageview에 넣음
+        }
+        if img_picker.sourceType == .camera
+        {
+            if let PHP_image = info[.originalImage] as? UIImage{
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                }, completionHandler: { (success, error) in
+                    if success{
+                        print("사진 저장 성공")
+                    }
+                    else{
+                        print("사진 저장 에러 발생")
+                    }
+                })
+            }
+        }
+        // 피커가 카메라를 기준으로 사진을 선택한 경우
+        self.img_change_token = true
+        // 이미지 체인지 토큰 true로
+        dismiss(animated: true, completion: nil)
+    }//이미지 피커 종료
+    
 }
 

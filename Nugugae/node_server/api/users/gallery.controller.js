@@ -42,9 +42,9 @@ exports.gallery_upload_private = (req, res) => {
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
-    var img = req.files['image'][0].destination+req.files['image'][0].filename
+    var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
     // 50%
-    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename
+    var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
@@ -110,9 +110,9 @@ exports.gallery_upload_public = (req, res) => {
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
     // 원본파일
-    var img = req.files['image'][0].destination+req.files['image'][0].filename
+    var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
     // 50%
-    var img05 = req.files['image05'][0].destination+req.files['image05'][0].filename
+    var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
