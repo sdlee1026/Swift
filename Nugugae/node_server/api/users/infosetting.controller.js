@@ -19,11 +19,7 @@ exports.dog_detail_view = (req, res) => {
         if(!dogsinfo){
             return res.status(404).json({err: 'No User'});
         }
-        // dogsinfo['image'] = fs.readFileSync(dogsinfo['image'])
-        // dogsinfo['image05'] = fs.readFileSync(dogsinfo['image05'])
-        var img = fs.readFileSync(dogsinfo['image05'], 'base64');
-
-        dogsinfo['image'] = img
+        dogsinfo['image'] = fs.readFileSync(dogsinfo['image05'], 'base64');
         return res.json(dogsinfo);
     });
 

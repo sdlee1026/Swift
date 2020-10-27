@@ -114,12 +114,6 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         
         viewDoginfodata(url: server_url+"/setting/doginfo/detail/view") { (ids) in
             print(ids)
-            self.name_text.text = ids[0] as? String
-            let temp_int:String = "\(ids[1])"
-            self.age_text.text = temp_int
-            self.breed_text.text = ids[2] as? String
-            self.activity_slider.setValue(ids[3] as! Float, animated: true)
-            self.intro_text.text = ids[4] as? String
             
             // 개이름, 나이(개월), 품종, 활동량, 자기소개
             super.viewDidLoad()
@@ -152,35 +146,20 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
                 switch response.result{
                     case .success(let value):
                         let viewdata = JSON(value)// 응답
-                        ids.append(viewdata["dogname"].string!)
-                        ids.append(viewdata["age"].int!)
-                        ids.append(viewdata["breed"].string!)
-                        ids.append(viewdata["activity"].float!)
-                        ids.append(viewdata["introduce"].string!)
-//                        do {
-//                            let rawData = try viewdata["image"].rawData()
-//                          //Do something you want
-//                        } catch {
-//                            print("Error \(error)")
-//                        }
-                        do {
-                            let rawData = try viewdata["image"].rawString()
-                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                        self.name_text.text = viewdata["dogname"].string!
+                        let temp_int:String = "\(viewdata["age"])"
+                        self.age_text.text = temp_int
+                        self.breed_text.text = viewdata["breed"].string!
+                        self.activity_slider.setValue(viewdata["activity"].float! , animated: true)
+                        self.intro_text.text = viewdata["introduce"].string!
+                        
+                        let rawData = viewdata["image"].rawString()
+                        let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                        let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
 
-                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+                        print(decodedimage)
 
-                            print(decodedimage)
-
-                            self.image_profile.image = decodedimage
-//                            if let imgdata = rawData!.data(using: String.Encoding.utf8){
-//                                self.image_profile.image = UIImage(data: imgdata)
-//                            }
-                    
-                            //self.image_profile.image = rawData
-                          //Do something you want
-                        } catch {
-                            print("Error \(error)")
-                        }
+                        self.image_profile.image = decodedimage
                     case .failure( _): break
                 }
                 completion(ids)
