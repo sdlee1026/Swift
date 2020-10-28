@@ -14,6 +14,8 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
     
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
+    let user:String = UserDefaults.standard.string(forKey: "userId")!
+    var img_view: UIImage?
     
     @IBAction func logout_btn(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
@@ -33,18 +35,28 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
     // 로그 아웃 버튼
     
     @IBOutlet weak var profile_img: UIImageView!
-    @IBOutlet weak var profile_label: UILabel!
+    @IBOutlet weak var profile_id: UILabel!
+    @IBOutlet weak var profile_nick: UILabel!
+    @IBOutlet weak var profile_intro: UITextView!
     // profile img, label, outlet
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("UserGallery Start")
+        self.profile_id.text = user
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         print("view 호출(view will appear)\tGalley view")
+        viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
+            print("view_user_info api")
+            print("view willappear 종료, Galley view")
+            
+            // 개이름, 나이(개월), 품종, 활동량, 자기소개
+            super.viewWillAppear(true)
+            
+        }
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
@@ -54,4 +66,33 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
         super.viewDidDisappear(true)
         print("view dissapper\tGalley view")
     }
+    func viewUserinfodata(url: String, completion: @escaping ([Any]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [Any]()
+                switch response.result{
+                    case .success(let value):
+                        let viewdata = JSON(value)// 응답
+                        self.profile_nick.text = viewdata["nickname"].string!
+                        self.profile_intro.text = viewdata["introduce"].string!
+                        //print(viewdata["image"].rawString())
+                        if viewdata["image"].rawString() != Optional("null"){
+                            print("이미지 db에서 로드")
+                            let rawData = viewdata["image"].rawString()
+                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                            print(decodedimage)
+                            self.profile_img.image = decodedimage
+                        }
+                        
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// user info view DB
 }

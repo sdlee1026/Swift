@@ -21,7 +21,11 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     var temp_nickname:String = ""
     var temp_introtext:String = ""
     // 내용 변경 비교할 temp_string들
+    let img_picker = UIImagePickerController()
+    // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     var img_view: UIImage?
+    // 선택된 이미지
+    
     @IBOutlet weak var id_label: UILabel!
     // id_label outlet
     
@@ -38,21 +42,27 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     override func viewDidLoad() {
         print("UserSetting Start")
         print("user : "+user)
-        
         // 서버 쿼리 보내서 정보 기입 동작.. 시간 좀 걸리는데 비동기로 해야함. 일단은
         id_label.text = user
+        
+        nickname_text.delegate = self
+        
+        
+        img_picker.delegate = self
+        img_picker.sourceType = .savedPhotosAlbum
+        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image"])!
         super.viewDidLoad()
         
         self.intro_textview.delegate = self
         // textview 딜리게이트
-        
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear), UserSetting")
         nickname_btn_outlet.setTitle("수정", for: .normal)
         intro_btn_outlet.setTitle("수정", for: .normal)
+        self.img_edit_token = false
+        self.edit_token = false
+        // 토큰 초기화
         viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
             print("view_user_info api")
             print("view willappear 종료, userSetting")
@@ -123,7 +133,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
                 completion(ids)
             }
         
-    }// dog info view DB
+    }// user info view DB
     
     func postUserinfodata(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
@@ -247,11 +257,81 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     
     @IBAction func profile_img_btn(_ sender: Any) {
         print("profile_img_update btn")
+        let new_img_alert =  UIAlertController(title: "올릴 곳 선택", message: "원하는 방법을 선택해주세요", preferredStyle: .actionSheet)
+        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibrary()
+        }
+        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        new_img_alert.addAction(library)
+        new_img_alert.addAction(camera)
+        new_img_alert.addAction(cancel)
+
+        present(new_img_alert, animated: true, completion: nil)
     }
     // 프로필 사진 수정 버튼
+    func openLibrary(){
+        img_picker.sourceType = .photoLibrary
+        present(img_picker, animated: true, completion: nil)
+    }
+    // 앨범 선택
+
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(.camera)){
+            img_picker.sourceType = .camera
+            present(img_picker, animated: true, completion: nil)
+            
+        }
+        else{
+            print("Camera not available")
+        }// 시뮬레이터로 돌릴시 오류
+    }
+    // 카메라 선택
     
     @IBAction func new_dogs_btn(_ sender: Any) {
         print("new_dogs_btn function!")
     }
     // 강아지 정보 추가 버튼
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }// 키보드 다른곳 클릭
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()//텍스트필드 비활성화
+        return true
+    }// 엔터버튼 클릭시..
 }
+extension UserSettingViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            profile_img.image = image
+            img_view = image
+            // origianl 이미지를 imageview에 넣음
+        }
+        if img_picker.sourceType == .camera
+        {
+            if let PHP_image = info[.originalImage] as? UIImage{
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                }, completionHandler: { (success, error) in
+                    if success{
+                        print("사진 저장 성공")
+                    }
+                    else{
+                        print("사진 저장 에러 발생")
+                    }
+                })
+            }
+        }
+        // 피커가 카메라를 기준으로 사진을 선택한 경우
+        self.img_edit_token = true
+        self.edit_token = true
+        // 내용, 이미지 체인지 토큰 true로
+        dismiss(animated: true, completion: nil)
+    }//이미지 피커 종료
+    
+}
+

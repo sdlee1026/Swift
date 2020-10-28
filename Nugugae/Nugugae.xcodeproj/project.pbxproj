@@ -175,12 +175,12 @@
 		6A620F532511FEE800B83B0A /* Nugugae */ = {
 			isa = PBXGroup;
 			children = (
-				6A1C95AE2546B414005D2395 /* user_setting */,
 				6A307EF8252A028900E11A91 /* local_setting */,
 				6A307EF7252A026600E11A91 /* main_view */,
 				6A307EF6252A023B00E11A91 /* login_view */,
 				6A7D4D1F2526CE5900E98868 /* walk */,
 				6A307EFC25335CE900E11A91 /* gallery */,
+				6A1C95AE2546B414005D2395 /* user_setting */,
 				6A620F542511FEE800B83B0A /* AppDelegate.swift */,
 				6A620F562511FEE800B83B0A /* SceneDelegate.swift */,
 				6A620F5A2511FEE800B83B0A /* Main.storyboard */,

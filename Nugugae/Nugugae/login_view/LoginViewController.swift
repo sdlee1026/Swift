@@ -44,9 +44,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if let rvc = dest as? MainTapBarController {
                 rvc.paramName = self.id_textfield.text
             }
-//            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//            UserDefaults.standard.set(self.id_textfield.text, forKey: "userId")
-//            print(UserDefaults.standard.string(forKey: "userId"))
         }
     }
     // segue override

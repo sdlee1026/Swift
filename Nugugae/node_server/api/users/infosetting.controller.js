@@ -109,7 +109,7 @@ exports.user_detail_update_img = (req, res) => {
     var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename || '' 
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
 
-    models.userinfo.update(
+    models.UserDetailInfo.update(
         {
             nickname: nickname,
             introduce: introduce,
