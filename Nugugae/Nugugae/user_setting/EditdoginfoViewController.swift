@@ -17,7 +17,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     var keyboardToken:Bool = false
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // user id
-    var dogname:String = "ㅆ"
+    var dogname:String = ""
     // 인자로 전해받을 것
     
     let img_picker = UIImagePickerController()

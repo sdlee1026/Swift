@@ -25,7 +25,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     var img_view: UIImage?
     // 선택된 이미지
-    
+    let temp_img: UIImage = UIImage(named: "안내_사진없음2.png")!
     @IBOutlet weak var id_label: UILabel!
     // id_label outlet
     
@@ -39,6 +39,20 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     // intro_textview outlet
     @IBOutlet weak var intro_btn_outlet: UIButton!
     // 자기소개 수정 버튼 outlet
+    
+    @IBOutlet weak var dogs_table: UITableView!
+    var dog_work_index:Int = -1
+    // 현재 작업 인덱스
+    var seg_name:String = ""
+    // 세그 보낼 이름 데이터
+    
+    var table_img:[UIImage] = []
+    var table_name:[String] = []
+    var table_breed:[String] = []
+    var table_age:[String] = []
+    // 개들 테이블 이미지,이름,품종,나이 들어갈 곳
+    
+    
     override func viewDidLoad() {
         print("UserSetting Start")
         print("user : "+user)
@@ -51,7 +65,18 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         img_picker.delegate = self
         img_picker.sourceType = .savedPhotosAlbum
         img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image"])!
+        dogs_table.delegate = self
+        dogs_table.dataSource = self
         super.viewDidLoad()
+        getDogscontent(url: server_url+"/setting/doginfo/all/view") { (ids_name, ids_age, ids_breed, ids_image) in
+            print("개 정보 db에서 부름")
+            self.table_name.append(contentsOf: ids_name)
+            self.table_age.append(contentsOf: ids_age)
+            self.table_breed.append(contentsOf: ids_breed)
+            self.table_img.append(contentsOf: ids_image)
+            self.dogs_table.reloadData()
+            // 테이블 새로고침
+        }
         
         self.intro_textview.delegate = self
         // textview 딜리게이트
@@ -60,6 +85,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         print("view 호출(view will appear), UserSetting")
         nickname_btn_outlet.setTitle("수정", for: .normal)
         intro_btn_outlet.setTitle("수정", for: .normal)
+        // 자기 소개, 수정 버튼 title "수정"으로
         self.img_edit_token = false
         self.edit_token = false
         // 토큰 초기화
@@ -68,10 +94,9 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
             print("view willappear 종료, userSetting")
             
             // 개이름, 나이(개월), 품종, 활동량, 자기소개
-            super.viewWillAppear(true)
-            
         }
-        // 자기 소개, 수정 버튼 title "수정"으로
+        
+        super.viewWillAppear(true)
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
@@ -104,6 +129,55 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         nickname_text.isEnabled = false
         intro_textview.isEditable = false
         // 뷰 끝날때 수정 가능하게 되었던 라벨들 false로 다시 조정
+    }
+    
+    func getDogscontent(url: String, completion: @escaping ([String],[String],[String],[UIImage]) -> Void) {
+        
+        let parameters: [String:[String]] = [
+            "id":[self.user],
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON { response in
+                var ids_name = [String]()
+                var ids_age = [String]()
+                var ids_breed = [String]()
+                var ids_image = [UIImage]()
+                switch response.result {
+                    case .success(let value):
+                        let dogsJson = JSON(value)
+                        // SwiftyJSON 사용
+                        if (dogsJson["err"]=="No dogs"){
+                            print("!")
+                            print("\(dogsJson["err"])")
+                        }
+                        else{
+                            for d_json in dogsJson{
+                                // d_json.0 은 인덱스, d_json.1은 json 내용
+                                ids_name.append("\(d_json.1["dogname"])")
+                                ids_age.append("\(d_json.1["age"]) 개월")
+                                ids_breed.append("\(d_json.1["breed"])")
+                                if d_json.1["image"].rawString() != Optional("null"){
+                                    print("개 프로필, db로드")
+                                    let rawData = d_json.1["image"].rawString()
+                                    let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                                    let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                                    print(decodedimage)// 불러온 이미지, 디코딩
+                                    ids_image.append(decodedimage)
+                                }
+                                else{
+                                    print("이미지 없는 경우,")
+                                    ids_image.append(self.temp_img)// 사진 없음
+                                }
+                                // 이미지 처리
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                }
+                completion(ids_name, ids_age,ids_breed,ids_image)
+                //closer 기법
+            }
     }
     func viewUserinfodata(url: String, completion: @escaping ([Any]) -> Void){
         let parameters: [String:String] = [
@@ -216,7 +290,8 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     
     
     @IBAction func nickname_update_btn(_ sender: Any) {
-        if(nickname_btn_outlet.titleLabel?.text == "수정"){        nickname_btn_outlet.setTitle("확인", for: .normal)
+        if(nickname_btn_outlet.titleLabel?.text == "수정"){
+            nickname_btn_outlet.setTitle("확인", for: .normal)
             nickname_text.isEnabled = true
             // 버튼 라벨 바꾸고, 라벨 입력 가능하게끔 변경
             temp_nickname = nickname_text.text!
@@ -289,7 +364,18 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         }// 시뮬레이터로 돌릴시 오류
     }
     // 카메라 선택
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "dogtable_to_detail_seg"{
+            print("segue data prepare")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? EditdoginfoViewController {
+                rvc.dogname = self.seg_name
+            }
+        }
+    }
+    // segue 데이터전송시 준비
     @IBAction func new_dogs_btn(_ sender: Any) {
         print("new_dogs_btn function!")
     }
@@ -332,6 +418,48 @@ extension UserSettingViewController:UIImagePickerControllerDelegate, UINavigatio
         // 내용, 이미지 체인지 토큰 true로
         dismiss(animated: true, completion: nil)
     }//이미지 피커 종료
+    
+}
+extension UserSettingViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("테이블 넣기")
+        print(self.table_name)
+        print(self.table_age)
+        print(self.table_breed)
+        return self.table_name.count
+    }// 한 섹션에 row가 몇개 들어갈 것인지
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dog_cell", for: indexPath) as! dog_cell
+        cell.breed_label.text! = self.table_breed[indexPath.row]
+//        if self.table_img[indexPath.row] != nil{
+        cell.img.image = self.table_img[indexPath.row]
+//        }
+        cell.age_label.text! = self.table_age[indexPath.row]
+        cell.name_label.text! = self.table_name[indexPath.row]
+        print("cell dequeue 동작")
+        return cell
+    }// cell 에 들어갈 데이터를 입력하는 function
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (self.dogs_table.rowHeight != 100){
+            return 100
+        }
+        else{
+            return self.dogs_table.rowHeight
+        }
+    }// 높이지정
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        print("table_cell click")
+        self.dog_work_index = indexPath.row
+        // 작업 인덱스 저장
+        print(indexPath.row)
+        print(self.table_name[indexPath.row])
+        self.seg_name = self.table_name[indexPath.row]
+        self.performSegue(withIdentifier: "dogtable_to_detail_seg", sender: nil)
+    }// 클릭 이벤트 발생, segue 호출
     
 }
 

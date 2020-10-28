@@ -27,8 +27,9 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     var segue_date:String = ""
     
     var walk_work_index:Int = -1
+    // 현재 작업 인덱스
+    
     let user:String = UserDefaults.standard.string(forKey: "userId")!
-    // query_스크롤 할때 더 불러오는 기준.. limit default 10
     
     override func viewDidLoad() {
         UserDefaults.standard.set(false,forKey: "new_walk")

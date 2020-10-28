@@ -168,6 +168,9 @@ router.post('/setting/userinfo/detail/view/', infosetting_controller.user_detail
 router.post('/setting/userinfo/detail/update/', infosetting_controller.user_detail_update);
 router.post('/setting/userinfo/detail/updateimg/', upload_user_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.user_detail_update_img);
 
+// 개 전체에 대한 정보 보기(테이블을 위해서)
+router.post('/setting/doginfo/all/view/', infosetting_controller.dog_all_view);
+
 // 개에 대한 정보 새로 쓰기
 router.post('/setting/doginfo/write/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_write);
 // 개에 대한 세부 정보 보기

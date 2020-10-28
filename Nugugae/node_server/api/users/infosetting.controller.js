@@ -33,6 +33,37 @@ exports.user_detail_view = (req, res) => {
 };
 // 유저에 대해 세부정보 보기
 
+exports.dog_all_view = (req, res) => {
+    console.log('user_doginfo all view');
+    var id = req.body.id || ''
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.DogsInfo.findAll({
+        where: {
+            id: id
+        },
+    }).then(dogs => {
+        if(!dogs){
+            console.log(dogs);
+            return res.status(404).json({err: 'No dogs'});
+        }
+        for (var i=0; i<dogs.length; i++){
+            console.log(dogs[i]['image05'])
+            if (dogs[i]['image05']!=null){
+                console.log('dogs_profile_img 존재')
+                var img = fs.readFileSync(dogs[i]['image05'], 'base64');
+                dogs[i]['image'] = img
+            }
+            else{
+                console.log('dogs_profile_img 없음')
+                dogs[i]['image'] = null
+            }
+        }// findall 이므로, for문으로 모든 내용들 서치
+        
+        return res.json(dogs);
+    })
+};
 // 개정보 테이블을 위한 정보 불러오기
 
 exports.user_detail_update = (req, res) => {
@@ -142,7 +173,8 @@ exports.dog_detail_view = (req, res) => {
         if(!dogsinfo){
             return res.status(404).json({err: 'No User'});
         }
-        if (dogsinfo['image05'].length){
+        console.log(dogsinfo['image05'])
+        if (dogsinfo['image05'] != null){
             console.log('img 존재')
             var img = fs.readFileSync(dogsinfo['image05'], 'base64');
             dogsinfo['image'] = img
