@@ -2,6 +2,129 @@ var fs = require('fs'); // 파일 시스템
 const Blob = require("cross-blob");
 const models = require('../../models/models');//DB
 
+exports.user_detail_view = (req, res) => {
+    console.log('user_view detail');
+    var id = req.body.id || '';
+    console.log(id)
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.UserDetailInfo.findOne({
+        where: {
+            id: id,
+        }
+    }).then(userinfo => {
+        if(!userinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        if (userinfo['image05']!=null){
+            console.log('userprofile_img 존재')
+            var img = fs.readFileSync(userinfo['image05'], 'base64');
+            userinfo['image'] = img
+        }
+        else{
+            console.log('userprofile img 없음')
+            userinfo['image'] = null
+        }
+
+        return res.json(userinfo);
+    });
+
+};
+// 유저에 대해 세부정보 보기
+
+// 개정보 테이블을 위한 정보 불러오기
+
+exports.user_detail_update = (req, res) => {
+    console.log('user_view update');
+    var id = req.body.id || '';
+    var nickname = req.body.nickname || '';
+    var introduce = req.body.introduce || '';
+
+    console.log(id, nickname, introduce)
+
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+
+    models.UserDetailInfo.update(
+        {
+            nickname: nickname,
+            introduce: introduce,
+        },
+        {where: {
+            id: id,
+        }, returning: true}).then((userinfo) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
+};
+// 유저의 세부정보 수정, 이미지 미포함
+
+exports.user_detail_update_img = (req, res) => {
+    console.log('user_view update_img');
+    var id = req.body.id || '';
+    var nickname = req.body.nickname || '';
+    var introduce = req.body.introduce || '';
+
+    console.log('img : ')
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+
+    console.log(id, nickname, introduce)
+
+    models.UserDetailInfo.findOne({
+        where: {
+            id: id,
+        }
+    }).then(userinfo => {
+        if(!userinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        console.log("업데이트로 인한.. 과거 파일..삭제");
+        console.log(userinfo['image'], userinfo['image05']);
+
+        if (userinfo['image'] != '' && userinfo['image05'] != ''){
+            fs.unlink(userinfo['image'], function(err) {
+                if (err) throw err;
+              
+                console.log('file deleted');
+              });// 비동기
+              fs.unlink(userinfo['image05'], function(err) {
+                  if (err) throw err;
+                
+                  console.log('file deleted');
+                });       
+        }
+        else{
+            console.log('first img insert, not delete files')
+        }
+    });
+    // var img = fs.readFileSync(req.file.destination+req.file.filename)
+    // 50%파일
+    var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename || ''
+    // 25%
+    var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename || '' 
+    // 이미지 파일은 서버에 저장, 디비에는 링크만..
+
+    models.userinfo.update(
+        {
+            nickname: nickname,
+            introduce: introduce,
+            image: img,
+            image05: img05,
+        },
+        {where: {
+            id: id,
+        }, returning: true}).then((userinfo) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
+
+};
+// 유저의 세부정보 수정, 이미지 포함
+
 exports.dog_detail_view = (req, res) => {
     console.log('dog_view test');
     var id = req.body.id || '';
@@ -95,7 +218,7 @@ exports.dog_detail_update_img = (req, res) =>{
         }
         console.log("업데이트로 인한.. 과거 파일..삭제");
         console.log(dogsinfo['image'], dogsinfo['image05']);
-        
+
         if (dogsinfo['image'] != '' && dogsinfo['image05'] != ''){
             fs.unlink(dogsinfo['image'], function(err) {
                 if (err) throw err;

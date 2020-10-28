@@ -8,8 +8,9 @@ xcuserdata/
 .DS_store
 user_gallery/
 # user gallery image storagy
+user_profile/
 dog_profile/
-# dog profile image storagy
+# user,dog profile image storagy
 *.icloud
 *.mov
 

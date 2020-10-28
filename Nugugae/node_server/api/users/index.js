@@ -55,6 +55,32 @@ var gallery_public_storage = multer.diskStorage(
         }
         
 });
+var user_profile_storage = multer.diskStorage(
+    {
+        
+        destination: function (req, files, cb) {
+            //파일이 이미지 파일이면
+            if (files.mimetype == "image/jpeg" || files.mimetype == "image/jpg" || files.mimetype == "image/png") {
+                console.log("user_profile 이미지 파일 감지")
+                cb(null, './user_profile/img')
+            }
+        },
+        //파일이름 설정
+        filename: function (req, files, cb) {
+            var moment = require('moment');
+            require('moment-timezone');
+            moment.tz.setDefault("Asia/Seoul");
+            const kr_date = moment().format();
+
+            console.log("서버 기준 설정 시간_1 : " + kr_date);
+            // 한국시 설정
+
+            cb(null, kr_date + "-" + files.originalname)
+        }
+        
+});
+// 사람 프사
+
 var dog_profile_storage = multer.diskStorage(
     {
         
@@ -79,11 +105,13 @@ var dog_profile_storage = multer.diskStorage(
         }
         
 });
+// 강아지 프사
 
 //파일 업로드 모듈
 var upload_private = multer({ storage: gallery_private_storage });
 var upload_public = multer({storage: gallery_public_storage});
 var upload_dog_profile = multer({storage: dog_profile_storage});
+var upload_user_profile = multer({storage: user_profile_storage});
 
 
 router.use(bodyParser.json());
@@ -134,10 +162,16 @@ router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, {
 
 // 유저 정보
 
+// 유저에 대한 세부 정보 보기
+router.post('/setting/userinfo/detail/view/', infosetting_controller.user_detail_view);
+// 유저에 대한 세부 정보 수정, (쓰기는 유저 아이디를 생성할때, 이미 생성되게끔 해뒀기 때문에), img포함, 미포함 수정
+router.post('/setting/userinfo/detail/update/', infosetting_controller.user_detail_update);
+router.post('/setting/userinfo/detail/updateimg/', upload_user_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.user_detail_update_img);
+
 // 개에 대한 정보 새로 쓰기
 router.post('/setting/doginfo/write/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_write);
 // 개에 대한 세부 정보 보기
 router.post('/setting/doginfo/detail/view/', infosetting_controller.dog_detail_view);
-// 개에 대한 세부 정보 수정
+// 개에 대한 세부 정보 수정, img 포함,미포함 api
 router.post('/setting/doginfo/detail/update/', infosetting_controller.dog_detail_update);
 router.post('/setting/doginfo/detail/updateimg/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_detail_update_img);

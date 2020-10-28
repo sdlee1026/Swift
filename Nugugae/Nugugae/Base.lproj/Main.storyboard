@@ -1295,6 +1295,7 @@
                         <outlet property="intro_textview" destination="bJt-37-6zM" id="EP9-qg-Xgg"/>
                         <outlet property="nickname_btn_outlet" destination="j1D-rA-wDv" id="6R6-9e-WJs"/>
                         <outlet property="nickname_text" destination="K7J-EX-nve" id="i1L-UL-Wk4"/>
+                        <outlet property="profile_img" destination="hAZ-ZG-L87" id="prV-bT-h2c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NT-gG-UxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

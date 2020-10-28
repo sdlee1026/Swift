@@ -16,10 +16,12 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     var edit_token:Bool = false
     // 내용 수정 있는 지 확인하는 토큰
+    var img_edit_token:Bool = false
+    // 프로필 이미지 변화토큰
     var temp_nickname:String = ""
     var temp_introtext:String = ""
     // 내용 변경 비교할 temp_string들
-    
+    var img_view: UIImage?
     @IBOutlet weak var id_label: UILabel!
     // id_label outlet
     
@@ -28,6 +30,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     @IBOutlet weak var nickname_text: UITextField!
     // nickname_text outlet
 
+    @IBOutlet weak var profile_img: UIImageView!
     @IBOutlet weak var intro_textview: UITextView!
     // intro_textview outlet
     @IBOutlet weak var intro_btn_outlet: UIButton!
@@ -35,39 +38,155 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     override func viewDidLoad() {
         print("UserSetting Start")
         print("user : "+user)
-        super.viewDidLoad()
         
         // 서버 쿼리 보내서 정보 기입 동작.. 시간 좀 걸리는데 비동기로 해야함. 일단은
         id_label.text = user
-        
+        super.viewDidLoad()
         
         self.intro_textview.delegate = self
         // textview 딜리게이트
         
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         print("view 호출(view will appear), UserSetting")
         nickname_btn_outlet.setTitle("수정", for: .normal)
         intro_btn_outlet.setTitle("수정", for: .normal)
+        viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
+            print("view_user_info api")
+            print("view willappear 종료, userSetting")
+            
+            // 개이름, 나이(개월), 품종, 활동량, 자기소개
+            super.viewWillAppear(true)
+            
+        }
         // 자기 소개, 수정 버튼 title "수정"으로
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
         print("view 호출 후(view did appear), UserSetting")
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        print("UserSetting dissapper")
-        nickname_text.isEnabled = false
-        // 뷰 끝날때 수정 가능하게 되었던 라벨들 false로 다시 조정
+    override func viewWillDisappear(_ animated: Bool) {
+        print("view (사라질 것이다)will disappear, UserSetting")
         print("edit token : \(edit_token)")
         
         if edit_token{
             print("서버 쿼리 동기로 동작")
+            if img_edit_token{
+                // 이미지 변경 있는 경우
+                postUserinfodataImg(url: server_url+"/setting/userinfo/detail/updateimg") { (ids) in
+                    print(ids)
+                }
+            }
+            else{
+                // 이미지 변경 없는 경우
+                postUserinfodata(url: server_url+"/setting/userinfo/detail/update") { (ids) in
+                    print(ids)
+                }
+            }
         }// 바뀐게 있는 경우에 서버 쿼리 전송
+        super.viewWillDisappear(true)
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        print("UserSetting dissapper")
+        nickname_text.isEnabled = false
+        intro_textview.isEditable = false
+        // 뷰 끝날때 수정 가능하게 되었던 라벨들 false로 다시 조정
+    }
+    func viewUserinfodata(url: String, completion: @escaping ([Any]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [Any]()
+                switch response.result{
+                    case .success(let value):
+                        let viewdata = JSON(value)// 응답
+                        self.nickname_text.text = viewdata["nickname"].string!
+                        self.intro_textview.text = viewdata["introduce"].string!
+                        //print(viewdata["image"].rawString())
+                        if viewdata["image"].rawString() != Optional("null"){
+                            print("이미지 db에서 로드")
+                            let rawData = viewdata["image"].rawString()
+                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                            print(decodedimage)
+                            self.profile_img.image = decodedimage
+                        }
+                        
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// dog info view DB
+    
+    func postUserinfodata(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "nickname":self.nickname_text.text!,
+            "introduce":self.intro_textview.text!,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                    case .success(let value):
+                        let writedata = JSON(value)// 응답
+                        print("\(writedata["content"])")
+                        ids.append("\(writedata["content"])")
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// dog info write DB, 이미지 미포함
+    
+    func postUserinfodataImg(url: String, completion: @escaping ([String]) -> Void){
+        let image_view = self.img_view
+        let parameters: [String:String] = [
+            "id":self.user,
+            "nickname":self.nickname_text.text!,
+            "introduce":self.intro_textview.text!,
+        ]
+        if let imageData=image_view!.jpegData(compressionQuality: 0.5){
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    multipartFormData.append(
+                        imageData, withName: "image",
+                        fileName:self.user+"_Q5.png",
+                        mimeType: "image/png")
+                    // 50% 이미지
+                    multipartFormData.append(
+                        (image_view?.jpegData(compressionQuality: 0.25))!,
+                        withName: "image05",
+                        fileName: self.user+"_Q25.png",
+                        mimeType: "image/png")
+                    // 25% 이미지
+                    for (key, value) in parameters {
+                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                    }
+                    // parameter form 적재
+                    
+                },to: url).responseJSON(completionHandler: { (response) in
+                    var ids = [String]()
+                    switch response.result{
+                        case .success(let value):
+                            let writedata = JSON(value)// 응답
+                            print("\(writedata["content"])")
+                            ids.append("\(writedata["content"])")
+                        case .failure( _): break
+                    }
+                    completion(ids)
+                })
+        }
+        
+    }// dog info view DB, 이미지 포함
+    
     @IBAction func logout_btn(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
         UserDefaults.standard.removeObject(forKey: "userId")

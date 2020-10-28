@@ -78,10 +78,30 @@ exports.create = (req, res) => {
         id: id,
         pw: pw,
         email: email
-    }).then((user) => res.status(201).json(user));
-    models.UserTableCount.create({
-        id: id
-    })
+    }).then((user) => {
+        console.log('관련 테이블');
+        models.User.findOne({
+            where: {
+                id: id
+            }
+        }).then(user =>{
+            if(!user){
+                console.log('no user', user);;
+            }// id는 LoginUsers 테이블의 외래키 이므로 체크
+            else{
+                models.UserTableCount.create({
+                    id: id
+                });
+                models.UserDetailInfo.create({
+                    id: id
+                });
+            }
+        });
+        res.status(201).json(user)
+    }
+    );
+    
+
 };
 
 exports.update = (req, res) => {

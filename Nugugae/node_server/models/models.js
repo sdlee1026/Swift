@@ -54,15 +54,21 @@ const UserDetailInfo = sequelize.define('UserDetailInfos',{
         type: Sequelize.STRING,
     },
     // 사용자의 생일
-    idintroduce:{
+    introduce:{
         type: Sequelize.STRING,
         defaultValue: ''
     },
     // 사용자 자기소개
-    picture:{
-        type : Sequelize.STRING
+    image:{
+        type : Sequelize.STRING,
+        allowNull: true
     },
     // 프로필 사진
+    image05:{
+        type : Sequelize.STRING,
+        allowNull: true
+    },
+    // 50%
 });
 
 // 개들에 대한 정보
