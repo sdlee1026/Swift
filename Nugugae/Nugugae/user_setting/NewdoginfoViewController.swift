@@ -94,6 +94,8 @@ class NewdoginfoViewController: UIViewController, UITextFieldDelegate{
             print(self.social_slider.value)
             postDoginfodata(url: server_url+"/setting/doginfo/write") { (ids) in
                 if ids==["write OK"]{
+                    
+                    UserDefaults.standard.set(true,forKey: "new_dogtable")
                     self.dismiss(animated: true, completion: nil)
                 }
             }

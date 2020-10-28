@@ -58,6 +58,10 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         print("user : "+user)
         // 서버 쿼리 보내서 정보 기입 동작.. 시간 좀 걸리는데 비동기로 해야함. 일단은
         id_label.text = user
+        UserDefaults.standard.set(false,forKey: "new_dogtable")
+        UserDefaults.standard.set(false,forKey: "new_del_dogtable")
+        UserDefaults.standard.set(false,forKey: "new_fix_dogtable")
+        // table 리로드를 위한 상태값
         
         nickname_text.delegate = self
         
@@ -68,15 +72,8 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         dogs_table.delegate = self
         dogs_table.dataSource = self
         super.viewDidLoad()
-        getDogscontent(url: server_url+"/setting/doginfo/all/view") { (ids_name, ids_age, ids_breed, ids_image) in
-            print("개 정보 db에서 부름")
-            self.table_name.append(contentsOf: ids_name)
-            self.table_age.append(contentsOf: ids_age)
-            self.table_breed.append(contentsOf: ids_breed)
-            self.table_img.append(contentsOf: ids_image)
-            self.dogs_table.reloadData()
-            // 테이블 새로고침
-        }
+        UpdateTable()
+        
         
         self.intro_textview.delegate = self
         // textview 딜리게이트
@@ -93,7 +90,14 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
             print("view_user_info api")
             print("view willappear 종료, userSetting")
             
-            // 개이름, 나이(개월), 품종, 활동량, 자기소개
+            // 개이름, 나이(개월), 품종, 활동량, 자기소개, 요청 클로저 안에서 label값들 정의했음
+        }
+        if UserDefaults.standard.bool(forKey: "new_dogtable"){
+            print("테이블 내 새로운 강아지 정보가 있습니다.")
+            // 새 강아지 작성된 경우
+            UpdateTable()
+            UserDefaults.standard.set(false,forKey: "new_dogtable")
+            
         }
         
         super.viewWillAppear(true)
@@ -131,6 +135,22 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         // 뷰 끝날때 수정 가능하게 되었던 라벨들 false로 다시 조정
     }
     
+    func UpdateTable(){
+        getDogscontent(url: server_url+"/setting/doginfo/all/view") { (ids_name, ids_age, ids_breed, ids_image) in
+            print("개 정보 db에서 부름")
+            self.table_name=[]
+            self.table_age=[]
+            self.table_breed=[]
+            self.table_img=[] // 초기화
+            
+            self.table_name.append(contentsOf: ids_name)
+            self.table_age.append(contentsOf: ids_age)
+            self.table_breed.append(contentsOf: ids_breed)
+            self.table_img.append(contentsOf: ids_image)
+            self.dogs_table.reloadData()
+            // 테이블 새로고침
+        }
+    }
     func getDogscontent(url: String, completion: @escaping ([String],[String],[String],[UIImage]) -> Void) {
         
         let parameters: [String:[String]] = [
