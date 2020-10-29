@@ -16,7 +16,7 @@ class UserLogViewController: UIViewController, UITextFieldDelegate{
     // tabelview
     
     var isAvailable = true
-    // view tabel 토큰
+    // view tabel 토큰, scoll 기능
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     var table_content:[String] = []

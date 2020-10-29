@@ -361,6 +361,35 @@ exports.dog_detail_delete = (req, res) => {
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});
     }
+    models.DogsInfo.findOne({
+        where: {
+            id: id,
+            dogname: dogname,
+        }
+    }).then(dogsinfo => {
+        if(!dogsinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        console.log("삭제로 인한.. 서버 스토리지 파일..삭제");
+        console.log(dogsinfo['image'], dogsinfo['image05']);
+
+        if (dogsinfo['image'] != '' && dogsinfo['image05'] != ''){
+            fs.unlink(dogsinfo['image'], function(err) {
+                if (err) throw err;
+              
+                console.log('file deleted');
+              });// 비동기
+              fs.unlink(dogsinfo['image05'], function(err) {
+                  if (err) throw err;
+                
+                  console.log('file deleted');
+                });       
+        }
+        else{
+            console.log('empty img DB_link, not delete files')
+        }
+    });
+    
     models.User.findOne({
         where: {
             id: id

@@ -1,3 +1,4 @@
+const e = require('express');
 var fs = require('fs'); // file system
 const models = require('../../models/models');//DB
 const { UserTableCount } = require('../../models/models');
@@ -153,4 +154,48 @@ exports.gallery_upload_public = (req, res) => {
         })
     }
 
+};
+exports.gallery_my_view = (req, res) =>{
+    console.log('gallery my view')
+    var id = req.body.id || '';
+    var offset = req.body.offset || 0;
+    var limit = 9;// 한번에 9개만
+    var int_offset = parseInt(offset)
+    id = String(id)
+
+    // 카운트 테이블에서 갤러리 카운트
+    models.UserTableCount.findOne({
+        where: {id: id}
+    }).then(usergallerycount =>{
+        var offset_limit = parseInt(usergallerycount.gallerycount);
+        // 갤러리 내에 들어있는 갯수
+        console.log(usergallerycount.gallerycount)
+        console.log(offset_limit, offset)
+        if (offset_limit > offset){
+            models.GalleryTable.findAll({
+                offset: int_offset,
+                limit: limit,
+                where:{
+                    id: id
+                },order: [['date','DESC']],
+            }).then(gallery =>{
+                if(!gallery){
+                    console.log(gallery);
+                    return res.status(404).json({err: 'No User'});
+                }
+                for (var i=0; i<gallery.length;i++){
+                    console.log(gallery[i]['image05']);
+                    var img = fs.readFileSync(gallery[i]['image05'], 'base64');
+                    gallery[i]['image05'] = img
+                    // img 파일 읽기, image05 적재
+                }
+                return res.json(gallery);
+            })
+        }// 총 사진 갯수보다 오프셋 기준이 적은 경우만 return, == 아이템이 있는 경우
+        else{
+            console.log('No item error return, 사진 더 없음')
+            return res.status(400).json({err: 'No item'})
+        }
+
+    });
 };

@@ -10,8 +10,22 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class UserGalleryViewController: UIViewController, UITextFieldDelegate {
+class UserGalleryViewController: UIViewController, UITextFieldDelegate{
+    var public_private_ary:[String] = []
+    var image_ary:[UIImage] = []
+    // api로 받아올 이미지와 프라이빗 토큰 정보 배열
+    var isAvailable = true
+    // view tabel 토큰, scoll 기능
+    var offset:Int = 0
+    // 오프셋
+    var segue_content:String = ""
+    var segue_date:String = ""
+    var segue_imgdate:String = ""
+    // 세그먼트로 보낼 데이터
+    var cell_width:CGFloat = 0
+    var cell_height:CGFloat = 0
     
+    @IBOutlet weak var my_gallery_collection: UICollectionView!
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     let user:String = UserDefaults.standard.string(forKey: "userId")!
@@ -44,19 +58,48 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         print("UserGallery Start")
         self.profile_id.text = user
+        viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
+            print("유저 정보 첫 로드")
+            // 개이름, 나이(개월), 품종, 활동량, 자기소개
+        }
+        viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr) in
+            print("컬렉션 뷰 로드, 첫 로드")
+            self.public_private_ary.append(contentsOf: ids_pu_pr)
+            self.image_ary.append(contentsOf: ids_image)
+            print(self.public_private_ary)
+            self.my_gallery_collection.reloadData()
+        }
         // Do any additional setup after loading the view.
+        self.my_gallery_collection.delegate = self
+        self.my_gallery_collection.dataSource = self
+        setupFlowLayout()
+        // 레이아웃 세팅
+    }
+    
+    private func setupFlowLayout() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets.zero
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.minimumLineSpacing = 10
+        
+        let halfWidth = UIScreen.main.bounds.width / 3
+        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
+        self.my_gallery_collection.collectionViewLayout = flowLayout
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\tGalley view")
-        viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
-            print("view_user_info api")
-            print("view willappear 종료, Galley view")
-            
-            // 개이름, 나이(개월), 품종, 활동량, 자기소개
-            super.viewWillAppear(true)
-            
+        
+        if UserDefaults.standard.bool(forKey: "fixed_userinfo"){
+            // 유저 정보 상태값 변동이 있었다면?
+            viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
+                print("유저 정보 상태 변경으로 인한 재로드")
+                // 개이름, 나이(개월), 품종, 활동량, 자기소개
+            }
+            UserDefaults.standard.set(false, forKey: "fixed_userinfo")
+            // 유저 정보 상태값 다시 false
         }
+        super.viewWillAppear(true)
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
@@ -95,4 +138,93 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate {
             }
         
     }// user info view DB
+    func viewMyGallerydata(url: String, completion: @escaping ([UIImage],[String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "offset":String(self.offset)
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids_image = [UIImage]()
+                var ids_pu_pr = [String]()
+                switch response.result{
+                case .success(let value):
+                    let mygallerydata = JSON(value)// 응답
+                    if (mygallerydata["err"]=="No item"){
+                        print("!")
+                        print("\(mygallerydata["err"])")
+                        self.offset -= 9
+                    }
+                    else{
+                        for m_json in mygallerydata{
+                            // w_json.0 은 인덱스, w_json.1은 json 내용
+                            //ids_image.append(m_json.1["image05"])
+                            if m_json.1["image05"].rawString() != Optional("null"){
+                                print("img load, index : ", m_json.0)
+                                let rawData = m_json.1["image05"].rawString()
+                                let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                                let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+                                print(decodedimage)
+                                ids_image.append(decodedimage)
+                            }
+                            ids_pu_pr.append("\(m_json.1["ispublic"])")
+                        }
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids_image, ids_pu_pr)
+            }
+        
+    }// user info view DB
+    
+}
+extension UserGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // 이미지의 갯수
+        print("이미지 갯수 세팅 : ", public_private_ary.count)
+        return public_private_ary.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // 이미지의 내용
+        print("컬렉션뷰 내용 삽입중, ", indexPath.row)
+        print(public_private_ary[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mygallery_cell", for: indexPath) as! mygallery_cell
+        if public_private_ary[indexPath.row] == "true"{
+            cell.public_private_label.text = "공개"
+        }
+        else{
+            cell.public_private_label.text = "비공개"
+        }
+        cell.content_image.image = image_ary[indexPath.row]
+        return cell
+    }
+}
+extension UserGalleryViewController: UICollectionViewDelegateFlowLayout {
+    
+    // 위 아래 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
+    // 옆 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
+    // cell 사이즈( 옆 라인을 고려하여 설정 )
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let width = collectionView.frame.width / 3 - 1 ///  3등분하여 배치, 옆 간격이 1이므로 1을 빼줌
+        print("collectionView width=\(collectionView.frame.width)")
+        print("cell하나당 width=\(width)")
+        print("root view width = \(self.view.frame.width)")
+        self.cell_height = width+17
+        self.cell_width = width
+        return CGSize(width: width, height: width+17)
+    }
+    
 }

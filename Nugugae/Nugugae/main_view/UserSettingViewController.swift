@@ -62,6 +62,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         UserDefaults.standard.set(false,forKey: "new_dogtable")
         UserDefaults.standard.set(false,forKey: "new_del_dogtable")
         UserDefaults.standard.set(false,forKey: "new_fix_dogtable")
+        UserDefaults.standard.set(false,forKey: "fixed_userinfo") // 유저 정보 변동 상태값
         // table 리로드를 위한 상태값
         
         nickname_text.delegate = self
@@ -118,7 +119,8 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         print("edit token : \(edit_token)")
         
         if edit_token{
-            print("서버 쿼리 동기로 동작")
+            print("유저 정보 변동시, 서버 쿼리 동기로 동작, 상태값 체크체크 fixed_userinfo")
+            UserDefaults.standard.set(true,forKey: "fixed_userinfo")
             if img_edit_token{
                 // 이미지 변경 있는 경우
                 postUserinfodataImg(url: server_url+"/setting/userinfo/detail/updateimg") { (ids) in

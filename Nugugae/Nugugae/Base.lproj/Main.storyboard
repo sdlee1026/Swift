@@ -243,7 +243,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WWe-az-tMq" customClass="mygallery_cell" customModule="Nugugae" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mygallery_cell" id="WWe-az-tMq" customClass="mygallery_cell" customModule="Nugugae" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="133" height="162"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ziv-kp-fNg">
@@ -252,11 +252,14 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="public_private" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2Z-7g-WHx" userLabel="public_private_label">
                                                     <rect key="frame" x="0.0" y="0.0" width="133" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="3UB-Ea-Tqc"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlU-vG-UMl" userLabel="content_image">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="안내_사진없음2.png" translatesAutoresizingMaskIntoConstraints="NO" id="wlU-vG-UMl" userLabel="content_image">
                                                     <rect key="frame" x="0.0" y="25" width="133" height="133"/>
                                                 </imageView>
                                             </subviews>
@@ -310,6 +313,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="갤러리" image="camera" catalog="system" id="G4e-1Y-hTQ"/>
                     <connections>
+                        <outlet property="my_gallery_collection" destination="KUF-I7-tss" id="srz-8D-Z1O"/>
                         <outlet property="profile_id" destination="Pjk-la-SZe" id="7N2-Yd-uaR"/>
                         <outlet property="profile_img" destination="GR5-uy-JlY" id="m3m-84-nMa"/>
                         <outlet property="profile_intro" destination="Phf-A4-brg" id="aVg-gD-enU"/>
