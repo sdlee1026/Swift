@@ -30,6 +30,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
     // 외부 접속 url,ngrok
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     var img_view: UIImage?
+    let temp_img: UIImage = UIImage(named: "안내_사진없음2.png")!// 사진 없음
     
     @IBAction func logout_btn(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "isLoggedIn")
@@ -109,6 +110,34 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
         super.viewDidDisappear(true)
         print("view dissapper\tGalley view")
     }
+    // 스크롤 func
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print("스크롤시작")
+        if self.my_gallery_collection.contentOffset.y > my_gallery_collection.contentSize.height-my_gallery_collection.bounds.size.height
+            {
+                if(isAvailable){// 조건문에 api_end_token 이 true일때만 동작하도록
+                    print("스크롤 캐치, 예전 내용load")
+                    isAvailable = false
+                    offset += 9
+                    // 스크롤 할때 마다 데이터 불러옴 10개
+                    //Update_table()
+                    // api 로드
+                    // 로드 클로저에서 api_end_token = true로 바꾸고,, 선언부터 해야됨 1030일
+                        // api_end_token << 한번에 여러쿼리 안보내게끔 락킹..
+                    
+                }
+            //my_gallery_collection.reloadData()
+            // 아마 안쓸듯, 스크롤 종료시에만 리로드 하기로
+        }
+    }// func scrollViewDidScroll : 스크롤 할때마다 계속 호출
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
+        print("스크롤 종료")
+        // api_end_token이 true일때만 다시 동작하도록
+        isAvailable = true
+        // api_end_token을 false로 다시 세팅하고, 리로드
+        //my_gallery_collection.reloadData()
+        
+    }
     func viewUserinfodata(url: String, completion: @escaping ([Any]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
@@ -158,14 +187,17 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
                     else{
                         for m_json in mygallerydata{
                             // w_json.0 은 인덱스, w_json.1은 json 내용
-                            //ids_image.append(m_json.1["image05"])
-                            if m_json.1["image05"].rawString() != Optional("null"){
+                            if m_json.1["image01"].rawString() != Optional("null"){
                                 print("img load, index : ", m_json.0)
-                                let rawData = m_json.1["image05"].rawString()
+                                let rawData = m_json.1["image01"].rawString()
+                                // 썸네일용 10% 퀄리티
                                 let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
                                 let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
                                 print(decodedimage)
                                 ids_image.append(decodedimage)
+                            }
+                            else{
+                                ids_image.append(self.temp_img)
                             }
                             ids_pu_pr.append("\(m_json.1["ispublic"])")
                         }

@@ -38,6 +38,9 @@ exports.gallery_upload_private = (req, res) => {
     console.log('img05 : ')
     console.log(req.files['image05'][0].destination)
     console.log(req.files['image05'][0].filename)
+    console.log('img01 : ')
+    console.log(req.files['image01'][0].destination)
+    console.log(req.files['image01'][0].filename)
     
     
     
@@ -46,6 +49,8 @@ exports.gallery_upload_private = (req, res) => {
     var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
     // 50%
     var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
+    // 10%
+    var img01 = req.files['image01'][0].destination+'/'+req.files['image01'][0].filename
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
@@ -66,6 +71,7 @@ exports.gallery_upload_private = (req, res) => {
                     imgdate: imgdate,
                     image: img,
                     image05: img05,
+                    image01: img01,
                     hashtag: hashtag,
                     content: content,
                     location: location,
@@ -107,6 +113,12 @@ exports.gallery_upload_public = (req, res) => {
     console.log('img : ')
     console.log(req.files['image'][0].destination)
     console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+    console.log('img01 : ')
+    console.log(req.files['image01'][0].destination)
+    console.log(req.files['image01'][0].filename)
     
     
     // var img = fs.readFileSync(req.file.destination+req.file.filename)
@@ -114,6 +126,8 @@ exports.gallery_upload_public = (req, res) => {
     var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
     // 50%
     var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
+    // 10%
+    var img01 = req.files['image01'][0].destination+'/'+req.files['image01'][0].filename
     // 이미지 파일은 서버에 저장, 디비에는 링크만..
     if (img != null){
         console.log('img 있음, db insert')
@@ -134,6 +148,7 @@ exports.gallery_upload_public = (req, res) => {
                     imgdate: imgdate,
                     image: img,
                     image05: img05,
+                    image01: img01,
                     hashtag: hashtag,
                     // 차후에 해쉬태그만 관리하는 DB테이블 만들기..1016
                     content: content,
@@ -159,7 +174,7 @@ exports.gallery_my_view = (req, res) =>{
     console.log('gallery my view')
     var id = req.body.id || '';
     var offset = req.body.offset || 0;
-    var limit = 9;// 한번에 9개만
+    var limit = 9;// 한번에 9개씩 load
     var int_offset = parseInt(offset)
     id = String(id)
 
@@ -184,10 +199,15 @@ exports.gallery_my_view = (req, res) =>{
                     return res.status(404).json({err: 'No User'});
                 }
                 for (var i=0; i<gallery.length;i++){
-                    console.log(gallery[i]['image05']);
-                    var img = fs.readFileSync(gallery[i]['image05'], 'base64');
-                    gallery[i]['image05'] = img
-                    // img 파일 읽기, image05 적재
+                    console.log(gallery[i]['image01']);
+                    if (gallery[i]['image01'] != null){
+                        var img = fs.readFileSync(gallery[i]['image01'], 'base64');
+                        gallery[i]['image01'] = img
+                    }
+                    else{
+                        gallery[i]['image01'] = null
+                    }
+                    // img 파일 읽기, image01 적재, 10% 썸네일용
                 }
                 return res.json(gallery);
             })

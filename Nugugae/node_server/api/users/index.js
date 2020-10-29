@@ -157,8 +157,8 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 // 갤러리
 router.get('/gallerytest/', gallery_controller.gallery_index);
 // 이미지 업로드
-router.post('/gallery/upload/private', upload_private.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_private);
-router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, { name: 'image05' }]), gallery_controller.gallery_upload_public);
+router.post('/gallery/upload/private', upload_private.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_private);
+router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_public);
 // 자신의 갤러리 보기
 router.post('/gallery/my/view/', gallery_controller.gallery_my_view);
 

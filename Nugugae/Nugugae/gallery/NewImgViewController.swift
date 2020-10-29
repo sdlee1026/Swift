@@ -285,6 +285,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                     // 원본 이미지
                     multipartFormData.append((image_view?.jpegData(compressionQuality: 0.5))!, withName: "image05", fileName: self.user+"_Q05.png", mimeType: "image/png")
                     // 50% 이미지
+                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.1))!, withName: "image01", fileName: self.user+"_Q01.png", mimeType: "image/png")
+                    // 썸네일용 10% 이미지
                     for (key, value) in parameters {
                         multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
                     }
@@ -353,11 +355,13 @@ extension NewImgViewController : UIImagePickerControllerDelegate, UINavigationCo
             }
             
             if let photoAsset = info[.phAsset] as? PHAsset{
-                print("위치 정보")
-                self.img_latitude = (photoAsset.location?.coordinate.latitude)!
-                self.img_longitude = (photoAsset.location?.coordinate.longitude)!
-                print(img_latitude as Any)
-                print(img_longitude as Any)
+                if photoAsset.location?.coordinate.latitude != nil{
+                    print("위치 정보")
+                    self.img_latitude = (photoAsset.location?.coordinate.latitude)!
+                    self.img_longitude = (photoAsset.location?.coordinate.longitude)!
+                    print(img_latitude as Any)
+                    print(img_longitude as Any)
+                }
             }
         }
         // picker 가 앨범을 기준하여 선택한 경우

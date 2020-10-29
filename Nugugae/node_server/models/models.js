@@ -222,6 +222,10 @@ const GalleryTable = sequelize.define('GalleryTables',{
         type : Sequelize.STRING,
         allowNull: true
     },
+    image01:{
+        type : Sequelize.STRING,
+        allowNull: true
+    },
     // 이미지
     location:{
         type : Sequelize.STRING,
