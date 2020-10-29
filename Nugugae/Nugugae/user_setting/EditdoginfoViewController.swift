@@ -65,6 +65,25 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
     
+    @IBAction func delete_btn(_ sender: Any) {
+        let del_alert = UIAlertController(title: "삭제!", message: "강아지 정보를 삭제하시겠습니까?", preferredStyle: .alert)
+        let del_action =  UIAlertAction(title: "OK", style: .default) { (action) in
+            // delete func
+            self.delDoginfodata(url: self.server_url+"/setting/doginfo/detail/delete") { (ids) in
+                print(ids)
+                if ids.count != 0 && ids[0] as! String == "delete OK"{
+                    UserDefaults.standard.set(true, forKey: "new_del_dogtable")
+                    // local 벨류 설정
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "NO", style: .cancel, handler: nil)
+        del_alert.addAction(del_action)
+        del_alert.addAction(cancel)
+        
+        present(del_alert, animated: true, completion: nil)
+    }// 삭제버튼 동작
     @IBOutlet weak var send_outlet: UIButton!
     @IBAction func send_btn(_ sender: Any) {
         // 수정 발생 api
@@ -111,6 +130,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         print("UserSetting of edit doginfo Start")
+        print("개 이름 : ",dogname)
         intro_text.delegate = self
         
         img_picker.delegate = self
@@ -242,6 +262,26 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
         }
         
     }// dog info view DB, 이미지 포함
+    
+    func delDoginfodata(url: String, completion: @escaping ([Any]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "dogname":self.dogname,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [Any]()
+                switch response.result{
+                    case .success(let value):
+                        let deldata = JSON(value)// 응답
+                        ids.append("\(deldata["content"])")
+                        
+                    case .failure( _): break
+                }
+                completion(ids)
+            }
+        
+    }// dog info view DB
     
     
     func registerForKeyboardNotifications() {

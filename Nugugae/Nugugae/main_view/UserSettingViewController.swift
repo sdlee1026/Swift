@@ -26,6 +26,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
     var img_view: UIImage?
     // 선택된 이미지
     let temp_img: UIImage = UIImage(named: "안내_사진없음2.png")!
+    
     @IBOutlet weak var id_label: UILabel!
     // id_label outlet
     
@@ -85,6 +86,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
         // 자기 소개, 수정 버튼 title "수정"으로
         self.img_edit_token = false
         self.edit_token = false
+        self.seg_name = ""
         // 토큰 초기화
         viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
             print("view_user_info api")
@@ -97,7 +99,11 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
             // 새 강아지 작성된 경우
             UpdateTable()
             UserDefaults.standard.set(false,forKey: "new_dogtable")
-            
+        }
+        if UserDefaults.standard.bool(forKey: "new_del_dogtable"){
+            print("테이블 삭제 동작 있었음.")
+            UpdateTable()
+            UserDefaults.standard.set(false, forKey: "new_del_dogtable")
         }
         
         super.viewWillAppear(true)
@@ -390,9 +396,10 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
             
             let dest = segue.destination
             print("dest : \(dest)")
-            if let rvc = dest as? EditdoginfoViewController {
-                rvc.dogname = self.seg_name
+            guard let rvc = dest as? EditdoginfoViewController else{return
             }
+            print("도착 뷰, 벨류 세팅", sender as? String)
+            rvc.dogname = sender as! String
         }
     }
     // segue 데이터전송시 준비
@@ -457,7 +464,7 @@ extension UserSettingViewController: UITableViewDelegate, UITableViewDataSource{
 //        }
         cell.age_label.text! = self.table_age[indexPath.row]
         cell.name_label.text! = self.table_name[indexPath.row]
-        print("cell dequeue 동작")
+        print("cell dequeue 동작 완료")
         return cell
     }// cell 에 들어갈 데이터를 입력하는 function
     
@@ -470,15 +477,19 @@ extension UserSettingViewController: UITableViewDelegate, UITableViewDataSource{
         }
     }// 높이지정
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
 
-        print("table_cell click")
+        print("\n\n\n!!!!!!table_cell click")
         self.dog_work_index = indexPath.row
         // 작업 인덱스 저장
         print(indexPath.row)
         print(self.table_name[indexPath.row])
         self.seg_name = self.table_name[indexPath.row]
-        self.performSegue(withIdentifier: "dogtable_to_detail_seg", sender: nil)
+        if seg_name.count > 0{
+            print("!!!!seg 실행")
+            self.performSegue(withIdentifier: "dogtable_to_detail_seg", sender: seg_name)
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        }
     }// 클릭 이벤트 발생, segue 호출
     
 }

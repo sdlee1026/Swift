@@ -744,7 +744,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="36.666666666666664"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0y-4y-oO1" userLabel="space">
                                                                 <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="36.666666666666664"/>
@@ -799,7 +799,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="37"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytf-3e-DdK" userLabel="space">
                                                                 <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="37"/>
@@ -854,7 +854,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="36.666666666666664"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                                                 <connections>
                                                                     <action selector="breed_text_start_action:" destination="ZcO-CY-Fve" eventType="editingDidBegin" id="sb7-kf-iXP"/>
                                                                 </connections>
@@ -1038,7 +1038,7 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                                     </textView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOn-MK-jLT" userLabel="space">
                                                         <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="183.66666666666666"/>
@@ -1294,15 +1294,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dog_name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b24-ho-pUz" userLabel="dogname_label">
-                                                    <rect key="frame" x="111" y="11" width="81.666666666666686" height="78"/>
+                                                    <rect key="frame" x="111" y="11" width="103.66666666666669" height="78"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dog_age" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qwo-rX-Z1D" userLabel="dogage_label">
-                                                    <rect key="frame" x="200" y="11" width="100" height="40"/>
+                                                    <rect key="frame" x="222.66666666666663" y="11" width="191.33333333333337" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="bBB-p6-dQU"/>
                                                         <constraint firstAttribute="height" constant="40" id="f3F-OA-wAs"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1310,48 +1309,34 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dog_breed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGf-eQ-5Y0" userLabel="dogbreed_label">
-                                                    <rect key="frame" x="200" y="49" width="100" height="40"/>
+                                                    <rect key="frame" x="222.66666666666663" y="49" width="191.33333333333337" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="hEH-be-6Vr"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="uli-Vz-mog"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5c-Sv-PFq">
-                                                    <rect key="frame" x="316" y="11" width="78" height="78"/>
-                                                    <state key="normal" title="정보관리">
-                                                        <color key="titleColor" red="1" green="0.82177826970000001" blue="0.50299691449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="Gh7-rS-WPo" kind="presentation" identifier="dogtable_to_detail_seg" modalPresentationStyle="fullScreen" id="FCM-qg-Uxd"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="HGf-eQ-5Y0" firstAttribute="leading" secondItem="b24-ho-pUz" secondAttribute="trailing" constant="7.3300000000000001" id="0Mm-gm-0kh"/>
                                                 <constraint firstItem="HGf-eQ-5Y0" firstAttribute="bottom" secondItem="unk-tk-1iA" secondAttribute="bottomMargin" id="4uX-fq-Fag"/>
+                                                <constraint firstAttribute="trailing" secondItem="HGf-eQ-5Y0" secondAttribute="trailing" id="5D1-jb-Ec0"/>
                                                 <constraint firstItem="um2-qw-hzA" firstAttribute="top" secondItem="b24-ho-pUz" secondAttribute="top" id="84p-Fl-hAs"/>
                                                 <constraint firstItem="um2-qw-hzA" firstAttribute="bottom" secondItem="unk-tk-1iA" secondAttribute="bottomMargin" id="8YQ-Fi-gY1"/>
                                                 <constraint firstItem="um2-qw-hzA" firstAttribute="bottom" secondItem="b24-ho-pUz" secondAttribute="bottom" id="9Bi-lM-KL1"/>
                                                 <constraint firstItem="b24-ho-pUz" firstAttribute="leading" secondItem="um2-qw-hzA" secondAttribute="trailing" constant="13" id="BMc-pF-nR9"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="leading" secondItem="HGf-eQ-5Y0" secondAttribute="trailing" constant="16" id="Uxj-od-E1G"/>
+                                                <constraint firstItem="Qwo-rX-Z1D" firstAttribute="leading" secondItem="b24-ho-pUz" secondAttribute="trailing" constant="8.3300000000000001" id="L1g-Gz-6u1"/>
+                                                <constraint firstItem="b24-ho-pUz" firstAttribute="width" secondItem="unk-tk-1iA" secondAttribute="width" multiplier="0.25" id="TjC-Yv-rkM"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qwo-rX-Z1D" secondAttribute="trailing" id="VsK-bn-NoH"/>
                                                 <constraint firstItem="um2-qw-hzA" firstAttribute="leading" secondItem="unk-tk-1iA" secondAttribute="leadingMargin" id="ejd-lc-fmz"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="top" secondItem="unk-tk-1iA" secondAttribute="topMargin" id="gC3-lI-ccz"/>
                                                 <constraint firstItem="um2-qw-hzA" firstAttribute="top" secondItem="unk-tk-1iA" secondAttribute="topMargin" id="gg9-sf-B7U"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="trailing" secondItem="unk-tk-1iA" secondAttribute="trailingMargin" id="jfJ-zg-eNw"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="trailing" secondItem="unk-tk-1iA" secondAttribute="trailingMargin" id="kfG-HD-Lf4"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="bottom" secondItem="unk-tk-1iA" secondAttribute="bottomMargin" id="lrT-VG-7V3"/>
+                                                <constraint firstItem="HGf-eQ-5Y0" firstAttribute="leading" secondItem="b24-ho-pUz" secondAttribute="trailing" constant="8.3300000000000001" id="wHW-ca-EEC"/>
                                                 <constraint firstItem="Qwo-rX-Z1D" firstAttribute="top" secondItem="unk-tk-1iA" secondAttribute="topMargin" id="wvq-Ge-xji"/>
-                                                <constraint firstItem="Q5c-Sv-PFq" firstAttribute="leading" secondItem="Qwo-rX-Z1D" secondAttribute="trailing" constant="16" id="xS5-ua-vc9"/>
-                                                <constraint firstItem="Qwo-rX-Z1D" firstAttribute="leading" secondItem="b24-ho-pUz" secondAttribute="trailing" constant="7.3300000000000001" id="zEO-lU-I3x"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="age_label" destination="Qwo-rX-Z1D" id="Rwz-dV-iwx"/>
                                             <outlet property="breed_label" destination="HGf-eQ-5Y0" id="wXy-U7-8wc"/>
-                                            <outlet property="fix_btn" destination="Q5c-Sv-PFq" id="2ru-q8-49v"/>
                                             <outlet property="img" destination="um2-qw-hzA" id="sH5-Py-Qbu"/>
                                             <outlet property="name_label" destination="b24-ho-pUz" id="3e1-yM-pAI"/>
                                         </connections>
@@ -1402,6 +1387,7 @@
                         <outlet property="nickname_btn_outlet" destination="j1D-rA-wDv" id="6R6-9e-WJs"/>
                         <outlet property="nickname_text" destination="K7J-EX-nve" id="i1L-UL-Wk4"/>
                         <outlet property="profile_img" destination="hAZ-ZG-L87" id="prV-bT-h2c"/>
+                        <segue destination="Gh7-rS-WPo" kind="presentation" identifier="dogtable_to_detail_seg" modalPresentationStyle="fullScreen" id="q9Q-sr-EFc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NT-gG-UxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1423,6 +1409,14 @@
                                 <state key="normal" image="chevron.backward" catalog="system"/>
                                 <connections>
                                     <action selector="back_btn:" destination="Gh7-rS-WPo" eventType="touchUpInside" id="Zbg-eY-U25"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUN-0P-2RL" userLabel="delete_btn">
+                                <rect key="frame" x="331.33333333333331" y="44" width="82.666666666666686" height="62.666666666666657"/>
+                                <color key="tintColor" red="1" green="0.82177826970000001" blue="0.50299691449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="delete_btn:" destination="Gh7-rS-WPo" eventType="touchUpInside" id="gKT-VZ-fys"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강아지 정보 수정!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwv-Py-RGx">
@@ -1468,7 +1462,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="37"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxY-UM-1SU" userLabel="space">
                                                                 <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="37"/>
@@ -1523,7 +1517,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="36.666666666666664"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nrf-vB-4vJ" userLabel="space">
                                                                 <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="36.666666666666664"/>
@@ -1578,7 +1572,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="263.66666666666669" height="36.666666666666664"/>
                                                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                                                 <connections>
                                                                     <action selector="breed_action:" destination="Gh7-rS-WPo" eventType="editingDidBegin" id="70b-HT-qMo"/>
                                                                     <action selector="breed_text_start_action:" destination="ZcO-CY-Fve" eventType="editingDidBegin" id="Heq-oN-yHh"/>
@@ -1711,7 +1705,7 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" smartDashesType="no"/>
                                                     </textView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eah-uh-Cwk" userLabel="space">
                                                         <rect key="frame" x="263.66666666666663" y="0.0" width="46.666666666666686" height="250.33333333333334"/>
@@ -1752,8 +1746,13 @@
                             <constraint firstItem="lfw-d8-H9Z" firstAttribute="height" secondItem="Vnq-xC-wJw" secondAttribute="height" multiplier="0.820665" id="1Qm-lY-e3p"/>
                             <constraint firstItem="l4m-AI-mee" firstAttribute="height" secondItem="Vnq-xC-wJw" secondAttribute="height" multiplier="0.07" id="5DH-ev-isw"/>
                             <constraint firstItem="sRU-Y8-6Xq" firstAttribute="height" secondItem="Vnq-xC-wJw" secondAttribute="height" multiplier="0.05" id="5fp-AN-sWO"/>
+                            <constraint firstItem="MUN-0P-2RL" firstAttribute="height" secondItem="Vnq-xC-wJw" secondAttribute="height" multiplier="0.07" id="Bep-vh-sNH"/>
                             <constraint firstItem="Iwv-Py-RGx" firstAttribute="leading" secondItem="Vnq-xC-wJw" secondAttribute="leading" id="EDG-Ji-57f"/>
+                            <constraint firstItem="MUN-0P-2RL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="l4m-AI-mee" secondAttribute="trailing" constant="8" symbolic="YES" id="G5J-Ch-zZ6"/>
+                            <constraint firstItem="MUN-0P-2RL" firstAttribute="width" secondItem="Vnq-xC-wJw" secondAttribute="width" multiplier="0.2" id="LQy-ya-sOm"/>
                             <constraint firstItem="sRU-Y8-6Xq" firstAttribute="trailing" secondItem="yks-rJ-CKC" secondAttribute="trailing" id="MRN-wN-uPT"/>
+                            <constraint firstItem="MUN-0P-2RL" firstAttribute="trailing" secondItem="yks-rJ-CKC" secondAttribute="trailing" id="N5x-Mb-bZS"/>
+                            <constraint firstItem="MUN-0P-2RL" firstAttribute="top" secondItem="yks-rJ-CKC" secondAttribute="top" id="RQ6-QR-1Jb"/>
                             <constraint firstItem="sRU-Y8-6Xq" firstAttribute="width" secondItem="Vnq-xC-wJw" secondAttribute="width" id="Tm7-kH-8jV"/>
                             <constraint firstItem="Iwv-Py-RGx" firstAttribute="width" secondItem="Vnq-xC-wJw" secondAttribute="width" id="UEE-dh-h4Z"/>
                             <constraint firstItem="lfw-d8-H9Z" firstAttribute="leading" secondItem="sRU-Y8-6Xq" secondAttribute="leading" id="UTg-ee-QIb"/>

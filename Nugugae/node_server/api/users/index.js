@@ -124,6 +124,7 @@ const walk_controller = require('./walk.controller');
 const gallery_controller = require('./gallery.controller');
 // gallery controller
 const infosetting_controller = require('./infosetting.controller');
+const { info } = require('console');
 
 
 module.exports = router;
@@ -178,3 +179,6 @@ router.post('/setting/doginfo/detail/view/', infosetting_controller.dog_detail_v
 // 개에 대한 세부 정보 수정, img 포함,미포함 api
 router.post('/setting/doginfo/detail/update/', infosetting_controller.dog_detail_update);
 router.post('/setting/doginfo/detail/updateimg/', upload_dog_profile.fields([{ name: 'image' }, { name: 'image05' }]), infosetting_controller.dog_detail_update_img);
+
+// 개에 대한 세부 정보 삭제
+router.post('/setting/doginfo/detail/delete/', infosetting_controller.dog_detail_delete);

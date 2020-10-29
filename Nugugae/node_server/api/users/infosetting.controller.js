@@ -160,7 +160,7 @@ exports.dog_detail_view = (req, res) => {
     console.log('dog_view test');
     var id = req.body.id || '';
     var dogname = req.body.dogname || '';
-
+    console.log(id, dogname)
     if(!id.length || !dogname.length){
         return res.status(400).json({err: 'Incorrect name'});
     }
@@ -182,7 +182,7 @@ exports.dog_detail_view = (req, res) => {
         else{
             dogsinfo['image'] = null
         }
-
+        //console.log(dogsinfo);
         return res.json(dogsinfo);
     });
 
@@ -352,3 +352,34 @@ exports.dog_write = (req, res) => {
         }
     });
 };
+// 개 정보 쓰기
+
+exports.dog_detail_delete = (req, res) => {
+    console.log('dog_detail delete')
+    var id = req.body.id || '';
+    var dogname = req.body.dogname || '';
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.DogsInfo.destroy({
+                where: {
+                    id: id,
+                    dogname: dogname
+                }
+            }).then((dogsinfo) => {
+                return res.status(201).json({content: 'delete OK'});
+            });
+        }
+    });
+};
+// 개정보 지우기
