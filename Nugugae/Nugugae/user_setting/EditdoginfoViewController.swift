@@ -93,6 +93,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
             postDoginfodata(url: server_url+"/setting/doginfo/detail/update") { (ids) in
                 print(ids)
                 if ids[0].count != 0 {
+                    UserDefaults.standard.set(true, forKey: "new_fix_dogtable")
                     self.dismiss(animated: true, completion: nil)
                 }
             }
@@ -103,6 +104,7 @@ class EditdoginfoViewController: UIViewController, UITextFieldDelegate{
             postDoginfodataImg(url: server_url+"/setting/doginfo/detail/updateimg"){ (ids) in
                 print(ids)
                 if ids[0].count != 0 {
+                    UserDefaults.standard.set(true, forKey: "new_fix_dogtable")
                     self.dismiss(animated: true, completion: nil)
                 }
             }

@@ -94,17 +94,18 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
             
             // 개이름, 나이(개월), 품종, 활동량, 자기소개, 요청 클로저 안에서 label값들 정의했음
         }
-        if UserDefaults.standard.bool(forKey: "new_dogtable"){
-            print("테이블 내 새로운 강아지 정보가 있습니다.")
+        if UserDefaults.standard.bool(forKey: "new_dogtable") ||
+            UserDefaults.standard.bool(forKey: "new_del_dogtable") ||
+            UserDefaults.standard.bool(forKey: "new_fix_dogtable")
+            {
+            print("테이블 변동 있음, new, del, fix")
             // 새 강아지 작성된 경우
             UpdateTable()
-            UserDefaults.standard.set(false,forKey: "new_dogtable")
-        }
-        if UserDefaults.standard.bool(forKey: "new_del_dogtable"){
-            print("테이블 삭제 동작 있었음.")
-            UpdateTable()
+            UserDefaults.standard.set(false, forKey: "new_dogtable")
             UserDefaults.standard.set(false, forKey: "new_del_dogtable")
+            UserDefaults.standard.set(false, forKey: "new_fix_dogtable")
         }
+        
         
         super.viewWillAppear(true)
     }

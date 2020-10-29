@@ -233,25 +233,54 @@
                                     <constraint firstItem="GR5-uy-JlY" firstAttribute="width" secondItem="i9I-hj-4ut" secondAttribute="width" multiplier="0.4" id="sww-4J-rEC"/>
                                 </constraints>
                             </stackView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KUF-I7-tss">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KUF-I7-tss" userLabel="Gallery_collection">
                                 <rect key="frame" x="0.0" y="346" width="414" height="467"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2iD-JO-Nkh">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="133" height="162"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WWe-az-tMq">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WWe-az-tMq" customClass="mygallery_cell" customModule="Nugugae" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="133" height="162"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3h5-mg-KHQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ziv-kp-fNg">
+                                            <rect key="frame" x="0.0" y="0.0" width="133" height="162"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="public_private" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2Z-7g-WHx" userLabel="public_private_label">
+                                                    <rect key="frame" x="0.0" y="0.0" width="133" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlU-vG-UMl" userLabel="content_image">
+                                                    <rect key="frame" x="0.0" y="25" width="133" height="133"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="wlU-vG-UMl" secondAttribute="trailing" id="Ffq-V5-7MV"/>
+                                                <constraint firstItem="wlU-vG-UMl" firstAttribute="top" secondItem="y2Z-7g-WHx" secondAttribute="bottom" constant="8" symbolic="YES" id="I31-CK-3Sc"/>
+                                                <constraint firstItem="y2Z-7g-WHx" firstAttribute="leading" secondItem="ziv-kp-fNg" secondAttribute="leading" id="eSi-qS-DbI"/>
+                                                <constraint firstItem="wlU-vG-UMl" firstAttribute="leading" secondItem="ziv-kp-fNg" secondAttribute="leading" id="eg3-Kh-oRv"/>
+                                                <constraint firstAttribute="trailing" secondItem="y2Z-7g-WHx" secondAttribute="trailing" id="i0n-RT-KT1"/>
+                                                <constraint firstAttribute="bottom" secondItem="wlU-vG-UMl" secondAttribute="bottom" constant="4" id="jDx-1x-cHN"/>
+                                                <constraint firstItem="y2Z-7g-WHx" firstAttribute="top" secondItem="ziv-kp-fNg" secondAttribute="top" id="tOy-hY-Co6"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="133" height="162"/>
+                                        <connections>
+                                            <outlet property="content_image" destination="wlU-vG-UMl" id="1Ei-gb-0Sk"/>
+                                            <outlet property="public_private_label" destination="y2Z-7g-WHx" id="clT-Ur-DIe"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="azc-5F-OLG" id="1Yx-g2-XRL"/>
+                                    <outlet property="delegate" destination="azc-5F-OLG" id="Dtu-l4-WLm"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5fB-mn-gcP"/>
@@ -1191,6 +1220,8 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1D-rA-wDv" userLabel="nickname_update_btn">
                                                         <rect key="frame" x="159.33333333333334" y="0.0" width="68.333333333333343" height="35"/>
+                                                        <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="tintColor" red="1" green="0.82177826970000001" blue="0.50299691449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="nickname_update_btn:" destination="D7F-jo-qev" eventType="touchUpInside" id="0rz-Ay-Lo8"/>
@@ -1241,6 +1272,8 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pM1-2i-GOV" userLabel="intro_update_btn">
                                                         <rect key="frame" x="159.33333333333334" y="0.0" width="68.333333333333343" height="35"/>
+                                                        <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="tintColor" red="1" green="0.82177826970000001" blue="0.50299691449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="intro_update_btn:" destination="D7F-jo-qev" eventType="touchUpInside" id="2ZS-bh-soP"/>
