@@ -255,6 +255,7 @@
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGE-wO-dXj" userLabel="space">
                                                 <rect key="frame" x="112.33333333333334" y="0.0" width="261.66666666666663" height="42"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -308,7 +309,6 @@
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.1" id="Euy-qI-hUB"/>
                             <constraint firstItem="uu1-HK-sg5" firstAttribute="top" secondItem="aFl-DL-BPK" secondAttribute="bottom" constant="7.6699999999999999" id="Hox-52-Cz0"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="Mlf-9J-oJR"/>
-                            <constraint firstItem="AWJ-7u-y5e" firstAttribute="trailing" secondItem="cTq-EL-9UY" secondAttribute="trailing" constant="20" id="P78-bg-0Xo"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="Uyk-hh-F52"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="VYr-uq-84K"/>
                             <constraint firstItem="uu1-HK-sg5" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="Vi2-qe-xId"/>
@@ -316,8 +316,8 @@
                             <constraint firstItem="uu1-HK-sg5" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="gEc-5j-dPI"/>
                             <constraint firstItem="cTq-EL-9UY" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" multiplier="0.903382" id="jg4-hQ-qqk"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="top" secondItem="AWJ-7u-y5e" secondAttribute="top" id="lmc-UL-a6A"/>
+                            <constraint firstItem="neU-j6-i0l" firstAttribute="top" secondItem="cTq-EL-9UY" secondAttribute="bottom" constant="18" id="m3y-vR-cLH"/>
                             <constraint firstItem="uu1-HK-sg5" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.5" id="wEN-dv-2Vp"/>
-                            <constraint firstItem="AWJ-7u-y5e" firstAttribute="bottom" secondItem="neU-j6-i0l" secondAttribute="bottom" constant="0.33000000000000002" id="wb4-fj-jU9"/>
                             <constraint firstItem="uu1-HK-sg5" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="yAD-0o-7p2"/>
                             <constraint firstItem="cTq-EL-9UY" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.25" id="zOq-Yn-L3y"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="zmg-0h-c7s"/>
