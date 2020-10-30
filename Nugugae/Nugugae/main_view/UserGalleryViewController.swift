@@ -109,6 +109,10 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
             UserDefaults.standard.set(false, forKey: "fixed_userinfo")
             // 유저 정보 상태값 다시 false
         }
+        
+        
+        
+        // 갤러리 수정/삭제 동작 있을 경우
         if UserDefaults.standard.bool(forKey: "fixed_gallery") || UserDefaults.standard.bool(forKey: "deleted_gallery"){
             viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr, ids_date, ids_imgdate) in
                 print("컬렉션 뷰 로드, 갤러리 상태 변화로 인한 재로드")

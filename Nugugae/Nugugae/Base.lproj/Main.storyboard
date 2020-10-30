@@ -169,7 +169,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUH-sN-nwK" userLabel="이전">
                                         <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="84.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="chevron.backward" catalog="system"/>
                                         <connections>
                                             <action selector="back_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="8AR-tp-Hxd"/>
@@ -187,9 +187,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nev-5H-HDT" userLabel="수정">
                                                 <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="42"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="수정" image="pencil" catalog="system">
-                                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="fix_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="3g9-Ea-85J"/>
@@ -198,9 +198,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRm-ML-EiI" userLabel="삭제">
                                                 <rect key="frame" x="0.0" y="42" width="103.33333333333333" height="42.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="삭제" image="trash" catalog="system">
-                                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="delete_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="5S4-GD-pkr"/>
@@ -218,13 +218,85 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neU-j6-i0l">
                                 <rect key="frame" x="0.0" y="748.66666666666663" width="414" height="59"/>
-                                <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.91532596320000004" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="입력 완료!"/>
                                 <connections>
                                     <action selector="fix_action_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="yfN-UL-zSj"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="안내_사진없음2.png" translatesAutoresizingMaskIntoConstraints="NO" id="uu1-HK-sg5" userLabel="content_image">
+                                <rect key="frame" x="0.0" y="92" width="414" height="421"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cTq-EL-9UY" userLabel="image_info_stack">
+                                <rect key="frame" x="20" y="520.33333333333337" width="374" height="210.33333333333337"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzw-jB-Z7a" userLabel="relative_info_stack">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iv-w3-OQo" userLabel="like_btn">
+                                                <rect key="frame" x="0.0" y="0.0" width="56" height="42"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="heart" catalog="system">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="like_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="KgJ-X9-Jx5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3jK-aR-cSQ" userLabel="reply_btn">
+                                                <rect key="frame" x="56" y="0.0" width="56.333333333333343" height="42"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="bubble.right" catalog="system"/>
+                                                <connections>
+                                                    <action selector="reply_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="7OK-EE-5Vn"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGE-wO-dXj" userLabel="space">
+                                                <rect key="frame" x="112.33333333333334" y="0.0" width="261.66666666666663" height="42"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="4iv-w3-OQo" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.15" id="ATz-om-xe1"/>
+                                            <constraint firstItem="3jK-aR-cSQ" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.15" id="mAV-up-qgz"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SY8-b2-6gN" userLabel="like_text">
+                                        <rect key="frame" x="0.0" y="42" width="374" height="31.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nva-XN-Aeg">
+                                        <rect key="frame" x="0.0" y="73.666666666666629" width="374" height="31.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-TE-CCY" userLabel="content_text">
+                                        <rect key="frame" x="0.0" y="105" width="374" height="84.333333333333314"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2h-Y6-gpZ" userLabel="day_label">
+                                        <rect key="frame" x="0.0" y="189.33333333333326" width="374" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="SY8-b2-6gN" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="1e0-cM-P4l"/>
+                                    <constraint firstItem="Nva-XN-Aeg" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="2G0-tX-XVV"/>
+                                    <constraint firstItem="RF3-TE-CCY" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.4" id="CgA-Dq-a8R"/>
+                                    <constraint firstItem="wzw-jB-Z7a" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.2" id="osS-pi-WJM"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AWJ-7u-y5e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -232,23 +304,39 @@
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="1C1-Ta-2zg"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.07" id="5Qh-44-jze"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="8Rs-Xu-Fiq"/>
+                            <constraint firstItem="cTq-EL-9UY" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" constant="20" id="Clo-1v-65r"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.1" id="Euy-qI-hUB"/>
+                            <constraint firstItem="uu1-HK-sg5" firstAttribute="top" secondItem="aFl-DL-BPK" secondAttribute="bottom" constant="7.6699999999999999" id="Hox-52-Cz0"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="Mlf-9J-oJR"/>
+                            <constraint firstItem="AWJ-7u-y5e" firstAttribute="trailing" secondItem="cTq-EL-9UY" secondAttribute="trailing" constant="20" id="P78-bg-0Xo"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="Uyk-hh-F52"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="VYr-uq-84K"/>
+                            <constraint firstItem="uu1-HK-sg5" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="Vi2-qe-xId"/>
+                            <constraint firstItem="cTq-EL-9UY" firstAttribute="top" secondItem="uu1-HK-sg5" secondAttribute="bottom" constant="7.3300000000000001" id="dst-zX-2a6"/>
+                            <constraint firstItem="uu1-HK-sg5" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="gEc-5j-dPI"/>
+                            <constraint firstItem="cTq-EL-9UY" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" multiplier="0.903382" id="jg4-hQ-qqk"/>
                             <constraint firstItem="aFl-DL-BPK" firstAttribute="top" secondItem="AWJ-7u-y5e" secondAttribute="top" id="lmc-UL-a6A"/>
+                            <constraint firstItem="uu1-HK-sg5" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.5" id="wEN-dv-2Vp"/>
                             <constraint firstItem="AWJ-7u-y5e" firstAttribute="bottom" secondItem="neU-j6-i0l" secondAttribute="bottom" constant="0.33000000000000002" id="wb4-fj-jU9"/>
+                            <constraint firstItem="uu1-HK-sg5" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="yAD-0o-7p2"/>
+                            <constraint firstItem="cTq-EL-9UY" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.25" id="zOq-Yn-L3y"/>
                             <constraint firstItem="neU-j6-i0l" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="zmg-0h-c7s"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="day_label" destination="k2h-Y6-gpZ" id="oSj-rA-6Os"/>
                         <outlet property="fix_btn_outlet" destination="neU-j6-i0l" id="EaY-FQ-MNh"/>
                         <outlet property="fix_outlet" destination="nev-5H-HDT" id="vr9-gv-Xyr"/>
+                        <outlet property="like_btn_outlet" destination="4iv-w3-OQo" id="x9h-Zv-BIg"/>
+                        <outlet property="like_text_label" destination="SY8-b2-6gN" id="lNZ-Mq-f58"/>
+                        <outlet property="main_image" destination="uu1-HK-sg5" id="U0W-VW-oRB"/>
+                        <outlet property="main_text" destination="RF3-TE-CCY" id="bHG-Jq-4Cs"/>
+                        <outlet property="userId_label" destination="Nva-XN-Aeg" id="YOL-tn-bvB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uE5-5F-Vxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1019" y="2320"/>
+            <point key="canvasLocation" x="1018.840579710145" y="2318.9732142857142"/>
         </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
@@ -2321,9 +2409,11 @@
     </scenes>
     <resources>
         <image name="book" catalog="system" width="128" height="102"/>
+        <image name="bubble.right" catalog="system" width="128" height="110"/>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <image name="trash" catalog="system" width="121" height="128"/>
