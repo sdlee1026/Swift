@@ -85,18 +85,22 @@ class GalleryItemViewController: UIViewController {
         }
     }
     // 수정 버튼, 동작 액션 함수
+    
     @IBAction func delete_btn(_ sender: Any) {
         let del_alert = UIAlertController(title: "삭제",
                                                      message: "게시물을 삭제하시겠습니까?", preferredStyle: .alert)
-        let del_action = UIAlertAction(title:"OK!", style: .default){(action) in print("detail view_fix, ok누름")
-            UserDefaults.standard.set(true,forKey: "deleted_gallery")
-            print("local_token, deleted_gallery - true")
+        let del_action = UIAlertAction(title:"OK!", style: .default){(action) in print("deleted_gallery view_delete, ok누름")
             // 삭제 쿼리
-//            self.delWalkDetail(url: self.server_url+"/walk/delete") { (ids_msg) in
-//                print("delfunc : "+ids_msg[0])
-//            }
-            self.dismiss(animated: true, completion: nil)
-            print("Gallery item view_fix, dismiss")
+            self.deleteGalleryData(url: self.server_url+"/gallery/delete") { (ids) in
+                if ids.count != 0{
+                    if ids[0] == "delete OK"{
+                        UserDefaults.standard.set(true,forKey: "deleted_gallery")
+                        print("local_token, deleted_gallery - true")
+                        self.dismiss(animated: true, completion: nil)
+                        print("Gallery item view_fix, dismiss")
+                    }
+                }
+            }// delete 클로저
         }
         let cancel_action = UIAlertAction(title: "cancel", style: .cancel){(action) in
             print("Gallery item view_fix, cancel")
@@ -182,6 +186,33 @@ class GalleryItemViewController: UIViewController {
             }
         
     }// mygallery View DB
+    
+    func deleteGalleryData(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "date":self.date,
+            "imgdate":self.imgdate
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                case .success(let value):
+                    let gallerydata = JSON(value)// 응답
+                    if (gallerydata["err"]=="No gallery"){
+                        print("!")
+                        print("\(gallerydata["err"])")
+                    }
+                    else{
+                        ids.append("\(gallerydata["content"])");
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids)
+            }
+        
+    }// mygallery Delete DB
 
     
     override func viewDidLoad() {

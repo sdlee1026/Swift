@@ -254,3 +254,68 @@ exports.gallery_my_view = (req, res) =>{
 
     });
 };
+
+exports.gallery_delete = (req, res) => {
+    console.log('gallery_delete');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.GalleryTable.findOne({
+                where: {
+                    id: id,
+                    date: date,
+                    imgdate: imgdate,
+                }
+            }).then((gallery)=>{
+                // 스토리지 삭제 동작
+                console.log(gallery['image'], gallery['image05'], gallery['image01']);
+
+                if (gallery['image'] != '' && gallery['image05'] != '' && gallery['image01'] != ''){
+                    fs.unlink(gallery['image'], function(err) {
+                        if (err) throw err;
+                        console.log('file deleted');
+                    });// 비동기
+                    fs.unlink(gallery['image05'], function(err) {
+                        if (err) throw err;
+                        console.log('file deleted');
+                    });
+                    fs.unlink(gallery['image01'], function(err) {
+                        if (err) throw err;
+                        console.log('file deleted');
+                    });
+                    // 삭제 후, 테이블카운트에서 갤러리 카운트 --1
+                    models.UserTableCount.update(
+                        {gallerycount: models.sequelize.literal('gallerycount - 1')},
+                        {
+                            where:{
+                                id:id
+                            }
+                        }
+                    ).then(gcount =>{
+                        console.log('tableCount --1, gallerycount');
+                        models.GalleryTable.destroy({
+                            where: {
+                                id: id,
+                                date: date,
+                                imgdate: imgdate,
+                            }
+                        }).then((gallery) => {
+                            return res.status(201).json({content: 'delete OK'});
+                        });
+                    });
+                }
+            });
+        }
+    });
+};

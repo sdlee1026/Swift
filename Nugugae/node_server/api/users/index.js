@@ -167,6 +167,8 @@ router.post('/gallery/my/view/', gallery_controller.gallery_my_view);
 
 // 갤러리 게시물 보기, 컬렉션 뷰 선택시 하나의 화면으로 보기
 router.post('/gallery/view/', gallery_controller.gallery_view);
+// 갤러리 자기 게시물 삭제
+router.post('/gallery/delete/', gallery_controller.gallery_delete);
 
 // 유저 정보
 

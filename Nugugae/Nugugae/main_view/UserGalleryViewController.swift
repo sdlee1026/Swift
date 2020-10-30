@@ -19,6 +19,8 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
     // seg를 위한 데이터 저장 배열
     var isAvailable = true
     // view tabel 토큰, scoll 기능
+    var api_end_token = false
+    // api_end token <- 스크롤 동작시 api 쿼리 요청 여러개 안보내게끔하는 토큰
     var offset:Int = 0
     // 오프셋
     var segue_pu_pr:String = ""
@@ -65,6 +67,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
         
         UserDefaults.standard.set(false, forKey: "fixed_gallery")
         UserDefaults.standard.set(false, forKey: "deleted_gallery")
+        UserDefaults.standard.set(false, forKey: "new_gallery")
         // 관련 유저 디폴트 선언
         
         viewUserinfodata(url: server_url+"/setting/userinfo/detail/view") { (ids) in
@@ -112,8 +115,9 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
         
         
         
-        // 갤러리 수정/삭제 동작 있을 경우
-        if UserDefaults.standard.bool(forKey: "fixed_gallery") || UserDefaults.standard.bool(forKey: "deleted_gallery"){
+        // 갤러리 삽입/수정/삭제 동작 있을 경우
+        if UserDefaults.standard.bool(forKey: "fixed_gallery") || UserDefaults.standard.bool(forKey: "deleted_gallery") ||
+            UserDefaults.standard.bool(forKey: "new_gallery"){
             viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr, ids_date, ids_imgdate) in
                 print("컬렉션 뷰 로드, 갤러리 상태 변화로 인한 재로드")
                 self.public_private_ary = []
@@ -131,6 +135,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
             
             UserDefaults.standard.set(false, forKey: "fixed_gallery")
             UserDefaults.standard.set(false, forKey: "deleted_gallery")
+            UserDefaults.standard.set(false, forKey: "new_gallery")
             
         }// 갤러리 수정/삭제 동작 있을 경우
         
@@ -153,8 +158,19 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
                     print("스크롤 캐치, 예전 내용load")
                     isAvailable = false
                     offset += 9
-                    // 스크롤 할때 마다 데이터 불러옴 10개
-                    //Update_table()
+                    // 스크롤 할때 마다 데이터 불러옴 9개
+                    self.viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr, ids_date, ids_imgdate) in
+                        print("컬렉션 뷰 로드, 스크롤로 인한 재로드")
+                        self.public_private_ary.append(contentsOf: ids_pu_pr)// 라벨에 들어갈 t/f
+                        self.image_ary.append(contentsOf: ids_image)    // 이미지 파일
+                        self.date_ary_forseg.append(contentsOf: ids_date)
+                        self.imgdate_ary_forseg.append(contentsOf: ids_imgdate)
+                        // seg를 위한 데이터 배열
+                        
+                        self.my_gallery_collection.reloadData()
+                        self.api_end_token = true
+                        
+                    }
                     // api 로드
                     // 로드 클로저에서 api_end_token = true로 바꾸고,, 선언부터 해야됨 1030일
                         // api_end_token << 한번에 여러쿼리 안보내게끔 락킹..
@@ -167,7 +183,10 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         print("스크롤 종료")
         // api_end_token이 true일때만 다시 동작하도록
-        isAvailable = true
+        if api_end_token == true{
+            isAvailable = true
+            api_end_token = false
+        }
         // api_end_token을 false로 다시 세팅하고, 리로드
         //my_gallery_collection.reloadData()
         

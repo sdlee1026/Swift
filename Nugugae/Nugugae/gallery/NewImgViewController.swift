@@ -77,6 +77,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                     print(ids)
                     if ids.count != 0{
                         print("server to data_private, 비동기화 완료, dismiss")
+                        UserDefaults.standard.set(true, forKey: "new_gallery")
+                        // 새로운 갤러리 토큰 설정
                         self.dismiss(animated: true, completion: nil)
                         
                     }
@@ -87,6 +89,8 @@ class NewImgViewController: UIViewController, UITextFieldDelegate, CLLocationMan
                     print(ids)
                     if ids.count != 0{
                         print("server to data_public, 비동기화 완료, dismiss")
+                        UserDefaults.standard.set(true, forKey: "new_gallery")
+                        // 새로운 갤러리 토큰 설정
                         self.dismiss(animated: true, completion: nil)
                         
                     }
