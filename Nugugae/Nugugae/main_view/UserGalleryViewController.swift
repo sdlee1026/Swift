@@ -120,6 +120,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
             UserDefaults.standard.bool(forKey: "new_gallery"){
             viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr, ids_date, ids_imgdate) in
                 print("컬렉션 뷰 로드, 갤러리 상태 변화로 인한 재로드")
+                self.offset = 0
                 self.public_private_ary = []
                 self.image_ary = []
                 self.date_ary_forseg = []
@@ -265,7 +266,8 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
                 completion(ids_image, ids_pu_pr, ids_date, ids_imgdate)
             }
         
-    }// mygallery View DB
+    }// mygallery View DB (컬렉션 뷰)
+    
     func viewGallerydata(url: String, completion: @escaping ([UIImage]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
@@ -304,7 +306,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
                 completion(ids_image)
             }
         
-    }// mygallery View DB
+    }// gallery View DB (하나 갤러리 뷰)
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "my_gallery_to_item"{
