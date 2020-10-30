@@ -170,6 +170,41 @@ exports.gallery_upload_public = (req, res) => {
     }
 
 };
+
+// 갤러리 게시물 보기, 컬렉션 뷰 선택시 하나의 화면으로 보기
+exports.gallery_view = (req, res) => {
+    console.log('gallery view item');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+
+    models.GalleryTable.findOne({
+        where: {
+            id: id,
+            date: date,
+            imgdate: imgdate,
+        }
+    }).then(gallery => {
+        if(!gallery){
+            console.log(gallery);
+            return res.status(404).json({err: 'No gallery'});
+        }
+        // 50% 사진 사용
+        console.log(gallery['image05']);
+        if (gallery['image05'] != null){
+            var img = fs.readFileSync(gallery['image05'], 'base64');
+            gallery['image05'] = img
+        }
+        else{
+            gallery['image05'] = null
+        }
+        // img 파일 읽기, image05 적재, 50% 사진 보기 용
+        return res.json(gallery);
+
+    });
+};
+
+// 자신의 갤러리 전체 보기 썸네일10% 이미지 사용
 exports.gallery_my_view = (req, res) =>{
     console.log('gallery my view')
     var id = req.body.id || '';

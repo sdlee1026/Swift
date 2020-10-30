@@ -155,6 +155,101 @@
             </objects>
             <point key="canvasLocation" x="71" y="-508"/>
         </scene>
+        <!--Gallery Item View Controller-->
+        <scene sceneID="9I1-gO-q7P">
+            <objects>
+                <viewController id="lP2-iX-1KS" customClass="GalleryItemViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Nu-k0-KvG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFl-DL-BPK" userLabel="Menu_stack">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.333333333333329"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUH-sN-nwK" userLabel="이전">
+                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="84.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="chevron.backward" catalog="system"/>
+                                        <connections>
+                                            <action selector="back_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="8AR-tp-Hxd"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNr-Ly-Eng" userLabel="view_name_label">
+                                        <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="84.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-OT-ddO" userLabel="btn_stack">
+                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="84.333333333333329"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nev-5H-HDT" userLabel="수정">
+                                                <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="42"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="수정" image="pencil" catalog="system">
+                                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="fix_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="3g9-Ea-85J"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRm-ML-EiI" userLabel="삭제">
+                                                <rect key="frame" x="0.0" y="42" width="103.33333333333333" height="42.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="삭제" image="trash" catalog="system">
+                                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="delete_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="5S4-GD-pkr"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="VNr-Ly-Eng" firstAttribute="centerX" secondItem="aFl-DL-BPK" secondAttribute="centerX" id="6oS-iH-Iw6"/>
+                                    <constraint firstItem="JRm-ML-EiI" firstAttribute="height" secondItem="aFl-DL-BPK" secondAttribute="height" multiplier="0.5" id="dTK-vt-sBr"/>
+                                    <constraint firstItem="w8H-OT-ddO" firstAttribute="width" secondItem="aFl-DL-BPK" secondAttribute="width" multiplier="0.25" id="gmM-4n-Ov8"/>
+                                    <constraint firstItem="nev-5H-HDT" firstAttribute="height" secondItem="aFl-DL-BPK" secondAttribute="height" multiplier="0.5" id="vgB-47-UG2"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neU-j6-i0l">
+                                <rect key="frame" x="0.0" y="748.66666666666663" width="414" height="59"/>
+                                <color key="backgroundColor" red="1" green="0.96677989760000005" blue="0.87780465699999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="입력 완료!"/>
+                                <connections>
+                                    <action selector="fix_action_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="yfN-UL-zSj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AWJ-7u-y5e"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aFl-DL-BPK" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="1C1-Ta-2zg"/>
+                            <constraint firstItem="neU-j6-i0l" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.07" id="5Qh-44-jze"/>
+                            <constraint firstItem="neU-j6-i0l" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="8Rs-Xu-Fiq"/>
+                            <constraint firstItem="aFl-DL-BPK" firstAttribute="height" secondItem="5Nu-k0-KvG" secondAttribute="height" multiplier="0.1" id="Euy-qI-hUB"/>
+                            <constraint firstItem="aFl-DL-BPK" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="Mlf-9J-oJR"/>
+                            <constraint firstItem="aFl-DL-BPK" firstAttribute="trailing" secondItem="AWJ-7u-y5e" secondAttribute="trailing" id="Uyk-hh-F52"/>
+                            <constraint firstItem="neU-j6-i0l" firstAttribute="leading" secondItem="AWJ-7u-y5e" secondAttribute="leading" id="VYr-uq-84K"/>
+                            <constraint firstItem="aFl-DL-BPK" firstAttribute="top" secondItem="AWJ-7u-y5e" secondAttribute="top" id="lmc-UL-a6A"/>
+                            <constraint firstItem="AWJ-7u-y5e" firstAttribute="bottom" secondItem="neU-j6-i0l" secondAttribute="bottom" constant="0.33000000000000002" id="wb4-fj-jU9"/>
+                            <constraint firstItem="neU-j6-i0l" firstAttribute="width" secondItem="5Nu-k0-KvG" secondAttribute="width" id="zmg-0h-c7s"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="fix_btn_outlet" destination="neU-j6-i0l" id="EaY-FQ-MNh"/>
+                        <outlet property="fix_outlet" destination="nev-5H-HDT" id="vr9-gv-Xyr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uE5-5F-Vxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1019" y="2320"/>
+        </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
             <objects>
@@ -318,6 +413,7 @@
                         <outlet property="profile_img" destination="GR5-uy-JlY" id="m3m-84-nMa"/>
                         <outlet property="profile_intro" destination="Phf-A4-brg" id="aVg-gD-enU"/>
                         <outlet property="profile_nick" destination="rwQ-Wn-tyh" id="dQa-oF-lhw"/>
+                        <segue destination="lP2-iX-1KS" kind="presentation" identifier="my_gallery_to_item" id="uSH-K4-1xT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
