@@ -118,9 +118,10 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
         // 갤러리 삽입/수정/삭제 동작 있을 경우
         if UserDefaults.standard.bool(forKey: "fixed_gallery") || UserDefaults.standard.bool(forKey: "deleted_gallery") ||
             UserDefaults.standard.bool(forKey: "new_gallery"){
+            self.offset = 0
+            // offset 0부터 재탐색
             viewMyGallerydata(url: server_url+"/gallery/my/view") { (ids_image, ids_pu_pr, ids_date, ids_imgdate) in
                 print("컬렉션 뷰 로드, 갤러리 상태 변화로 인한 재로드")
-                self.offset = 0
                 self.public_private_ary = []
                 self.image_ary = []
                 self.date_ary_forseg = []

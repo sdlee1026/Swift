@@ -254,14 +254,24 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGE-wO-dXj" userLabel="space">
-                                                <rect key="frame" x="112.33333333333334" y="0.0" width="261.66666666666663" height="44.666666666666664"/>
+                                                <rect key="frame" x="112.33333333333333" y="0.0" width="149.33333333333337" height="44.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-mr-bbS" userLabel="image_change_btn">
+                                                <rect key="frame" x="261.66666666666669" y="0.0" width="112.33333333333331" height="44.666666666666664"/>
+                                                <state key="normal" title="사진 변경">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="image_change_btn:" destination="lP2-iX-1KS" eventType="touchUpInside" id="wNh-Zz-RjQ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="4iv-w3-OQo" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.15" id="ATz-om-xe1"/>
+                                            <constraint firstItem="CGE-wO-dXj" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.4" id="NAb-84-ATs"/>
                                             <constraint firstItem="3jK-aR-cSQ" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.15" id="mAV-up-qgz"/>
                                         </constraints>
                                     </stackView>
@@ -327,6 +337,7 @@
                         <outlet property="day_label" destination="k2h-Y6-gpZ" id="oSj-rA-6Os"/>
                         <outlet property="fix_btn_outlet" destination="neU-j6-i0l" id="EaY-FQ-MNh"/>
                         <outlet property="fix_outlet" destination="nev-5H-HDT" id="vr9-gv-Xyr"/>
+                        <outlet property="image_change_btn_outlet" destination="oHF-mr-bbS" id="vjV-Pe-hZI"/>
                         <outlet property="like_btn_outlet" destination="4iv-w3-OQo" id="x9h-Zv-BIg"/>
                         <outlet property="like_text_label" destination="SY8-b2-6gN" id="lNZ-Mq-f58"/>
                         <outlet property="main_image" destination="uu1-HK-sg5" id="U0W-VW-oRB"/>

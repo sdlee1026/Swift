@@ -159,8 +159,8 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 router.get('/gallerytest/', gallery_controller.gallery_index);
 
 // 이미지 업로드
-router.post('/gallery/upload/private', upload_private.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_private);
-router.post('/gallery/upload/public', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_public);
+router.post('/gallery/upload/private/', upload_private.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_private);
+router.post('/gallery/upload/public/', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_upload_public);
 
 // 자신의 갤러리 전체 보기 썸네일10% 이미지 사용
 router.post('/gallery/my/view/', gallery_controller.gallery_my_view);
@@ -169,6 +169,11 @@ router.post('/gallery/my/view/', gallery_controller.gallery_my_view);
 router.post('/gallery/view/', gallery_controller.gallery_view);
 // 갤러리 자기 게시물 삭제
 router.post('/gallery/delete/', gallery_controller.gallery_delete);
+// 갤러리 자기 게시물 수정, 사진 변경 x
+router.post('/gallery/update/noimg/', gallery_controller.gallery_update_noimg);
+// 갤러리 자기 게시물 수정, 사진 변경 o
+router.post('/gallery/update/img/private/', gallery_controller.gallery_update_img_private);
+
 
 // 유저 정보
 

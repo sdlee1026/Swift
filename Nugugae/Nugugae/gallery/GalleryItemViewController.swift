@@ -27,7 +27,11 @@ class GalleryItemViewController: UIViewController {
     var temp_text_for_fix = ""
     // text필드 템프값
     
+    var img_change_token:Bool = false
+    // 이미지 변경 체크 토큰
+    
     var keyboardToken:Bool = false
+    // 키보드 상태 토큰
     
     
     @IBOutlet weak var main_image: UIImageView!
@@ -56,7 +60,7 @@ class GalleryItemViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로가기
     @IBOutlet weak var fix_outlet: UIButton!
-    // 수정 그 자체 아웃렛 변수
+    // 화면 상단 수정 아웃렛 변수
     
     @IBAction func fix_btn(_ sender: Any) {
         let fix_alert = UIAlertController(title: "수정",
@@ -74,6 +78,9 @@ class GalleryItemViewController: UIViewController {
             self.fix_outlet.tintColor = UIColor.white
             // 수정 그 자체 버튼 비활성화
             // 아이콘, 텍스트 흰색으로 변경
+            self.image_change_btn_outlet.isEnabled = true
+            self.image_change_btn_outlet.setTitleColor(UIColor.black, for: .normal)
+            // 사진 변경 버튼 활성화, 텍스트 흰색(기본값) -> 검은색으로 변경
             
             print("fix버튼, 전처리 완료")
         }
@@ -84,7 +91,7 @@ class GalleryItemViewController: UIViewController {
         self.present(fix_alert, animated: true){
         }
     }
-    // 수정 버튼, 동작 액션 함수
+    // 화면 상단 수정 버튼, 동작 액션 함수
     
     @IBAction func delete_btn(_ sender: Any) {
         let del_alert = UIAlertController(title: "삭제",
@@ -112,6 +119,16 @@ class GalleryItemViewController: UIViewController {
         }
     }
     // 삭제 버튼
+    
+    @IBOutlet weak var image_change_btn_outlet: UIButton!
+    @IBAction func image_change_btn(_ sender: Any) {
+        print("image change btn event")
+        print("photo lib call")
+        self.img_change_token = true
+        // 이미지 체인지 토큰 true
+    }
+    // 사진 변경 버튼, 화면 중간
+    
     @IBOutlet weak var fix_btn_outlet: UIButton!
     @IBAction func fix_action_btn(_ sender: Any) {
         

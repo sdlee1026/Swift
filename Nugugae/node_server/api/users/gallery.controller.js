@@ -255,8 +255,36 @@ exports.gallery_my_view = (req, res) =>{
     });
 };
 
+// 이미지 변경 x, 자기 게시물 수정
+exports.gallery_update_noimg = (req, res) => {
+    console.log('gallery_update no change img, user self');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+    var pr_pu = req.body.pr_pu || '';
+    var content = req.body.content || '';
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+
+    models.GalleryTable.update(
+        {
+            ispublic:pr_pu,
+            content: content,
+        },// 퍼블릭 or 프라이빗, 사진 텍스트 변경
+        {where: {
+            id: id,
+            date: date,
+            imgdate: imgdate,
+        }, returning: true}).then((userinfo) => {
+        return res.status(201).json({content: 'Update OK'})
+    });
+
+};
+
+// 갤러리 자기 게시물 삭제
 exports.gallery_delete = (req, res) => {
-    console.log('gallery_delete');
+    console.log('gallery_delete, user self');
     var id = req.body.id || '';
     var date = req.body.date || '';
     var imgdate = req.body.imgdate || '';
