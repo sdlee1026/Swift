@@ -196,8 +196,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         let fix_update_ok_action = UIAlertAction(title:"OK!", style: .default){(action) in
             print("fix_update ok btn")
             self.fix_btn_outlet.isHidden = true;
-            // 버튼 비활성화
-            
+            // 버튼 비활성화, 일단은 히든으로 해왔음
             
             if self.img_change_token == true{
                 print("이미지 변동 있음")
