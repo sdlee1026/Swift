@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import Photos
 
-class GalleryItemViewController: UIViewController {
+class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     var keyboardShown:Bool = false // 키보드 상태 확인
     
     let server_url:String = Server_url.sharedInstance.server_url
@@ -26,9 +27,33 @@ class GalleryItemViewController: UIViewController {
     
     var temp_text_for_fix = ""
     // text필드 템프값
+    var temp_pr_pu = -1
     
+    let img_picker = UIImagePickerController()
+    // img picker 이미지를 선택을 더 수월하게 할 수 있게 Delegate 사용
     var img_change_token:Bool = false
     // 이미지 변경 체크 토큰
+    
+    var locationManager:CLLocationManager!
+    // LocationManager 선언
+    var latitude: Double?
+    var longitude: Double?
+    // 위도와 경도
+    var img_latitude: Double = -1
+    var img_longitude: Double = -1
+    // 서버로 보내는 위도 경도 값
+    
+    var img_view: UIImage?
+    let now = Date()
+    
+    let dateFormatter = DateFormatter()
+    var kr:String = ""
+    var img_date:String = ""
+    var is_public:String = ""
+    
+    var pr_pu_change_token:Bool = false
+    // 공개 범위 변경 체크 토큰
+    @IBOutlet weak var public_private: UISegmentedControl!
     
     var keyboardToken:Bool = false
     // 키보드 상태 토큰
@@ -78,6 +103,10 @@ class GalleryItemViewController: UIViewController {
             self.fix_outlet.tintColor = UIColor.white
             // 수정 그 자체 버튼 비활성화
             // 아이콘, 텍스트 흰색으로 변경
+            
+            self.public_private.isHidden = false
+            self.public_private.isEnabled = true
+            
             self.image_change_btn_outlet.isEnabled = true
             self.image_change_btn_outlet.setTitleColor(UIColor.black, for: .normal)
             // 사진 변경 버튼 활성화, 텍스트 흰색(기본값) -> 검은색으로 변경
@@ -124,10 +153,40 @@ class GalleryItemViewController: UIViewController {
     @IBAction func image_change_btn(_ sender: Any) {
         print("image change btn event")
         print("photo lib call")
+        let new_img_alert =  UIAlertController(title: "올릴 곳 선택", message: "원하는 방법을 선택해주세요", preferredStyle: .actionSheet)
+        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibrary()
+        }
+        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        new_img_alert.addAction(library)
+        new_img_alert.addAction(camera)
+        new_img_alert.addAction(cancel)
+
+        present(new_img_alert, animated: true, completion: nil)
         self.img_change_token = true
         // 이미지 체인지 토큰 true
     }
     // 사진 변경 버튼, 화면 중간
+    func openLibrary(){
+        img_picker.sourceType = .photoLibrary
+        present(img_picker, animated: true, completion: nil)
+    }
+    // 앨범 선택
+
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(.camera)){
+            img_picker.sourceType = .camera
+            present(img_picker, animated: true, completion: nil)
+            
+        }
+        else{
+            print("Camera not available")
+        }// 시뮬레이터로 돌릴시 오류
+    }
+    // 카메라 선택
     
     @IBOutlet weak var fix_btn_outlet: UIButton!
     @IBAction func fix_action_btn(_ sender: Any) {
@@ -136,24 +195,74 @@ class GalleryItemViewController: UIViewController {
                                                  message: "게시물을 수정하시겠습니까?", preferredStyle: .alert)
         let fix_update_ok_action = UIAlertAction(title:"OK!", style: .default){(action) in
             print("fix_update ok btn")
-            if self.main_text.text == self.temp_text_for_fix{
-                UserDefaults.standard.set(false,forKey: "fixed_gallery")
-                // 수정 로컬 토큰
-                self.dismiss(animated: true, completion: nil)
-            }// 수정 사항이 없을 경우
-            else{
-                print("텍스트 뷰 변동 있었음, fix api 쿼리 필요")
-                UserDefaults.standard.set(true,forKey: "fixed_gallery")
-                // 수정 로컬 토큰
+            self.fix_btn_outlet.isHidden = true;
+            // 버튼 비활성화
+            
+            
+            if self.img_change_token == true{
+                print("이미지 변동 있음")
+                if self.public_private.selectedSegmentIndex == 0{
+                    print("세그멘트 컨트롤 다같이 볼래요")
+                    self.pu_pr = "1"
+                    // public_img api
+                    self.updateGalleryData_img(url: self.server_url+"/gallery/update/img/public") { (ids) in
+                        print(ids)
+                        UserDefaults.standard.set(true,forKey: "fixed_gallery")
+                        print("업데이트 완료,local_token, fixed_gallery - true")
+                        self.dismiss(animated: true, completion: nil)
+                        // 수정 로컬 토큰
+                    }
+                }
+                else{
+                    print("세그멘트 컨트롤 혼자 볼래요")
+                    self.pu_pr = "0"
+                    // private_img api
+                    self.updateGalleryData_img(url: self.server_url+"/gallery/update/img/private"){ (ids) in
+                        print(ids)
+                        UserDefaults.standard.set(true,forKey: "fixed_gallery")
+                        print("업데이트 완료,local_token, fixed_gallery - true")
+                        self.dismiss(animated: true, completion: nil)
+                        // 수정 로컬 토큰
+                    }
+                }
+                
             }
-            //print(self.content_text.text!)
-//            수정 쿼리  들어갈 곳
-//            self.fixWalkDetail(url: self.server_url+"/walk/edit") { (ids_msg) in
-//                print("fix func")
-//                print(ids_msg)
-//                UserDefaults.standard.set(self.content_text.text!,forKey: "fix_data")
-//                self.dismiss(animated: true, completion: nil)
-//            }
+            // 이미지 변동 있었을 경우
+            else{
+                if (self.main_text.text == self.temp_text_for_fix)
+                    && (self.temp_pr_pu != self.public_private.selectedSegmentIndex){
+                    // 텍스트 변동x && 공개 범위 변동 x -> 아무것도 안바뀐 경우
+                    UserDefaults.standard.set(false,forKey: "fixed_gallery")
+                    // 수정 로컬 토큰
+                    self.dismiss(animated: true, completion: nil)
+                    print("아무것도 바뀌지 않음")
+                }
+                else{
+                    print("이미지는 변동 x, text or public/private 변동 o")
+                    if self.public_private.selectedSegmentIndex == 0{
+                        print("세그멘트 컨트롤 다같이 볼래요")
+                        self.pu_pr = "1"
+                    }
+                    else{
+                        print("세그멘트 컨트롤 혼자 볼래요")
+                        self.pu_pr = "0"
+                    }
+                    // 세그멘트 파라미터 벨류 세팅
+                    self.updateGalleryData(url: self.server_url+"/gallery/update/noimg") { (ids) in
+                        if ids.count != 0{
+                            if ids[0] == "Update OK"{
+                                UserDefaults.standard.set(true,forKey: "fixed_gallery")
+                                // 수정 로컬 토큰
+                                print("업데이트 완료,local_token, fixed_gallery - true")
+                                self.dismiss(animated: true, completion: nil)
+                                print("Gallery item view_update, dismiss")
+                            }
+                        }
+                    }// Update_api
+                }
+                
+            }
+            // 이미지는 변동 없었을 경우
             
         }
         let fix_update_cancel_action = UIAlertAction(title: "cancel", style: .cancel){(action) in
@@ -195,6 +304,18 @@ class GalleryItemViewController: UIViewController {
                         self.userId_label.text = self.user
                         self.main_text.text = "\(gallerydata["content"])"
                         self.day_label.text = "\(gallerydata["date"])"
+                        print("\(gallerydata["ispublic"])")
+                        if gallerydata["ispublic"] == true{// 공개 일 경우
+                            print("공개 게시물")
+                            self.public_private.selectedSegmentIndex = 0
+                            self.temp_pr_pu = 1
+                        }
+                        else{// 비공개 일 경우
+                            print("비공개 게시물")
+                            self.public_private.selectedSegmentIndex = 1
+                            self.temp_pr_pu = 0
+                        }
+                        
                     }
                 case .failure( _): break
                     
@@ -231,6 +352,98 @@ class GalleryItemViewController: UIViewController {
         
     }// mygallery Delete DB
 
+    func updateGalleryData(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "date":self.date,
+            "imgdate":self.imgdate,
+            "pu_pr":self.pu_pr,
+            "content":self.main_text.text,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                case .success(let value):
+                    let updatedata = JSON(value)// 응답
+                    if (updatedata["err"]=="Incorrect name'"){
+                        print("!")
+                        print("\(updatedata["err"])")
+                    }
+                    else{
+                        ids.append("\(updatedata["content"])");
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids)
+            }
+        
+    }// mygallery update DB
+    
+    func updateGalleryData_img(url: String, completion: @escaping ([String]) -> Void){
+        let image_view = self.img_view
+        var parameters: [String:String]
+        
+        if self.img_longitude != -1 && self.img_latitude != -1{
+            print("위치값 존재 parameter insert")
+            parameters = [
+                "id":self.user,
+                "pu_pr":self.pu_pr,
+                "date":self.date, // 게시물 자체의 날짜는 바뀌지 않으므로, 로드할때 썻던 Date그대로
+                "imgdate_before": self.imgdate, // 로드할때 썻던 imgdate
+                "imgdate":self.img_date, // 바뀔 메타데이터
+                "content":self.main_text.text,
+                "location":String(self.img_longitude)+","+String(self.img_latitude)
+            ]
+            
+        }
+        else{
+            parameters = [
+                "id":self.user,
+                "date":self.date,// 게시물 자체의 날짜는 바뀌지 않으므로, 로드할때 썻던 Date그대로
+                "imgdate_before": self.imgdate, // 로드할때 썻던 imgdate
+                "imgdate":self.img_date, // 바뀔 메타데이터
+                "pu_pr":self.pu_pr,
+                "content":self.main_text.text,
+            ]
+            
+        }
+        print(parameters)
+        if let imageData=image_view!.jpegData(compressionQuality: 1){
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    multipartFormData.append(imageData, withName: "image", fileName: self.user+"_Q1.png", mimeType: "image/png")
+                    // 원본 이미지
+                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.5))!, withName: "image05", fileName: self.user+"_Q05.png", mimeType: "image/png")
+                    // 50% 이미지
+                    multipartFormData.append((image_view?.jpegData(compressionQuality: 0.1))!, withName: "image01", fileName: self.user+"_Q01.png", mimeType: "image/png")
+                    // 썸네일용 10% 이미지
+                    for (key, value) in parameters {
+                        multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                    }
+                    // parameter form 적재
+                    
+                },
+                to: url)
+                .responseJSON(completionHandler: { (response) in
+                    var ids = [String]()
+                    switch response.result{
+                        case .success(let value):
+                            let updatedata = JSON(value)// 응답
+                            if (updatedata["err"]=="Incorrect name'"){
+                                print("!")
+                                print("\(updatedata["err"])")
+                            }
+                            else{
+                                ids.append("\(updatedata["content"])");
+                            }
+                        case .failure( _): break
+                    }
+                    completion(ids)
+                })
+        }
+    }// mygallery img포함 update DB
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -240,8 +453,35 @@ class GalleryItemViewController: UIViewController {
         self.fix_outlet.isEnabled = true
         self.fix_btn_outlet.backgroundColor = UIColor.white
         self.fix_btn_outlet.setTitleColor(UIColor.white, for: .normal)
-        
+
+        self.public_private.isHidden = true
+        self.public_private.isEnabled = false
         self.main_text.delegate = self
+        
+        
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        kr = dateFormatter.string(from: now)
+        print(now)
+        print(kr)
+        
+        img_picker.delegate = self
+        img_picker.sourceType = .savedPhotosAlbum
+        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image"])!
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        //포그라운드 상태에서 위치 추적 권한 요청
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //배터리에 맞게 권장되는 최적의 정확도
+        locationManager.startUpdatingLocation()
+        //위치업데이트
+        let coor = locationManager.location?.coordinate
+        latitude = coor?.latitude
+        longitude = coor?.longitude
+        
         loadGalleryData(url: server_url+"/gallery/view") { (ids) in
             print("load, 갤러리 데이터")
         }
@@ -304,6 +544,13 @@ class GalleryItemViewController: UIViewController {
         }
         keyboardToken=false
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //위치가 업데이트될때마다
+            if let coor = manager.location?.coordinate{
+                 //print("latitude" + String(coor.latitude) + "/ longitude" + String(coor.longitude))
+            }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -315,4 +562,91 @@ extension GalleryItemViewController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         self.keyboardToken = false
     }
+}
+extension GalleryItemViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        let now_location = self.locationManager.location
+        // 현재 위치 세팅
+        
+        if let test_reffer = info[.referenceURL] as? URL{
+            _ = PHAsset.fetchAssets(withALAssetURLs: [test_reffer], options: nil).firstObject
+        }
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            main_image.image = image
+            img_view = image
+            // origianl 이미지를 imageview에 넣음
+        }
+        
+        //print(info)
+        if img_picker.sourceType == .photoLibrary{
+            print("phAsset 정보")
+            if let test = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset{
+                print("시간 정보")
+                //print((test.creationDate!) as Date)
+                let kr_creationDate = self.dateFormatter.string(from: test.creationDate!)
+                // UTC 시간으로 나옴
+                self.img_date = kr_creationDate
+                print(kr_creationDate)
+                // KST 으로 변경
+            }
+            
+            if let photoAsset = info[.phAsset] as? PHAsset{
+                if photoAsset.location?.coordinate.latitude != nil{
+                    print("위치 정보")
+                    self.img_latitude = (photoAsset.location?.coordinate.latitude)!
+                    self.img_longitude = (photoAsset.location?.coordinate.longitude)!
+                    print(img_latitude as Any)
+                    print(img_longitude as Any)
+                }
+            }
+        }
+        // picker 가 앨범을 기준하여 선택한 경우
+        else if img_picker.sourceType == .camera
+        {
+            if let PHP_image = info[.originalImage] as? UIImage{
+                PHPhotoLibrary.shared().performChanges({
+                    let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: PHP_image)
+                    creationRequest.location = now_location
+                    
+                }, completionHandler: { (success, error) in
+                    if success{
+                        print("사진 저장 성공")
+                        let meta_dict = info[.mediaMetadata] as! NSDictionary
+                        let exif_dict = meta_dict["{Exif}"] as! NSDictionary
+                        print("시간 정보")
+                        self.img_date = exif_dict["DateTimeDigitized"] as! String
+                        let dateFormatter = DateFormatter()
+
+                        dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+                        let temp_date:Date = dateFormatter.date(from: self.img_date)!
+                        // string -> date
+                        
+                        let dateFormatter1 = DateFormatter()
+                        dateFormatter1.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                        // date -> string
+                        let dateString:String = dateFormatter1.string(from: temp_date)
+                        self.img_date = dateString
+                        print(self.img_date)
+                        print("위치 정보")
+                        self.img_latitude = (now_location?.coordinate.latitude)!
+                        self.img_longitude = (now_location?.coordinate.longitude)!
+                        print(self.img_latitude as Any)
+                        print(self.img_longitude as Any)
+                    }
+                    else{
+                        print("사진 저장 에러 발생")
+                    }
+                })
+                // 사진 찍으면 앨범 저장 2
+            }
+        }
+        // 피커가 카메라를 기준으로 사진을 선택한 경우
+        
+        self.img_change_token = true
+        // 이미지 체인지 토큰 true로
+        dismiss(animated: true, completion: nil)
+    }//이미지 피커 종료
+    
 }

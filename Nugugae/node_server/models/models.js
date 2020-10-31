@@ -209,11 +209,16 @@ const GalleryTable = sequelize.define('GalleryTables',{
         primaryKey: true,
     },
     // 갤러리에 올라오는 날짜 그자체
-    imgdate:{
-        type : Sequelize.DATE,
-        primaryKey: true
+    imgindex:{
+        type : Sequelize.INTEGER,
+        primaryKey: true,
+        defaultValue: 0,
     },
-    // 사진 데이터를 찍은 시간(반드시 존재_기본키)
+    // 동일 시간에 올라온 이미지(여러개) 인덱스로 구분
+    imgdate:{
+        type : Sequelize.DATE
+    },
+    // 사진 데이터를 찍은 시간, 변동 가능
     image:{
         type : Sequelize.STRING,
         allowNull: false
@@ -227,25 +232,25 @@ const GalleryTable = sequelize.define('GalleryTables',{
         allowNull: true
     },
     // 이미지
+    content:{
+        type : Sequelize.TEXT,
+    },
+    // 사진의 내용
     location:{
         type : Sequelize.STRING,
         allowNull: true
     },
+    like:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    // 좋아요 갯수
     // 위치 정보, 일단은 null 가능.. 차후에 데이터로 처리 어떻게 할지..
     hashtag:{
         type : Sequelize.STRING,
         allowNull: true
     },
     // 사진 해쉬 태그
-    content:{
-        type : Sequelize.TEXT,
-    },
-    // 사진의 내용
-    like:{
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    // 좋아요 갯수
 
     // relative 된 강아지.. (+a기능)
 });

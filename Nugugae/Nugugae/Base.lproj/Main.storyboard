@@ -281,12 +281,34 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nva-XN-Aeg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrq-VY-bTj" userLabel="second_stack">
                                         <rect key="frame" x="0.0" y="78.333333333333371" width="374" height="33.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nva-XN-Aeg">
+                                                <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="33.666666666666664"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX5-a1-MLS">
+                                                <rect key="frame" x="149.66666666666666" y="0.0" width="37.333333333333343" height="33.666666666666664"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-Nm-g4Z" userLabel="Public private">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="34.666666666666664"/>
+                                                <segments>
+                                                    <segment title="다같이 볼래요!"/>
+                                                    <segment title="나만 볼래요!"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="TeV-Nm-g4Z" firstAttribute="width" secondItem="nrq-VY-bTj" secondAttribute="width" multiplier="0.5" id="0wf-hu-F1k"/>
+                                            <constraint firstItem="Nva-XN-Aeg" firstAttribute="width" secondItem="nrq-VY-bTj" secondAttribute="width" multiplier="0.4" id="KJV-HA-y13"/>
+                                        </constraints>
+                                    </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-TE-CCY" userLabel="content_text">
                                         <rect key="frame" x="0.0" y="112" width="374" height="89.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -303,8 +325,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="SY8-b2-6gN" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="1e0-cM-P4l"/>
-                                    <constraint firstItem="Nva-XN-Aeg" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="2G0-tX-XVV"/>
                                     <constraint firstItem="RF3-TE-CCY" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.4" id="CgA-Dq-a8R"/>
+                                    <constraint firstItem="nrq-VY-bTj" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="N5y-FN-lzI"/>
                                     <constraint firstItem="wzw-jB-Z7a" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.2" id="osS-pi-WJM"/>
                                 </constraints>
                             </stackView>
@@ -342,6 +364,7 @@
                         <outlet property="like_text_label" destination="SY8-b2-6gN" id="lNZ-Mq-f58"/>
                         <outlet property="main_image" destination="uu1-HK-sg5" id="U0W-VW-oRB"/>
                         <outlet property="main_text" destination="RF3-TE-CCY" id="bHG-Jq-4Cs"/>
+                        <outlet property="public_private" destination="TeV-Nm-g4Z" id="pKJ-Iw-emf"/>
                         <outlet property="userId_label" destination="Nva-XN-Aeg" id="YOL-tn-bvB"/>
                     </connections>
                 </viewController>

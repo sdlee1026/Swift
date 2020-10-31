@@ -258,18 +258,21 @@ exports.gallery_my_view = (req, res) =>{
 // 이미지 변경 x, 자기 게시물 수정
 exports.gallery_update_noimg = (req, res) => {
     console.log('gallery_update no change img, user self');
+
     var id = req.body.id || '';
     var date = req.body.date || '';
     var imgdate = req.body.imgdate || '';
-    var pr_pu = req.body.pr_pu || '';
+    var pu_pr = req.body.pu_pr || '';
     var content = req.body.content || '';
+    console.log(id, date, imgdate, pu_pr, content);
+    
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});
     }
 
     models.GalleryTable.update(
         {
-            ispublic:pr_pu,
+            ispublic:pu_pr,
             content: content,
         },// 퍼블릭 or 프라이빗, 사진 텍스트 변경
         {where: {
@@ -279,6 +282,180 @@ exports.gallery_update_noimg = (req, res) => {
         }, returning: true}).then((userinfo) => {
         return res.status(201).json({content: 'Update OK'})
     });
+
+};
+
+exports.gallery_update_img_private = (req, res) =>{
+    // imgdate만 바뀌어야함, date는 고정
+    console.log("private img update");
+    var id = req.body.id;
+    var ispublic = 0 // false
+    console.log(req.files)
+    var date = req.body.date;
+    var imgdate = req.body.imgdate || '';
+    var location = req.body.location || '';
+    var hashtag = req.body.hashtag || '';
+    var content = req.body.content || '';
+    var imgdate_before = req.body.imgdate_before || '';// 과거 이미지 날짜
+
+    console.log(id, ispublic, imgdate, location)
+    console.log('date : ',date)
+    console.log('hashtag : ',hashtag)
+    console.log('content : ',content)
+    // console.log(req)
+    console.log('img : ')
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+    console.log('img01 : ')
+    console.log(req.files['image01'][0].destination)
+    console.log(req.files['image01'][0].filename)
+
+    models.GalleryTable.findOne({
+        where: {
+            id: id,
+            date: date,
+            imgdate: imgdate_before,
+        }
+    }).then(gallery => {
+        if(!gallery){
+            return res.status(404).json({err: 'No Image'});
+        }
+        // 스토리지 삭제 동작
+        console.log(gallery['image'], gallery['image05'], gallery['image01']);
+
+
+        if (gallery['image'] != '' && gallery['image05'] != '' && gallery['image01'] != ''){
+            fs.unlink(gallery['image'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });// 비동기
+            fs.unlink(gallery['image05'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });
+            fs.unlink(gallery['image01'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });
+            // 원본파일
+            var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
+            // 50%
+            var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
+            // 10%
+            var img01 = req.files['image01'][0].destination+'/'+req.files['image01'][0].filename
+
+            models.GalleryTable.update(
+                {
+                    ispublic: ispublic,
+                    imgdate: imgdate,
+                    image: img,
+                    image05: img05,
+                    image01: img01,
+                    content: content,
+                    location: location,
+
+                },
+                {where: {
+                    id: id,
+                    date: date,
+                    imgindex: 0, // 일단은 0으로 고정.. < 차후에 여러장 앨범스택 형태로 되어있는 것 처리할때 필요
+                }, returning: true}).then((doginfo) => {
+                return res.status(201).json({content: 'Update OK'})
+            });
+        }// delete if {}, update()
+        
+    });
+    // 과거 파일 삭제 (디비 스토리지)
+
+};
+exports.gallery_update_img_public = (req, res) =>{
+    console.log("public img update");
+    // 과거 파일 삭제 (디비 스토리지)
+    var id = req.body.id;
+    var ispublic = 1 // true
+    console.log(req.files)
+    var date = req.body.date;
+    var imgdate = req.body.imgdate || '';
+    var location = req.body.location || '';
+    var hashtag = req.body.hashtag || '';
+    var content = req.body.content || '';
+    var imgdate_before = req.body.imgdate_before || '';// 과거 이미지 날짜
+    
+    console.log(id, ispublic, imgdate, location)
+    console.log('date : ',date)
+    console.log('hashtag : ',hashtag)
+    console.log('content : ',content)
+    // console.log(req)
+    console.log('img : ')
+    console.log(req.files['image'][0].destination)
+    console.log(req.files['image'][0].filename)
+    console.log('img05 : ')
+    console.log(req.files['image05'][0].destination)
+    console.log(req.files['image05'][0].filename)
+    console.log('img01 : ')
+    console.log(req.files['image01'][0].destination)
+    console.log(req.files['image01'][0].filename)
+
+    models.GalleryTable.findOne({
+        where: {
+            id: id,
+            date: date,
+            imgdate: imgdate_before,
+        }
+    }).then(gallery => {
+        if(!gallery){
+            return res.status(404).json({err: 'No Image'});
+        }
+        // 스토리지 삭제 동작
+        console.log('삭제 완료, 이미지 삽입 시작..')
+        console.log(gallery['image'], gallery['image05'], gallery['image01']);
+        console.log('img check 완료..')
+
+        if (gallery['image'] != '' && gallery['image05'] != '' && gallery['image01'] != ''){
+            fs.unlink(gallery['image'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });// 비동기
+            fs.unlink(gallery['image05'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });
+            fs.unlink(gallery['image01'], function(err) {
+                if (err) throw err;
+                console.log('file deleted');
+            });
+            // 원본파일
+            var img = req.files['image'][0].destination+'/'+req.files['image'][0].filename
+            // 50%
+            var img05 = req.files['image05'][0].destination+'/'+req.files['image05'][0].filename
+            // 10%
+            var img01 = req.files['image01'][0].destination+'/'+req.files['image01'][0].filename
+
+            models.GalleryTable.update(
+                {
+                    ispublic: ispublic,
+                    imgdate: imgdate,
+                    image: img,
+                    image05: img05,
+                    image01: img01,
+                    content: content,
+                    location: location,
+
+                },
+                {where: {
+                    id: id,
+                    date: date,
+                    imgindex: 0, // 일단은 0으로 고정.. < 차후에 여러장 앨범스택 형태로 되어있는 것 처리할때 필요
+                }, returning: true}).then((doginfo) => {
+                return res.status(201).json({content: 'Update OK'})
+            });
+        }// delete if {}, update()
+        
+    });
+    // 과거 파일 삭제 (디비 스토리지)
 
 };
 

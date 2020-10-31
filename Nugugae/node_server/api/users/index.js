@@ -171,8 +171,10 @@ router.post('/gallery/view/', gallery_controller.gallery_view);
 router.post('/gallery/delete/', gallery_controller.gallery_delete);
 // 갤러리 자기 게시물 수정, 사진 변경 x
 router.post('/gallery/update/noimg/', gallery_controller.gallery_update_noimg);
-// 갤러리 자기 게시물 수정, 사진 변경 o
-router.post('/gallery/update/img/private/', gallery_controller.gallery_update_img_private);
+// 갤러리 자기 게시물 수정, 사진 변경 o, 프라이빗
+router.post('/gallery/update/img/private/', upload_private.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_update_img_private);
+// 갤러리 자기 게시물 수정, 사진 변경 o, 퍼블릭
+router.post('/gallery/update/img/public/', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_update_img_public);
 
 
 // 유저 정보
