@@ -684,10 +684,10 @@
             </objects>
             <point key="canvasLocation" x="1782.608695652174" y="1623.8839285714284"/>
         </scene>
-        <!--산책기록-->
+        <!--산책일지-->
         <scene sceneID="yKE-lx-LPW">
             <objects>
-                <viewController storyboardIdentifier="UserLogViewController" id="rYZ-Yp-qKC" customClass="UserLogViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserLogViewController" id="rYZ-Yp-qKC" userLabel="산책일지" customClass="UserLogViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Psm-de-PcU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2052,6 +2052,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="rYZ-Yp-qKC" kind="relationship" relationship="viewControllers" id="H9b-fp-zjz"/>
+                        <segue destination="ha8-6j-wid" kind="relationship" relationship="viewControllers" id="yC1-F6-liD"/>
                         <segue destination="azc-5F-OLG" kind="relationship" relationship="viewControllers" id="EZS-hr-m5t"/>
                         <segue destination="D7F-jo-qev" kind="relationship" relationship="viewControllers" id="6vg-Yf-yGX"/>
                     </connections>
@@ -2440,12 +2441,29 @@
             </objects>
             <point key="canvasLocation" x="1889.8550724637682" y="199.55357142857142"/>
         </scene>
+        <!--산책하기!-->
+        <scene sceneID="5DH-hM-gra">
+            <objects>
+                <viewController id="ha8-6j-wid" userLabel="산책하기!" customClass="UserMapViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O4n-dp-99M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fJ2-uT-4XG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="산책하기!" image="figure.walk" catalog="system" id="cog-7M-453"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bdy-DE-rBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-332" y="1589"/>
+        </scene>
     </scenes>
     <resources>
         <image name="book" catalog="system" width="128" height="102"/>
         <image name="bubble.right" catalog="system" width="128" height="110"/>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="figure.walk" catalog="system" width="95" height="128"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
