@@ -2448,14 +2448,59 @@
                     <view key="view" contentMode="scaleToFill" id="O4n-dp-99M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIA-F7-RXr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSm-ws-tVw">
+                                <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
+                                <state key="normal" title="로그아웃">
+                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout_btn:" destination="ha8-6j-wid" eventType="touchUpInside" id="p88-qO-2s7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dz-yB-fCP" userLabel="towalk_btn">
+                                <rect key="frame" x="20" y="114" width="374" height="269"/>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRh-3W-hCV" userLabel="towalk_img">
+                                <rect key="frame" x="20" y="114" width="374" height="269"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="fJ2-uT-4XG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nSm-ws-tVw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fJ2-uT-4XG" secondAttribute="leading" symbolic="YES" id="1O6-kv-wzM"/>
+                            <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="WRh-3W-hCV" secondAttribute="trailing" constant="20" id="3FC-fk-mTQ"/>
+                            <constraint firstItem="4dz-yB-fCP" firstAttribute="top" secondItem="LIA-F7-RXr" secondAttribute="bottom" constant="7.3300000000000001" id="4fk-qc-LVe"/>
+                            <constraint firstItem="WRh-3W-hCV" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.903382" id="6Af-L6-aEX"/>
+                            <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="nSm-ws-tVw" secondAttribute="trailing" id="Ajw-oT-Znh"/>
+                            <constraint firstItem="LIA-F7-RXr" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" id="B0L-S5-89P"/>
+                            <constraint firstItem="nSm-ws-tVw" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.3" id="DOq-CY-QQd"/>
+                            <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="4dz-yB-fCP" secondAttribute="trailing" constant="20" id="DVQ-Xe-LBA"/>
+                            <constraint firstItem="WRh-3W-hCV" firstAttribute="top" secondItem="LIA-F7-RXr" secondAttribute="bottom" constant="7.3300000000000001" id="Ejs-c1-F3Y"/>
+                            <constraint firstItem="LIA-F7-RXr" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" id="IYb-So-Ie0"/>
+                            <constraint firstItem="WRh-3W-hCV" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="Li9-sv-9TC"/>
+                            <constraint firstItem="LIA-F7-RXr" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="Uhp-7m-Vwr"/>
+                            <constraint firstItem="nSm-ws-tVw" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="eMM-08-kJg"/>
+                            <constraint firstItem="4dz-yB-fCP" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="fV9-PB-wCT"/>
+                            <constraint firstItem="WRh-3W-hCV" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="ffi-iZ-ata"/>
+                            <constraint firstItem="LIA-F7-RXr" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="qo8-v5-Nj9"/>
+                            <constraint firstItem="nSm-ws-tVw" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="rLo-g3-ndp"/>
+                            <constraint firstItem="4dz-yB-fCP" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="sZz-2h-VtY"/>
+                            <constraint firstItem="LIA-F7-RXr" firstAttribute="trailing" secondItem="fJ2-uT-4XG" secondAttribute="trailing" id="tZ2-jt-5fK"/>
+                            <constraint firstItem="4dz-yB-fCP" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.903382" id="wSB-W3-w3G"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="산책하기!" image="figure.walk" catalog="system" id="cog-7M-453"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdy-DE-rBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-332" y="1589"/>
+            <point key="canvasLocation" x="-333.33333333333337" y="1588.3928571428571"/>
         </scene>
     </scenes>
     <resources>
