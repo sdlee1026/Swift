@@ -559,7 +559,6 @@
                                         <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="chevron.backward" catalog="system"/>
                                         <connections>
-                                            <action selector="back_btn:" destination="9Sd-6w-xkL" eventType="touchUpInside" id="Fvc-ON-IKq"/>
                                             <action selector="back_btn:" destination="Rmy-Lh-jak" eventType="touchUpInside" id="gSP-8L-mHa"/>
                                         </connections>
                                     </button>
@@ -1511,12 +1510,12 @@
                                             <constraint firstItem="K7J-EX-nve" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.149938" id="7SR-Tk-dhG"/>
                                             <constraint firstItem="ZcB-RP-auh" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.15" id="8tL-e9-n7d"/>
                                             <constraint firstItem="W4q-Zg-Js4" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.13" id="FOQ-tf-mJg"/>
-                                            <constraint firstItem="vKn-JG-UcU" firstAttribute="height" secondItem="CUR-yy-FGh" secondAttribute="height" multiplier="0.13" id="kcC-MR-y6F"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="CUR-yy-FGh" firstAttribute="height" secondItem="iud-sW-Jaq" secondAttribute="height" id="DNH-yr-4W1"/>
+                                    <constraint firstItem="JEe-S0-bir" firstAttribute="height" secondItem="iud-sW-Jaq" secondAttribute="height" multiplier="0.44" id="Ghv-Jo-Xhb"/>
                                     <constraint firstItem="Lmn-Tb-qGx" firstAttribute="width" secondItem="iud-sW-Jaq" secondAttribute="width" multiplier="0.45" id="aSZ-ox-1TF"/>
                                     <constraint firstItem="Lmn-Tb-qGx" firstAttribute="height" secondItem="iud-sW-Jaq" secondAttribute="height" id="riN-cq-sYV"/>
                                 </constraints>
@@ -2441,6 +2440,49 @@
             </objects>
             <point key="canvasLocation" x="1889.8550724637682" y="199.55357142857142"/>
         </scene>
+        <!--Walk Mapview Controller-->
+        <scene sceneID="gwL-OQ-iu0">
+            <objects>
+                <viewController id="cUn-Yn-bJh" customClass="walkMapviewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yk6-fM-e4v">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F33-oN-aL2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ivl-BM-lWC" userLabel="이전">
+                                <rect key="frame" x="0.0" y="44" width="82.666666666666671" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="chevron.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="back_btn:" destination="cUn-Yn-bJh" eventType="touchUpInside" id="7Hc-HN-hCj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Jq5-jp-vVt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ivl-BM-lWC" firstAttribute="leading" secondItem="Jq5-jp-vVt" secondAttribute="leading" id="55y-dD-IoG"/>
+                            <constraint firstItem="F33-oN-aL2" firstAttribute="width" secondItem="Yk6-fM-e4v" secondAttribute="width" id="9DC-I8-Z3d"/>
+                            <constraint firstItem="F33-oN-aL2" firstAttribute="height" secondItem="Yk6-fM-e4v" secondAttribute="height" multiplier="0.07" id="LqB-WN-fiS"/>
+                            <constraint firstItem="F33-oN-aL2" firstAttribute="leading" secondItem="Jq5-jp-vVt" secondAttribute="leading" id="VSQ-0X-pxb"/>
+                            <constraint firstItem="Ivl-BM-lWC" firstAttribute="height" secondItem="Yk6-fM-e4v" secondAttribute="height" multiplier="0.07" id="dTB-iH-pS6"/>
+                            <constraint firstItem="Ivl-BM-lWC" firstAttribute="top" secondItem="Jq5-jp-vVt" secondAttribute="top" id="e7k-jv-67Y"/>
+                            <constraint firstItem="F33-oN-aL2" firstAttribute="top" secondItem="Jq5-jp-vVt" secondAttribute="top" id="lYD-S0-oQF"/>
+                            <constraint firstItem="Ivl-BM-lWC" firstAttribute="width" secondItem="Yk6-fM-e4v" secondAttribute="width" multiplier="0.2" id="sOa-i0-H5K"/>
+                            <constraint firstItem="F33-oN-aL2" firstAttribute="trailing" secondItem="Jq5-jp-vVt" secondAttribute="trailing" id="uf8-hl-DAU"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hnw-9Z-g19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="207" y="1647"/>
+        </scene>
         <!--산책하기!-->
         <scene sceneID="5DH-hM-gra">
             <objects>
@@ -2464,31 +2506,28 @@
                                     <action selector="logout_btn:" destination="ha8-6j-wid" eventType="touchUpInside" id="p88-qO-2s7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dz-yB-fCP" userLabel="towalk_btn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dz-yB-fCP" userLabel="towalk_btn">
                                 <rect key="frame" x="20" y="114" width="374" height="269"/>
+                                <state key="normal" image="산책대기.png"/>
+                                <connections>
+                                    <action selector="to_walk_btn:" destination="ha8-6j-wid" eventType="touchUpInside" id="evq-XY-LcG"/>
+                                    <segue destination="cUn-Yn-bJh" kind="presentation" modalPresentationStyle="fullScreen" id="eww-wc-7kF"/>
+                                </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRh-3W-hCV" userLabel="towalk_img">
-                                <rect key="frame" x="20" y="114" width="374" height="269"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fJ2-uT-4XG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fJ2-uT-4XG" secondAttribute="leading" symbolic="YES" id="1O6-kv-wzM"/>
-                            <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="WRh-3W-hCV" secondAttribute="trailing" constant="20" id="3FC-fk-mTQ"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="top" secondItem="LIA-F7-RXr" secondAttribute="bottom" constant="7.3300000000000001" id="4fk-qc-LVe"/>
-                            <constraint firstItem="WRh-3W-hCV" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.903382" id="6Af-L6-aEX"/>
                             <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="nSm-ws-tVw" secondAttribute="trailing" id="Ajw-oT-Znh"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" id="B0L-S5-89P"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.3" id="DOq-CY-QQd"/>
                             <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="4dz-yB-fCP" secondAttribute="trailing" constant="20" id="DVQ-Xe-LBA"/>
-                            <constraint firstItem="WRh-3W-hCV" firstAttribute="top" secondItem="LIA-F7-RXr" secondAttribute="bottom" constant="7.3300000000000001" id="Ejs-c1-F3Y"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" id="IYb-So-Ie0"/>
-                            <constraint firstItem="WRh-3W-hCV" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="Li9-sv-9TC"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="Uhp-7m-Vwr"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="eMM-08-kJg"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="fV9-PB-wCT"/>
-                            <constraint firstItem="WRh-3W-hCV" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="ffi-iZ-ata"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="qo8-v5-Nj9"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="rLo-g3-ndp"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="sZz-2h-VtY"/>
@@ -2500,7 +2539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdy-DE-rBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-333.33333333333337" y="1588.3928571428571"/>
+            <point key="canvasLocation" x="-528" y="1647"/>
         </scene>
     </scenes>
     <resources>
@@ -2517,6 +2556,7 @@
         <image name="강아지 침.png" width="582" height="460"/>
         <image name="강아지.png" width="808" height="529"/>
         <image name="발바닥.png" width="250" height="255"/>
+        <image name="산책대기.png" width="1200" height="1000"/>
         <image name="안내_사진없음2.png" width="1000" height="881"/>
         <image name="프로필사진 수정 아래 배너.png" width="1800" height="300"/>
         <systemColor name="opaqueSeparatorColor">
