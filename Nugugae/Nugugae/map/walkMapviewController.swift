@@ -37,21 +37,25 @@ class walkMapviewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("walk_Map_view Start")
-        UserDefaults.standard.set(true,forKey: "walk_isrunning")
-        // 포어그라운드, 백그라운드에서 산책 돌리기 위한 유저 디폴트 토큰 to true
         
         
         date.locale = Locale(identifier: "ko_kr")
         date.timeZone = TimeZone(abbreviation: "KST")
         date.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        start_time = date.string(from: now)
-        print("시작시간 : ", start_time)
         // 위치
+        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning"))
+        if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
+            start_time = date.string(from: now)
+            print("시작시간 : ", start_time)
+            location_data.sharedInstance.init_locationManager()
+            // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
+            location_data.sharedInstance.init_update()
+            // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
+        }
+        else{
+            print("산책 하기! 동작은, 이미 동작중일 것")
+        }
         
-        location_data.sharedInstance.init_locationManager()
-        // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
-        location_data.sharedInstance.init_update()
-        // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
     }
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\twalk_Map_view")

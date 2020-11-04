@@ -44,6 +44,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     // ary append 동작
     
     func init_locationManager(){
+        UserDefaults.standard.set("true",forKey: "walk_isrunning")
+        // 포어그라운드, 백그라운드에서 산책 돌리기 위한 유저 디폴트 토큰 to true
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -79,19 +82,18 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         // 현재 산책하는 유저 테이블에 넣기
         
     }
-    func stop_location(){
-        UserDefaults.standard.set(false, forKey: "walk_isrunning")
+    func stop_location(completion: @escaping ([String]) -> Void){
+        UserDefaults.standard.set("false", forKey: "walk_isrunning")
         print("walk_isrunning false로 세팅")
+        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
         // walk_isrunning false로 세팅, 산책 종료 버튼을 누르거나, 백그라운드에서 or 포어그라운드에서
         // true로 산책 도중 종료 되었을 경우
-        locationManager = nil
-        start_time = ""
-        print("location manager 메모리 할당 해제")
-        
+        var endMsg = []
         
         deleteNowWalkdata(url: server_url+"/walkservice/stop/nowwalk") { (ids) in
             print("산책 종료로 인한 유저 추적 테이블 제거")
             print(ids)
+            endMsg.append(contentsOf: ids)
         }
         // 현재 산책인원 추적 종료, nowWalking tabel del
         
@@ -102,6 +104,13 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         
         // 남은 큐에 있는 위치 데이터 서버로 전송
         
+        locationManager = nil
+        start_time = ""
+        print("location manager, 변수들 메모리 할당 해제")
+        location_data.sharedInstance.location_ary = [[-1,-1],]
+        location_data.sharedInstance.date_bylocation_ary = [""]
+        
+        completion(endMsg)
         
     }// 산책 중지 버튼을 통해 동작하는 정리 api들, 현재 산책인원 정리, 남은 데이터 서버에 저장
     
