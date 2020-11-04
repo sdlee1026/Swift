@@ -20,7 +20,6 @@ class walkMapviewController: UIViewController
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     
     let now = Date()
-    
     let date = DateFormatter()
     
     var start_time:String = ""

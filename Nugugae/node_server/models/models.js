@@ -255,6 +255,55 @@ const GalleryTable = sequelize.define('GalleryTables',{
     // relative 된 강아지.. (+a기능)
 });
 
+const walksInfoTable = sequelize.define('walksInfoTable',{
+    id:{
+        type : Sequelize.STRING,
+        references: {
+            model: LoginUser,
+            key: 'id'
+        },
+        primaryKey: true
+    },
+    // 유저 id(login기준, logintable 참조 외래키_ 기본키)
+    date:{
+        type : Sequelize.DATE,
+        primaryKey: true,
+    },
+    // 산책 날짜
+    starttime:{
+        type : Sequelize.TIME
+    },
+    // 시작 시간
+    endtime:{
+        type : Sequelize.TIME
+    },
+    // 끝난 시간
+    location_data:{
+        type : Sequelize.TEXT,
+    },
+    // 위치 데이터(맵 데이터)
+    
+});
+// 산책 기록 테이블(맵 데이터)
+
+const nowWalkingUser = sequelize.define('nowWalkingUser',{
+    id:{
+        type: Sequelize.STRING,
+        references: {
+            model: LoginUser,
+            key: 'id'
+        },
+
+        primaryKey: true
+    },
+    last_location:{
+        type: Sequelize.STRING
+    },
+    // 유저의 마지막 위치
+
+});
+// 지금 산책하고 있는 유저관리 테이블
+
 module.exports = {
     sequelize: sequelize,
     User: LoginUser,
@@ -263,4 +312,6 @@ module.exports = {
     GalleryTable: GalleryTable,
     UserDetailInfo: UserDetailInfo,
     DogsInfo: DogsInfo,
+    walksInfoTable: walksInfoTable,
+    nowWalkingUser: nowWalkingUser,
 }

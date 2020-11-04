@@ -45,10 +45,11 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         locationManager = nil
         print("location manager 메모리 할당 해제")
         // 남은 큐에 있는 위치 데이터 서버로 전송
-        // 현재 산책인원 추적 종료
+        // 현재 산책인원 추적 종료, nowWalking tabel del
         
         
     }// 산책 중지 버튼을 통해..
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //위치가 업데이트될때마다
             print("위치 업데이트됨")
@@ -75,6 +76,12 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             }
         
         if location_data.sharedInstance.location_ary.count == 10{
+            let post_location_ary = location_data.sharedInstance.location_ary
+            location_data.sharedInstance.location_ary = [[-1,-1],]
+            
+            print("보낼 데이터 갯수 : ", post_location_ary.count)
+            print("다시 준비할 데이터 갯수 : ", location_data.sharedInstance.location_ary.count)
+            print("유저 마지막 좌표 : ", post_location_ary[post_location_ary.endIndex-1])
             
         }// 10개 모였을때 서버로 데이터 보냄, 이 때 맨 마지막 좌표는 산책 기록 테이블이 아닌, 현재 산책 인원 관리 테이블로..
     }
