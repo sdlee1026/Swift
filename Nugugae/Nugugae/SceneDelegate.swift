@@ -72,6 +72,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         print("app, 백그라운드 진입")
+        if UserDefaults.standard.bool(forKey: "walk_isrunning"){
+            print("산책하기 ON, 백그라운드에서도 위치 추적")
+            location_data.sharedInstance.initfunc()
+            // 산책하기 켜놓은 도중에 백그라운드 진입 하였을 경우.
+        }
+        else{
+            print("산책하기 No, 백그라운드 위치 추적 x")
+        }
     }
 
 

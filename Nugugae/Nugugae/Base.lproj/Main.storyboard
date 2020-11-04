@@ -2463,25 +2463,41 @@
                                     <action selector="back_btn:" destination="cUn-Yn-bJh" eventType="touchUpInside" id="7Hc-HN-hCj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rL-7w-TjZ" userLabel="산책중지">
+                                <rect key="frame" x="331.33333333333331" y="44" width="82.666666666666686" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="산책중지!">
+                                    <color key="titleColor" red="1" green="0.82177826970000001" blue="0.50299691449999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="stop_walk_btn:" destination="cUn-Yn-bJh" eventType="touchUpInside" id="bYo-hd-EdY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jq5-jp-vVt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ivl-BM-lWC" firstAttribute="leading" secondItem="Jq5-jp-vVt" secondAttribute="leading" id="55y-dD-IoG"/>
                             <constraint firstItem="F33-oN-aL2" firstAttribute="width" secondItem="Yk6-fM-e4v" secondAttribute="width" id="9DC-I8-Z3d"/>
+                            <constraint firstItem="4rL-7w-TjZ" firstAttribute="height" secondItem="Yk6-fM-e4v" secondAttribute="height" multiplier="0.07" id="I4u-Ky-WNm"/>
                             <constraint firstItem="F33-oN-aL2" firstAttribute="height" secondItem="Yk6-fM-e4v" secondAttribute="height" multiplier="0.07" id="LqB-WN-fiS"/>
+                            <constraint firstItem="4rL-7w-TjZ" firstAttribute="top" secondItem="Jq5-jp-vVt" secondAttribute="top" id="OWJ-83-L7i"/>
+                            <constraint firstItem="4rL-7w-TjZ" firstAttribute="width" secondItem="Yk6-fM-e4v" secondAttribute="width" multiplier="0.2" id="SFi-P7-9j0"/>
                             <constraint firstItem="F33-oN-aL2" firstAttribute="leading" secondItem="Jq5-jp-vVt" secondAttribute="leading" id="VSQ-0X-pxb"/>
                             <constraint firstItem="Ivl-BM-lWC" firstAttribute="height" secondItem="Yk6-fM-e4v" secondAttribute="height" multiplier="0.07" id="dTB-iH-pS6"/>
+                            <constraint firstItem="Jq5-jp-vVt" firstAttribute="trailing" secondItem="4rL-7w-TjZ" secondAttribute="trailing" id="dd0-sl-zBp"/>
                             <constraint firstItem="Ivl-BM-lWC" firstAttribute="top" secondItem="Jq5-jp-vVt" secondAttribute="top" id="e7k-jv-67Y"/>
                             <constraint firstItem="F33-oN-aL2" firstAttribute="top" secondItem="Jq5-jp-vVt" secondAttribute="top" id="lYD-S0-oQF"/>
                             <constraint firstItem="Ivl-BM-lWC" firstAttribute="width" secondItem="Yk6-fM-e4v" secondAttribute="width" multiplier="0.2" id="sOa-i0-H5K"/>
+                            <constraint firstItem="4rL-7w-TjZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ivl-BM-lWC" secondAttribute="trailing" constant="8" symbolic="YES" id="uRd-ST-ZDM"/>
                             <constraint firstItem="F33-oN-aL2" firstAttribute="trailing" secondItem="Jq5-jp-vVt" secondAttribute="trailing" id="uf8-hl-DAU"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hnw-9Z-g19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="207" y="1647"/>
+            <point key="canvasLocation" x="-794" y="2335"/>
         </scene>
         <!--산책하기!-->
         <scene sceneID="5DH-hM-gra">
