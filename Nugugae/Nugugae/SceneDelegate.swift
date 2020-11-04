@@ -46,6 +46,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+        print("app 아예 종료")
+        if UserDefaults.standard.bool(forKey: "walk_isrunning"){
+            print("산책하기! 동작중 종료. 마무리 동작 수행")
+            location_data.sharedInstance.stop_location()
+            
+        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -74,7 +80,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("app, 백그라운드 진입")
         if UserDefaults.standard.bool(forKey: "walk_isrunning"){
             print("산책하기 ON, 백그라운드에서도 위치 추적")
-            location_data.sharedInstance.initfunc()
+            location_data.sharedInstance.init_locationManager()
             // 산책하기 켜놓은 도중에 백그라운드 진입 하였을 경우.
         }
         else{

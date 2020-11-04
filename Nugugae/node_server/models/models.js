@@ -271,17 +271,21 @@ const walksInfoTable = sequelize.define('walksInfoTable',{
     },
     // 산책 날짜
     starttime:{
-        type : Sequelize.TIME
+        type : Sequelize.DATE
     },
     // 시작 시간
     endtime:{
-        type : Sequelize.TIME
+        type : Sequelize.DATE
     },
     // 끝난 시간
     location_data:{
         type : Sequelize.TEXT,
     },
-    // 위치 데이터(맵 데이터)
+    // 위치 데이터 (맵 데이터)
+    date_bylocation:{
+        type : Sequelize.TEXT,
+    },
+    // 위치 데이터의 시간 데이터 (맵 데이터)
     
 });
 // 산책 기록 테이블(맵 데이터)
@@ -300,6 +304,9 @@ const nowWalkingUser = sequelize.define('nowWalkingUser',{
         type: Sequelize.STRING
     },
     // 유저의 마지막 위치
+    last_date_bylocation:{
+        type: Sequelize.DATE
+    },
 
 });
 // 지금 산책하고 있는 유저관리 테이블
@@ -312,6 +319,6 @@ module.exports = {
     GalleryTable: GalleryTable,
     UserDetailInfo: UserDetailInfo,
     DogsInfo: DogsInfo,
-    walksInfoTable: walksInfoTable,
-    nowWalkingUser: nowWalkingUser,
+    walksInfoTable: walksInfoTable,// 산책 로그 테이블
+    nowWalkingUser: nowWalkingUser,// 현재 산책중 유저 테이블
 }

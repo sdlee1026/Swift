@@ -124,7 +124,11 @@ const walk_controller = require('./walk.controller');
 const gallery_controller = require('./gallery.controller');
 // gallery controller
 const infosetting_controller = require('./infosetting.controller');
+// infosetting controller
 const { info } = require('console');
+
+const walkservice_controller = require('./walkservice.controller');
+// walk_service controller . 산책 맵 데이터
 
 
 module.exports = router;
@@ -140,19 +144,27 @@ router.post('/login/', login_controller.login);
 // 유저 중복 확인
 router.post('/users/check', login_controller.usercheck);
 
-// 산책기록
+// 산책일지(텍스트)
+
 router.get('/walktest/', walk_controller.walk_index);
-// 산책기록 테이블 보기
+// 산책일지 테이블 보기
 router.post('/walk/view/', walk_controller.walk_view);
-// 산책기록 테이블 내용 보기
+// 산책일지 테이블 내용 보기
 router.post('/walk/viewone/', walk_controller.walk_viewone);
 router.post('/walk/view/detail/', walk_controller.walk_view_detail);
-// 산책기록 글쓰기
+// 산책일지 글쓰기
 router.post('/walk/write/', walk_controller.walk_write);
-// 산책기록 수정하기
+// 산책일지 수정하기
 router.post('/walk/edit/', walk_controller.walk_edit);
-// 산책기록 삭제하기
+// 산책일지 삭제하기
 router.post('/walk/delete/', walk_controller.walk_delete);
+
+// 산책하기! 동작 
+
+// 산책하기! init()
+router.post('/walkservice/init/', walkservice_controller.walk_init);
+// 산책하기! stop(), nowwalking 데이터 지우기_ 현재 산책중인 유저 관리 테이블
+router.post('/walkservice/stop/nowwalk/', walkservice_controller.walk_stop_nowwalk);
 
 // 갤러리
 

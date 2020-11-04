@@ -10,9 +10,7 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-class walkMapviewController: UIViewController
-//                             ,CLLocationManagerDelegate
-{
+class walkMapviewController: UIViewController{
     
     
     let server_url:String = Server_url.sharedInstance.server_url
@@ -29,11 +27,9 @@ class walkMapviewController: UIViewController
     }
     
     @IBAction func stop_walk_btn(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "walk_isrunning")
-        // 포어그라운드, 백그라운드에서 산책 돌리기 위한 유저 디폴트 토큰 to false
         print("stop_walk")
         location_data.sharedInstance.stop_location()
-        // 딜리게이트 메모리 할당 해제
+        // 딜리게이트 메모리 할당 해제, UserDefault 토큰, 서버 쿼리 처리
         
     }
     // 산책 중지 버튼
@@ -52,8 +48,10 @@ class walkMapviewController: UIViewController
         print("시작시간 : ", start_time)
         // 위치
         
-        location_data.sharedInstance.initfunc()
+        location_data.sharedInstance.init_locationManager()
         // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
+        location_data.sharedInstance.init_update()
+        // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
     }
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\twalk_Map_view")
