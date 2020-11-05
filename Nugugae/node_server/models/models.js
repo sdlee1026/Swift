@@ -271,11 +271,11 @@ const walksInfoTable = sequelize.define('walksInfoTable',{
     },
     // 산책 날짜
     starttime:{
-        type : Sequelize.DATE
+        type : Sequelize.DATE,
     },
     // 시작 시간
     endtime:{
-        type : Sequelize.DATE
+        type : Sequelize.DATE,
     },
     // 끝난 시간
     location_data:{
@@ -286,6 +286,11 @@ const walksInfoTable = sequelize.define('walksInfoTable',{
         type : Sequelize.TEXT,
     },
     // 위치 데이터의 시간 데이터 (맵 데이터)
+    distance:{
+        type : Sequelize.DOUBLE,
+        allowNull: true,
+        defaultValue: 0.0
+    }// 누적 거리, null, 가능
     
 });
 // 산책 기록 테이블(맵 데이터)

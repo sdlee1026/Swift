@@ -31,7 +31,7 @@ class walkMapviewController: UIViewController{
         location_data.sharedInstance.stop_location(completion: { (ids) in
             print(ids)
         })
-        // 딜리게이트 메모리 할당 해제, UserDefault 토큰, 서버 쿼리 처리
+        // location_data class의 중단 기능 함수 작동 _ 위치 데이터 저장, 현재 산책 유저 테이블에서 유저 삭제
         
     }
     // 산책 중지 버튼
@@ -45,7 +45,7 @@ class walkMapviewController: UIViewController{
         date.timeZone = TimeZone(abbreviation: "KST")
         date.dateFormat = "yyyy-MM-dd HH:mm:ss"
         // 위치
-        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning"))
+        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
             start_time = date.string(from: now)
             print("시작시간 : ", start_time)
@@ -55,17 +55,23 @@ class walkMapviewController: UIViewController{
             // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
         }
         else{
-            print("산책 하기! 동작은, 이미 동작중일 것")
+            print("산책 하기! 동작은, 이미 동작중일 것 -> 토큰 true일 경우.")
         }
         
     }
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\twalk_Map_view")
         super.viewWillAppear(true)
+        
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
         print("view did appear, walk_Map_view")
+        // 맵 데이터 로드 서버로 부터 요청, 맵 그리기 시작
+        // 여기서 보여주는 데이터는 지금 까지 산책 경로 그리는건 필요없다, 일단은
+        // 보여줄 정보, 1. 실시간으로 내 반경 100m 안에 있는 유저의 정보 피커
+            // 1-1. 그 정보 피커 클릭시.. 동작 구현해야함
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear, walk_Map_view")
