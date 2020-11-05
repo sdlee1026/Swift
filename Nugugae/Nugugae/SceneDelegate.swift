@@ -47,10 +47,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
         print("app 아예 종료")
-        var endmsg = ""
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "true"{
             print("산책하기! 동작중 종료. 마무리 동작 수행")
-            endmsg=location_data.sharedInstance.stop_location(completion: { (ids) in
+            location_data.sharedInstance.stop_location(completion: { (ids) in
+                sleep(3)
+                print("3초 대기")
                 print(ids)
             })
             

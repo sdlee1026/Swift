@@ -28,7 +28,9 @@ class walkMapviewController: UIViewController{
     
     @IBAction func stop_walk_btn(_ sender: Any) {
         print("stop_walk")
-        location_data.sharedInstance.stop_location()
+        location_data.sharedInstance.stop_location(completion: { (ids) in
+            print(ids)
+        })
         // 딜리게이트 메모리 할당 해제, UserDefault 토큰, 서버 쿼리 처리
         
     }

@@ -165,6 +165,8 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 router.post('/walkservice/init/', walkservice_controller.walk_init);
 // 산책하기! stop(), nowwalking 데이터 지우기_ 현재 산책중인 유저 관리 테이블
 router.post('/walkservice/stop/nowwalk/', walkservice_controller.walk_stop_nowwalk);
+// 산책하기! stop(), 남은 위치 데이터 전송하기
+router.post('/walkservice/stop/elsedata/', walkservice_controller.walk_stop_elsedata);
 
 // 갤러리
 

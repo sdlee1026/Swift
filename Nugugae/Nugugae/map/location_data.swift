@@ -75,7 +75,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     }
     func init_update(){
         print("서버 쿼리 시작")
-        postInitWalkdata(url: server_url+"/walkservice/init") { (ids) in
+        postInitWalkData(url: server_url+"/walkservice/init") { (ids) in
             print(ids)
         }
         // 산책 기록 (map data log_walksInfoTable)테이블에 넣기
@@ -88,9 +88,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
         // walk_isrunning false로 세팅, 산책 종료 버튼을 누르거나, 백그라운드에서 or 포어그라운드에서
         // true로 산책 도중 종료 되었을 경우
-        var endMsg = []
+        var endMsg = [String]()
         
-        deleteNowWalkdata(url: server_url+"/walkservice/stop/nowwalk") { (ids) in
+        deleteNowWalkData(url: server_url+"/walkservice/stop/nowwalk") { (ids) in
             print("산책 종료로 인한 유저 추적 테이블 제거")
             print(ids)
             endMsg.append(contentsOf: ids)
@@ -101,15 +101,18 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         end_time = date.string(from: Date())
         print("종료 시간 세팅")
         // 종료 시간 세팅
-        
-        // 남은 큐에 있는 위치 데이터 서버로 전송
+        if (location_data.sharedInstance.location_ary.count > 0){
+            postlastWalkingData(url: server_url+"/walkservice/stop/elsedata")
+            print("남은 데이터 전송")
+            // 남은 큐에 있는 위치 데이터 서버로 전송
+        }
         
         locationManager = nil
         start_time = ""
         print("location manager, 변수들 메모리 할당 해제")
         location_data.sharedInstance.location_ary = [[-1,-1],]
         location_data.sharedInstance.date_bylocation_ary = [""]
-        
+        print("외부 클로저 내용 : ",endMsg)
         completion(endMsg)
         
     }// 산책 중지 버튼을 통해 동작하는 정리 api들, 현재 산책인원 정리, 남은 데이터 서버에 저장
@@ -160,7 +163,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         }// 10개 모였을때 서버로 데이터 보냄, 이 때 맨 마지막 좌표는 산책 기록 테이블이 아닌, 현재 산책 인원 관리 테이블로..
     }
 
-    func postInitWalkdata(url: String, completion: @escaping ([String]) -> Void){
+    func postInitWalkData(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
             "date":self.start_time,
@@ -173,9 +176,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
                 var ids = [String]()
                 switch response.result{
                     case .success(let value):
-                        let writedata = JSON(value)// 응답
-                        print("\(writedata["content"])")
-                        ids.append("\(writedata["content"])")
+                        let writeData = JSON(value)// 응답
+                        print("\(writeData["content"])")
+                        ids.append("\(writeData["content"])")
                     case .failure( _): break
                 }
                 completion(ids)
@@ -183,7 +186,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         
     }// walk info init, DB
     
-    func deleteNowWalkdata(url: String, completion: @escaping ([String]) -> Void){
+    func deleteNowWalkData(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
         ]
@@ -192,12 +195,43 @@ class location_data:UIViewController,CLLocationManagerDelegate{
                 var ids = [String]()
                 switch response.result{
                     case .success(let value):
-                        let writedata = JSON(value)// 응답
-                        print("\(writedata["content"])")
-                        ids.append("\(writedata["content"])")
+                        let deleteData = JSON(value)// 응답
+                        print("\(deleteData["content"])")
+                        ids.append("\(deleteData["content"])")
                     case .failure( _): break
                 }
                 completion(ids)
             }
     }// nowWalking table delete, DB
+    
+    func postlastWalkingData(url: String )-> Void{
+        print("남은 데이터 보내는 api")
+        var post_location_str:String = ""
+        var post_bylocation_str:String = ""
+        for i in location_data.sharedInstance.location_ary{
+            post_location_str += String(i[0])+","+String(i[1])+"|"
+            // '|' 데이터 인덱스 구분자, ','로 인덱스0,1번 값 구부
+        }
+        for i in location_data.sharedInstance.date_bylocation_ary{
+            post_bylocation_str += i+"|"
+            // '|' 날짜데이터 인덱스 구분자
+        }
+//         parameter data prepare
+        let parameters: [String:String] = [
+            "id":self.user,
+            "date":self.start_time,
+            "location_data":post_location_str,
+            "date_bylocation":post_bylocation_str,
+            "endtime":self.end_time,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                switch response.result{
+                    case .success(let value):
+                        let updateData = JSON(value)// 응답
+                        print("\(updateData["content"])")
+                    case .failure( _): break
+                }
+            }
+    }// stop동작으로 인한 데이터 처리, 위치and시각 배열 남아있는 값 update
 }//class end
