@@ -163,6 +163,8 @@ router.post('/walk/delete/', walk_controller.walk_delete);
 
 // 산책하기! init()
 router.post('/walkservice/init/', walkservice_controller.walk_init);
+// 산책하기! 중간 업데이트 동작, 10개 위치_시간 데이터 받아오고, 현재 위치 테이블 갱신 동작
+router.post('/walkservice/update_data/', walkservice_controller.walk_update);
 // 산책하기! stop(), nowwalking 데이터 지우기_ 현재 산책중인 유저 관리 테이블
 router.post('/walkservice/stop/nowwalk/', walkservice_controller.walk_stop_nowwalk);
 // 산책하기! stop(), 남은 위치 데이터 전송하기

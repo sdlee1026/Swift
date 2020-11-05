@@ -49,6 +49,55 @@ exports.walk_init = (req, res) => {
 
 };
 
+// 산책하기! 중간 업데이트 동작, 10개 위치_시간 데이터 받아오고, 현재 위치 테이블 갱신 동작
+exports.walk_update = (req, res) => {
+    console.log('\nWalk_service/update_data, map_data(location, date) update and nowwalk user location update\n');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+    var location_data = req.body.location_data || '';
+    var date_bylocation = req.body.date_bylocation || '';
+    // db to update values
+    var last_location = req.body.last_location || '';
+    var last_date_bylocation = req.body.last_date_bylocation || '';
+    // now walking update values
+    if (!id) {
+        return res.status(400).json({error: 'Incorrect id'});
+    }
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.nowWalkingUser.update(
+                {
+                    last_location: last_location,
+                    last_date_bylocation: last_date_bylocation
+                },// 위치값, 시간값, 종료시간 update, CONCAT -> 배열 합치는 함수
+                {where: {
+                    id: id,
+                }, returning: true}).then( (nowwalk) =>{
+                    console.log('\nnow walk ok, then db update\n');
+                    models.walksInfoTable.update(
+                        {
+                            location_data: Sequelize.fn('CONCAT', Sequelize.col("location_data"), location_data),
+                            date_bylocation: Sequelize.fn('CONCAT', Sequelize.col("date_bylocation"), date_bylocation)
+                        },// 위치값, 시간값, 종료시간 update, CONCAT -> 배열 합치는 함수
+                        {where: {
+                            id: id,
+                            date: date,
+                        }, returning: true}).then((userinfo) => {
+                        return res.status(201).json({content: 'Update OK'})
+                    });// userinfo_update.then
+                });// nowwalk_update.then
+            }// else
+        });// model_id check.then
+};
+// 산책하기!, 산책 종료시_stop() 하는 nowwalk user del, 남은 데이터 db적재 동작 2개
 exports.walk_stop_nowwalk = (req, res) =>{
     console.log('Walk_service/stop nowwalk user delete');
     var id = req.body.id || '';

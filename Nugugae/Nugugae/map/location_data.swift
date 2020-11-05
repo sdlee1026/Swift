@@ -151,16 +151,21 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         if location_data.sharedInstance.location_ary.count == 10{
             let post_location_ary = location_data.sharedInstance.location_ary
             let post_date_bylocation_ary = location_data.sharedInstance.date_bylocation_ary
+            // 보낼 10개의 정보(좌표, 시각)
+            let post_location_last = String(post_location_ary[post_location_ary.endIndex-1][0])+","+String(post_location_ary[post_location_ary.endIndex-1][1])
+            let post_date_last = String(post_date_bylocation_ary[post_date_bylocation_ary.endIndex-1])
+            // 보낼 마지막 위치와 그때의 시각
             location_data.sharedInstance.location_ary = [[-1,-1],]
             location_data.sharedInstance.date_bylocation_ary = [""]
-            
             print("보낼 데이터 갯수 : ", post_location_ary.count)
             print("보낼 시간 데이터 갯수 : ", post_date_bylocation_ary.count)
             print("다시 준비할 데이터 갯수 : ", location_data.sharedInstance.location_ary.count)
             print("유저 마지막 좌표 : ", post_location_ary[post_location_ary.endIndex-1])
             print("마지막 좌표에 있었던 시간 : ", post_date_bylocation_ary[post_date_bylocation_ary.endIndex-1])
             
-        }// 10개 모였을때 서버로 데이터 보냄, 이 때 맨 마지막 좌표는 산책 기록 테이블이 아닌, 현재 산책 인원 관리 테이블로..
+            updateWalkData(url: server_url+"/walkservice/update_data", location_ary_param: post_location_ary, date_bylocation_ary_param: post_date_bylocation_ary, lastLocation: post_location_last, lastDateByLocation: post_date_last)
+            
+        }// Update api Query
     }
 
     func postInitWalkData(url: String, completion: @escaping ([String]) -> Void){
@@ -186,6 +191,39 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         
     }// walk info init, DB
     
+    func updateWalkData(url: String, location_ary_param:[[Float]], date_bylocation_ary_param:[String],
+                        lastLocation :String, lastDateByLocation:String){
+        print("data 10개, db -> update 동작")
+        var post_location_str:String = ""
+        var post_bylocation_str:String = ""
+        for i in location_ary_param{
+            post_location_str += String(i[0])+","+String(i[1])+"|"
+            // '|' 데이터 인덱스 구분자, ','로 인덱스0,1번 값 구부
+        }
+        for i in date_bylocation_ary_param{
+            post_bylocation_str += i+"|"
+            // '|' 날짜데이터 인덱스 구분자
+        }
+        let parameters: [String:String] = [
+            "id":self.user,
+            "date":self.start_time,
+            "location_data":post_location_str,
+            "date_bylocation":post_bylocation_str,
+            "last_location":lastLocation,
+            "last_date_bylocation":lastDateByLocation
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                switch response.result{
+                    case .success(let value):
+                        let updateData = JSON(value)// 응답
+                        print("\(updateData["content"])")
+                    case .failure( _): break
+                }
+            }
+    }// walk info Update, nowwalk info Update
+    // 10개 모였을때 서버로 데이터 보냄, 이 때 맨 마지막 좌표는 산책 기록 테이블이 아닌, 현재 산책 인원 관리 테이블로.
+    
     func deleteNowWalkData(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
@@ -204,7 +242,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             }
     }// nowWalking table delete, DB
     
-    func postlastWalkingData(url: String )-> Void{
+    func postlastWalkingData(url: String){
         print("남은 데이터 보내는 api")
         var post_location_str:String = ""
         var post_bylocation_str:String = ""
