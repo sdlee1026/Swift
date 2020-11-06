@@ -1,6 +1,7 @@
 const e = require('express');
 const Sequelize = require('sequelize');
 const models = require('../../models/models');//DB
+const Op = Sequelize.Op; 
 
 // 산책하기! 처음 눌렀을 때, 테이블 두개 생성. 1. 산책 로그 테이블 2. 현재 산책인원 관리 테이블
 exports.walk_init = (req, res) => {
@@ -10,6 +11,10 @@ exports.walk_init = (req, res) => {
     var starttime = req.body.starttime || '';
     var location_data = req.body.location_data || '';
     var date_bylocation = req.body.date_bylocation || '';
+    
+    var split_location_data = location_data.split(',');
+    var location_data_lat = parseFloat(split_location_data[0]);
+    var location_data_lng = parseFloat(split_location_data[1]);
 
     console.log(id, date, starttime, location_data, date_bylocation);
 
@@ -35,7 +40,8 @@ exports.walk_init = (req, res) => {
 
                 models.nowWalkingUser.create({
                     id : id,
-                    last_location : location_data, // 마지막으로 있었던 위치
+                    last_location_lat : location_data_lat, // 마지막으로 있었던 위치
+                    last_location_lng : location_data_lng,
                     last_date_bylocation : date_bylocation
 
                 }).then(nowwalk=>{
@@ -57,8 +63,13 @@ exports.walk_update = (req, res) => {
     var location_data = req.body.location_data || '';
     var date_bylocation = req.body.date_bylocation || '';
     // db to update values
+    
     var last_location = req.body.last_location || '';
     var last_date_bylocation = req.body.last_date_bylocation || '';
+
+    var split_last_location = last_location.split(',');
+    var last_location_lat = parseFloat(split_last_location[0]);
+    var last_location_lng = parseFloat(split_last_location[1]);
     // now walking update values
     if (!id) {
         return res.status(400).json({error: 'Incorrect id'});
@@ -75,7 +86,8 @@ exports.walk_update = (req, res) => {
         else{
             models.nowWalkingUser.update(
                 {
-                    last_location: last_location,
+                    last_location_lat: last_location_lat,
+                    last_location_lng: last_location_lng,
                     last_date_bylocation: last_date_bylocation
                 },// 위치값, 시간값, 종료시간 update, CONCAT -> 배열 합치는 함수
                 {where: {
@@ -97,6 +109,45 @@ exports.walk_update = (req, res) => {
             }// else
         });// model_id check.then
 };
+
+
+// 산책하기! 중간 근처 유저 트래킹 동작, 유저 현재 위치 받아서, 현재 위치 테이블에서 근처 유저 return
+const { QueryTypes } = require('sequelize');
+const { sequelize } = require('../../models/models');
+exports.walk_near_user = (req, res) => {
+    console.log('near_user tracking api');
+    var userid = req.body.id || '';
+    var location_data = req.body.location_data || '';
+    var split_location_data = location_data.split(',');
+    var location_data_lat = parseFloat(split_location_data[0]);
+    var location_data_lng = parseFloat(split_location_data[1]);
+    
+    console.log(userid, location_data);
+
+    if (!userid || !location_data) {
+        return res.status(400).json({error: 'Incorrect id or location data'});
+    }
+    //ABS()절대값, raw Query 사용
+    sequelize.query(
+        `SELECT * FROM nowWalkingUsers WHERE nowWalkingUsers.id != :userid 
+        AND ABS(:lat - nowWalkingUsers.last_location_lat) <0.001 
+        AND ABS(:lng - nowWalkingUsers.last_location_lng) <0.001`,
+        {
+            replacements: { userid: userid, lat: location_data_lat, lng: location_data_lng},
+            type: QueryTypes.SELECT
+        })
+        .then(nowwalk =>{
+            for(var i=0;i<nowwalk.length;i++){
+                console.log('유저 이름 : ', nowwalk[i]['id']);
+                console.log('위치 lat : ',nowwalk[i]['last_location_lat']);
+                console.log('위치 lng : ',nowwalk[i]['last_location_lng']);
+            }
+            return res.json(nowwalk);
+        });
+    
+};
+
+
 // 산책하기!, 산책 종료시_stop() 하는 nowwalk user del, 남은 데이터 db적재 동작 2개
 exports.walk_stop_nowwalk = (req, res) =>{
     console.log('Walk_service/stop nowwalk user delete');

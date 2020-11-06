@@ -28,6 +28,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     var latitude: Double?
     var longitude: Double?
     // 위도와 경도
+    var now_coord_forNM: NMGLatLng?
     
     let date = DateFormatter()
     var start_time:String = ""
@@ -132,6 +133,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         let now = Date()
         print(date.string(from: now))
         if let coor = manager.location?.coordinate{
+            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
             let input_loction = [Float(coor.latitude), Float(coor.longitude)]
             print("ary_들어있는 위치값 갯수:")
             print(location_data.sharedInstance.location_ary.count)
@@ -181,6 +183,11 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             self.tracking_user_index += 1
             if self.tracking_user_index == 30{
                 print("\t\t\t백그라운드 or 다른 뷰 탐색중, 주변 유저 트래킹 이벤트 발생")
+                getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
+                    print(ids_id)
+                    print(ids_lat)
+                    print(ids_lng)
+                }
                 self.tracking_user_index = 0
             }// 사용자 위치가 30번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다. -> 조금 lazy한 서칭.
             // 진동 혹은, 팝업 메세지 전송 할 것
@@ -293,4 +300,31 @@ class location_data:UIViewController,CLLocationManagerDelegate{
                 }
             }
     }// stop동작으로 인한 데이터 처리, 위치and시각 배열 남아있는 값 update
+    
+    func getNearUserData(url: String, completion: @escaping ([String],[Double],[Double]) -> Void){
+        let post_location = String(self.now_coord_forNM!.lat)+","+String(self.now_coord_forNM!.lng)
+        print("유저 위치 전송, ",post_location)
+        let parameters: [String:String] = [
+            "id":self.user,
+            "location_data":post_location
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids_id = [String]()
+                var ids_lat = [Double]()
+                var ids_lng = [Double]()
+                switch response.result{
+                    case .success(let value):
+                        let nearUserData = JSON(value)// 응답
+                        for U_json in nearUserData{
+                            ids_id.append("\(U_json.1["id"])")
+                            ids_lat.append(Double("\(U_json.1["last_location_lat"])")!)
+                            ids_lng.append(Double("\(U_json.1["last_location_lng"])")!)
+                        }
+                    case .failure( _): break
+                }
+                completion(ids_id, ids_lat, ids_lng)
+            }
+        
+    }// near User tracking api
 }//class end

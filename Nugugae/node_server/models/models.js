@@ -305,10 +305,14 @@ const nowWalkingUser = sequelize.define('nowWalkingUser',{
 
         primaryKey: true
     },
-    last_location:{
-        type: Sequelize.STRING
+    last_location_lat:{
+        type: Sequelize.DOUBLE
     },
-    // 유저의 마지막 위치
+    // 유저의 마지막 위치, lat
+    last_location_lng:{
+        type: Sequelize.DOUBLE
+    },
+    // 유저의 마지막 위치, lng
     last_date_bylocation:{
         type: Sequelize.DATE
     },

@@ -130,14 +130,19 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         print("위치 업데이트됨, now map data")
         if let coor = manager.location?.coordinate{
             self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
-            print(self.now_coord_forNM?.lat as Any)
-            print(self.now_coord_forNM?.lng as Any)
+//            print(self.now_coord_forNM?.lat as Any)
+//            print(self.now_coord_forNM?.lng as Any)
         }
         // walk_map <- 산책하기 맵이 동작하고 있을 경우에만.. 백그라운드 and 다른뷰 일때 동작 x
         if UserDefaults.standard.string(forKey:"walk_map_isrunning") == "true"{
             self.tracking_user_index += 1
             if self.tracking_user_index == 10{
                 print("\t\t\tmap 뷰에 있는 상태의, 주변 유저 트래킹 이벤트 발생")
+                getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
+                    print(ids_id)
+                    print(ids_lat)
+                    print(ids_lng)
+                }
                 self.tracking_user_index = 0
             }
         }// 사용자 위치가 10번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다.
@@ -152,5 +157,33 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    func getNearUserData(url: String, completion: @escaping ([String],[Double],[Double]) -> Void){
+        let post_location = String(self.now_coord_forNM!.lat)+","+String(self.now_coord_forNM!.lng)
+        print("유저 위치 전송, ",post_location)
+        let parameters: [String:String] = [
+            "id":self.user,
+            "location_data":post_location
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids_id = [String]()
+                var ids_lat = [Double]()
+                var ids_lng = [Double]()
+                
+                switch response.result{
+                    case .success(let value):
+                        let nearUserData = JSON(value)// 응답
+                        for U_json in nearUserData{
+                            ids_id.append("\(U_json.1["id"])")
+                            ids_lat.append(Double("\(U_json.1["last_location_lat"])")!)
+                            ids_lng.append(Double("\(U_json.1["last_location_lng"])")!)
+                        }
+                    case .failure( _): break
+                }
+                completion(ids_id, ids_lat, ids_lng)
+            }
+        
+    }// ㅜㄷ
     
 }
