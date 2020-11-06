@@ -11,6 +11,8 @@ user_gallery/
 user_profile/
 dog_profile/
 # user,dog profile image storagy
+Nugugae/Pods/NMapsMap/
+# naver_map api -> git lfs used, cocoapods use plz
 *.icloud
 *.mov
 
