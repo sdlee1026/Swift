@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 import Alamofire
 import SwiftyJSON
+import NMapsMap
 
 class location_data:UIViewController,CLLocationManagerDelegate{
     let server_url:String = Server_url.sharedInstance.server_url
@@ -16,6 +17,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // userid
     static let sharedInstance = location_data()
+    // 전역으로 사용할 공유 클래스
     
     var location_ary:[[Float]] = [[-1,-1],]
     var date_bylocation_ary:[String] = [""]
@@ -26,13 +28,15 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     var latitude: Double?
     var longitude: Double?
     // 위도와 경도
-    var img_latitude: Double = -1
-    var img_longitude: Double = -1
     
     let date = DateFormatter()
     var start_time:String = ""
     var end_time:String = ""
     // 산책 시작, 종료 시간
+    var tracking_user_index = 0
+    // 주변 유저를 탐색하기 위한 동작 체킹 인덱스
+    
+    
     var init_location:String = ""
     
     func append_loctiondata_toary(inputdata: [Float]){
@@ -83,8 +87,11 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         
     }
     func stop_location(completion: @escaping ([String]) -> Void){
+        UserDefaults.standard.set("false", forKey: "walk_map_isrunning")
+        print("map_view의 유저 트래킹을 위한 토큰 -> false")
+        
         UserDefaults.standard.set("false", forKey: "walk_isrunning")
-        print("walk_isrunning false로 세팅")
+        print("walk_isrunning -> false")
         print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
         // walk_isrunning false로 세팅, 산책 종료 버튼을 누르거나, 백그라운드에서 or 포어그라운드에서
         // true로 산책 도중 종료 되었을 경우
@@ -107,12 +114,15 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             // 남은 큐에 있는 위치 데이터 서버로 전송
         }
         
+        
+        // 쌓인 데이터 db에서 걸은 거리 측정을 위한 쿼리 보내야함, 이번 산책 총 걸은 거리 and 시간 정보 넣기 위해서..
         locationManager = nil
         start_time = ""
         print("location manager, 변수들 메모리 할당 해제")
         location_data.sharedInstance.location_ary = [[-1,-1],]
         location_data.sharedInstance.date_bylocation_ary = [""]
         print("외부 클로저 내용 : ",endMsg)
+        
         completion(endMsg)
         
     }// 산책 중지 버튼을 통해 동작하는 정리 api들, 현재 산책인원 정리, 남은 데이터 서버에 저장
@@ -166,6 +176,17 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             updateWalkData(url: server_url+"/walkservice/update_data", location_ary_param: post_location_ary, date_bylocation_ary_param: post_date_bylocation_ary, lastLocation: post_location_last, lastDateByLocation: post_date_last)
             
         }// Update api Query
+        
+        if UserDefaults.standard.string(forKey: "walk_map_isrunning") == "false"{
+            self.tracking_user_index += 1
+            if self.tracking_user_index == 30{
+                print("\t\t\t백그라운드 or 다른 뷰 탐색중, 주변 유저 트래킹 이벤트 발생")
+                self.tracking_user_index = 0
+            }// 사용자 위치가 30번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다. -> 조금 lazy한 서칭.
+            // 진동 혹은, 팝업 메세지 전송 할 것
+            
+        }// 백그라운드 or 맵 뷰가 진행중이지 않은 경우의 트래킹 이벤트
+        
     }
 
     func postInitWalkData(url: String, completion: @escaping ([String]) -> Void){

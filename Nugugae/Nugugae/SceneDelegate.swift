@@ -17,6 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
                
         print("Scene Delegate willConnectTo", UserDefaults.standard.bool(forKey: "isLoggedIn"))
+        UserDefaults.standard.set("false", forKey: "walk_isrunning")
+        UserDefaults.standard.set("false", forKey: "walk_map_isrunning")
+        print("first start, walk tracking, map_walkuser traking token -> false setting")
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -47,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
         print("app 아예 종료")
+        
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "true"{
             print("산책하기! 동작중 종료. 마무리 동작 수행")
             location_data.sharedInstance.stop_location(completion: { (ids) in
@@ -75,6 +79,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         print("app, 포어그라운드(실행화면 진입)")
+        // 이때 실행화면이 walk_map인 경우에만 바꾸도록 바꿔야함, 아니 안바꿔도 될지도..?? 아직 잘 모르겠다..
+        print("map_view의 유저 트래킹을 위한 토큰 -> true, 이제 포어그라운드에서 역할을 맏을것")
+        UserDefaults.standard.set("true", forKey: "walk_map_isrunning")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -85,6 +92,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         print("app, 백그라운드 진입")
+        print("map_view의 유저 트래킹을 위한 토큰 -> false, 이제 포어그라운드에서 역할을 맏을것")
+        UserDefaults.standard.set("false", forKey: "walk_map_isrunning")
+        
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "true"{
             print("산책하기 ON, 백그라운드에서도 위치 추적")
             location_data.sharedInstance.init_locationManager()
