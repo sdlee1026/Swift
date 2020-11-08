@@ -19,7 +19,11 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     var userdict = NearUser.sharedInstance.userdic
     var near_user_markerary = NearUser.sharedInstance.marker_ary
+    var near_user_infoary = NearUser.sharedInstance.infowindow_ary
     // 근처 유저 관리 dict
+    
+    var selected_marker_id:String = ""
+    // 마커 선택했을 때, 그 유저 아이디 저장할 스트링
     
     let now = Date()
     let date = DateFormatter()
@@ -39,6 +43,13 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     
     @IBOutlet weak var now_walk_map: NMFNaverMapView!
     // map View
+    @IBOutlet weak var walk_start_label: UILabel!
+    // 산책 시작 시간 label
+    
+    @IBOutlet weak var pass_dog_count_label: UILabel!
+    // 지나쳤던 강아지 카운트 label
+    // near user label 거리가 10미터 이내였던 경우에 올라간다.
+    @IBOutlet weak var near_user_count_label: UILabel!
     
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -79,8 +90,11 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
             start_time = date.string(from: now)
             print("시작시간 : ", start_time)
+            walk_start_label.text = start_time
+            // start label setting
             location_data.sharedInstance.init_locationManager()
             // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
+            
             location_data.sharedInstance.init_update()
             // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
         }
@@ -122,13 +136,25 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         // 현위치 설정 스위치 활성화
         now_walk_map.showScaleBar = true
         // 축적바 활성화
+        now_walk_map.mapView.touchDelegate = self
         
     }
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear, walk_Map_view, walk_map_isrunning UserDefault -> false")
         UserDefaults.standard.set("false", forKey: "walk_map_isrunning")
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "near_user_tracking"{
+            print("marker click, segue prepare")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? NearUserTrackingInfoViewController {
+                rvc.tracking_user = self.selected_marker_id
+            }
+        }
+    }
+    // segue 데이터전송시 준비
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("위치 업데이트됨, now map data")
         if let coor = manager.location?.coordinate{
@@ -143,15 +169,30 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
                     self.near_user_markerary = [:]
                     for (index, content) in ids_id.enumerated(){
                         self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
+                        self.near_user_infoary.updateValue(NMFInfoWindow(), forKey: content)
                         self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
                     }
                     for id in ids_id{
                         self.near_user_markerary[id]?.position = NMGLatLng(lat: self.userdict[id]![0], lng: self.userdict[id]![1])
+                        let dataSource = NMFInfoWindowDefaultTextSource.data()
+                        dataSource.title = id
+                        self.near_user_infoary[id]?.dataSource = dataSource
+                        
                         self.near_user_markerary[id]?.mapView = self.now_walk_map.mapView
                         self.near_user_markerary[id]?.iconImage = NMF_MARKER_IMAGE_PINK
                         self.near_user_markerary[id]?.captionText = id
                         self.near_user_markerary[id]?.captionRequestedWidth = 100
                         self.near_user_markerary[id]?.alpha = 0.8
+                        self.near_user_markerary[id]?.touchHandler = {(overlay) -> Bool in
+                            print("마커  터치됨, seg 동작될 것")
+                            // seg ready
+                            // 클릭 이벤트 발생, segue 호출
+                            self.selected_marker_id = id
+                            
+                            self.performSegue(withIdentifier: "near_user_tracking", sender: nil)
+                            return true
+                        }
+                        // 마커 핸들러 설정
                     }
                     self.tracking_user_index = 0
                 }
@@ -191,11 +232,24 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
                             ids_lat.append(Double("\(U_json.1["last_location_lat"])")!)
                             ids_lng.append(Double("\(U_json.1["last_location_lng"])")!)
                         }
+                        self.near_user_count_label.text = String(nearUserData.count)
                     case .failure( _): break
                 }
                 completion(ids_id, ids_lat, ids_lng)
             }
         
     }// near User tracking api
+    
+    
+        
+}
+extension walkMapviewController : NMFMapViewTouchDelegate{
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        print("지도를 터치했을 경우")
+        for (id,info) in self.near_user_infoary{
+            info.close()
+            // 열린 정보창들 다 닫음
+        }
+    }
     
 }
