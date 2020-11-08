@@ -17,6 +17,9 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     let user:String = UserDefaults.standard.string(forKey: "userId")!
+    var userdict = NearUser.sharedInstance.userdic
+    var near_user_markerary = NearUser.sharedInstance.marker_ary
+    // 근처 유저 관리 dict
     
     let now = Date()
     let date = DateFormatter()
@@ -130,8 +133,6 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         print("위치 업데이트됨, now map data")
         if let coor = manager.location?.coordinate{
             self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
-//            print(self.now_coord_forNM?.lat as Any)
-//            print(self.now_coord_forNM?.lng as Any)
         }
         // walk_map <- 산책하기 맵이 동작하고 있을 경우에만.. 백그라운드 and 다른뷰 일때 동작 x
         if UserDefaults.standard.string(forKey:"walk_map_isrunning") == "true"{
@@ -139,19 +140,30 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
             if self.tracking_user_index == 10{
                 print("\t\t\tmap 뷰에 있는 상태의, 주변 유저 트래킹 이벤트 발생")
                 getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
-                    print(ids_id)
-                    print(ids_lat)
-                    print(ids_lng)
+                    self.near_user_markerary = [:]
+                    for (index, content) in ids_id.enumerated(){
+                        self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
+                        self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
+                    }
+                    for id in ids_id{
+                        self.near_user_markerary[id]?.position = NMGLatLng(lat: self.userdict[id]![0], lng: self.userdict[id]![1])
+                        self.near_user_markerary[id]?.mapView = self.now_walk_map.mapView
+                        self.near_user_markerary[id]?.iconImage = NMF_MARKER_IMAGE_PINK
+                        self.near_user_markerary[id]?.captionText = id
+                        self.near_user_markerary[id]?.captionRequestedWidth = 100
+                        self.near_user_markerary[id]?.alpha = 0.8
+                    }
+                    self.tracking_user_index = 0
                 }
-                self.tracking_user_index = 0
             }
         }// 사용자 위치가 10번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다.
         // map 뷰에 주변 유저 피커 추가
         // lat, lng +-0.001, 값 이내에 있다 가정하면 근처에 있다고 일단 판단..
             // 서버로 userid랑, lat, lng 값 전송, db 에서 쿼리로 그 범위 안에 있는 유저들 좌표값을 통해 전송,
-            // 전송 받고 난후에, 현재 멤 데이터에 피커 추가
+            // 전송 받고 난후에(userdict 클래스의 딕셔너리를 이용)
         
-            // 그 피커 선택시에 팝업창으로 유저의 정보 출력하기, 또한.. 그 유저와 나와의 거리 대략 출력하기?
+        //현재 멤 데이터에 피커 추가
+        // 그 피커 선택시에 팝업창으로 유저의 정보 출력하기, 또한.. 그 유저와 나와의 거리 대략 출력하기?
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -184,6 +196,6 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
                 completion(ids_id, ids_lat, ids_lng)
             }
         
-    }// ㅜㄷ
+    }// near User tracking api
     
 }

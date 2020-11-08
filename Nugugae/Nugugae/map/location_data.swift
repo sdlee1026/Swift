@@ -16,6 +16,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     // 외부 접속 url,ngrok
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // userid
+    var userdict = NearUser.sharedInstance.userdic
+    var near_user_markerary = NearUser.sharedInstance.marker_ary
+
     static let sharedInstance = location_data()
     // 전역으로 사용할 공유 클래스
     
@@ -184,9 +187,12 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             if self.tracking_user_index == 30{
                 print("\t\t\t백그라운드 or 다른 뷰 탐색중, 주변 유저 트래킹 이벤트 발생")
                 getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
-                    print(ids_id)
-                    print(ids_lat)
-                    print(ids_lng)
+                    
+                    self.near_user_markerary = [:]
+                    for (index, content) in ids_id.enumerated(){
+                        self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
+                        self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
+                    }
                 }
                 self.tracking_user_index = 0
             }// 사용자 위치가 30번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다. -> 조금 lazy한 서칭.

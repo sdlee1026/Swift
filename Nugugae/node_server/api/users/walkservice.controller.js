@@ -131,7 +131,8 @@ exports.walk_near_user = (req, res) => {
     sequelize.query(
         `SELECT * FROM nowWalkingUsers WHERE nowWalkingUsers.id != :userid 
         AND ABS(:lat - nowWalkingUsers.last_location_lat) <0.001 
-        AND ABS(:lng - nowWalkingUsers.last_location_lng) <0.001`,
+        AND ABS(:lng - nowWalkingUsers.last_location_lng) <0.001 
+        ORDER BY ABS(:lat-nowWalkingUsers.last_location_lat) + ABS(:lng - nowWalkingUsers.last_location_lng)`,
         {
             replacements: { userid: userid, lat: location_data_lat, lng: location_data_lng},
             type: QueryTypes.SELECT
