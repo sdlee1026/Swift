@@ -2757,10 +2757,6 @@ pass_dogs_stack</string>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="bX9-aW-BNp" id="Jug-cj-iuy"/>
-                                    <outlet property="delegate" destination="bX9-aW-BNp" id="xhP-Lm-iFa"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XlX-i5-1EG"/>
@@ -2785,6 +2781,7 @@ pass_dogs_stack</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dog_info_table" destination="uLU-Ow-AQg" id="rid-C5-5k4"/>
                         <outlet property="intro_textview" destination="Gj6-c8-ZKv" id="qYw-fU-iOe"/>
                         <outlet property="nick_name_label" destination="OXs-r4-Lrm" id="dHz-dd-oCG"/>
                         <outlet property="profile_img" destination="GWb-kQ-zPe" id="3RV-up-q4O"/>

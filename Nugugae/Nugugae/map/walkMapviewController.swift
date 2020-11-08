@@ -63,6 +63,22 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         }
         else{
             print("유저 있음")
+            let near_user_alert =  UIAlertController(title: "근처 유저 살펴보기", message: "누구를 살펴볼까요??", preferredStyle: .actionSheet)
+            var temp_action_ary:[UIAlertAction] = []
+            for (key,value) in userdict{
+                // 이름 : 경도
+                temp_action_ary.append(UIAlertAction(title: key+"의 위치!", style: .default){ (action) in
+                    let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: value[0], lng: value[1]))
+                    self.now_walk_map.mapView.moveCamera(cameraUpdate)
+                })
+            }
+            for alert in temp_action_ary{
+                near_user_alert.addAction(alert)
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            near_user_alert.addAction(cancel)
+
+            present(near_user_alert, animated: true, completion: nil)
         }
     }
     @IBAction func stop_walk_btn(_ sender: Any) {
