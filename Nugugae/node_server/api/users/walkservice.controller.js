@@ -1,7 +1,8 @@
 const e = require('express');
 const Sequelize = require('sequelize');
 const models = require('../../models/models');//DB
-const Op = Sequelize.Op; 
+const Op = Sequelize.Op;
+var fs = require('fs'); // 파일 시스템
 
 // 산책하기! 처음 눌렀을 때, 테이블 두개 생성. 1. 산책 로그 테이블 2. 현재 산책인원 관리 테이블
 exports.walk_init = (req, res) => {
@@ -147,6 +148,38 @@ exports.walk_near_user = (req, res) => {
         });
     
 };
+
+
+exports.near_user_detail_view = (req, res) => {
+    console.log('near_user_view detail');
+    var id = req.body.id || '';
+    console.log(id)
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.UserDetailInfo.findOne({
+        where: {
+            id: id,
+        }
+    }).then(userinfo => {
+        if(!userinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        if (userinfo['image05']!=null){
+            console.log('userprofile_img 존재')
+            var img = fs.readFileSync(userinfo['image05'], 'base64');
+            userinfo['image05'] = img
+        }// 25% 이미지 전송
+        else{
+            console.log('userprofile img 없음')
+            userinfo['image05'] = null
+        }
+
+        return res.json(userinfo);
+    });
+
+};
+// 산책하기! 중간 근처 유저 트래킹 동작 중, 근처 유저 세부 정보 확인하기
 
 
 // 산책하기!, 산책 종료시_stop() 하는 nowwalk user del, 남은 데이터 db적재 동작 2개

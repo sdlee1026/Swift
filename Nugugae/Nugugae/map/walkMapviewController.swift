@@ -49,12 +49,22 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var pass_dog_count_label: UILabel!
     // 지나쳤던 강아지 카운트 label
     // near user label 거리가 10미터 이내였던 경우에 올라간다.
-    @IBOutlet weak var near_user_count_label: UILabel!
-    
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로 가기 버튼
     
+    
+    @IBOutlet weak var near_user_buttom_out: UIButton!
+    
+    @IBAction func near_user_btn(_ sender: Any) {
+        print("근처 유저 리스트")
+        if near_user_buttom_out.titleLabel!.text == String(0){
+            print("아직 발견된 유저 없음")
+        }
+        else{
+            print("유저 있음")
+        }
+    }
     @IBAction func stop_walk_btn(_ sender: Any) {
         print("stop_walk")
         location_data.sharedInstance.stop_location(completion: { (ids) in
@@ -90,8 +100,6 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
             start_time = date.string(from: now)
             print("시작시간 : ", start_time)
-            walk_start_label.text = start_time
-            // start label setting
             location_data.sharedInstance.init_locationManager()
             // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
             
@@ -101,6 +109,8 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         else{
             print("산책 하기! 동작은, 이미 동작중일 것 -> 토큰 true일 경우.")
         }
+        walk_start_label.text = start_time
+        // start label setting
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -232,7 +242,7 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
                             ids_lat.append(Double("\(U_json.1["last_location_lat"])")!)
                             ids_lng.append(Double("\(U_json.1["last_location_lng"])")!)
                         }
-                        self.near_user_count_label.text = String(nearUserData.count)
+                        self.near_user_buttom_out.setTitle(String(nearUserData.count), for: .normal)
                     case .failure( _): break
                 }
                 completion(ids_id, ids_lat, ids_lng)

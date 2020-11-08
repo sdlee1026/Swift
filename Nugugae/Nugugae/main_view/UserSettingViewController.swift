@@ -208,6 +208,7 @@ class UserSettingViewController: UIViewController, UITextFieldDelegate, CLLocati
                 //closer 기법
             }
     }
+    // 개정보 테이블 불러옥
     func viewUserinfodata(url: String, completion: @escaping ([Any]) -> Void){
         let parameters: [String:String] = [
             "id":self.user,
