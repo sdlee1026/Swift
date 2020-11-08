@@ -132,7 +132,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     }// 산책 중지 버튼을 통해 동작하는 정리 api들, 현재 산책인원 정리, 남은 데이터 서버에 저장
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("위치 업데이트됨")
+        print("위치 업데이트됨, background")
         let now = Date()
         print(date.string(from: now))
         if let coor = manager.location?.coordinate{

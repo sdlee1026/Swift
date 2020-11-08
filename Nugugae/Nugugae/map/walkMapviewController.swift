@@ -38,7 +38,7 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     var now_longitude: Double?
     var now_coord_forNM: NMGLatLng?
     
-    var tracking_user_index = 0
+    var tracking_user_index = 9
     // 주변 유저를 탐색하기 위한 동작 체킹 인덱스
     
     @IBOutlet weak var now_walk_map: NMFNaverMapView!
@@ -49,6 +49,9 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     @IBOutlet weak var pass_dog_count_label: UILabel!
     // 지나쳤던 강아지 카운트 label
     // near user label 거리가 10미터 이내였던 경우에 올라간다.
+    var pass_dog_set = Set<String>()
+    // 집합으로
+    
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }// 뒤로 가기 버튼
@@ -94,7 +97,8 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("walk_Map_view Start")
-        
+        pass_dog_set = []
+        // 지나쳤던 강아지 유저 이름 (10미터 이내) set
         
         date.locale = Locale(identifier: "ko_kr")
         date.timeZone = TimeZone(abbreviation: "KST")
@@ -134,6 +138,7 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         super.viewWillAppear(true)
         // 현재 사용자가 산책하기 실시간 맵뷰를 켜놓았을 경우의 체크값(UserDefault)
         UserDefaults.standard.set("true", forKey: "walk_map_isrunning")
+        tracking_user_index = 9
             // 쓰는 이유 : 이 화면이 보일 시에는 주변 유저들에 대한 정보 서칭을 이 클래스에서 수행하지만,
             // 백그라운드로 돌아가거나, 다른 뷰를 보고 있을때 또한 다른 유저들에 대한 정보 또한 location_data 클래스에서
             // 백그라운드 동작으로 잡아내고, 알림(진동 혹은 팝업 메시지)를 보내기 위함에 있음
@@ -182,21 +187,32 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
     }
     // segue 데이터전송시 준비
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("위치 업데이트됨, now map data")
-        if let coor = manager.location?.coordinate{
-            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
-        }
         // walk_map <- 산책하기 맵이 동작하고 있을 경우에만.. 백그라운드 and 다른뷰 일때 동작 x
         if UserDefaults.standard.string(forKey:"walk_map_isrunning") == "true"{
+            print("위치 업데이트됨, now map data")
+            
+            if let coor = manager.location?.coordinate{
+                self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
+            }
             self.tracking_user_index += 1
             if self.tracking_user_index == 10{
                 print("\t\t\tmap 뷰에 있는 상태의, 주변 유저 트래킹 이벤트 발생")
                 getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
                     self.near_user_markerary = [:]
+                    let temp_now:CLLocation = CLLocation.init(latitude: self.now_coord_forNM!.lat, longitude: self.now_coord_forNM!.lng)
                     for (index, content) in ids_id.enumerated(){
                         self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
                         self.near_user_infoary.updateValue(NMFInfoWindow(), forKey: content)
                         self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
+                        let temp_point:CLLocation = CLLocation.init(latitude: ids_lat[index], longitude: ids_lng[index])
+                        let dis = (temp_point.distance(from: temp_now))
+                        // m단위 리턴
+                        print("지금위치와의 거리 : ", dis)
+                        if dis<10.0{
+                            self.pass_dog_set.insert(content)
+                            self.pass_dog_count_label.text = String(self.pass_dog_set.count)
+                        }// 10미터 이내일 경우 ary 추가
+                        
                     }
                     for id in ids_id{
                         self.near_user_markerary[id]?.position = NMGLatLng(lat: self.userdict[id]![0], lng: self.userdict[id]![1])
