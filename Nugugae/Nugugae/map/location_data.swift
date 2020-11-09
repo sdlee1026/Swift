@@ -9,7 +9,6 @@ import UIKit
 import CoreLocation
 import Alamofire
 import SwiftyJSON
-import NMapsMap
 
 class location_data:UIViewController,CLLocationManagerDelegate{
     let server_url:String = Server_url.sharedInstance.server_url
@@ -17,7 +16,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // userid
     var userdict = NearUser.sharedInstance.userdic
-    var near_user_markerary = NearUser.sharedInstance.marker_ary
+//    var near_user_markerary = NearUser.sharedInstance.marker_ary
 
     static let sharedInstance = location_data()
     // 전역으로 사용할 공유 클래스
@@ -31,7 +30,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     var latitude: Double?
     var longitude: Double?
     // 위도와 경도
-    var now_coord_forNM: NMGLatLng?
+//    var now_coord_forNM: NMGLatLng?
     
     let date = DateFormatter()
     var start_time:String = ""
@@ -130,13 +129,14 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         completion(endMsg)
         
     }// 산책 중지 버튼을 통해 동작하는 정리 api들, 현재 산책인원 정리, 남은 데이터 서버에 저장
-    
+    var now_location:[Double] = []
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("위치 업데이트됨, background")
         let now = Date()
         print(date.string(from: now))
         if let coor = manager.location?.coordinate{
-            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
+            self.now_location = [Double(coor.latitude),Double(coor.longitude)]
+//            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
             let input_loction = [Float(coor.latitude), Float(coor.longitude)]
             print("ary_들어있는 위치값 갯수:")
             print(location_data.sharedInstance.location_ary.count)
@@ -188,9 +188,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
                 print("\t\t\t백그라운드 or 다른 뷰 탐색중, 주변 유저 트래킹 이벤트 발생")
                 getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
                     
-                    self.near_user_markerary = [:]
+                    //self.near_user_markerary = [:]
                     for (index, content) in ids_id.enumerated(){
-                        self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
+                        //self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
                         self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
                     }
                 }
@@ -308,7 +308,8 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     }// stop동작으로 인한 데이터 처리, 위치and시각 배열 남아있는 값 update
     
     func getNearUserData(url: String, completion: @escaping ([String],[Double],[Double]) -> Void){
-        let post_location = String(self.now_coord_forNM!.lat)+","+String(self.now_coord_forNM!.lng)
+//        let post_location = String(self.now_coord_forNM!.lat)+","+String(self.now_coord_forNM!.lng)
+        let post_location = String(self.now_location[0])+","+String(self.now_location[1])
         print("유저 위치 전송, ",post_location)
         let parameters: [String:String] = [
             "id":self.user,

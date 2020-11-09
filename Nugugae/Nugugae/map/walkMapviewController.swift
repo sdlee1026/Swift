@@ -10,16 +10,20 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 import NMapsMap
-
 class walkMapviewController: UIViewController, CLLocationManagerDelegate{
+    
     
     
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     var userdict = NearUser.sharedInstance.userdic
-    var near_user_markerary = NearUser.sharedInstance.marker_ary
-    var near_user_infoary = NearUser.sharedInstance.infowindow_ary
+    var near_user_markerary:Dictionary = [String:NMFMarker]()
+    // 유저 마커
+    var near_user_infoary:Dictionary = [String:NMFInfoWindow]()
+    // 유저 마커-정보창
+//    var near_user_markerary = NearUser.sharedInstance.marker_ary
+//    var near_user_infoary = NearUser.sharedInstance.infowindow_ary
     // 근처 유저 관리 dict
     
     var selected_marker_id:String = ""
@@ -104,33 +108,9 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         date.timeZone = TimeZone(abbreviation: "KST")
         date.dateFormat = "yyyy-MM-dd HH:mm:ss"
         // 날짜
-        now_map_locationManager = CLLocationManager()
-        now_map_locationManager.delegate = self
-        now_map_locationManager.requestWhenInUseAuthorization()
-        //포그라운드 상태에서 위치 추적 권한 요청
-        now_map_locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //배터리에 맞게 권장되는 최적의 정확도
-        now_map_locationManager.startUpdatingLocation()
-        // 위치
-        let coor = now_map_locationManager.location?.coordinate
-        now_latitude = coor?.latitude
-        now_longitude = coor?.longitude
-        
-        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
         if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
-            start_time = date.string(from: now)
-            print("시작시간 : ", start_time)
-            location_data.sharedInstance.init_locationManager()
-            // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
-            
-            location_data.sharedInstance.init_update()
-            // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
+            location_data.sharedInstance.start_time = date.string(from: now)
         }
-        else{
-            print("산책 하기! 동작은, 이미 동작중일 것 -> 토큰 true일 경우.")
-        }
-        walk_start_label.text = start_time
-        // start label setting
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -144,14 +124,33 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
             // 백그라운드 동작으로 잡아내고, 알림(진동 혹은 팝업 메시지)를 보내기 위함에 있음
             // view will appear 에서 true로 바뀌고, disapper 될때, false로 바뀜.. 값은 여기와 sceneDelegate에서만 바뀐다.
         
-    }
-    override func viewDidAppear(_ animated:Bool){
-        super.viewDidAppear(true)
-        print("view did appear, walk_Map_view")
-        // 맵 데이터 로드 서버로 부터 요청, 맵 그리기 시작
-        // 여기서 보여주는 데이터는 지금 까지 산책 경로 그리는건 필요없다, 일단은
-        // 보여줄 정보, 1. 실시간으로 내 반경 100m 안에 있는 유저의 정보 피커
-            // 1-1. 그 정보 피커 클릭시.. 동작 구현해야함
+        now_map_locationManager = CLLocationManager()
+        now_map_locationManager.delegate = self
+        now_map_locationManager.requestWhenInUseAuthorization()
+        //포그라운드 상태에서 위치 추적 권한 요청
+        now_map_locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //배터리에 맞게 권장되는 최적의 정확도
+        now_map_locationManager.startUpdatingLocation()
+        // 위치
+        let coor = now_map_locationManager.location?.coordinate
+        now_latitude = coor?.latitude
+        now_longitude = coor?.longitude
+        
+        print("시작시간 : ", location_data.sharedInstance.start_time)
+        walk_start_label.text = location_data.sharedInstance.start_time
+        // start label setting
+        print("토큰 : ",UserDefaults.standard.string(forKey: "walk_isrunning")!)
+        if UserDefaults.standard.string(forKey: "walk_isrunning") == "false"{
+            
+            location_data.sharedInstance.init_locationManager()
+            // 산책 기록을 위한 위치 데이터 수집 시작, location_data.swift에 존재
+            
+            location_data.sharedInstance.init_update()
+            // 서버에 산책 로그, 현재 사용자 추적 테이블 생성
+        }
+        else{
+            print("산책 하기! 동작은, 이미 동작중일 것 -> 토큰 true일 경우.")
+        }
         now_walk_map.mapView.latitude = now_latitude!
         now_walk_map.mapView.longitude = now_longitude!
         // 맵 초기 위치값 현재값으로 고정
@@ -170,9 +169,20 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
         now_walk_map.mapView.touchDelegate = self
         
     }
+    override func viewDidAppear(_ animated:Bool){
+        super.viewDidAppear(true)
+        print("view did appear, walk_Map_view")
+        
+    }
     override func viewDidDisappear(_ animated: Bool) {
-        print("view disappear, walk_Map_view, walk_map_isrunning UserDefault -> false")
+        self.now_walk_map.mapView.touchDelegate = nil
+        self.now_walk_map.removeFromSuperview()
+        self.now_walk_map = nil// 메모리 해제
+        self.now_map_locationManager = nil
+        print("view disappear, walk_Map_view, walk_map_isrunning UserDefault -> false\nmemory관리..")
         UserDefaults.standard.set("false", forKey: "walk_map_isrunning")
+        
+        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "near_user_tracking"{

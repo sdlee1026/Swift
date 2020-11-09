@@ -2537,6 +2537,9 @@ pass_dogs_stack</string>
                                                 <state key="normal" title="0">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="near_user_btn:" destination="cUn-Yn-bJh" eventType="touchUpInside" id="NZq-aJ-6Ro"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -2824,6 +2827,7 @@ pass_dogs_stack</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dog_info_table" destination="uLU-Ow-AQg" id="mVM-5q-OoE"/>
                         <outlet property="intro_textview" destination="Gj6-c8-ZKv" id="qYw-fU-iOe"/>
                         <outlet property="nick_name_label" destination="OXs-r4-Lrm" id="dHz-dd-oCG"/>
                         <outlet property="profile_img" destination="GWb-kQ-zPe" id="3RV-up-q4O"/>
