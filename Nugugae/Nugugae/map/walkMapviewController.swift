@@ -192,6 +192,7 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
             print("dest : \(dest)")
             if let rvc = dest as? NearUserTrackingInfoViewController {
                 rvc.tracking_user = self.selected_marker_id
+                
             }
         }
     }

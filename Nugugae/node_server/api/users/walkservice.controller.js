@@ -181,7 +181,6 @@ exports.near_user_detail_view = (req, res) => {
 };
 // 산책하기! 중간 근처 유저 트래킹 동작 중, 근처 유저 세부 정보 확인하기
 
-
 // 산책하기!, 산책 종료시_stop() 하는 nowwalk user del, 남은 데이터 db적재 동작 2개
 exports.walk_stop_nowwalk = (req, res) =>{
     console.log('Walk_service/stop nowwalk user delete');
@@ -254,3 +253,71 @@ exports.walk_stop_elsedata = (req, res) => {
 
 };
 // 종료 동작으로 인한, 남은 자투리 데이터 db에 적재하는 동작, location_data class의 stop()내부 동작으로 실행되는 api
+
+function getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lng2-lng1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+exports.walk_stop_distance = (req, res) => {
+    console.log('Walk_service/stop distance calculate');
+    var id = req.body.id || '';
+    var starttime = req.body.starttime || '';
+
+    var distance_str = '';
+    var location_ary = [];
+    console.log(id, starttime);
+    var result_distance = 0.0;
+
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.walksInfoTable.findOne({
+                where:{
+                    id: id,
+                    date: starttime,
+                }
+            }).then(distance_data =>{
+                distance_str += distance_data['location_data'];
+                console.log('str 길이 : ',distance_str.length);
+                location_ary = distance_str.split('|');
+                for(var i=0;i<location_ary.length;i++){
+                    location_ary[i] = location_ary[i].split(',');
+                }
+                for(var i=0;i<location_ary.length-1;i++){
+                    if(location_ary[i+1][0].length != 0){
+                        result_distance += getDistanceFromLatLonInKm(location_ary[i][0], location_ary[i][1], 
+                            location_ary[i+1][0], location_ary[i+1][1])*1000;
+                    }
+                }
+                console.log('누적거리 계산 : ', result_distance);
+                models.walksInfoTable.update({
+                    distance: result_distance
+                },
+                {where: {
+                    id: id,
+                    starttime: starttime,
+                }, returning: true}).then(walkend => {
+                    console.log('walk_db, distance update ok');
+                    return res.status(201).json({content:walkend['distance']});
+
+                });
+            });
+        }
+    });//then()
+};

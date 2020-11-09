@@ -78,6 +78,12 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             print(init_location)
         }
         // 시작 시간, 위치 설정
+        else{
+            print("location_data.class 에서의 시작시간 : ", start_time)
+            if init_location == ""{
+                init_location = String(latitude!)+","+String(longitude!)
+            }
+        }
         
     }
     func init_update(){
@@ -106,16 +112,14 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             endMsg.append(contentsOf: ids)
         }
         // 현재 산책인원 추적 종료, nowWalking tabel del
-        
-        
         end_time = date.string(from: Date())
         print("종료 시간 세팅")
         // 종료 시간 세팅
-        if (location_data.sharedInstance.location_ary.count > 0){
-            postlastWalkingData(url: server_url+"/walkservice/stop/elsedata")
-            print("남은 데이터 전송")
-            // 남은 큐에 있는 위치 데이터 서버로 전송
-        }
+        postlastWalkingData(url: server_url+"/walkservice/stop/elsedata")
+        print("남은 데이터 전송")
+        // 남은 큐에 있는 위치 데이터 서버로 전송
+        postEndData(url: server_url+"/walkservice/stop/distance")
+        print("거리 계산 요청")
         
         
         // 쌓인 데이터 db에서 걸은 거리 측정을 위한 쿼리 보내야함, 이번 산책 총 걸은 거리 and 시간 정보 넣기 위해서..
@@ -277,18 +281,25 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     }// nowWalking table delete, DB
     
     func postlastWalkingData(url: String){
-        print("남은 데이터 보내는 api")
+        print("stop! 남은 데이터 보내는 api")
         var post_location_str:String = ""
         var post_bylocation_str:String = ""
-        for i in location_data.sharedInstance.location_ary{
-            post_location_str += String(i[0])+","+String(i[1])+"|"
-            // '|' 데이터 인덱스 구분자, ','로 인덱스0,1번 값 구부
+        
+        if location_data.sharedInstance.location_ary.count == 0{
+            post_location_str += String(now_location[0])+","+String(now_location[1])+"|"
+            post_bylocation_str += date.string(from: Date())+"|"
         }
-        for i in location_data.sharedInstance.date_bylocation_ary{
-            post_bylocation_str += i+"|"
-            // '|' 날짜데이터 인덱스 구분자
+        else{
+            for i in location_data.sharedInstance.location_ary{
+                post_location_str += String(i[0])+","+String(i[1])+"|"
+                // '|' 데이터 인덱스 구분자, ','로 인덱스0,1번 값 구부
+            }
+            for i in location_data.sharedInstance.date_bylocation_ary{
+                post_bylocation_str += i+"|"
+                // '|' 날짜데이터 인덱스 구분자
+            }
         }
-//         parameter data prepare
+        // data prepare
         let parameters: [String:String] = [
             "id":self.user,
             "date":self.start_time,
@@ -300,12 +311,30 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             .responseJSON{ response in
                 switch response.result{
                     case .success(let value):
-                        let updateData = JSON(value)// 응답
-                        print("\(updateData["content"])")
+                        let endData = JSON(value)// 응답
+                        print("\(endData["content"])")
                     case .failure( _): break
                 }
             }
     }// stop동작으로 인한 데이터 처리, 위치and시각 배열 남아있는 값 update
+    
+    func postEndData(url:String){
+        print("stop! 남은 데이터 보내고 결과 distance 정보 받는 api, ",self.start_time)
+        let parameters: [String:String] = [
+            "id":self.user,
+            "starttime":self.start_time,
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                switch response.result{
+                    case .success(let value):
+                        let endData = JSON(value)// 응답
+                        print("\(endData["distance"])")
+                    case .failure( _): break
+                }
+            }
+    }// stop동작으로 인한 데이터 처리, 산책 경로 총 경로값 계산 요청
+    
     
     func getNearUserData(url: String, completion: @escaping ([String],[Double],[Double]) -> Void){
 //        let post_location = String(self.now_coord_forNM!.lat)+","+String(self.now_coord_forNM!.lng)
