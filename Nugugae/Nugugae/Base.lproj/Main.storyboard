@@ -2537,9 +2537,6 @@ pass_dogs_stack</string>
                                                 <state key="normal" title="0">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="near_user_btn:" destination="cUn-Yn-bJh" eventType="touchUpInside" id="tyv-fB-CAc"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -2599,7 +2596,49 @@ pass_dogs_stack</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hnw-9Z-g19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794.20289855072474" y="2334.375"/>
+            <point key="canvasLocation" x="-910" y="2334"/>
+        </scene>
+        <!--Walk History View Controller-->
+        <scene sceneID="BIM-sq-rir">
+            <objects>
+                <viewController id="dT1-V3-s3a" customClass="walkHistoryViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gVv-rS-J8B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cM-bo-44Q">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xG-QC-UNW" userLabel="이전">
+                                <rect key="frame" x="0.0" y="44" width="82.666666666666671" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="chevron.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="back_btn:" destination="dT1-V3-s3a" eventType="touchUpInside" id="9sw-98-KtV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="rVD-Nl-dub"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3cM-bo-44Q" firstAttribute="height" secondItem="gVv-rS-J8B" secondAttribute="height" multiplier="0.07" id="05o-NJ-lZz"/>
+                            <constraint firstItem="8xG-QC-UNW" firstAttribute="top" secondItem="rVD-Nl-dub" secondAttribute="top" id="22v-mx-aWX"/>
+                            <constraint firstItem="8xG-QC-UNW" firstAttribute="width" secondItem="gVv-rS-J8B" secondAttribute="width" multiplier="0.2" id="Cbh-Ya-zxE"/>
+                            <constraint firstItem="3cM-bo-44Q" firstAttribute="top" secondItem="rVD-Nl-dub" secondAttribute="top" id="E5v-z7-BbX"/>
+                            <constraint firstItem="3cM-bo-44Q" firstAttribute="trailing" secondItem="rVD-Nl-dub" secondAttribute="trailing" id="Unp-2p-XET"/>
+                            <constraint firstItem="3cM-bo-44Q" firstAttribute="leading" secondItem="rVD-Nl-dub" secondAttribute="leading" id="W3T-ca-lY1"/>
+                            <constraint firstItem="8xG-QC-UNW" firstAttribute="height" secondItem="gVv-rS-J8B" secondAttribute="height" multiplier="0.07" id="Ygt-r1-0qn"/>
+                            <constraint firstItem="8xG-QC-UNW" firstAttribute="leading" secondItem="rVD-Nl-dub" secondAttribute="leading" id="tl6-Fk-tXP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kCC-bS-MS1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-87" y="2334"/>
         </scene>
         <!--Near User Tracking Info View Controller-->
         <scene sceneID="jja-GD-mOd">
@@ -2757,12 +2796,17 @@ pass_dogs_stack</string>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bX9-aW-BNp" id="Jug-cj-iuy"/>
+                                    <outlet property="delegate" destination="bX9-aW-BNp" id="xhP-Lm-iFa"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XlX-i5-1EG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pxh-eQ-IFU" firstAttribute="top" secondItem="XlX-i5-1EG" secondAttribute="top" id="09N-NC-fTu"/>
+                            <constraint firstItem="XlX-i5-1EG" firstAttribute="bottom" secondItem="uLU-Ow-AQg" secondAttribute="bottom" constant="55.666666666666742" id="1rI-Pt-m9W"/>
                             <constraint firstItem="Pxh-eQ-IFU" firstAttribute="width" secondItem="7C5-fX-Y81" secondAttribute="width" multiplier="0.2" id="3H8-Uo-Ygf"/>
                             <constraint firstItem="jYs-Fv-YUU" firstAttribute="trailing" secondItem="XlX-i5-1EG" secondAttribute="trailing" id="4Jw-G3-bIE"/>
                             <constraint firstItem="el1-Pv-7SF" firstAttribute="top" secondItem="XlX-i5-1EG" secondAttribute="top" id="7LC-Jd-wXT"/>
@@ -2775,13 +2819,11 @@ pass_dogs_stack</string>
                             <constraint firstItem="el1-Pv-7SF" firstAttribute="height" secondItem="7C5-fX-Y81" secondAttribute="height" multiplier="0.07" id="NzY-pu-Ebm"/>
                             <constraint firstItem="jYs-Fv-YUU" firstAttribute="top" secondItem="el1-Pv-7SF" secondAttribute="bottom" id="VZA-NO-9tn"/>
                             <constraint firstItem="Pxh-eQ-IFU" firstAttribute="height" secondItem="7C5-fX-Y81" secondAttribute="height" multiplier="0.07" id="Xfq-ZP-PoG"/>
-                            <constraint firstItem="XlX-i5-1EG" firstAttribute="bottom" secondItem="uLU-Ow-AQg" secondAttribute="bottom" constant="55.666666666666742" id="ZT5-SL-cpT"/>
                             <constraint firstItem="jYs-Fv-YUU" firstAttribute="leading" secondItem="XlX-i5-1EG" secondAttribute="leading" id="cpb-H5-7Cp"/>
                             <constraint firstItem="el1-Pv-7SF" firstAttribute="leading" secondItem="XlX-i5-1EG" secondAttribute="leading" id="yju-RV-iKO"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dog_info_table" destination="uLU-Ow-AQg" id="rid-C5-5k4"/>
                         <outlet property="intro_textview" destination="Gj6-c8-ZKv" id="qYw-fU-iOe"/>
                         <outlet property="nick_name_label" destination="OXs-r4-Lrm" id="dHz-dd-oCG"/>
                         <outlet property="profile_img" destination="GWb-kQ-zPe" id="3RV-up-q4O"/>
@@ -2790,7 +2832,7 @@ pass_dogs_stack</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbV-Or-Lv4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794.20289855072474" y="3003.3482142857142"/>
+            <point key="canvasLocation" x="-910" y="3003"/>
         </scene>
         <!--산책하기!-->
         <scene sceneID="5DH-hM-gra">
@@ -2800,12 +2842,6 @@ pass_dogs_stack</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIA-F7-RXr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSm-ws-tVw">
                                 <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
                                 <state key="normal" title="로그아웃">
@@ -2815,6 +2851,12 @@ pass_dogs_stack</string>
                                     <action selector="logout_btn:" destination="ha8-6j-wid" eventType="touchUpInside" id="p88-qO-2s7"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIA-F7-RXr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dz-yB-fCP" userLabel="towalk_btn">
                                 <rect key="frame" x="20" y="114" width="374" height="269"/>
                                 <state key="normal" image="산책대기.png"/>
@@ -2823,25 +2865,36 @@ pass_dogs_stack</string>
                                     <segue destination="cUn-Yn-bJh" kind="presentation" modalPresentationStyle="fullScreen" id="eww-wc-7kF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bau-gF-xin" userLabel="walk_history">
+                                <rect key="frame" x="20" y="391" width="374" height="268.66666666666674"/>
+                                <state key="normal" image="예전산책기록.png"/>
+                                <connections>
+                                    <action selector="walk_history_btn:" destination="ha8-6j-wid" eventType="touchUpInside" id="FvJ-0k-ZxN"/>
+                                    <segue destination="dT1-V3-s3a" kind="presentation" modalPresentationStyle="fullScreen" id="VnY-oi-FZP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fJ2-uT-4XG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fJ2-uT-4XG" secondAttribute="leading" symbolic="YES" id="1O6-kv-wzM"/>
+                            <constraint firstItem="Bau-gF-xin" firstAttribute="top" secondItem="4dz-yB-fCP" secondAttribute="bottom" constant="8" symbolic="YES" id="2Xx-C3-UgN"/>
+                            <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="Bau-gF-xin" secondAttribute="trailing" constant="20" id="4cv-3p-d9D"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="top" secondItem="LIA-F7-RXr" secondAttribute="bottom" constant="7.3300000000000001" id="4fk-qc-LVe"/>
                             <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="nSm-ws-tVw" secondAttribute="trailing" id="Ajw-oT-Znh"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" id="B0L-S5-89P"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.3" id="DOq-CY-QQd"/>
                             <constraint firstItem="fJ2-uT-4XG" firstAttribute="trailing" secondItem="4dz-yB-fCP" secondAttribute="trailing" constant="20" id="DVQ-Xe-LBA"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" id="IYb-So-Ie0"/>
+                            <constraint firstItem="Bau-gF-xin" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="PyU-tQ-pfU"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="Uhp-7m-Vwr"/>
+                            <constraint firstItem="Bau-gF-xin" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="aKg-Qu-1H2"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="eMM-08-kJg"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.3" id="fV9-PB-wCT"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="height" secondItem="O4n-dp-99M" secondAttribute="height" multiplier="0.07" id="qo8-v5-Nj9"/>
                             <constraint firstItem="nSm-ws-tVw" firstAttribute="top" secondItem="fJ2-uT-4XG" secondAttribute="top" id="rLo-g3-ndp"/>
                             <constraint firstItem="4dz-yB-fCP" firstAttribute="leading" secondItem="fJ2-uT-4XG" secondAttribute="leading" constant="20" id="sZz-2h-VtY"/>
                             <constraint firstItem="LIA-F7-RXr" firstAttribute="trailing" secondItem="fJ2-uT-4XG" secondAttribute="trailing" id="tZ2-jt-5fK"/>
-                            <constraint firstItem="4dz-yB-fCP" firstAttribute="width" secondItem="O4n-dp-99M" secondAttribute="width" multiplier="0.903382" id="wSB-W3-w3G"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="산책하기!" image="figure.walk" catalog="system" id="cog-7M-453"/>
@@ -2867,6 +2920,7 @@ pass_dogs_stack</string>
         <image name="발바닥.png" width="250" height="255"/>
         <image name="산책대기.png" width="1200" height="1000"/>
         <image name="안내_사진없음2.png" width="1000" height="881"/>
+        <image name="예전산책기록.png" width="1200" height="1000"/>
         <image name="프로필사진 수정 아래 배너.png" width="1800" height="300"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

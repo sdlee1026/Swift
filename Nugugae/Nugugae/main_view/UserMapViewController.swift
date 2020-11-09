@@ -36,6 +36,10 @@ class UserMapViewController:UIViewController{
     @IBAction func to_walk_btn(_ sender: Any) {
         print("산책하기 버튼 누르기")
     }
+    @IBAction func walk_history_btn(_ sender: Any) {
+        print("과거 산책기록 살펴보기 버튼 누르기")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
