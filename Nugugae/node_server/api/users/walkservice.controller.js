@@ -314,7 +314,7 @@ exports.walk_stop_distance = (req, res) => {
                     starttime: starttime,
                 }, returning: true}).then(walkend => {
                     console.log('walk_db, distance update ok');
-                    return res.status(201).json({content:walkend['distance']});
+                    return res.status(201).json({content:String(result_distance)});
 
                 });
             });

@@ -329,7 +329,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
                 switch response.result{
                     case .success(let value):
                         let endData = JSON(value)// 응답
-                        print("\(endData["distance"])")
+                        print("\(endData["content"])")
                     case .failure( _): break
                 }
             }
