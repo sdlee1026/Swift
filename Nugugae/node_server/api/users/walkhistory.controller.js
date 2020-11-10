@@ -36,7 +36,8 @@ exports.history_load_table = (req, res) => {
                         offset: int_offset,
                         limit: limit,
                         where: {
-                            id: id
+                            id: id,
+                            endtime: {[Op.ne]:null}
                         },order: [['date', 'DESC']],
                     }).then(history => {
                         if(!history){
@@ -63,7 +64,7 @@ exports.history_view_detail = (req, res) => {
     var date = req.body.date || '';
 
     console.log(id, date);
-    
+
     models.User.findOne({
         where: {
             id: id
@@ -78,8 +79,10 @@ exports.history_view_detail = (req, res) => {
                 where:{
                     id: id,
                     date: date,
+                    endtime: {[Op.ne]:null}
                 }
             }).then(walksinfo => {
+                console.log(walksinfo)
                 console.log('\nfind, walksinfo_detail returning\n');
                 return res.json(walksinfo);
             });

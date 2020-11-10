@@ -45,55 +45,60 @@ class historyDetailViewController:UIViewController{
             if ids_location_data.count > 0{
                 self.prepare_location_str = ids_location_data[0]
                 self.prepare_byloc_time_str = ids_date_bylocation[0]
+                
+                
+                self.prepared_location_ary = self.prepare_location_str.components(separatedBy: "|")
+                var temp_ary:[NMGLatLng] = []
+                for str in self.prepared_location_ary {
+                    let temp_a = str.components(separatedBy: ",")
+                    if temp_a != [""]{
+                        var temp_latlng = NMGLatLng(lat: Double(temp_a[0])!, lng: Double(temp_a[1])!)
+                        temp_ary.append(temp_latlng)
+                    }
+                    else{
+                        print("배열 스플릿 끝")
+                    }
+                    
+                }// 전처리
+                
+                self.history_map.mapView.latitude = temp_ary[0].lat
+                self.history_map.mapView.longitude = temp_ary[0].lng
+                self.history_map.mapView.zoomLevel = 18
+                self.history_map.mapView.maxZoomLevel = 20
+                self.history_map.mapView.minZoomLevel = 16
+                // map setting
+                // 맵 카메라 줌 레벨, min max setting
+                print(self.history_map.mapView.cameraPosition.zoom)
+                // default 14
+                self.history_map.showLocationButton = true
+                // 현위치 설정 스위치 활성화
+                self.history_map.showScaleBar = true
+                // 축적바 활성화
+                self.history_map.mapView.touchDelegate = self
+                
+//                    let pathOverlay = NMFPath()
+                let pathOverlay = NMFArrowheadPath()
+//                    pathOverlay.path = NMGLineString(points: temp_ary)
+                pathOverlay.points = temp_ary
+                pathOverlay.mapView = self.history_map.mapView
+                pathOverlay.width = 7
+                pathOverlay.outlineWidth = 1
+                pathOverlay.headSizeRatio = 4
+                pathOverlay.color = #colorLiteral(red: 0.9328386188, green: 0.6050601006, blue: 0.8566624522, alpha: 1)
+                pathOverlay.outlineColor = #colorLiteral(red: 1, green: 0.7487370372, blue: 0.7549846768, alpha: 1)
+                // 테두리 두께 1으로  ('아웃라인')
             }
             else{
                 print("정보없음")
             }
-        }
+            //맵 로드, 클로저 내부
+        }// 요청 클로저 종료
     }
     override func viewDidAppear(_ animated:Bool){
         super.viewDidAppear(true)
         print("view did appear \thistory_detail_view")
         
-        self.prepared_location_ary = self.prepare_location_str.components(separatedBy: "|")
-        var temp_ary:[NMGLatLng] = []
-        for str in self.prepared_location_ary {
-            let temp_a = str.components(separatedBy: ",")
-            if temp_a != [""]{
-                var temp_latlng = NMGLatLng(lat: Double(temp_a[0])!, lng: Double(temp_a[1])!)
-                temp_ary.append(temp_latlng)
-            }
-            else{
-                print("배열 스플릿 끝")
-            }
-        }
         
-        // map setting
-        history_map.mapView.latitude = temp_ary[0].lat
-        history_map.mapView.longitude = temp_ary[0].lng
-        history_map.mapView.zoomLevel = 18
-        history_map.mapView.maxZoomLevel = 20
-        history_map.mapView.minZoomLevel = 16
-        // 맵 카메라 줌 레벨, min max setting
-        print(history_map.mapView.cameraPosition.zoom)
-        // default 14
-        history_map.showLocationButton = true
-        // 현위치 설정 스위치 활성화
-        history_map.showScaleBar = true
-        // 축적바 활성화
-        history_map.mapView.touchDelegate = self
-        
-//        let pathOverlay = NMFPath()
-        let pathOverlay = NMFArrowheadPath()
-//        pathOverlay.path = NMGLineString(points: temp_ary)
-        pathOverlay.points = temp_ary
-        pathOverlay.mapView = history_map.mapView
-        pathOverlay.width = 7
-        pathOverlay.outlineWidth = 1
-        pathOverlay.headSizeRatio = 4
-        pathOverlay.color = #colorLiteral(red: 0.9328386188, green: 0.6050601006, blue: 0.8566624522, alpha: 1)
-        pathOverlay.outlineColor = #colorLiteral(red: 1, green: 0.7487370372, blue: 0.7549846768, alpha: 1)
-        // 테두리 두께 1으로  ('아웃라인')
     }
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear, \thistory_detail_view")
