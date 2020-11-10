@@ -244,7 +244,6 @@
 				6ABCFB8E255A68E2008564EC /* history */,
 				6ABCFB702557B9F7008564EC /* near_user_tracking */,
 				6AA9DC63254FF5DC00EB7514 /* walkMapviewController.swift */,
-				6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */,
 				6AA9DC66254FFBCF00EB7514 /* location_data.swift */,
 				6ABCFB6D2556B933008564EC /* NearUser.swift */,
 			);
@@ -262,6 +261,7 @@
 		6ABCFB8E255A68E2008564EC /* history */ = {
 			isa = PBXGroup;
 			children = (
+				6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */,
 				6ABCFB94255A69AA008564EC /* history_cell.swift */,
 				6ABCFB97255A8519008564EC /* historyDetailViewController.swift */,
 			);
