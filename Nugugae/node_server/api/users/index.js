@@ -182,7 +182,7 @@ router.post('/walkservice/stop/elsedata/', walkservice_controller.walk_stop_else
 
 // 과거 산책기록 테이블뷰 불러오기
 router.post('/history/loadtable/', walkhistory_controller.history_load_table);
-
+router.post('/history/detail/view/', walkhistory_controller.history_view_detail);
 
 // 갤러리
 

@@ -57,3 +57,33 @@ exports.history_load_table = (req, res) => {
     });
 
 };
+exports.history_view_detail = (req, res) => {
+    console.log('history detail view');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+
+    console.log(id, date);
+    
+    models.User.findOne({
+        where: {
+            id: id
+        }
+    }).then(user => {
+        if(!user){
+            console.log(user);
+            return res.status(404).json({err: 'No User'});
+        }// id는 LoginUsers 테이블의 외래키 이므로 체크
+        else{
+            models.walksInfoTable.findOne({
+                where:{
+                    id: id,
+                    date: date,
+                }
+            }).then(walksinfo => {
+                console.log('\nfind, walksinfo_detail returning\n');
+                return res.json(walksinfo);
+            });
+        }
+    });
+
+};
