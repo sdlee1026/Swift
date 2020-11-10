@@ -185,6 +185,10 @@ const UserTabelCount = sequelize.define('UserTabelCounts',{
     gallerycount:{
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    historycount:{
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     }
 });
 

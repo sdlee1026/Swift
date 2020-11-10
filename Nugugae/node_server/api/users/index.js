@@ -129,7 +129,7 @@ const { info } = require('console');
 
 const walkservice_controller = require('./walkservice.controller');
 // walk_service controller . 산책 맵 데이터
-
+const walkhistory_controller = require('./walkhistory.controller');
 
 module.exports = router;
 
@@ -177,6 +177,12 @@ router.post('/walkservice/stop/distance/',walkservice_controller.walk_stop_dista
 router.post('/walkservice/stop/nowwalk/', walkservice_controller.walk_stop_nowwalk);
 // 산책하기! stop(), 남은 위치 데이터 전송하기
 router.post('/walkservice/stop/elsedata/', walkservice_controller.walk_stop_elsedata);
+
+// 산책기록(과거 산책기록 맵뷰)! 동작
+
+// 과거 산책기록 테이블뷰 불러오기
+router.post('/history/loadtable/', walkhistory_controller.history_load_table);
+
 
 // 갤러리
 

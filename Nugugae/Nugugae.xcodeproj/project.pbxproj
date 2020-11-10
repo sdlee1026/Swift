@@ -42,6 +42,8 @@
 		6ABCFB722557BA2E008564EC /* NearUserTrackingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCFB712557BA2E008564EC /* NearUserTrackingInfoViewController.swift */; };
 		6ABCFB752559381C008564EC /* 예전산책기록.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ABCFB742559381C008564EC /* 예전산책기록.png */; };
 		6ABCFB7825593A46008564EC /* walkHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */; };
+		6ABCFB95255A69AA008564EC /* history_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCFB94255A69AA008564EC /* history_cell.swift */; };
+		6ABCFB98255A8519008564EC /* historyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABCFB97255A8519008564EC /* historyDetailViewController.swift */; };
 		6AC5C696253619B200820F65 /* 강아지 침.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC5C695253619B200820F65 /* 강아지 침.png */; };
 		6AC88C4525500CDD0014B422 /* logo_ver2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AC88C4425500CDD0014B422 /* logo_ver2.png */; };
 		6ADF5AD62512523900A7D366 /* 발바닥.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ADF5AD52512523800A7D366 /* 발바닥.png */; };
@@ -88,6 +90,8 @@
 		6ABCFB712557BA2E008564EC /* NearUserTrackingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearUserTrackingInfoViewController.swift; sourceTree = "<group>"; };
 		6ABCFB742559381C008564EC /* 예전산책기록.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "예전산책기록.png"; sourceTree = "<group>"; };
 		6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walkHistoryViewController.swift; sourceTree = "<group>"; };
+		6ABCFB94255A69AA008564EC /* history_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = history_cell.swift; sourceTree = "<group>"; };
+		6ABCFB97255A8519008564EC /* historyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = historyDetailViewController.swift; sourceTree = "<group>"; };
 		6AC5C695253619B200820F65 /* 강아지 침.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "강아지 침.png"; sourceTree = "<group>"; };
 		6AC88C4425500CDD0014B422 /* logo_ver2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_ver2.png; sourceTree = "<group>"; };
 		6ADF5AD52512523800A7D366 /* 발바닥.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "발바닥.png"; sourceTree = "<group>"; };
@@ -237,11 +241,12 @@
 		6AA9DC61254FF5B000EB7514 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				6ABCFB8E255A68E2008564EC /* history */,
 				6ABCFB702557B9F7008564EC /* near_user_tracking */,
 				6AA9DC63254FF5DC00EB7514 /* walkMapviewController.swift */,
+				6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */,
 				6AA9DC66254FFBCF00EB7514 /* location_data.swift */,
 				6ABCFB6D2556B933008564EC /* NearUser.swift */,
-				6ABCFB7725593A46008564EC /* walkHistoryViewController.swift */,
 			);
 			path = map;
 			sourceTree = "<group>";
@@ -252,6 +257,15 @@
 				6ABCFB712557BA2E008564EC /* NearUserTrackingInfoViewController.swift */,
 			);
 			path = near_user_tracking;
+			sourceTree = "<group>";
+		};
+		6ABCFB8E255A68E2008564EC /* history */ = {
+			isa = PBXGroup;
+			children = (
+				6ABCFB94255A69AA008564EC /* history_cell.swift */,
+				6ABCFB97255A8519008564EC /* historyDetailViewController.swift */,
+			);
+			path = history;
 			sourceTree = "<group>";
 		};
 		8E10517BF4AF23C9F950708F /* Frameworks */ = {
@@ -388,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A1C95E3254C1938005D2395 /* GalleryItemViewController.swift in Sources */,
+				6ABCFB95255A69AA008564EC /* history_cell.swift in Sources */,
 				6A1C95DD2549CC4E005D2395 /* dog_cell.swift in Sources */,
 				6A7D4D0E251F859700E98868 /* UserGalleryViewController.swift in Sources */,
 				6A7D4D2525276E1D00E98868 /* walk_cell_viewController.swift in Sources */,
@@ -398,6 +413,7 @@
 				6A620F592511FEE800B83B0A /* LoginViewController.swift in Sources */,
 				6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */,
 				6A7D4D11251F8B8E00E98868 /* MainTapBarController.swift in Sources */,
+				6ABCFB98255A8519008564EC /* historyDetailViewController.swift in Sources */,
 				6A1C95B42546E3EF005D2395 /* EditdoginfoViewController.swift in Sources */,
 				6AA9DC64254FF5DC00EB7514 /* walkMapviewController.swift in Sources */,
 				6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */,

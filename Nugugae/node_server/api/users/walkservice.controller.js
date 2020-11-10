@@ -204,6 +204,16 @@ exports.walk_stop_nowwalk = (req, res) =>{
                     id: id,
                 }
             }).then((walk) => {
+                models.UserTableCount.update(
+                    {historycount: models.sequelize.literal('historycount + 1')},
+                    {
+                        where:{
+                            id:id
+                        }
+                    }
+                )
+                console.log('\ntablecount, historycount 1++\n');
+                
                 return res.status(201).json({content: 'delete OK'});
             });
 
