@@ -11,15 +11,23 @@ import Alamofire
 import SwiftyJSON
 
 class walk_cell_viewController: UIViewController, UITextFieldDelegate {
+    static var sharedInstance = walk_cell_viewController()
     let server_url:String = Server_url.sharedInstance.server_url
     var segue_content:String = ""
     var segue_date:String = ""
+    
+    var seg_time = ""
+    var seg_distance = ""
+    
     var ymd:String = ""
     var hms:String = ""
     let user:String = UserDefaults.standard.string(forKey: "userId")!
     // 외부 접속 url,ngrok
     let fix_btn_color = #colorLiteral(red: 1, green: 0.9727191329, blue: 0.8763390183, alpha: 1)
     // 컬러
+    
+    var map_time_raw = ""
+    var map_distance_raw = ""
     
     @IBOutlet weak var view_name_label: UILabel!
     // 상단 라벨
@@ -32,6 +40,15 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
     }
     // 뒤로 가기 버튼
     
+    @IBOutlet weak var time_label: UILabel!
+    @IBOutlet weak var distance_label: UILabel!
+    
+    
+    @IBAction func walk_history_btn_action(_ sender: Any) {
+        print("신첵 경로 불러오기")
+    }
+    
+    @IBOutlet weak var walk_history_btn: UIButton!
     
     @IBOutlet weak var fix_outlet: UIButton!
     // 수정 그 자체 아웃렛 변수
@@ -51,6 +68,7 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
             self.fix_outlet.tintColor = UIColor.white
             // 수정 그 자체 버튼 비활성화
             // 아이콘, 텍스트 흰색으로 변경
+            self.walk_history_btn.isEnabled = true
             
             print("detail view_fix, 전처리 완료")
         }
@@ -129,7 +147,7 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         }
     }// Date 전처리
     
-    func getWalkDetail(url: String, completion: @escaping ([String]) -> Void) {
+    func getWalkDetail(url: String, completion: @escaping ([String],[String],[String]) -> Void) {
         
         let parameters: [String:[String]] = [
             "id":[self.user],
@@ -138,6 +156,8 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
             .responseJSON { response in
                 var ids_content = [String]()
+                var ids_time = [String]()
+                var ids_distance = [String]()
                 switch response.result {
                     case .success(let value):
                         let walkJson = JSON(value)
@@ -148,11 +168,14 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
                         }
                         else{
                             ids_content.append("\(walkJson["content"])")
+                            // 내용 textview
+                            self.map_distance_raw = "\(walkJson["distance"])"
+                            self.map_time_raw = "\(walkJson["time"])"
                         }
                     case .failure(let error):
                         print(error)
                 }
-                completion(ids_content)
+                completion(ids_content, ids_time, ids_distance)
                 //closer 기법
             }
     }// 산책 세부 기록, 조회 api
@@ -190,7 +213,9 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         let parameters: [String:[String]] = [
             "id":[self.user],
             "date":[self.segue_date],
-            "content":[self.content_text.text]
+            "content":[self.content_text.text],
+            "time":[self.map_time_raw],
+            "distance":[self.map_distance_raw]
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
@@ -226,26 +251,86 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         (ymd, hms)=date_parsing(date: segue_date)
         print("segue date : " + ymd)
         view_name_label.text = ymd
-        getWalkDetail(url: server_url+"/walk/view/detail"){(ids_content) in
-             print("get WalkDetail 동작")
-             print(ids_content)
-            self.content_text.text = ids_content[0]
-        }
-        self.content_text.isEditable = false
         
-        self.fix_btn_outlet.isEnabled = false
-        self.fix_outlet.isEnabled = true
-        self.fix_btn_outlet.backgroundColor = UIColor.white
-        // 수정시 버튼 비활성으로 초기화
-        
+        self.time_label.text = ""
+        self.distance_label.text = ""
         // 전처리
         
-        // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("view 호출(view will appear)\tdetail view, cell")
+        
+        super.viewWillAppear(true)
+        if walk_cell_viewController.sharedInstance.seg_time != ""{
+            print("맵 선택하고 옴, label 세팅")
+            self.map_time_raw = walk_cell_viewController.sharedInstance.seg_time
+            self.map_distance_raw = walk_cell_viewController.sharedInstance.seg_distance
+            self.time_label.text = map_time_raw
+            self.distance_label.text = String(map_distance_raw.split(separator: ".")[0])+"미터"
+            walk_cell_viewController.sharedInstance.seg_time = ""
+            walk_cell_viewController.sharedInstance.seg_distance = ""
+            self.fix_btn_outlet.backgroundColor = self.fix_btn_color
+            self.fix_btn_outlet.isEnabled = true
+            // 수정버튼 컬러, 활성화
+            self.content_text.isEditable = true
+            self.content_text.becomeFirstResponder()
+            // 커서 포커스 지정
+            
+            self.fix_outlet.isEnabled = false
+            self.fix_outlet.setTitleColor(.white, for: .normal)
+            self.fix_outlet.tintColor = UIColor.white
+            // 수정 그 자체 버튼 비활성화
+            // 아이콘, 텍스트 흰색으로 변경
+            self.walk_history_btn.isEnabled = true
+        }
+        else{
+            getWalkDetail(url: server_url+"/walk/view/detail"){(ids_content, ids_time, ids_distance) in
+                print("get WalkDetail 동작")
+                print(self.map_time_raw)
+                print(self.map_distance_raw)
+                
+                print(ids_distance)
+                self.content_text.text = ids_content[0]
+                self.time_label.text = "경로에 대한 정보가"
+                self.distance_label.text = "아직 입력되지 않았습니다."
+                if self.map_time_raw != "null"{
+                    if self.map_time_raw.count > 0{
+                        self.time_label.text = self.map_time_raw
+                    }
+                }
+                if self.map_distance_raw != "null"{
+                    if self.map_distance_raw.count > 0 {
+                        self.distance_label.text = self.map_distance_raw.split(separator: ".")[0]+"미터"
+                    }
+                }
+                
+            }
+            self.content_text.isEditable = false
+            
+            self.fix_btn_outlet.isEnabled = false
+            self.fix_outlet.isEnabled = true
+            self.fix_btn_outlet.backgroundColor = UIColor.white
+            // 수정시 버튼 비활성으로 초기화
+            
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         print("view detail disappear")
         self.content_text.isEditable = false
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "history_select_seg"{
+            print("segue test")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? walk_history {
+                rvc.start_page = "walk_cell_viewController"
+            }
+        }
+    }
+    // segue 데이터전송시 준비
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }

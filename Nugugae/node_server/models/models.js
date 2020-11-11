@@ -163,7 +163,13 @@ const WalkTable = sequelize.define('WalkTables',{
     },
     content:{
         type : Sequelize.TEXT
-    }
+    },
+    distance:{
+        type : Sequelize.STRING
+    },
+    time:{
+        type : Sequelize.STRING
+    },
 }
 );
 

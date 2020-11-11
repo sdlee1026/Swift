@@ -94,6 +94,13 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
             print(ids)
         })
         // location_data class의 중단 기능 함수 작동 _ 위치 데이터 저장, 현재 산책 유저 테이블에서 유저 삭제
+        let stop_walk_alert = UIAlertController(title: "산책 종료!", message: "즐거운 시간 되셨나요??", preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "네!", style: .cancel, handler: {(action) in
+            self.dismiss(animated: true, completion: nil)
+        })
+        stop_walk_alert.addAction(cancel)
+        present(stop_walk_alert, animated: true, completion: nil)
         
     }
     // 산책 중지 버튼

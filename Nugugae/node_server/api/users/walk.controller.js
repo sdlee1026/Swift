@@ -106,6 +106,9 @@ exports.walk_write = (req, res) => {
     console.log('walkTableDB write test');
     var id = req.body.id || '';
     var content = req.body.content || '';
+    var time = req.body.time || '';
+    var distance = req.body.distance || '';
+
 
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});
@@ -133,7 +136,9 @@ exports.walk_write = (req, res) => {
             )
             models.Walk.create({
                 id: id,
-                content: content
+                content: content,
+                time: time,
+                distance: distance,
             }).then((walk) => {
                 return res.status(201).json({content: 'write OK'});
             });
@@ -149,8 +154,11 @@ exports.walk_edit = (req,res) => {
     var id = req.body.id || '';
     var date = req.body.date || '';
     var content = req.body.content || '';
+    var time = req.body.time || '';
+    var distance = req.body.distance || '';
     
-    console.log(content)
+    console.log(id, date, content);
+    console.log(time, distance)
     if(!id.length){
         return res.status(400).json({err: 'Incorrect name'});
     }
@@ -160,14 +168,28 @@ exports.walk_edit = (req,res) => {
     else if (!content.length){
         return res.status(400).json({err: 'Incorrect content'});
     }
-    models.Walk.update(
-        {content: content[0]},
-        {where: {
-            id: id,
-            date: date
-        }, returning: true}).then((walk) => {
-        return res.status(201).json({content: 'Update OK'})
-    });
+    if (time[0].length>0){
+        console.log('time, distance update import');
+        models.Walk.update(
+            {content: content[0],time: time[0], distance: distance[0]},
+            {where: {
+                id: id,
+                date: date
+            }, returning: true}).then((walk) => {
+            return res.status(201).json({content: 'Update OK'})
+        });
+
+    }
+    else{
+        models.Walk.update(
+            {content: content[0]},
+            {where: {
+                id: id,
+                date: date
+            }, returning: true}).then((walk) => {
+            return res.status(201).json({content: 'Update OK'})
+        });
+    }
 };
 
 // 산책 기록 삭제
