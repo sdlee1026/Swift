@@ -370,7 +370,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uE5-5F-Vxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018.840579710145" y="2318.9732142857142"/>
+            <point key="canvasLocation" x="2832" y="1268"/>
         </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
@@ -540,7 +540,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8M7-5e-MX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018.840579710145" y="1623.8839285714284"/>
+            <point key="canvasLocation" x="2067" y="844"/>
         </scene>
         <!--New Img View Controller-->
         <scene sceneID="kWF-QW-2Qe">
@@ -681,7 +681,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lbY-VQ-y8h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782.608695652174" y="1623.8839285714284"/>
+            <point key="canvasLocation" x="2832" y="528"/>
         </scene>
         <!--산책일지-->
         <scene sceneID="yKE-lx-LPW">
@@ -805,7 +805,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Obu-Bn-7MK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1019" y="844"/>
+            <point key="canvasLocation" x="1658" y="1647"/>
         </scene>
         <!--Walk cell view Controller-->
         <scene sceneID="Bqv-H7-jas">
@@ -963,7 +963,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwi-zl-e52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889.8550724637682" y="843.75"/>
+            <point key="canvasLocation" x="1283" y="2333"/>
         </scene>
         <!--Newdoginfo View Controller-->
         <scene sceneID="088-pq-azF">
@@ -1668,7 +1668,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NT-gG-UxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794.20289855072474" y="843.75"/>
+            <point key="canvasLocation" x="-1046" y="844"/>
         </scene>
         <!--Editdoginfo View Controller-->
         <scene sceneID="Ewx-j3-KQM">
@@ -2080,7 +2080,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50B-hF-xBR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="844"/>
+            <point key="canvasLocation" x="542" y="844"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="ugk-0e-t8O">
@@ -2479,7 +2479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZR-03-8a2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889.8550724637682" y="199.55357142857142"/>
+            <point key="canvasLocation" x="2067" y="2332"/>
         </scene>
         <!--Walk history-->
         <scene sceneID="2fT-TX-VHo">
@@ -2603,7 +2603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pMB-rt-mrj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2872" y="617"/>
+            <point key="canvasLocation" x="1658" y="3198"/>
         </scene>
         <!--Walk Mapview Controller-->
         <scene sceneID="gwL-OQ-iu0">
@@ -3081,7 +3081,7 @@ pass_dogs_stack</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbV-Or-Lv4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-910" y="3003"/>
+            <point key="canvasLocation" x="-884" y="3198"/>
         </scene>
         <!--History Detail View Controller-->
         <scene sceneID="KY7-qG-p9P">
@@ -3189,7 +3189,7 @@ pass_dogs_stack</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9z2-F9-2GI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-88.405797101449281" y="3002.6785714285711"/>
+            <point key="canvasLocation" x="-88" y="3198"/>
         </scene>
         <!--산책하기!-->
         <scene sceneID="5DH-hM-gra">
@@ -3262,8 +3262,8 @@ pass_dogs_stack</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cXP-fT-Qhi"/>
-        <segue reference="UZM-kZ-0k7"/>
+        <segue reference="W1w-qj-oEH"/>
+        <segue reference="99g-8O-X0Y"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book" catalog="system" width="128" height="102"/>
