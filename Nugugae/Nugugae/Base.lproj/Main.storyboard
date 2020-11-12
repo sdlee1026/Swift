@@ -153,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="71" y="-508"/>
+            <point key="canvasLocation" x="-529" y="-914"/>
         </scene>
         <!--Gallery Item View Controller-->
         <scene sceneID="9I1-gO-q7P">
@@ -2264,7 +2264,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAh-pK-ffV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="-830"/>
+            <point key="canvasLocation" x="239" y="-1244"/>
         </scene>
         <!--Sign Issue View Controller-->
         <scene sceneID="Nfg-Fy-XhZ">
@@ -2343,7 +2343,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvN-gR-hnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="896" y="-167"/>
+            <point key="canvasLocation" x="238" y="-565"/>
         </scene>
         <!--Walk write Controller-->
         <scene sceneID="rYH-vd-bZY">

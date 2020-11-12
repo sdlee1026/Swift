@@ -82,6 +82,7 @@
 		6A7D4D202526CE6E00E98868 /* walk_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell.swift; sourceTree = "<group>"; };
 		6A7D4D2425276E1D00E98868 /* walk_cell_viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_cell_viewController.swift; sourceTree = "<group>"; };
 		6A85432D255C198200288147 /* walk_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walk_history.swift; sourceTree = "<group>"; };
+		6A854331255D10D300288147 /* Nugugae.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nugugae.entitlements; sourceTree = "<group>"; };
 		6AA9DC59254E69B800EB7514 /* UserMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapViewController.swift; sourceTree = "<group>"; };
 		6AA9DC5C254FF03600EB7514 /* 산책대기.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "산책대기.png"; sourceTree = "<group>"; };
 		6AA9DC5F254FF23B00EB7514 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -212,6 +213,7 @@
 		6A620F532511FEE800B83B0A /* Nugugae */ = {
 			isa = PBXGroup;
 			children = (
+				6A854331255D10D300288147 /* Nugugae.entitlements */,
 				6AA9DC61254FF5B000EB7514 /* map */,
 				6A307EF8252A028900E11A91 /* local_setting */,
 				6A307EF7252A026600E11A91 /* main_view */,
@@ -579,6 +581,7 @@
 			baseConfigurationReference = 0E34363DB0411121C343EB46 /* Pods-Nugugae.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nugugae/Nugugae.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 96ZCAX586X;
 				INFOPLIST_FILE = Nugugae/Info.plist;
@@ -598,6 +601,7 @@
 			baseConfigurationReference = 6FA0A5D642866BB8AEA4E220 /* Pods-Nugugae.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Nugugae/Nugugae.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 96ZCAX586X;
 				INFOPLIST_FILE = Nugugae/Info.plist;

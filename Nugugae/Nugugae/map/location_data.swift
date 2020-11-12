@@ -9,6 +9,8 @@ import UIKit
 import CoreLocation
 import Alamofire
 import SwiftyJSON
+import NMapsMap
+import UserNotifications
 
 class location_data:UIViewController,CLLocationManagerDelegate{
     let server_url:String = Server_url.sharedInstance.server_url
@@ -30,7 +32,7 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     var latitude: Double?
     var longitude: Double?
     // 위도와 경도
-//    var now_coord_forNM: NMGLatLng?
+    var now_coord_forNM: NMGLatLng?
     
     let date = DateFormatter()
     var start_time:String = ""
@@ -51,6 +53,10 @@ class location_data:UIViewController,CLLocationManagerDelegate{
     // ary append 동작
     
     func init_locationManager(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound], completionHandler: {didAllow,Error in
+            print(didAllow)
+        })
+        // 권한 요청
         UserDefaults.standard.set("true",forKey: "walk_isrunning")
         // 포어그라운드, 백그라운드에서 산책 돌리기 위한 유저 디폴트 토큰 to true
         
@@ -140,8 +146,9 @@ class location_data:UIViewController,CLLocationManagerDelegate{
         print(date.string(from: now))
         if let coor = manager.location?.coordinate{
             self.now_location = [Double(coor.latitude),Double(coor.longitude)]
-//            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
+            self.now_coord_forNM = NMGLatLng(lat: coor.latitude, lng: coor.longitude)
             let input_loction = [Float(coor.latitude), Float(coor.longitude)]
+            
             print("ary_들어있는 위치값 갯수:")
             print(location_data.sharedInstance.location_ary.count)
             let last_index = location_data.sharedInstance.location_ary.endIndex - 1// 배열 마지막 인덱스
@@ -190,14 +197,41 @@ class location_data:UIViewController,CLLocationManagerDelegate{
             self.tracking_user_index += 1
             if self.tracking_user_index == 30{
                 print("\t\t\t백그라운드 or 다른 뷰 탐색중, 주변 유저 트래킹 이벤트 발생")
+                let temp_now:CLLocation = CLLocation.init(latitude: self.now_coord_forNM!.lat, longitude: self.now_coord_forNM!.lng)
+                var user_count = self.userdict.count
+                var user_del_count = 0
+                // 200미터 이상되서 추적 x하는 유저
                 getNearUserData(url: server_url+"/walkservice/near_user") { (ids_id, ids_lat, ids_lng) in
                     
                     //self.near_user_markerary = [:]
                     for (index, content) in ids_id.enumerated(){
+                        let temp_point:CLLocation = CLLocation.init(latitude: ids_lat[index], longitude: ids_lng[index])
+                        let dis = (temp_point.distance(from: temp_now))
+                        print("지금위치와의 거리 : ", dis)
                         //self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
                         self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
+                        
+                        if dis > 200{
+                            print("200미터 이상 유저 tracking 해제")
+                            self.userdict.removeValue(forKey: content)
+                            user_del_count += 1
+                        }// 200미터 이상 트래킹 해제
                     }
+                    if self.userdict.count > user_count - user_del_count {
+                        print("새로운 유저 있음 알림 발생")
+                        let push = UNMutableNotificationContent()
+                        push.title = "새로운 유저 발견!"
+                        push.subtitle = "주변에 새로운 유저가 있어요!"
+                        push.body = "앱을 켜서 확인해보세요!"
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats:false)
+                        let request = UNNotificationRequest(identifier: "new_user_back", content: push, trigger: trigger)
+                        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+                        // 알림요청들을 처리해주는 정말 "센터"같은 역할
+                    }// 유저 dict 카운트가 기존 유저수-삭제된유저수 보다 많은 경우 새로운 유저 있음을 알림
+                
+                    
                 }
+                
                 self.tracking_user_index = 0
             }// 사용자 위치가 30번 추적 되었을 경우, 주변 유저 한번 탐색하는 쿼리 보낸다. -> 조금 lazy한 서칭.
             // 진동 혹은, 팝업 메세지 전송 할 것

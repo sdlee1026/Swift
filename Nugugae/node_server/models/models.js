@@ -251,6 +251,10 @@ const GalleryTable = sequelize.define('GalleryTables',{
         allowNull: true
     },
     like:{
+        type: Sequelize.TEXT
+    },
+    // 좋아요 한 계정들..
+    likecount:{
         type: Sequelize.INTEGER,
         defaultValue: 0
     },

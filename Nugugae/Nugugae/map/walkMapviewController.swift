@@ -219,13 +219,21 @@ class walkMapviewController: UIViewController, CLLocationManagerDelegate{
                     self.near_user_markerary = [:]
                     let temp_now:CLLocation = CLLocation.init(latitude: self.now_coord_forNM!.lat, longitude: self.now_coord_forNM!.lng)
                     for (index, content) in ids_id.enumerated(){
-                        self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
-                        self.near_user_infoary.updateValue(NMFInfoWindow(), forKey: content)
-                        self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
                         let temp_point:CLLocation = CLLocation.init(latitude: ids_lat[index], longitude: ids_lng[index])
                         let dis = (temp_point.distance(from: temp_now))
                         // m단위 리턴
                         print("지금위치와의 거리 : ", dis)
+                        self.near_user_markerary.updateValue(NMFMarker(), forKey: content)
+                        self.near_user_infoary.updateValue(NMFInfoWindow(), forKey: content)
+                        self.userdict.updateValue([ids_lat[index],ids_lng[index]], forKey: content)
+                        
+                        if dis > 200{
+                            print("200미터 이상 유저 tracking 해제")
+                            self.userdict.removeValue(forKey: content)
+                            self.near_user_markerary.removeValue(forKey: content)
+                            self.near_user_infoary.removeValue(forKey: content)
+                        }// 200미터 이상 트래킹 해제
+                        
                         if dis<10.0{
                             self.pass_dog_set.insert(content)
                             self.pass_dog_count_label.text = String(self.pass_dog_set.count)
