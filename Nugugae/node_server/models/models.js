@@ -214,7 +214,7 @@ const GalleryTable = sequelize.define('GalleryTables',{
     },
     // public_true, private_false bool 값으로 넣음..
     date:{
-        type : Sequelize.DATE,
+        type : Sequelize.STRING,
         defaultValue: Sequelize.NOW,
         primaryKey: true,
     },

@@ -330,4 +330,4 @@ exports.walk_stop_distance = (req, res) => {
             });
         }
     });//then()
-};
+};// 산책종료! 시에, 거리계산 Db연산

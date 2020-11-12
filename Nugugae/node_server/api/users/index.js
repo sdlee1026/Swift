@@ -196,7 +196,8 @@ router.post('/gallery/upload/public/', upload_public.fields([{ name: 'image' }, 
 
 // 자신의 갤러리 전체 보기 썸네일10% 이미지 사용
 router.post('/gallery/my/view/', gallery_controller.gallery_my_view);
-
+// 자신의 갤러리 (선택한 날짜_산책일지 선택시), 그 선택 날짜 보기
+router.post('/gallery/my/view/selectday/', gallery_controller.gallery_my_view_selectday);
 // 갤러리 게시물 보기, 컬렉션 뷰 선택시 하나의 화면으로 보기
 router.post('/gallery/view/', gallery_controller.gallery_view);
 // 갤러리 자기 게시물 삭제

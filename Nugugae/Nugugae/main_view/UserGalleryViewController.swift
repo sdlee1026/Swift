@@ -99,6 +99,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
         flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
         self.my_gallery_collection.collectionViewLayout = flowLayout
     }
+    // 컬렉션뷰 레이아웃
     
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\tGalley view")

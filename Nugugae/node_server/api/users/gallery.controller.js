@@ -3,6 +3,8 @@ var fs = require('fs'); // file system
 const models = require('../../models/models');//DB
 const { UserTableCount } = require('../../models/models');
 
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 // 모든 id,date gallery, index test
 
 exports.gallery_index = (req, res) => {
@@ -254,7 +256,61 @@ exports.gallery_my_view = (req, res) =>{
 
     });
 };
+exports.gallery_my_view_selectday = (req, res) => {
+    console.log("walk_view, select day image collections func");
+    var id = req.body.id || '';
+    var offset = req.body.offset || 0;
+    var limit = 9;// 한번에 9개씩 load
+    var int_offset = parseInt(offset)
+    var selectday = req.body.selectday.split(' ')[0] || '';
+    id = String(id)
 
+    console.log(id, offset, selectday)
+    // 카운트 테이블에서 갤러리 카운트
+    models.UserTableCount.findOne({
+        where: {id: id}
+    }).then(usergallerycount =>{
+        var offset_limit = parseInt(usergallerycount.gallerycount);
+        // 갤러리 내에 들어있는 갯수
+        console.log(usergallerycount.gallerycount)
+        console.log(offset_limit, offset)
+        if (offset_limit > offset){
+            models.GalleryTable.findAll({
+                offset: int_offset,
+                limit: limit,
+                where:{
+                    id: id,
+                    date: {
+                        [Op.like]: "%" + selectday + "%"
+                    }
+                },order: [['date','DESC']],
+            }).then(gallery =>{
+                console.log(gallery)
+                if(!gallery){
+                    console.log(gallery);
+                    return res.status(404).json({err: 'No User'});
+                }
+                for (var i=0; i<gallery.length;i++){
+                    console.log(gallery[i]['image01']);
+                    if (gallery[i]['image01'] != null){
+                        var img = fs.readFileSync(gallery[i]['image01'], 'base64');
+                        gallery[i]['image01'] = img
+                    }
+                    else{
+                        gallery[i]['image01'] = null
+                    }
+                    // img 파일 읽기, image01 적재, 10% 썸네일용
+                }
+                return res.json(gallery);
+            })
+        }// 총 사진 갯수보다 오프셋 기준이 적은 경우만 return, == 아이템이 있는 경우
+        else{
+            console.log('No item error return, 사진 더 없음')
+            return res.status(400).json({err: 'No item'})
+        }
+
+    });
+};
 // 이미지 변경 x, 자기 게시물 수정
 exports.gallery_update_noimg = (req, res) => {
     console.log('gallery_update no change img, user self');
