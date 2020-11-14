@@ -247,7 +247,7 @@ exports.gallery_my_view = (req, res) =>{
                     // img 파일 읽기, image01 적재, 10% 썸네일용
                 }
                 return res.json(gallery);
-            })
+            });
         }// 총 사진 갯수보다 오프셋 기준이 적은 경우만 return, == 아이템이 있는 경우
         else{
             console.log('No item error return, 사진 더 없음')
@@ -597,7 +597,24 @@ exports.like_update = (req, res) => {
     }).then(gallery => {
         console.log('gallery find, like check');
         if (like_self == 'true'){
-            if (gallery['like'].indexOf(id) == -1){
+            if (gallery['like'] ==null){
+                console.log('아예 빈배열에 처음 넣는 경우');
+                var insert_str = id+','
+                models.GalleryTable.update({
+                    like: insert_str
+                },
+                {
+                    where:{
+                        id: id,
+                        date: date,
+                        imgdate: imgdate,
+                    }
+                }).then(gallery_update => {
+                    return res.status(201).json({content: 'like_update'});
+                });
+
+            }
+            else if (gallery['like'].indexOf(id) == -1){
                 var insert_str = gallery['like']
                 console.log(insert_str);
                 insert_str += id+','
@@ -621,7 +638,12 @@ exports.like_update = (req, res) => {
             }
         }
         else{
-            if (gallery['like'].indexOf(id) != -1){
+            console.log('\nunlike로 들어왔을때, 비교하기 전에 한번 null인지 체크해줘야 한다.\n',gallery['like']);
+            if (gallery['like'] == null){
+                console.log('null 이기 때문에, 그냥 return');
+                return res.status(201).json({content : 'like_update'});
+            }
+            else if (gallery['like'].indexOf(id) != -1){
                 var insert_str = gallery['like']
                 console.log(insert_str);
                 insert_str = insert_str.replace(id+',','');

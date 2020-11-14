@@ -217,6 +217,9 @@ router.post('/gallery/like/update/', gallery_controller.like_update);
 
 // 피드 다른 유저 검색 기능
 router.post('/feed/search/user/', feed_controller.search_user);
+// 피드 컬렉션 뷰 로드
+router.post('/feed/load/', feed_controller.feed_load);
+
 
 // 유저 정보
 

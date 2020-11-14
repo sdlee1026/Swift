@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import NMapsMap
-// "walk_detail_seg", history -> detail
+// seg : "walk_detail_seg", history -> detail
 class historyDetailViewController:UIViewController{
     
     let server_url:String = Server_url.sharedInstance.server_url

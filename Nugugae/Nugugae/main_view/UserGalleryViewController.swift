@@ -26,7 +26,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
     var segue_pu_pr:String = ""
     var segue_date:String = ""
     var segue_imgdate:String = ""
-    // 세그먼트로 보낼 데이터, seg id = my_gallery_to_item
+    // 세그먼트로 보낼 데이터, seg id = my_gallery_to_item_seg
     var cell_width:CGFloat = 0
     var cell_height:CGFloat = 0
     
@@ -311,7 +311,7 @@ class UserGalleryViewController: UIViewController, UITextFieldDelegate{
     }// gallery View DB (하나 갤러리 뷰)
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "my_gallery_to_item"{
+        if segue.identifier == "my_gallery_to_item_seg"{
             print("segue data prepare")
             
             let dest = segue.destination
@@ -381,6 +381,6 @@ extension UserGalleryViewController: UICollectionViewDelegateFlowLayout {
         self.segue_date = self.date_ary_forseg[indexPath.row]
         self.segue_imgdate = self.imgdate_ary_forseg[indexPath.row]
         self.segue_pu_pr = self.public_private_ary[indexPath.row]
-        self.performSegue(withIdentifier: "my_gallery_to_item", sender: nil)
+        self.performSegue(withIdentifier: "my_gallery_to_item_seg", sender: nil)
     }
 }

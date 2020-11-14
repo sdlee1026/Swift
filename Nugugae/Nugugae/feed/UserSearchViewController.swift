@@ -17,6 +17,9 @@ class UserSearchViewController: UIViewController {
     
     var seg_search_str = ""
     // seg 인자로 받을 검색어
+    
+    var seg_userid:String = ""
+    // seg로 보낼, 타인의 userid
     var result_id_ary:[String] = []
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -57,13 +60,18 @@ class UserSearchViewController: UIViewController {
         print("view disappear\tuser_search_view")
         super.viewDidDisappear(true)
     }
-//    // 스크롤 func
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        //print("스크롤시작")
-//    }// func scrollViewDidScroll : 스크롤 할때마다 계속 호출
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
-//        print("스크롤 종료")
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "user_search_to_other_seg"{
+            print("segue other_user_gallery")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? OtherUserGalleryViewController {
+                rvc.seg_userid = self.seg_userid
+            }
+        }
+    }
+    
     func searchUserData(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
             "id":self.seg_search_str
@@ -90,7 +98,7 @@ class UserSearchViewController: UIViewController {
                 completion(ids)
             }
         
-    }// mygallery Delete DB
+    }// search user id, loginDB
     
 }
 extension UserSearchViewController: UITableViewDelegate, UITableViewDataSource{
@@ -124,10 +132,9 @@ extension UserSearchViewController: UITableViewDelegate, UITableViewDataSource{
         }
         else{
             print("seg -> ")
+            self.seg_userid = self.result_id_ary[indexPath.row]
+            self.performSegue(withIdentifier: "user_search_to_other_seg", sender: nil)
         }
-//        self.segue_content = self.table_content[indexPath.row]
-//        self.segue_date = self.table_date[indexPath.row]
-//        self.performSegue(withIdentifier: "walk_view_seg", sender: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }// 클릭 이벤트 발생, segue 호출

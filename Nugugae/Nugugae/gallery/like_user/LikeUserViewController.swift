@@ -29,6 +29,10 @@ class LikeUserViewController: UIViewController {
     @IBOutlet weak var user_table: UITableView!
     var segue_userlist:[Substring] = []
     var table_user:[Substring] = []
+    // seg로 받을 유저 리스트
+    
+    var seg_userid:String = ""
+    // seg로 보낼 데이터(타인의 id)
     override func viewDidLoad() {
         super.viewDidLoad()
         print("like_user_view Start")
@@ -62,6 +66,18 @@ class LikeUserViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear\tlike_user_view")
         super.viewDidDisappear(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "like_user_to_other_seg"{
+            print("segue other_user_gallery")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? OtherUserGalleryViewController {
+                rvc.seg_userid = self.seg_userid
+            }
+        }
     }
     // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -135,10 +151,13 @@ extension LikeUserViewController: UITableViewDelegate, UITableViewDataSource{
 
         print("table_cell click")
         // 작업 인덱스 저장
-        print("id : ", self.table_user[indexPath.row])
-//        self.segue_content = self.table_content[indexPath.row]
-//        self.segue_date = self.table_date[indexPath.row]
-//        self.performSegue(withIdentifier: "walk_view_seg", sender: nil)
+        if self.table_user[indexPath.row].count > 0{
+            print("id : ", self.table_user[indexPath.row])
+            
+            self.seg_userid = String(self.table_user[indexPath.row])
+            // seg로 보낼 id
+            self.performSegue(withIdentifier: "like_user_to_other_seg", sender: nil)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }// 클릭 이벤트 발생, segue 호출

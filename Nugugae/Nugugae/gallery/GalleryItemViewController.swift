@@ -11,12 +11,20 @@ import Alamofire
 import SwiftyJSON
 import Photos
 
+// seg: selectday_to_gallery_seg, 산책일지(수정x,삭제x, 보기)
+// walk_cell_viewController -> GalleryItemViewController
+// seg : my_gallery_to_item_seg, 내 갤러리에서 클릭
+// UserGalleryViewController -> GalleryItemViewController
+
+// seg : feed_to_gallery_seg, 피드에서 눌렀을 때, 반드시 퍼블릭
+// UserFeedViewController -> GalleryItemViewController
+
 class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     var keyboardShown:Bool = false // 키보드 상태 확인
     
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
-    let user:String = UserDefaults.standard.string(forKey: "userId")!
+    var user:String = UserDefaults.standard.string(forKey: "userId")!
     
     var pu_pr:String = ""
     var date:String = ""
@@ -54,6 +62,17 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     var pr_pu_change_token:Bool = false
     // 공개 범위 변경 체크 토큰
     @IBOutlet weak var public_private: UISegmentedControl!
+    
+    @IBOutlet weak var userid_label: UILabel!
+    // 자기 갤러리에서 접근하는게 아닌,(피드 or 좋아요_유저검색 누른사람)
+    // 에서 보낸 seg_id로 라벨 설정
+    
+    var seg_userid = ""
+    var seg_start_page = ""
+    var seg_date = ""
+    var seg_imgdate = ""
+    // seg로 받아올 값들, feed or likeuser_searchUser
+    
     
     var keyboardToken:Bool = false
     // 키보드 상태 토큰
@@ -217,6 +236,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     // 삭제 버튼
+    @IBOutlet weak var delete_btn_outlet: UIButton!
     
     @IBOutlet weak var image_change_btn_outlet: UIButton!
     @IBAction func image_change_btn(_ sender: Any) {
@@ -343,11 +363,21 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     }// 수정 내의 입력 완료 버튼_맨아래 입력완료 버튼, (아웃렛 변수, 액션 함수)
     
     func loadGalleryData(url: String, completion: @escaping ([UIImage]) -> Void){
-        let parameters: [String:String] = [
-            "id":self.user,
-            "date":self.date,
-            "imgdate":self.imgdate
-        ]
+        var parameters:[String:String] = [:]
+        if seg_start_page != ""{
+            parameters = [
+                "id":self.seg_userid,
+                "date":self.date,
+                "imgdate":self.imgdate
+            ]
+        }// seg_start_page가 있는 경우, user를 변경해줘야한다.
+        else{
+            parameters = [
+                "id":self.user,
+                "date":self.date,
+                "imgdate":self.imgdate
+            ]
+        }
         self.like_user_str = ""
         self.like_user_ary = []
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
@@ -371,7 +401,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
 
                             self.main_image.image = decodedimage
                         }
-                        self.userId_label.text = self.user
+                        self.userId_label.text = "\(gallerydata["id"])"
                         self.main_text.text = "\(gallerydata["content"])"
                         self.day_label.text = "\(gallerydata["date"])"
                         print("\(gallerydata["ispublic"])")
@@ -387,7 +417,8 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                         }
                         self.like_user_str += "\(gallerydata["like"])"
                         print("split user 동작")
-                        if self.like_user_str.count > 0{
+                        
+                        if self.like_user_str.count > 0 && self.like_user_str != "null"{
                             print("like_exist_user setting")
                             self.like_user_ary = self.like_user_str.split(separator: ",")
                             print("유저 리스트",self.like_user_ary)
@@ -556,12 +587,25 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     }// mygallery img포함 update DB
     
     func updatelike(url: String, completion: @escaping ([String]) -> Void){
-        let parameters: [String:String] = [
-            "id":self.user,
-            "date":self.date,
-            "imgdate":self.imgdate,
-            "like_self":String(self.like_check)
-        ]
+        var parameters: [String:String] = [:]
+        
+        if seg_start_page != ""{
+            parameters = [
+                "id":self.seg_userid,
+                "date":self.seg_date,
+                "imgdate":self.seg_imgdate,
+                "like_self":String(self.like_check)
+            ]
+        }// start page가 설정된 경우
+        else{
+            parameters = [
+                "id":self.user,
+                "date":self.date,
+                "imgdate":self.imgdate,
+                "like_self":String(self.like_check)
+            ]
+        }
+        print("좋아요 체크, 파라미터 : ",parameters)
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
             .responseJSON{ response in
                 var ids = [String]()
@@ -585,38 +629,64 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         print("Gallery item Start")
         print("인자 : ", date,imgdate,pu_pr)
-        self.fix_btn_outlet.isEnabled = false
-        self.fix_outlet.isEnabled = true
-        self.fix_btn_outlet.backgroundColor = UIColor.white
-        self.fix_btn_outlet.setTitleColor(UIColor.white, for: .normal)
+        if self.seg_start_page != ""{ // seg_시작페이지가 있는 경우 -> 이 경우는 feed, like_user, user_searching 의 경우에서 존재한다
+            self.fix_btn_outlet.isEnabled = false
+            self.fix_btn_outlet.backgroundColor = UIColor.white
+            self.fix_btn_outlet.setTitleColor(UIColor.white, for: .normal)
+            
+            self.fix_outlet.isEnabled = false
+            self.fix_outlet.setTitleColor(UIColor.white, for: .normal)
+            
+            self.delete_btn_outlet.isEnabled = false
+            self.delete_btn_outlet.backgroundColor = UIColor.white
+            self.delete_btn_outlet.setTitleColor(UIColor.white, for: .normal)
+            self.public_private.isHidden = true
+            self.public_private.isEnabled = false
+            
+            self.userid_label.text = seg_userid
+            // seg_id로 라벨 설정
+            self.date = seg_date
+            self.imgdate = seg_imgdate
+            // 세그로 받아온 값들로 인자값 변경, id는 파라미터 보낼때 변경, loadGalleryData()
+            
+            self.main_text.delegate = self
+            
+        }
+        else{// seg_시작페이지를 따로 설정하지 않았던 경우, 자신의 갤러리에서 접근 or 산책기록에서 접근
+            self.fix_btn_outlet.isEnabled = false
+            self.fix_outlet.isEnabled = true
+            self.fix_btn_outlet.backgroundColor = UIColor.white
+            self.fix_btn_outlet.setTitleColor(UIColor.white, for: .normal)
 
-        self.public_private.isHidden = true
-        self.public_private.isEnabled = false
-        self.main_text.delegate = self
-        
-        
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        kr = dateFormatter.string(from: now)
-        print(now)
-        print(kr)
-        
-        img_picker.delegate = self
-        img_picker.sourceType = .savedPhotosAlbum
-        img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image"])!
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        //포그라운드 상태에서 위치 추적 권한 요청
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //배터리에 맞게 권장되는 최적의 정확도
-        locationManager.startUpdatingLocation()
-        //위치업데이트
-        let coor = locationManager.location?.coordinate
-        latitude = coor?.latitude
-        longitude = coor?.longitude
+            self.public_private.isHidden = true
+            self.public_private.isEnabled = false
+            self.main_text.delegate = self
+            
+            
+            dateFormatter.locale = Locale(identifier: "ko_kr")
+            dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            kr = dateFormatter.string(from: now)
+            print(now)
+            print(kr)
+            
+            img_picker.delegate = self
+            img_picker.sourceType = .savedPhotosAlbum
+            img_picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? Optional(["public.image"])!
+            
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+            //포그라운드 상태에서 위치 추적 권한 요청
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            //배터리에 맞게 권장되는 최적의 정확도
+            locationManager.startUpdatingLocation()
+            //위치업데이트
+            let coor = locationManager.location?.coordinate
+            latitude = coor?.latitude
+            longitude = coor?.longitude
+            
+        }
         
         loadGalleryData(url: server_url+"/gallery/view") { (ids) in
             print("load, 갤러리 데이터")

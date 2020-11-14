@@ -433,7 +433,7 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
                 rvc.start_page = "walk_cell_viewController"
             }
         }
-        if segue.identifier == "selectday_to_gallery"{
+        if segue.identifier == "selectday_to_gallery_seg"{
             print("segue gallery")
             
             let dest = segue.destination
@@ -500,6 +500,6 @@ extension walk_cell_viewController: UICollectionViewDelegateFlowLayout {
         self.segue_todayimg_imgdate = self.imgdate_ary_forseg[indexPath.row]
         self.segue_todayimg_pr_pu = self.pr_pu_ary_forseg[indexPath.row]
         
-        self.performSegue(withIdentifier: "selectday_to_gallery", sender: nil)
+        self.performSegue(withIdentifier: "selectday_to_gallery_seg", sender: nil)
     }
 }
