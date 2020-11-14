@@ -592,6 +592,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         if seg_start_page != ""{
             parameters = [
                 "id":self.seg_userid,
+                "like_user":self.user,
                 "date":self.seg_date,
                 "imgdate":self.seg_imgdate,
                 "like_self":String(self.like_check)
@@ -600,6 +601,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         else{
             parameters = [
                 "id":self.user,
+                "like_user":self.user,
                 "date":self.date,
                 "imgdate":self.imgdate,
                 "like_self":String(self.like_check)

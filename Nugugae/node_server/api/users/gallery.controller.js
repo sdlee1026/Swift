@@ -587,6 +587,9 @@ exports.like_update = (req, res) => {
     var date = req.body.date || '';
     var imgdate = req.body.imgdate || '';
     var like_self = req.body.like_self || '';
+    var like_user = req.body.like_user || '';
+    
+    console.log(id,like_user,like_self);
 
     models.GalleryTable.findOne({
         where: {
@@ -599,7 +602,7 @@ exports.like_update = (req, res) => {
         if (like_self == 'true'){
             if (gallery['like'] ==null){
                 console.log('아예 빈배열에 처음 넣는 경우');
-                var insert_str = id+','
+                var insert_str = like_user+','
                 models.GalleryTable.update({
                     like: insert_str
                 },
@@ -614,12 +617,12 @@ exports.like_update = (req, res) => {
                 });
 
             }
-            else if (gallery['like'].indexOf(id) == -1){
+            else if (gallery['like'].indexOf(like_user) == -1){
                 var insert_str = gallery['like']
                 console.log(insert_str);
-                insert_str += id+','
+                insert_str += like_user+','
                 console.log(insert_str);
-                console.log('str을 id를 넣고, update');
+                console.log('str을 id(like_user)를 넣고, update');
                 models.GalleryTable.update({
                     like: insert_str
                 },
@@ -643,12 +646,12 @@ exports.like_update = (req, res) => {
                 console.log('null 이기 때문에, 그냥 return');
                 return res.status(201).json({content : 'like_update'});
             }
-            else if (gallery['like'].indexOf(id) != -1){
+            else if (gallery['like'].indexOf(like_user) != -1){
                 var insert_str = gallery['like']
                 console.log(insert_str);
-                insert_str = insert_str.replace(id+',','');
+                insert_str = insert_str.replace(like_user+',','');
                 console.log(insert_str);
-                console.log('str에서 id를 빼고(replace), update');
+                console.log('str에서 id(like_user)를 빼고(replace), update');
                 models.GalleryTable.update({
                     like: insert_str
                 },

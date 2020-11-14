@@ -103,6 +103,7 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
         self.date_ary_forseg = []
         self.imgdate_ary_forseg = []
         // 초기화
+        self.offset = 0
         
         loadFeedData(url: server_url+"/feed/load") { (ids_img, ids_id, ids_date, ids_imgdate) in
             print("로드, 피드")
@@ -213,10 +214,36 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
     
     // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("스크롤시작")
+        if self.feed_collection.contentOffset.y > self.feed_collection.contentSize.height-self.feed_collection.bounds.size.height
+            {
+                if(isAvailable){// 조건문에 api_end_token 이 true일때만 동작하도록
+                    print("스크롤 캐치, 예전 내용load")
+                    isAvailable = false
+                    self.loadFeedData(url: server_url+"/feed/load") { (ids_image, ids_id, ids_date, ids_imgdate) in
+                        print("피드 로드, 스크롤로 인한 재로드")
+                        self.image_ary.append(contentsOf: ids_image)
+                        self.id_ary.append(contentsOf: ids_id)
+                        self.date_ary_forseg.append(contentsOf: ids_date)
+                        self.imgdate_ary_forseg.append(contentsOf: ids_imgdate)
+                        self.feed_collection.reloadData()
+                        self.api_end_token = true
+                        
+                    }
+                    // api 로드
+                    // 로드 클로저에서 api_end_token = true로 바꾸고,, 선언부터 해야됨 1030일
+                        // api_end_token << 한번에 여러쿼리 안보내게끔 락킹..
+                    
+                }
+        }
     }// func scrollViewDidScroll : 스크롤 할때마다 계속 호출
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         print("스크롤 종료")
+        // api_end_token이 true일때만 다시 동작하도록
+        if api_end_token == true{
+            isAvailable = true
+            api_end_token = false
+        }
+        // api_end_token을 false로 다시 세팅
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
