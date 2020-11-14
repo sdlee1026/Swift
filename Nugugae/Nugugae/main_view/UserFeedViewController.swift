@@ -41,6 +41,7 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
         print("검색기능")
         if search_text.text!.count > 0{
             print("서칭 페이지로")
+            performSegue(withIdentifier: "feed_to_user_search_seg", sender: nil)
         }
         else{
             let input_alert = UIAlertController(title: "검색 ID가 비어있어요!", message: "검색하고자 하는 ID를 입력해주세요!", preferredStyle: .alert)
@@ -77,6 +78,18 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
         print("view disappear\tfeed_view")
         super.viewDidDisappear(true)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "feed_to_user_search_seg"{
+            print("segue user_searching")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? UserSearchViewController {
+                rvc.seg_search_str = self.search_text.text!
+            }
+        }
+    }
+    
     // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print("스크롤시작")

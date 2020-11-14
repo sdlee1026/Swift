@@ -123,6 +123,8 @@ const walk_controller = require('./walk.controller');
 // main view, walk controller
 const gallery_controller = require('./gallery.controller');
 // gallery controller
+const feed_controller = require('./feed.controller');
+// feed controller
 const infosetting_controller = require('./infosetting.controller');
 // infosetting controller
 const { info } = require('console');
@@ -209,7 +211,12 @@ router.post('/gallery/update/img/private/', upload_private.fields([{ name: 'imag
 // 갤러리 자기 게시물 수정, 사진 변경 o, 퍼블릭
 router.post('/gallery/update/img/public/', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_update_img_public);
 // 갤러리 좋아요(like) 업데이트
-router.post('/gallery/like/update/',gallery_controller.like_update);
+router.post('/gallery/like/update/', gallery_controller.like_update);
+
+// 피드
+
+// 피드 다른 유저 검색 기능
+router.post('/feed/search/user/', feed_controller.search_user);
 
 // 유저 정보
 
