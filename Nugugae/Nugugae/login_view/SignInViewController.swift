@@ -17,6 +17,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var email_signin_text: UITextField!
     
     let server_url:String = Server_url.sharedInstance.server_url
+    
     // 외부 접속 url,ngrok
     var check_str = [String]()
     var id_val_token = false

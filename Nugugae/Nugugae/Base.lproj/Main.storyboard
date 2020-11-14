@@ -160,14 +160,14 @@
             <objects>
                 <viewController id="lP2-iX-1KS" customClass="GalleryItemViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Nu-k0-KvG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aFl-DL-BPK" userLabel="Menu_stack">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.333333333333329"/>
+                                <rect key="frame" x="0.0" y="44.000000000000007" width="414" height="89.666666666666686"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUH-sN-nwK" userLabel="이전">
-                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="84.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="89.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="chevron.backward" catalog="system"/>
@@ -176,16 +176,16 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNr-Ly-Eng" userLabel="view_name_label">
-                                        <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="84.333333333333329"/>
+                                        <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="89.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-OT-ddO" userLabel="btn_stack">
-                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="84.333333333333329"/>
+                                        <rect key="frame" x="310.66666666666669" y="0.0" width="103.33333333333331" height="89.666666666666671"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nev-5H-HDT" userLabel="수정">
-                                                <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="42"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="44.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="수정" image="pencil" catalog="system">
@@ -196,7 +196,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRm-ML-EiI" userLabel="삭제">
-                                                <rect key="frame" x="0.0" y="42" width="103.33333333333333" height="42.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="44.666666666666671" width="103.33333333333333" height="45"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="삭제" image="trash" catalog="system">
@@ -217,7 +217,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neU-j6-i0l">
-                                <rect key="frame" x="0.0" y="748.66666666666663" width="414" height="59"/>
+                                <rect key="frame" x="0.0" y="838.66666666666663" width="414" height="62.666666666666629"/>
                                 <color key="backgroundColor" white="0.91532596320000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="입력 완료!"/>
@@ -226,16 +226,16 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="안내_사진없음2.png" translatesAutoresizingMaskIntoConstraints="NO" id="uu1-HK-sg5" userLabel="content_image">
-                                <rect key="frame" x="0.0" y="92" width="414" height="421"/>
+                                <rect key="frame" x="0.0" y="141.33333333333337" width="414" height="448"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cTq-EL-9UY" userLabel="image_info_stack">
-                                <rect key="frame" x="20" y="520.33333333333337" width="374" height="210.33333333333337"/>
+                                <rect key="frame" x="20" y="596.66666666666663" width="374" height="224"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzw-jB-Z7a" userLabel="relative_info_stack">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="44.666666666666664"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4iv-w3-OQo" userLabel="like_btn">
-                                                <rect key="frame" x="0.0" y="0.0" width="56" height="42"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="56" height="44.666666666666664"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="heart" catalog="system">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,7 +246,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3jK-aR-cSQ" userLabel="reply_btn">
-                                                <rect key="frame" x="56" y="0.0" width="56.333333333333343" height="42"/>
+                                                <rect key="frame" x="56" y="0.0" width="56.333333333333343" height="44.666666666666664"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="bubble.right" catalog="system"/>
                                                 <connections>
@@ -254,13 +254,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGE-wO-dXj" userLabel="space">
-                                                <rect key="frame" x="112.33333333333333" y="0.0" width="149.33333333333337" height="42"/>
+                                                <rect key="frame" x="112.33333333333333" y="0.0" width="149.33333333333337" height="44.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-mr-bbS" userLabel="image_change_btn">
-                                                <rect key="frame" x="261.66666666666669" y="0.0" width="112.33333333333331" height="42"/>
+                                                <rect key="frame" x="261.66666666666669" y="0.0" width="112.33333333333331" height="44.666666666666664"/>
                                                 <state key="normal" title="사진 변경">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -276,7 +276,7 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dC9-Dh-b6h" userLabel="like_text_btn">
-                                        <rect key="frame" x="0.0" y="42" width="374" height="31.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="44.666666666666742" width="374" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -286,22 +286,22 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrq-VY-bTj" userLabel="second_stack">
-                                        <rect key="frame" x="0.0" y="73.666666666666629" width="374" height="31.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="78.333333333333371" width="374" height="33.666666666666657"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nva-XN-Aeg">
-                                                <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="31.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="33.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX5-a1-MLS">
-                                                <rect key="frame" x="149.66666666666666" y="0.0" width="37.333333333333343" height="31.333333333333332"/>
+                                                <rect key="frame" x="149.66666666666666" y="0.0" width="37.333333333333343" height="33.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-Nm-g4Z" userLabel="Public private">
-                                                <rect key="frame" x="187" y="0.0" width="187" height="32.333333333333329"/>
+                                                <rect key="frame" x="187" y="0.0" width="187" height="34.666666666666664"/>
                                                 <segments>
                                                     <segment title="다같이 볼래요!"/>
                                                     <segment title="나만 볼래요!"/>
@@ -314,14 +314,14 @@
                                         </constraints>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-TE-CCY" userLabel="content_text">
-                                        <rect key="frame" x="0.0" y="105" width="374" height="84.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="112" width="374" height="89.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                     </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2h-Y6-gpZ" userLabel="day_label">
-                                        <rect key="frame" x="0.0" y="189.33333333333326" width="374" height="21"/>
+                                        <rect key="frame" x="0.0" y="201.66666666666674" width="374" height="22.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -471,6 +471,107 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VF5-Vu-QOh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3589.8550724637685" y="1267.6339285714284"/>
+        </scene>
+        <!--피드-->
+        <scene sceneID="84G-WP-Gze">
+            <objects>
+                <viewController id="9UJ-KJ-shD" customClass="UserFeedViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oYa-Ci-LJG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누구개!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdd-dW-WYv">
+                                <rect key="frame" x="0.0" y="44" width="414" height="62.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fal-Dh-t22">
+                                <rect key="frame" x="289.66666666666669" y="44" width="124.33333333333331" height="62.666666666666657"/>
+                                <state key="normal" title="로그아웃">
+                                    <color key="titleColor" red="0.90323429399999999" green="0.6699707385" blue="0.38441220700000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout_btn:" destination="9UJ-KJ-shD" eventType="touchUpInside" id="ljj-QV-rsI"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPs-kf-cLy" userLabel="search_stack">
+                                <rect key="frame" x="0.0" y="106.66666666666667" width="414" height="62.666666666666671"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idQ-37-XK4">
+                                        <rect key="frame" x="0.0" y="0.0" width="82.666666666666671" height="62.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BtU-56-Ozo" userLabel="text_stack">
+                                        <rect key="frame" x="82.666666666666671" y="0.0" width="248.66666666666663" height="62.666666666666664"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvA-W2-5FI" userLabel="space_0">
+                                                <rect key="frame" x="0.0" y="0.0" width="248.66666666666666" height="12.666666666666666"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="htT-VP-d4X" userLabel="id_text">
+                                                <rect key="frame" x="0.0" y="12.666666666666657" width="248.66666666666666" height="37.666666666666664"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd1-Mt-Su4" userLabel="space_1">
+                                                <rect key="frame" x="0.0" y="50.333333333333329" width="248.66666666666666" height="12.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="hd1-Mt-Su4" firstAttribute="height" secondItem="BtU-56-Ozo" secondAttribute="height" multiplier="0.2" id="4TF-oC-te4"/>
+                                            <constraint firstItem="zvA-W2-5FI" firstAttribute="height" secondItem="BtU-56-Ozo" secondAttribute="height" multiplier="0.2" id="ETg-lw-hwf"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vee-vL-Fpd" userLabel="search_btn">
+                                        <rect key="frame" x="331.33333333333331" y="0.0" width="82.666666666666686" height="62.666666666666664"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="magnifyingglass" catalog="system"/>
+                                        <connections>
+                                            <action selector="search_btn:" destination="9UJ-KJ-shD" eventType="touchUpInside" id="ZIB-Pk-K4v"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vee-vL-Fpd" firstAttribute="width" secondItem="qPs-kf-cLy" secondAttribute="width" multiplier="0.2" id="ESK-u3-1Mc"/>
+                                    <constraint firstItem="idQ-37-XK4" firstAttribute="width" secondItem="qPs-kf-cLy" secondAttribute="width" multiplier="0.2" id="fZU-s9-tpo"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QUK-aV-eg5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fal-Dh-t22" firstAttribute="top" secondItem="QUK-aV-eg5" secondAttribute="top" id="2AA-Ys-FMy"/>
+                            <constraint firstItem="zdd-dW-WYv" firstAttribute="top" secondItem="QUK-aV-eg5" secondAttribute="top" id="5XA-sE-oQy"/>
+                            <constraint firstItem="zdd-dW-WYv" firstAttribute="leading" secondItem="QUK-aV-eg5" secondAttribute="leading" id="97q-D2-5wY"/>
+                            <constraint firstItem="fal-Dh-t22" firstAttribute="height" secondItem="oYa-Ci-LJG" secondAttribute="height" multiplier="0.07" id="K1r-Yg-zak"/>
+                            <constraint firstItem="fal-Dh-t22" firstAttribute="width" secondItem="oYa-Ci-LJG" secondAttribute="width" multiplier="0.3" id="TaF-sm-ahU"/>
+                            <constraint firstItem="qPs-kf-cLy" firstAttribute="top" secondItem="zdd-dW-WYv" secondAttribute="bottom" id="UUP-6q-wXR"/>
+                            <constraint firstItem="fal-Dh-t22" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QUK-aV-eg5" secondAttribute="leading" symbolic="YES" id="ZeM-JH-FXF"/>
+                            <constraint firstItem="zdd-dW-WYv" firstAttribute="height" secondItem="oYa-Ci-LJG" secondAttribute="height" multiplier="0.07" id="cbp-er-BDf"/>
+                            <constraint firstItem="zdd-dW-WYv" firstAttribute="trailing" secondItem="QUK-aV-eg5" secondAttribute="trailing" id="eO1-2y-UOC"/>
+                            <constraint firstItem="qPs-kf-cLy" firstAttribute="leading" secondItem="QUK-aV-eg5" secondAttribute="leading" id="eTW-Tf-Elr"/>
+                            <constraint firstItem="QUK-aV-eg5" firstAttribute="trailing" secondItem="fal-Dh-t22" secondAttribute="trailing" id="tyx-q6-856"/>
+                            <constraint firstItem="qPs-kf-cLy" firstAttribute="height" secondItem="oYa-Ci-LJG" secondAttribute="height" multiplier="0.07" id="uWk-j1-Viw"/>
+                            <constraint firstItem="QUK-aV-eg5" firstAttribute="trailing" secondItem="qPs-kf-cLy" secondAttribute="trailing" id="yKe-xH-p8a"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="피드" image="magnifyingglass" catalog="system" id="czf-Du-vgz"/>
+                    <connections>
+                        <outlet property="search_text" destination="htT-VP-d4X" id="Tmx-zJ-hya"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="igu-ao-Q69" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2067" y="-233"/>
         </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
@@ -2218,6 +2319,7 @@
                         <segue destination="rYZ-Yp-qKC" kind="relationship" relationship="viewControllers" id="H9b-fp-zjz"/>
                         <segue destination="ha8-6j-wid" kind="relationship" relationship="viewControllers" id="yC1-F6-liD"/>
                         <segue destination="azc-5F-OLG" kind="relationship" relationship="viewControllers" id="EZS-hr-m5t"/>
+                        <segue destination="9UJ-KJ-shD" kind="relationship" relationship="viewControllers" id="Rex-J2-hmR"/>
                         <segue destination="D7F-jo-qev" kind="relationship" relationship="viewControllers" id="6vg-Yf-yGX"/>
                     </connections>
                 </tabBarController>
@@ -3398,7 +3500,7 @@ pass_dogs_stack</string>
     <inferredMetricsTieBreakers>
         <segue reference="W1w-qj-oEH"/>
         <segue reference="UZM-kZ-0k7"/>
-        <segue reference="AFo-yd-P9c"/>
+        <segue reference="uSH-K4-1xT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book" catalog="system" width="128" height="102"/>
@@ -3408,6 +3510,7 @@ pass_dogs_stack</string>
         <image name="figure.walk" catalog="system" width="95" height="128"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus.rectangle.on.folder" catalog="system" width="128" height="96"/>
         <image name="trash" catalog="system" width="121" height="128"/>
