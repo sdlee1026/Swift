@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class UserFeedViewController : UIViewController{
+class UserFeedViewController : UIViewController, UITextFieldDelegate{
     
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
@@ -38,13 +38,28 @@ class UserFeedViewController : UIViewController{
     // id 검색 text field
     
     @IBAction func search_btn(_ sender: Any) {
+        print("검색기능")
+        if search_text.text!.count > 0{
+            print("서칭 페이지로")
+        }
+        else{
+            let input_alert = UIAlertController(title: "검색 ID가 비어있어요!", message: "검색하고자 하는 ID를 입력해주세요!", preferredStyle: .alert)
+            let ok_btn = UIAlertAction(title: "네!", style: .default, handler: nil)
+            input_alert.addAction(ok_btn)
+            present(input_alert, animated: true) {
+                self.search_text.becomeFirstResponder()
+            }
+        }
     }
     // id 검색 버튼
     override func viewDidLoad() {
         super.viewDidLoad()
         print("feed_view Start")
-        print(server_url)
+        print("server url : ", String(server_url))
+        
         // 전처리
+        self.search_text.text = ""
+        self.search_text.delegate = self
         
     }
     
