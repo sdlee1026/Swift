@@ -55,11 +55,18 @@ class OtherUserGalleryViewController: UIViewController {
     
     @IBOutlet weak var gallery_collection: UICollectionView!
     
+    @IBOutlet weak var user_profile_img: UIImageView!
     override func viewDidLoad() {
         print("other_user_gallery_view Start")
         print("segue data : ", seg_userid)
         userid_label.text = seg_userid
         super.viewDidLoad()
+        infoUserLoadData(url: server_url+"") { (ids_image) in
+            print("profile img load")
+        }
+        infoDogLoadData(url: server_url+""){ (ids_dogname, ids_breed) in
+            print("dogs profile img load")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +79,7 @@ class OtherUserGalleryViewController: UIViewController {
         self.imgdate_ary_forseg = []
         // 초기화
         self.offset = 0
+        
         otherUserLoadData(url: server_url+"/feed/otheruser/load/public") { (ids_image, ids_id, ids_date, ids_imgdate) in
             print("other public 컬렉션 로드")
             
@@ -143,6 +151,57 @@ class OtherUserGalleryViewController: UIViewController {
         }
         // api_end_token을 false로 다시 세팅
     }
+    func infoUserLoadData(url: String, completion: @escaping ([UIImage]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.seg_userid
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids_image = [UIImage]()
+                switch response.result{
+                case .success(let value):
+                    let infoData = JSON(value)// 응답
+                    if (infoData["err"]=="No item"){
+                        print("!")
+                        print("\(infoData["err"])")
+                    }
+                    else{
+                        print("이미지 넣기 동작")
+                    
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids_image)
+            }
+    }
+    func infoDogLoadData(url: String, completion: @escaping ([String], [String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.seg_userid
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids_dogname = [String]()
+                var ids_breed = [String]()
+                switch response.result{
+                case .success(let value):
+                    let dogsData = JSON(value)// 응답
+                    if (dogsData["err"]=="No item"){
+                        print("!")
+                        print("\(dogsData["err"])")
+                    }
+                    else{
+                        ids_dogname.append("\(dogsData["dogname"])")
+                        ids_breed.append("\(dogsData["breed"])")
+                    
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids_dogname, ids_breed)
+            }
+    }
+    
     func otherUserLoadData(url: String, completion: @escaping ([UIImage],[String],[String],[String]) -> Void){
         let parameters: [String:String] = [
             "id":self.seg_userid,

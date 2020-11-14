@@ -983,16 +983,31 @@
                                     <constraint firstItem="PTe-gg-6qZ" firstAttribute="width" secondItem="CSJ-C3-j8U" secondAttribute="width" multiplier="0.2" id="bUy-el-Xq2"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6lT-kh-Bxg" userLabel="info_stack">
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6lT-kh-Bxg" userLabel="info_stack">
                                 <rect key="frame" x="0.0" y="92.000000000000014" width="414" height="210.33333333333337"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdQ-6y-9NZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="210.33333333333334"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="안내_사진없음2.png" translatesAutoresizingMaskIntoConstraints="NO" id="egj-p2-uWC" userLabel="profile_img">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="210.33333333333334"/>
+                                    </imageView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S5r-dU-53M" userLabel="dogs_table">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="210.33333333333334"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="v6A-Up-VXb">
+                                                <rect key="frame" x="0.0" y="28" width="207" height="43.666667938232422"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v6A-Up-VXb" id="8UZ-L9-J7S">
+                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="egj-p2-uWC" firstAttribute="height" secondItem="6lT-kh-Bxg" secondAttribute="height" id="jIf-SX-1E3"/>
+                                    <constraint firstItem="egj-p2-uWC" firstAttribute="width" secondItem="6lT-kh-Bxg" secondAttribute="width" multiplier="0.5" id="qLx-Bj-4YU"/>
+                                </constraints>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="svK-wR-3dv" userLabel="gallery_collection">
                                 <rect key="frame" x="0.0" y="310" width="414" height="498"/>
@@ -1066,6 +1081,7 @@
                     </view>
                     <connections>
                         <outlet property="gallery_collection" destination="svK-wR-3dv" id="INf-l9-QWk"/>
+                        <outlet property="user_profile_img" destination="egj-p2-uWC" id="9yk-zs-cVZ"/>
                         <outlet property="userid_label" destination="FrJ-kM-Ac0" id="5De-y1-MJ0"/>
                         <segue destination="lP2-iX-1KS" kind="presentation" identifier="other_to_gallery_seg" id="Ty8-wi-Xr1"/>
                     </connections>
