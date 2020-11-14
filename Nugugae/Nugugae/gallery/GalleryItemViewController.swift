@@ -74,16 +74,51 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
             self.like_btn_outlet.setImage(self.like_img, for: .normal)
             self.like_check = true
             // 좋아요
+            
+            self.like_user_ary.append(Substring(self.user))
+            if self.like_user_ary.count == 0{
+                print("좋아하는 사람 없음, 그냥 넘김")
+                self.like_text_label.text = ""
+            }
+            else if self.like_user_ary.count == 1{
+                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+            }// 한명 있을 경우
+            else if self.like_user_ary.contains(Substring(self.user)){
+                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+            }// 자신이 포함되있는 경우
+            else{
+                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+            }// 자신 포함x, 다른 여러명이 좋아하는 경우
+            // ~외의 몇명이 좋아합니다 label text setting
         }
         else{
             print("like 상태일때 클릭")
             self.like_btn_outlet.setImage(self.unlike_img, for: .normal)
             self.like_check = false
             // 좋아요 해제(안좋아요)
+            
+            if let index = self.like_user_ary.firstIndex(of: Substring(self.user)) {
+                self.like_user_ary.remove(at: index)
+            }
+            if self.like_user_ary.count == 0{
+                print("좋아하는 사람 없음, 그냥 넘김")
+                self.like_text_label.text = ""
+            }
+            else if self.like_user_ary.count == 1{
+                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+            }// 한명 있을 경우
+            else if self.like_user_ary.contains(Substring(self.user)){
+                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+            }// 자신이 포함되있는 경우
+            else{
+                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+            }// 자신 포함x, 다른 여러명이 좋아하는 경우
+            // ~외의 몇명이 좋아합니다 label text setting
         }
     }
     @IBOutlet weak var like_btn_outlet: UIButton!
     // 좋아요 버튼 액션, 아웃렛
+    
     @IBAction func reply_btn(_ sender: Any) {
         print("댓글 버튼 누름")
     }
@@ -339,14 +374,27 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                         if self.like_user_str.count > 0{
                             print("like_exist_user setting")
                             self.like_user_ary = self.like_user_str.split(separator: ",")
-                            self.like_user_ary.popLast()
-                            print(self.like_user_ary)
+                            print("유저 리스트",self.like_user_ary)
                             if self.like_user_ary.contains(Substring(self.user)){
                                 print("자기 있음")
                                 self.like_btn_outlet.setImage(self.like_img, for: .normal)
                                 self.like_check = true
                                 // 좋아요 체크
                             }
+                            if self.like_user_ary.count == 0{
+                                print("좋아하는 사람 없음, 그냥 넘김")
+                                self.like_text_label.text = ""
+                            }
+                            else if self.like_user_ary.count == 1{
+                                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+                            }// 한명 있을 경우
+                            else if self.like_user_ary.contains(Substring(self.user)){
+                                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                            }// 자신이 포함되있는 경우
+                            else{
+                                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                            }// 자신 포함x, 다른 여러명이 좋아하는 경우
+                            // ~외의 몇명이 좋아합니다 label text setting
                         }
                         else{
                             print("like_no_user setting")
