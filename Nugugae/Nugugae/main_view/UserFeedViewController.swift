@@ -152,7 +152,6 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
                     if (mygallerydata["err"]=="No item"){
                         print("!")
                         print("\(mygallerydata["err"])")
-                        self.offset -= 9
                     }
                     else{
                         for m_json in mygallerydata{
@@ -168,14 +167,17 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
                                 ids_id.append("\(m_json.1["id"])")
                                 ids_date.append("\(m_json.1["date"])")
                                 ids_imgdate.append("\(m_json.1["imgdate"])")
-                                print("offset ? ", m_json.1["likecount"])
-                                if m_json.1["likecount"] != "-1" || m_json.1["likecount"] != "0"{
-                                    self.offset = Int("\(m_json.1["likecount"])")!
-                                }// likecount 에 offset 적재해서 임시로 전송
                             }
                             else{
                                 print("이미지 없음 or 비공개 게시물.. 논리적 에러, 아예 추가하지 않는다.")
                             }
+                            
+                            if Int("\(m_json.1["likecount"])") != -1{
+                                print("offset 이벤트 발생!")
+                                print("\(m_json.1["likecount"])")
+                                self.offset = Int("\(m_json.1["likecount"])")!
+                                break
+                            }// likecount 에 offset 적재해서 임시로 전송, offset의 증가는 서버에서 관리
                         }
                     }
                 case .failure( _): break
@@ -211,7 +213,7 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
     
     // 스크롤 func
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("스크롤시작")
+//        print("스크롤시작")
     }// func scrollViewDidScroll : 스크롤 할때마다 계속 호출
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         print("스크롤 종료")
@@ -253,9 +255,9 @@ extension UserFeedViewController:UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let width = collectionView.frame.width / 3 - 1 ///  3등분하여 배치, 옆 간격이 1이므로 1을 빼줌
-        print("collectionView width=\(collectionView.frame.width)")
-        print("cell하나당 width=\(width)")
-        print("root view width = \(self.view.frame.width)")
+//        print("collectionView width=\(collectionView.frame.width)")
+//        print("cell하나당 width=\(width)")
+//        print("root view width = \(self.view.frame.width)")
         self.cell_height = width+33
         self.cell_width = width
         return CGSize(width: width, height: width+53)
