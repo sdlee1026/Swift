@@ -254,10 +254,12 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
             // seg를 위한 데이터 배열
             self.today_gallery_collection.reloadData()
         }
+        super.viewDidAppear(true)
     }
     override func viewDidDisappear(_ animated: Bool) {
         print("view detail disappear")
         self.content_text.isEditable = false
+        super.viewDidDisappear(true)
     }
     
     

@@ -76,20 +76,26 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
             // 좋아요
             
             self.like_user_ary.append(Substring(self.user))
+            self.like_text_btn.isEnabled = true
+            // 버튼 선택 가능
             if self.like_user_ary.count == 0{
                 print("좋아하는 사람 없음, 그냥 넘김")
-                self.like_text_label.text = ""
+                self.like_text_btn.setTitle("", for: .normal)
             }
             else if self.like_user_ary.count == 1{
-                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+                if String(self.like_user_ary[0]) == self.user{
+                    self.like_text_btn.isEnabled = false
+                    // 자기 자신만 좋아할 때는 버튼 비활성화
+                }
+                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님이 좋아합니다", for: .normal)
             }// 한명 있을 경우
             else if self.like_user_ary.contains(Substring(self.user)){
-                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                self.like_text_btn.setTitle(String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
             }// 자신이 포함되있는 경우
             else{
-                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
             }// 자신 포함x, 다른 여러명이 좋아하는 경우
-            // ~외의 몇명이 좋아합니다 label text setting
+            // ~외의 몇명이 좋아합니다 btn text setting
         }
         else{
             print("like 상태일때 클릭")
@@ -101,17 +107,22 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                 self.like_user_ary.remove(at: index)
             }
             if self.like_user_ary.count == 0{
-                print("좋아하는 사람 없음, 그냥 넘김")
-                self.like_text_label.text = ""
+                self.like_text_btn.isEnabled = false // 버튼 선택 비활성화
+                print("좋아하는 사람 없음, 그냥 넘김, 버튼 선택 불가능으로")
+                self.like_text_btn.setTitle("", for: .normal)
             }
             else if self.like_user_ary.count == 1{
-                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+                if String(self.like_user_ary[0]) == self.user{
+                    self.like_text_btn.isEnabled = false
+                    // 자기 자신만 좋아할 때는 버튼 비활성화
+                }
+                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님이 좋아합니다", for: .normal)
             }// 한명 있을 경우
             else if self.like_user_ary.contains(Substring(self.user)){
-                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                self.like_text_btn.setTitle(String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
             }// 자신이 포함되있는 경우
             else{
-                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
             }// 자신 포함x, 다른 여러명이 좋아하는 경우
             // ~외의 몇명이 좋아합니다 label text setting
         }
@@ -124,8 +135,13 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    @IBOutlet weak var like_text_label: UILabel!
-    // ~님 외의 몇명이 좋아합니다 텍스트..
+    @IBOutlet weak var like_text_btn: UIButton!
+    @IBAction func like_text_btn_action(_ sender: Any) {
+        print("~ 명이 좋아합니다 버튼 누름")
+        performSegue(withIdentifier: "gallery_like_user_seg", sender: nil)
+    }
+    // ~님 외의 몇명이 좋아합니다 텍스트 버튼 액션
+    
     @IBOutlet weak var userId_label: UILabel!
     @IBOutlet weak var main_text: UITextView!
     // 메인 텍스트
@@ -381,18 +397,24 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                                 self.like_check = true
                                 // 좋아요 체크
                             }
+                            self.like_text_btn.isEnabled = true
                             if self.like_user_ary.count == 0{
                                 print("좋아하는 사람 없음, 그냥 넘김")
-                                self.like_text_label.text = ""
+                                self.like_text_btn.isEnabled = false
+                                self.like_text_btn.setTitle("", for: .normal)
                             }
                             else if self.like_user_ary.count == 1{
-                                self.like_text_label.text = String(self.like_user_ary[0])+"님이 좋아합니다"
+                                if String(self.like_user_ary[0]) == self.user{
+                                    self.like_text_btn.isEnabled = false
+                                    // 자기 자신만 좋아할 때는 버튼 비활성화
+                                }
+                                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님이 좋아합니다", for: .normal)
                             }// 한명 있을 경우
                             else if self.like_user_ary.contains(Substring(self.user)){
-                                self.like_text_label.text = String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                                self.like_text_btn.setTitle(String(self.user)+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
                             }// 자신이 포함되있는 경우
                             else{
-                                self.like_text_label.text = String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다"
+                                self.like_text_btn.setTitle(String(self.like_user_ary[0])+"님 외의 " + String(self.like_user_ary.count - 1) + "명이 좋아합니다", for: .normal)
                             }// 자신 포함x, 다른 여러명이 좋아하는 경우
                             // ~외의 몇명이 좋아합니다 label text setting
                         }
@@ -400,7 +422,8 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                             print("like_no_user setting")
                             self.like_btn_outlet.setImage(self.unlike_img, for: .normal)
                             self.like_check = false
-                            // 안좋아요
+                            self.like_text_btn.isEnabled = false
+                            // ~명 좋아합니다 버튼, 선택 불가로
                         }// 유저 아무도 없을시
                         
                     }
@@ -618,6 +641,17 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
             print(ids)
         }
         
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gallery_like_user_seg"{
+            print("segue like_user")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            if let rvc = dest as? LikeUserViewController {
+                rvc.segue_userlist = self.like_user_ary
+            }
+        }
     }
     func registerForKeyboardNotifications() {
         // 옵저버 등록

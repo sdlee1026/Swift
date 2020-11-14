@@ -178,7 +178,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNr-Ly-Eng" userLabel="view_name_label">
                                         <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="84.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.77236646070000003" blue="0.76830551520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="w8H-OT-ddO" userLabel="btn_stack">
@@ -275,12 +275,16 @@
                                             <constraint firstItem="3jK-aR-cSQ" firstAttribute="width" secondItem="wzw-jB-Z7a" secondAttribute="width" multiplier="0.15" id="mAV-up-qgz"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SY8-b2-6gN" userLabel="like_text">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dC9-Dh-b6h" userLabel="like_text_btn">
                                         <rect key="frame" x="0.0" y="42" width="374" height="31.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="like_text_btn_action:" destination="lP2-iX-1KS" eventType="touchUpInside" id="TRE-ei-Gjw"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrq-VY-bTj" userLabel="second_stack">
                                         <rect key="frame" x="0.0" y="73.666666666666629" width="374" height="31.333333333333329"/>
                                         <subviews>
@@ -324,9 +328,9 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="SY8-b2-6gN" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="1e0-cM-P4l"/>
                                     <constraint firstItem="RF3-TE-CCY" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.4" id="CgA-Dq-a8R"/>
                                     <constraint firstItem="nrq-VY-bTj" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="N5y-FN-lzI"/>
+                                    <constraint firstItem="dC9-Dh-b6h" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.15" id="iyR-qN-Vkd"/>
                                     <constraint firstItem="wzw-jB-Z7a" firstAttribute="height" secondItem="cTq-EL-9UY" secondAttribute="height" multiplier="0.2" id="osS-pi-WJM"/>
                                 </constraints>
                             </stackView>
@@ -361,16 +365,54 @@
                         <outlet property="fix_outlet" destination="nev-5H-HDT" id="vr9-gv-Xyr"/>
                         <outlet property="image_change_btn_outlet" destination="oHF-mr-bbS" id="vjV-Pe-hZI"/>
                         <outlet property="like_btn_outlet" destination="4iv-w3-OQo" id="x9h-Zv-BIg"/>
-                        <outlet property="like_text_label" destination="SY8-b2-6gN" id="lNZ-Mq-f58"/>
+                        <outlet property="like_text_btn" destination="dC9-Dh-b6h" id="wGF-Qe-71C"/>
                         <outlet property="main_image" destination="uu1-HK-sg5" id="U0W-VW-oRB"/>
                         <outlet property="main_text" destination="RF3-TE-CCY" id="bHG-Jq-4Cs"/>
                         <outlet property="public_private" destination="TeV-Nm-g4Z" id="pKJ-Iw-emf"/>
                         <outlet property="userId_label" destination="Nva-XN-Aeg" id="YOL-tn-bvB"/>
+                        <segue destination="SZF-Cn-Obq" kind="presentation" identifier="gallery_like_user_seg" id="rhQ-lA-zAj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uE5-5F-Vxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2832" y="1268"/>
+        </scene>
+        <!--Like User View Controller-->
+        <scene sceneID="SIo-1C-CFY">
+            <objects>
+                <viewController id="SZF-Cn-Obq" customClass="LikeUserViewController" customModule="Nugugae" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V2c-s3-yFl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y64-Xr-kE1" userLabel="menu_stack">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="84.333333333333329"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezq-db-9iV" userLabel="이전">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="84.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="chevron.backward" catalog="system"/>
+                                        <connections>
+                                            <action selector="back_btn:" destination="SZF-Cn-Obq" eventType="touchUpInside" id="eD1-3e-joG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lxu-tn-SfN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y64-Xr-kE1" firstAttribute="leading" secondItem="lxu-tn-SfN" secondAttribute="leading" id="6ZP-vK-wah"/>
+                            <constraint firstItem="y64-Xr-kE1" firstAttribute="height" secondItem="V2c-s3-yFl" secondAttribute="height" multiplier="0.1" id="9xC-bp-qA9"/>
+                            <constraint firstItem="y64-Xr-kE1" firstAttribute="trailing" secondItem="lxu-tn-SfN" secondAttribute="trailing" id="F8E-MH-iFf"/>
+                            <constraint firstItem="y64-Xr-kE1" firstAttribute="top" secondItem="lxu-tn-SfN" secondAttribute="top" id="Gr8-5e-aWM"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VF5-Vu-QOh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3589.8550724637685" y="1267.6339285714284"/>
         </scene>
         <!--갤러리-->
         <scene sceneID="ikK-mC-RHG">
