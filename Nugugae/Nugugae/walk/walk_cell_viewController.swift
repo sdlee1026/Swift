@@ -242,6 +242,11 @@ class walk_cell_viewController: UIViewController, UITextFieldDelegate {
         print("view detail didAppear")
         viewMyGallerydata(url: server_url+"/gallery/my/view/selectday") { (ids_image, ids_pr_pu, ids_date, ids_imgdate) in
             print("컬렉션 뷰 로드, 로드")
+            self.image_ary = []
+            self.pr_pu_ary_forseg = []
+            self.date_ary_forseg = []
+            self.imgdate_ary_forseg = []
+            
             self.image_ary.append(contentsOf: ids_image)    // 이미지 파일
             self.pr_pu_ary_forseg.append(contentsOf: ids_pr_pu)
             self.date_ary_forseg.append(contentsOf: ids_date)

@@ -580,3 +580,69 @@ exports.gallery_delete = (req, res) => {
         }
     });
 };
+// 갤러리 좋아요(like) 업데이트
+exports.like_update = (req, res) => {
+    console.log('like_update func');
+    var id = req.body.id || '';
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+    var like_self = req.body.like_self || '';
+
+    models.GalleryTable.findOne({
+        where: {
+            id: id,
+            date: date,
+            imgdate: imgdate,
+        }
+    }).then(gallery => {
+        console.log('gallery find, like check');
+        if (like_self == 'true'){
+            if (gallery['like'].indexOf(id) == -1){
+                var insert_str = gallery['like']
+                console.log(insert_str);
+                insert_str += id+','
+                console.log(insert_str);
+                console.log('str을 id를 넣고, update');
+                models.GalleryTable.update({
+                    like: insert_str
+                },
+                {
+                    where:{
+                        id: id,
+                        date: date,
+                        imgdate: imgdate,
+                    }
+                }).then(gallery_update => {
+                    return res.status(201).json({content: 'like_update'});
+                });
+            }// gallery['like'] 내에 없는 경우, like가 true일때 update
+            else{
+                return res.status(201).json({content: 'like_update'});
+            }
+        }
+        else{
+            if (gallery['like'].indexOf(id) != -1){
+                var insert_str = gallery['like']
+                console.log(insert_str);
+                insert_str = insert_str.replace(id+',','');
+                console.log(insert_str);
+                console.log('str에서 id를 빼고(replace), update');
+                models.GalleryTable.update({
+                    like: insert_str
+                },
+                {
+                    where:{
+                        id: id,
+                        date: date,
+                        imgdate: imgdate,
+                    }
+                }).then(gallery_update => {
+                    return res.status(201).json({content: 'like_update'});
+                });
+            }// gallery['like']에 존재하는 경우, like가 false일때 update
+            else{
+                return res.status(201).json({content: 'like_update'});
+            }
+        }
+    });
+};

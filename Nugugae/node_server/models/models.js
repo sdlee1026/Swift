@@ -267,6 +267,10 @@ const GalleryTable = sequelize.define('GalleryTables',{
     // 사진 해쉬 태그
 
     // relative 된 강아지.. (+a기능)
+    reply : {
+        type : Sequelize.TEXT
+    },
+    // 댓글
 });
 
 const walksInfoTable = sequelize.define('walksInfoTable',{

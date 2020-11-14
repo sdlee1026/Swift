@@ -57,12 +57,30 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     
     var keyboardToken:Bool = false
     // 키보드 상태 토큰
+    let unlike_img = UIImage(systemName: "heart")
+    let like_img = UIImage(systemName: "heart.fill")
     
+    var like_user_str:String = ""
+    var like_user_ary:[Substring] = []
+    // 좋아요 누른 유저
     
     @IBOutlet weak var main_image: UIImageView!
     // 메인 이미지
+    var like_check = false
+    // 좋아요 토큰
     @IBAction func like_btn(_ sender: Any) {
-        print("좋아요 누름버튼")
+        if like_btn_outlet.image(for: .normal) == unlike_img{
+            print("unlike 상태일때 클릭")
+            self.like_btn_outlet.setImage(self.like_img, for: .normal)
+            self.like_check = true
+            // 좋아요
+        }
+        else{
+            print("like 상태일때 클릭")
+            self.like_btn_outlet.setImage(self.unlike_img, for: .normal)
+            self.like_check = false
+            // 좋아요 해제(안좋아요)
+        }
     }
     @IBOutlet weak var like_btn_outlet: UIButton!
     // 좋아요 버튼 액션, 아웃렛
@@ -279,6 +297,8 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
             "date":self.date,
             "imgdate":self.imgdate
         ]
+        self.like_user_str = ""
+        self.like_user_ary = []
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
             .responseJSON{ response in
                 var ids_image = [UIImage]()
@@ -314,6 +334,26 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
                             self.public_private.selectedSegmentIndex = 1
                             self.temp_pr_pu = 0
                         }
+                        self.like_user_str += "\(gallerydata["like"])"
+                        print("split user 동작")
+                        if self.like_user_str.count > 0{
+                            print("like_exist_user setting")
+                            self.like_user_ary = self.like_user_str.split(separator: ",")
+                            self.like_user_ary.popLast()
+                            print(self.like_user_ary)
+                            if self.like_user_ary.contains(Substring(self.user)){
+                                print("자기 있음")
+                                self.like_btn_outlet.setImage(self.like_img, for: .normal)
+                                self.like_check = true
+                                // 좋아요 체크
+                            }
+                        }
+                        else{
+                            print("like_no_user setting")
+                            self.like_btn_outlet.setImage(self.unlike_img, for: .normal)
+                            self.like_check = false
+                            // 안좋아요
+                        }// 유저 아무도 없을시
                         
                     }
                 case .failure( _): break
@@ -444,6 +484,32 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         }
     }// mygallery img포함 update DB
     
+    func updatelike(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.user,
+            "date":self.date,
+            "imgdate":self.imgdate,
+            "like_self":String(self.like_check)
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                case .success(let value):
+                    let updatedata = JSON(value)// 응답
+                    if (updatedata["err"]=="Incorrect name'"){
+                        print("!")
+                        print("\(updatedata["err"])")
+                    }
+                    else{
+                        ids.append("\(updatedata["content"])");
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids)
+            }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Gallery item Start")
@@ -499,6 +565,11 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
         print("Gallery item view detail disappear, 키보드 옵저버 등록 해제")
         unregisterForKeyboardNotifications()
         self.main_text.isEditable = false
+        updatelike(url: server_url+"/gallery/like/update") { (ids) in
+            print("좋아요 값 업데이트")
+            print(ids)
+        }
+        
     }
     func registerForKeyboardNotifications() {
         // 옵저버 등록
