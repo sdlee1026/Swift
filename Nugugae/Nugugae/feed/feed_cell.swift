@@ -12,4 +12,6 @@ class feed_cell:UICollectionViewCell{
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var userid: UILabel!
     
+    @IBOutlet weak var other_img: UIImageView!
+    @IBOutlet weak var date: UILabel!
 }

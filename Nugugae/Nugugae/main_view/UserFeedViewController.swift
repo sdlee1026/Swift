@@ -91,19 +91,20 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
         // 전처리
         self.search_text.text = ""
         self.search_text.delegate = self
-        self.feed_collection.delegate = self
-        self.feed_collection.dataSource = self
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("view 호출(view will appear)\tfeed_view")
+        self.feed_collection.delegate = self
+        self.feed_collection.dataSource = self
         self.image_ary = []
         self.id_ary = []
         self.date_ary_forseg = []
         self.imgdate_ary_forseg = []
         // 초기화
         self.offset = 0
+        self.search_text.resignFirstResponder()
         
         loadFeedData(url: server_url+"/feed/load") { (ids_img, ids_id, ids_date, ids_imgdate) in
             print("로드, 피드")
@@ -135,8 +136,23 @@ class UserFeedViewController : UIViewController, UITextFieldDelegate{
     
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear\tfeed_view")
+        self.image_ary = []
+        self.id_ary = []
+        self.date_ary_forseg = []
+        self.imgdate_ary_forseg = []
+        self.feed_collection.reloadData()
+        self.search_text.resignFirstResponder()
         super.viewDidDisappear(true)
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(textField.isEqual(self.search_text)){ //titleField에서 리턴키를 눌렀다면
+            view.endEditing(true)
+            
+        }
+        return true
+        
+    }// 포커스 해제
+    
     func loadFeedData(url: String, completion: @escaping ([UIImage],[String],[String],[String]) -> Void){
         let parameters: [String:String] = [
             "offset":String(self.offset)

@@ -18,6 +18,9 @@ import Photos
 
 // seg : feed_to_gallery_seg, 피드에서 눌렀을 때, 반드시 퍼블릭
 // UserFeedViewController -> GalleryItemViewController
+// seg : other_to_gallery_seg, 다른 사람 검색에서 눌렀을 때
+// OtherUserGalleryViewController -> GalleryItemViewController
+
 
 class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     var keyboardShown:Bool = false // 키보드 상태 확인
