@@ -14,6 +14,8 @@ import SwiftyJSON
 
 // to seg : other_to_gallery_seg
 // OtherUserGalleryViewController -> GalleryItemViewController
+// to seg : other_to_doginfo_seg
+// OtherUserGalleryViewController -> 
 class OtherUserGalleryViewController: UIViewController {
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
@@ -25,6 +27,8 @@ class OtherUserGalleryViewController: UIViewController {
     var seg_date:String = ""
     var seg_imgdate:String = ""
     // seg로 보낼 date, imgdate
+    var seg_dogname:String = ""
+    // seg로 보낼 개이름
     
     var cell_width:CGFloat = 0
     var cell_height:CGFloat = 0
@@ -39,12 +43,19 @@ class OtherUserGalleryViewController: UIViewController {
     var imgdate_ary_forseg:[String] = []
     // seg로 보내야 해서 받아올 img의 date 배열
     
+    var dog_name_ary:[String] = []
+    var dog_breed_ary:[String] = []
+    // api로 받아올 table 요소를 채울 배열
+    
     var isAvailable = true
     // view tabel 토큰, scoll 기능
     var api_end_token = false
     // api_end token <- 스크롤 동작시 api 쿼리 요청 여러개 안보내게끔하는 토큰
     var offset:Int = 0
     // 오프셋
+    
+    @IBOutlet weak var dogs_table: UITableView!
+    
     
     @IBAction func back_btn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -56,16 +67,25 @@ class OtherUserGalleryViewController: UIViewController {
     @IBOutlet weak var gallery_collection: UICollectionView!
     
     @IBOutlet weak var user_profile_img: UIImageView!
+    
     override func viewDidLoad() {
         print("other_user_gallery_view Start")
         print("segue data : ", seg_userid)
         userid_label.text = seg_userid
+        self.dogs_table.delegate = self
+        self.dogs_table.dataSource = self
+        
         super.viewDidLoad()
-        infoUserLoadData(url: server_url+"") { (ids_image) in
-            print("profile img load")
+        infoUserLoadData(url: server_url+"/feed/otheruser/load/proflie") { (ids) in
+            print(ids)
         }
-        infoDogLoadData(url: server_url+""){ (ids_dogname, ids_breed) in
+        self.dog_name_ary = []
+        self.dog_breed_ary = []
+        infoDogLoadData(url: server_url+"/feed/otheruser/load/dogsinfo"){ (ids_dogname, ids_breed) in
             print("dogs profile img load")
+            self.dog_name_ary.append(contentsOf: ids_dogname)
+            self.dog_breed_ary.append(contentsOf: ids_breed)
+            self.dogs_table.reloadData()
         }
     }
     
@@ -151,28 +171,37 @@ class OtherUserGalleryViewController: UIViewController {
         }
         // api_end_token을 false로 다시 세팅
     }
-    func infoUserLoadData(url: String, completion: @escaping ([UIImage]) -> Void){
+    func infoUserLoadData(url: String, completion: @escaping ([String]) -> Void){
         let parameters: [String:String] = [
             "id":self.seg_userid
         ]
         AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
             .responseJSON{ response in
-                var ids_image = [UIImage]()
+                var ids_msg = [String]()
                 switch response.result{
                 case .success(let value):
                     let infoData = JSON(value)// 응답
                     if (infoData["err"]=="No item"){
-                        print("!")
-                        print("\(infoData["err"])")
+                        ids_msg.append("No item")
                     }
                     else{
                         print("이미지 넣기 동작")
+                        if infoData["image"].rawString() != Optional("null"){
+                            print("이미지 db에서 로드")
+                            let rawData = infoData["image05"].rawString()
+                            let dataDecoded:NSData = NSData(base64Encoded: rawData!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+                            let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
+
+                            print(decodedimage)
+                            self.user_profile_img.image = decodedimage
+                        }
+                        ids_msg.append("profile load ok")
                     
                     }
                 case .failure( _): break
                     
                 }
-                completion(ids_image)
+                completion(ids_msg)
             }
     }
     func infoDogLoadData(url: String, completion: @escaping ([String], [String]) -> Void){
@@ -191,8 +220,10 @@ class OtherUserGalleryViewController: UIViewController {
                         print("\(dogsData["err"])")
                     }
                     else{
-                        ids_dogname.append("\(dogsData["dogname"])")
-                        ids_breed.append("\(dogsData["breed"])")
+                        for d_json in dogsData{
+                            ids_dogname.append("\(d_json.1["dogname"])")
+                            ids_breed.append("\(d_json.1["breed"])")
+                        }
                     
                     }
                 case .failure( _): break
@@ -288,6 +319,43 @@ extension OtherUserGalleryViewController:UICollectionViewDelegate, UICollectionV
     
     
 }
+extension OtherUserGalleryViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("테이블 넣기")
+        return self.dog_name_ary.count
+    }// 한 섹션에 row가 몇개 들어갈 것인지
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "dog_cell", for: indexPath) as! dog_cell
+        cell.breed_label.text! = self.dog_breed_ary[indexPath.row]
+        cell.name_label.text! = self.dog_name_ary[indexPath.row]
+        return cell
+    }// cell 에 들어갈 데이터를 입력하는 function
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (self.dogs_table.rowHeight != 60){
+            return 60
+        }
+        else{
+            return self.dogs_table.rowHeight
+        }
+    }// 높이지정
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        print("\n\n\n!!!!!!table_cell click")
+        print(indexPath.row)
+        self.seg_dogname = self.dog_name_ary[indexPath.row]
+        // self.seg_userid 로 주인이름 설정 해서 보냄
+//        if seg_dogname.count > 0{
+//            print("!!!!seg 실행")
+//            self.performSegue(withIdentifier: "other_to_doginfo_seg", sender: nil)
+//
+//        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }// 클릭 이벤트 발생, segue 호출
+    
+}
+
 extension OtherUserGalleryViewController:UICollectionViewDelegateFlowLayout {
     // 위 아래 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

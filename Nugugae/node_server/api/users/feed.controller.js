@@ -19,7 +19,6 @@ exports.search_user = (req, res) => {
         }
     }).then(user => {
         console.log('\n 서칭 결과\n');
-        console.log(user);
         if (user.length == 0){
             console.log('결과 없음 에러 메세지 json 리턴');
             return res.status(201).json({err : 'No user'});
@@ -184,5 +183,57 @@ exports.other_user_load_public = (req, res) => {
         }
     });
 
+
+};
+// 선택한 사람 프로필 사진 불러오기
+exports.other_user_load_profile = (req, res) => {
+    console.log('other user load profile img');
+    var id = req.body.id || '';
+    console.log(id)
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.UserDetailInfo.findOne({
+        where: {
+            id: id,
+        }
+    }).then(userinfo => {
+        if(!userinfo){
+            return res.status(404).json({err: 'No User'});
+        }
+        if (userinfo['image05']!=null){
+            console.log('userprofile_img 존재')
+            var img = fs.readFileSync(userinfo['image05'], 'base64');
+            userinfo['image05'] = img
+        }
+        else{
+            console.log('userprofile img 없음')
+            userinfo['image05'] = null
+        }
+
+        return res.json(userinfo);
+    });
+
+};
+
+// 개정보 테이블을 위한 정보 불러오기
+exports.other_user_load_dogsinfo = (req, res) => {
+    console.log('dogs info load func for tableview');
+    var id = req.body.id || '';
+    if(!id.length){
+        return res.status(400).json({err: 'Incorrect name'});
+    }
+    models.DogsInfo.findAll({
+        where: {
+            id: id
+        },
+    }).then(dogs => {
+        if(!dogs){
+            console.log(dogs);
+            return res.status(404).json({err: 'No dogs'});
+        }
+        console.log('dogs info ok');
+        return res.json(dogs);
+    });
 
 };

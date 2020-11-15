@@ -993,15 +993,47 @@
                                         <rect key="frame" x="207" y="0.0" width="207" height="210.33333333333334"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="v6A-Up-VXb">
-                                                <rect key="frame" x="0.0" y="28" width="207" height="43.666667938232422"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dog_cell" rowHeight="59" id="gJI-3c-3aT" userLabel="dog_cell" customClass="dog_cell" customModule="Nugugae" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="207" height="59"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v6A-Up-VXb" id="8UZ-L9-J7S">
-                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="43.666667938232422"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gJI-3c-3aT" id="TqO-gQ-EJo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="207" height="59"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dog_name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZqZ-y3-Em1" userLabel="dogname_label">
+                                                            <rect key="frame" x="0.0" y="0.0" width="82.666666666666671" height="59"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dog_breed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKX-rH-NBQ" userLabel="dogbreed_label">
+                                                            <rect key="frame" x="82.666666666666686" y="0.0" width="124.33333333333331" height="59"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="ZqZ-y3-Em1" firstAttribute="width" secondItem="TqO-gQ-EJo" secondAttribute="width" multiplier="0.4" id="8S1-vf-hgH"/>
+                                                        <constraint firstItem="sKX-rH-NBQ" firstAttribute="top" secondItem="TqO-gQ-EJo" secondAttribute="top" id="CGg-Re-hwI"/>
+                                                        <constraint firstItem="sKX-rH-NBQ" firstAttribute="height" secondItem="TqO-gQ-EJo" secondAttribute="height" id="JyU-xu-Awh"/>
+                                                        <constraint firstAttribute="trailing" secondItem="sKX-rH-NBQ" secondAttribute="trailing" id="Mwn-aN-GnW"/>
+                                                        <constraint firstItem="sKX-rH-NBQ" firstAttribute="leading" secondItem="ZqZ-y3-Em1" secondAttribute="trailing" id="NXW-W9-5sH"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ZqZ-y3-Em1" secondAttribute="bottom" id="WgP-k5-SCA"/>
+                                                        <constraint firstItem="ZqZ-y3-Em1" firstAttribute="leading" secondItem="TqO-gQ-EJo" secondAttribute="leading" id="eLA-c4-bnM"/>
+                                                        <constraint firstItem="ZqZ-y3-Em1" firstAttribute="top" secondItem="TqO-gQ-EJo" secondAttribute="top" id="x3N-y1-dOE"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="breed_label" destination="sKX-rH-NBQ" id="m2k-MR-tMt"/>
+                                                    <outlet property="name_label" destination="ZqZ-y3-Em1" id="yrF-qh-xuP"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="PYf-n6-jOd" id="deg-Gr-MeH"/>
+                                            <outlet property="delegate" destination="PYf-n6-jOd" id="oqz-bd-sJw"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <constraints>
@@ -1080,6 +1112,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dogs_table" destination="S5r-dU-53M" id="trC-dv-JJT"/>
                         <outlet property="gallery_collection" destination="svK-wR-3dv" id="INf-l9-QWk"/>
                         <outlet property="user_profile_img" destination="egj-p2-uWC" id="9yk-zs-cVZ"/>
                         <outlet property="userid_label" destination="FrJ-kM-Ac0" id="5De-y1-MJ0"/>

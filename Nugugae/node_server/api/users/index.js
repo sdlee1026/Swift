@@ -219,10 +219,12 @@ router.post('/gallery/like/update/', gallery_controller.like_update);
 router.post('/feed/search/user/', feed_controller.search_user);
 // 피드 컬렉션 뷰 로드
 router.post('/feed/load/', feed_controller.feed_load);
-// 피드검색 or 좋아요누른유저 -> 다른 유저탐색 뷰 로드
+// 피드검색 or 좋아요누른유저 -> 다른 유저탐색 뷰 로드(퍼블릭 이미지만)
 router.post('/feed/otheruser/load/public/', feed_controller.other_user_load_public); 
-
-
+// 피드검색 or 좋아요 누른유저 -> 다른 유저탐색 뷰 로드(퍼블릭 이미지만) 에서 개 정보 불러오기
+router.post('/feed/otheruser/load/dogsinfo/', feed_controller.other_user_load_dogsinfo);
+// 선택한 사람 프로필 이미지 불러오기
+router.post('/feed/otheruser/load/proflie/', feed_controller.other_user_load_profile);
 // 유저 정보
 
 // 유저에 대한 세부 정보 보기
