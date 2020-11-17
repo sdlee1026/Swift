@@ -604,7 +604,40 @@ exports.reply_load = (req, res) => {
         return res.json({content: return_reply});
 
     });
+};
+exports.reply_new = (req, res) => {
+    console.log('new reply func');
+    var id = req.body.id || ''; // 갤러리 id
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+    var reply_user = req.body.reply_user || '';// 리플 서비스 접근한 유저
+    var reply = req.body.reply || '';
+    models.GalleryTable.update({
+        reply: reply
+
+    },{
+        where:{
+            id: id,
+            date: date,
+            imgdate: imgdate,
+        }
+
+    }).then(gallery =>{
+        models.GalleryTable.findOne({
+            where: {
+                id: id,
+                date: date,
+                imgdate: imgdate,
+            }
+        }).then(gallery => {
+            console.log('\nupdate andthen -> gallery find, reply load\n');
+            console.log(gallery["reply"]);
+            var return_reply = gallery["reply"];
+            
+            return res.json({content: return_reply});
     
+        });
+    });
 
 };
 // 갤러리 좋아요(like) 업데이트

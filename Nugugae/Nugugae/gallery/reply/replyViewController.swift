@@ -30,6 +30,9 @@ class replyViewController : UIViewController
     var seg_date = ""
     var seg_imgdate = ""
     // seg 로 받을 데이터
+    var post_msg = ""
+    // api로 보낼 댓글 메세지
+    var raw_string_reply = ""
     
     var id_ary:[String] = []
     var content_ary:[String] = []
@@ -43,8 +46,16 @@ class replyViewController : UIViewController
     @IBAction func new_reply_btn(_ sender: Any) {
         print("새로운 댓글 입력 버튼")
         if reply_content_text.text != ""{
-            var temp_msg = self.user+"!split_content!"+self.reply_content_text.text!+"!split_id!"
+            self.post_msg = self.raw_string_reply+self.user+"!split_content!"+self.reply_content_text.text!+"!split_id!"
             view.endEditing(true)
+            self.id_ary = []
+            self.content_ary = []
+            // 일단 초기화.. 나중에 동작 개선해야함
+            postReplyLoadReply(url: server_url+"/gallery/reply/new"){(ids) in
+                print("댓글 보냄, 새로 받기")
+                self.reply_content_text.text = ""
+                self.reply_table.reloadData()
+            }
         }
         else{
             let no_content_alert = UIAlertController(title: "내용이 없어요!", message: "댓글엔 내용이 반드시 들어가야 합니다!", preferredStyle: .alert)
@@ -119,6 +130,10 @@ class replyViewController : UIViewController
                         print("\(replydata["err"])")
                     }
                     else{
+                        if "\(replydata["content"])" != "null"{
+                            self.raw_string_reply = "\(replydata["content"])"
+                            
+                        }
                         let reply_ary = "\(replydata["content"])".components(separatedBy: "!split_id!")
                         for reply in reply_ary {
                             print(reply)
@@ -128,6 +143,48 @@ class replyViewController : UIViewController
                                 self.content_ary.append(temp_ary[1])
                             }
                         }
+                        self.id_ary = Array(self.id_ary.reversed())
+                        self.content_ary = Array(self.content_ary.reversed())
+                        ids.append("\(replydata["content"])");
+                    }
+                case .failure( _): break
+                    
+                }
+                completion(ids)
+            }
+        
+    }// load reply
+    
+    func postReplyLoadReply(url: String, completion: @escaping ([String]) -> Void){
+        let parameters: [String:String] = [
+            "id":self.seg_gallery_id,
+            "reply_user":self.user, // 접근 유저
+            "date":self.seg_date,
+            "imgdate":self.seg_imgdate,
+            "reply":self.post_msg
+        ]
+        AF.request(url, method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder(destination: .httpBody))
+            .responseJSON{ response in
+                var ids = [String]()
+                switch response.result{
+                case .success(let value):
+                    let replydata = JSON(value)// 응답
+                    if (replydata["err"]=="Incorrect name'"){
+                        print("!")
+                        print("\(replydata["err"])")
+                    }
+                    else{
+                        let reply_ary = "\(replydata["content"])".components(separatedBy: "!split_id!")
+                        for reply in reply_ary {
+                            print(reply)
+                            if reply.count > 1 && reply != "null" {
+                                let temp_ary = reply.components(separatedBy: "!split_content!")
+                                self.id_ary.append(temp_ary[0])
+                                self.content_ary.append(temp_ary[1])
+                            }
+                        }
+                        self.id_ary = Array(self.id_ary.reversed())
+                        self.content_ary = Array(self.content_ary.reversed())
                         ids.append("\(replydata["content"])");
                     }
                 case .failure( _): break

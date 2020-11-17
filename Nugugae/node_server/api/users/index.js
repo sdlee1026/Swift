@@ -214,7 +214,8 @@ router.post('/gallery/update/img/public/', upload_public.fields([{ name: 'image'
 router.post('/gallery/like/update/', gallery_controller.like_update);
 // 갤러리 댓글, 로드
 router.post('/gallery/reply/', gallery_controller.reply_load);
-
+// 댓글 새로 달기
+router.post('/gallery/reply/new/', gallery_controller.reply_new);
 // 피드
 
 // 피드 다른 유저 검색 기능
