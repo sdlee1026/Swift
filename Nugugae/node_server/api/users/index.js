@@ -212,6 +212,8 @@ router.post('/gallery/update/img/private/', upload_private.fields([{ name: 'imag
 router.post('/gallery/update/img/public/', upload_public.fields([{ name: 'image' }, { name: 'image05' }, { name: 'image01' }]), gallery_controller.gallery_update_img_public);
 // 갤러리 좋아요(like) 업데이트
 router.post('/gallery/like/update/', gallery_controller.like_update);
+// 갤러리 댓글, 로드
+router.post('/gallery/reply/', gallery_controller.reply_load);
 
 // 피드
 
@@ -225,6 +227,8 @@ router.post('/feed/otheruser/load/public/', feed_controller.other_user_load_publ
 router.post('/feed/otheruser/load/dogsinfo/', feed_controller.other_user_load_dogsinfo);
 // 선택한 사람 프로필 이미지 불러오기
 router.post('/feed/otheruser/load/proflie/', feed_controller.other_user_load_profile);
+
+
 // 유저 정보
 
 // 유저에 대한 세부 정보 보기

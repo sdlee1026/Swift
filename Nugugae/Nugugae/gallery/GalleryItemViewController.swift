@@ -154,6 +154,7 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func reply_btn(_ sender: Any) {
         print("댓글 버튼 누름")
+        performSegue(withIdentifier: "gallery_reply_seg", sender: nil)
     }
     
     
@@ -725,6 +726,26 @@ class GalleryItemViewController: UIViewController, CLLocationManagerDelegate {
             print("dest : \(dest)")
             if let rvc = dest as? LikeUserViewController {
                 rvc.segue_userlist = self.like_user_ary
+            }
+        }
+        if segue.identifier == "gallery_reply_seg"{
+            print("segue reply")
+            
+            let dest = segue.destination
+            print("dest : \(dest)")
+            
+            if let rvc = dest as? replyViewController{
+                if seg_userid != ""{
+                    rvc.seg_date = self.seg_date
+                    rvc.seg_imgdate = self.seg_imgdate
+                    rvc.seg_gallery_id = self.seg_userid
+                    
+                }
+                else{
+                    rvc.seg_date = self.date
+                    rvc.seg_imgdate = self.imgdate
+                    rvc.seg_gallery_id = self.user
+                }
             }
         }
     }

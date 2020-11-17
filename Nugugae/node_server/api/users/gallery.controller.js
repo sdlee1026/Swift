@@ -580,15 +580,42 @@ exports.gallery_delete = (req, res) => {
         }
     });
 };
+
+// 갤러리 댓글, 로드
+exports.reply_load = (req, res) => {
+    console.log('reply load func');
+    var id = req.body.id || ''; // 갤러리 id
+    var date = req.body.date || '';
+    var imgdate = req.body.imgdate || '';
+    var reply_user = req.body.reply_user || '';// 리플 서비스 접근한 유저
+
+   
+    models.GalleryTable.findOne({
+        where: {
+            id: id,
+            date: date,
+            imgdate: imgdate,
+        }
+    }).then(gallery => {
+        console.log('\ngallery find, reply load\n');
+        console.log(gallery["reply"]);
+        var return_reply = gallery["reply"];
+        
+        return res.json({content: return_reply});
+
+    });
+    
+
+};
 // 갤러리 좋아요(like) 업데이트
 exports.like_update = (req, res) => {
     console.log('like_update func');
     var id = req.body.id || '';
     var date = req.body.date || '';
     var imgdate = req.body.imgdate || '';
-    var like_self = req.body.like_self || '';
-    var like_user = req.body.like_user || '';
-    
+    var like_self = req.body.like_self || ''; // 좋아요 체크 토큰값
+    var like_user = req.body.like_user || ''; // 좋아요 접근한 유저
+
     console.log(id,like_user,like_self);
 
     models.GalleryTable.findOne({
@@ -598,7 +625,7 @@ exports.like_update = (req, res) => {
             imgdate: imgdate,
         }
     }).then(gallery => {
-        console.log('gallery find, like check');
+        console.log('\ngallery find, like check\n');
         if (like_self == 'true'){
             if (gallery['like'] ==null){
                 console.log('아예 빈배열에 처음 넣는 경우');

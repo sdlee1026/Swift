@@ -24,6 +24,8 @@
 		6A3B15B22560382F001EF2C8 /* user_search_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B15B12560382F001EF2C8 /* user_search_cell.swift */; };
 		6A3B15B5256044D5001EF2C8 /* OtherUserGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B15B4256044D5001EF2C8 /* OtherUserGalleryViewController.swift */; };
 		6A3B15B82560501C001EF2C8 /* feed_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3B15B72560501C001EF2C8 /* feed_cell.swift */; };
+		6A4208E6256375D2008D3D57 /* replyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4208E5256375D2008D3D57 /* replyViewController.swift */; };
+		6A4208EA25638076008D3D57 /* reply_cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4208E925638076008D3D57 /* reply_cell.swift */; };
 		6A5C6E71251C7EEE00655C5F /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */; };
 		6A620F552511FEE800B83B0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F542511FEE800B83B0A /* AppDelegate.swift */; };
 		6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A620F562511FEE800B83B0A /* SceneDelegate.swift */; };
@@ -79,6 +81,8 @@
 		6A3B15B12560382F001EF2C8 /* user_search_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user_search_cell.swift; sourceTree = "<group>"; };
 		6A3B15B4256044D5001EF2C8 /* OtherUserGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserGalleryViewController.swift; sourceTree = "<group>"; };
 		6A3B15B72560501C001EF2C8 /* feed_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feed_cell.swift; sourceTree = "<group>"; };
+		6A4208E5256375D2008D3D57 /* replyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = replyViewController.swift; sourceTree = "<group>"; };
+		6A4208E925638076008D3D57 /* reply_cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reply_cell.swift; sourceTree = "<group>"; };
 		6A5C6E70251C7EEE00655C5F /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6A620F512511FEE800B83B0A /* Nugugae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nugugae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A620F542511FEE800B83B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -211,12 +215,22 @@
 		6A307EFC25335CE900E11A91 /* gallery */ = {
 			isa = PBXGroup;
 			children = (
+				6A4208E4256375B9008D3D57 /* reply */,
 				6A1CF70D256006BE00F3FEB8 /* like_user */,
 				6A307EFE25335F3000E11A91 /* NewImgViewController.swift */,
 				6A1C95DF254ABB79005D2395 /* mygallery_cell.swift */,
 				6A1C95E2254C1938005D2395 /* GalleryItemViewController.swift */,
 			);
 			path = gallery;
+			sourceTree = "<group>";
+		};
+		6A4208E4256375B9008D3D57 /* reply */ = {
+			isa = PBXGroup;
+			children = (
+				6A4208E5256375D2008D3D57 /* replyViewController.swift */,
+				6A4208E925638076008D3D57 /* reply_cell.swift */,
+			);
+			path = reply;
 			sourceTree = "<group>";
 		};
 		6A620F482511FEE800B83B0A = {
@@ -449,6 +463,7 @@
 				6A1C95E3254C1938005D2395 /* GalleryItemViewController.swift in Sources */,
 				6A3B15B22560382F001EF2C8 /* user_search_cell.swift in Sources */,
 				6A3B15AF25603619001EF2C8 /* UserSearchViewController.swift in Sources */,
+				6A4208E6256375D2008D3D57 /* replyViewController.swift in Sources */,
 				6A3B15B5256044D5001EF2C8 /* OtherUserGalleryViewController.swift in Sources */,
 				6A1CF7152560277E00F3FEB8 /* UserFeedViewController.swift in Sources */,
 				6ABCFB95255A69AA008564EC /* history_cell.swift in Sources */,
@@ -471,6 +486,7 @@
 				6A1C95B12546B446005D2395 /* NewdoginfoViewController.swift in Sources */,
 				6A1C95E0254ABB79005D2395 /* mygallery_cell.swift in Sources */,
 				6A620F572511FEE800B83B0A /* SceneDelegate.swift in Sources */,
+				6A4208EA25638076008D3D57 /* reply_cell.swift in Sources */,
 				6A307EF32528F00700E11A91 /* walk_writeController.swift in Sources */,
 				6A3B15B82560501C001EF2C8 /* feed_cell.swift in Sources */,
 				6ABCCFBE253962CD0044D96A /* UserSettingViewController.swift in Sources */,
