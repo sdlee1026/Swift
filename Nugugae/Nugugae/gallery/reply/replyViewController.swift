@@ -15,6 +15,7 @@ import Alamofire
 import SwiftyJSON
 class replyViewController : UIViewController
 {
+    var keyboardShown:Bool = false // 키보드 상태 확인
     
     let server_url:String = Server_url.sharedInstance.server_url
     // 외부 접속 url,ngrok
@@ -37,12 +38,13 @@ class replyViewController : UIViewController
     
     @IBOutlet weak var my_id_label: UILabel!
     
-    @IBOutlet weak var reply_content_text: UITextField!
+    @IBOutlet weak var reply_content_text: UITextView!
     
     @IBAction func new_reply_btn(_ sender: Any) {
         print("새로운 댓글 입력 버튼")
         if reply_content_text.text != ""{
             var temp_msg = self.user+"!split_content!"+self.reply_content_text.text!+"!split_id!"
+            view.endEditing(true)
         }
         else{
             let no_content_alert = UIAlertController(title: "내용이 없어요!", message: "댓글엔 내용이 반드시 들어가야 합니다!", preferredStyle: .alert)
@@ -67,6 +69,7 @@ class replyViewController : UIViewController
         }
         self.reply_table.delegate = self
         self.reply_table.dataSource = self
+        self.reply_content_text.delegate = self
         self.my_id_label.text = self.user
     }
     
@@ -76,11 +79,13 @@ class replyViewController : UIViewController
     }
     override func viewDidAppear(_ animated: Bool) {
         print("view didAppear\treply_view")
+        registerForKeyboardNotifications()
         super.viewDidAppear(true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         print("view disappear\treply_view")
+        unregisterForKeyboardNotifications()
         super.viewDidDisappear(true)
     }
     
@@ -133,6 +138,49 @@ class replyViewController : UIViewController
         
     }// mygallery update DB
     
+    func registerForKeyboardNotifications() {
+        // 옵저버 등록
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+    func unregisterForKeyboardNotifications() {
+      // 옵저버 등록 해제
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+    @objc func keyboardWillShow(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            // 키보드 사이즈를 받아옴
+            if keyboardSize.height == 0.0 || keyboardShown == true {
+                return
+            }
+            if (keyboardToken == true){
+                UIView.animate(withDuration: 0.3, animations: { self.view.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height) })
+            }
+        }
+    }
+    @objc func keyboardWillHide(note: NSNotification) {
+        if let keyboardSize = (note.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.transform = .identity
+
+        }
+        keyboardToken=false
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -175,4 +223,13 @@ extension replyViewController: UITableViewDelegate, UITableViewDataSource{
 //
 //        tableView.deselectRow(at: indexPath, animated: true)
     }// 클릭 이벤트 발생, segue 호출
+}
+extension replyViewController:UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("텍스트 뷰 수정시작")
+        self.keyboardToken = true
+    }// TextView Place Holder
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.keyboardToken = false
+    }
 }

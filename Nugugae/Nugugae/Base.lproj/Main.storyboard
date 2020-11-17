@@ -473,11 +473,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s52-hM-RhX" userLabel="new_content_text">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hfS-Te-N37" userLabel="new_reply_text">
                                         <rect key="frame" x="103.66666666666667" y="0.0" width="227.66666666666663" height="108"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
-                                    </textField>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
+                                    </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taL-TC-3wE">
                                         <rect key="frame" x="331.33333333333331" y="0.0" width="82.666666666666686" height="108"/>
                                         <state key="normal" title="입력">
@@ -513,7 +515,7 @@
                     </view>
                     <connections>
                         <outlet property="my_id_label" destination="SsC-S9-5ah" id="bkJ-EI-YCK"/>
-                        <outlet property="reply_content_text" destination="s52-hM-RhX" id="aK1-5a-Tsd"/>
+                        <outlet property="reply_content_text" destination="hfS-Te-N37" id="ZBd-kS-fme"/>
                         <outlet property="reply_table" destination="Eg8-qf-MIW" id="kc6-TY-ReZ"/>
                     </connections>
                 </viewController>
@@ -4000,6 +4002,9 @@ pass_dogs_stack</string>
         <image name="안내_사진없음2.png" width="1000" height="881"/>
         <image name="예전산책기록.png" width="1200" height="1000"/>
         <image name="프로필사진 수정 아래 배너.png" width="1800" height="300"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
